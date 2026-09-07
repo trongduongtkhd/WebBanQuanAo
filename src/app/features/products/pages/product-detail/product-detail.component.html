@@ -91,9 +91,21 @@
       </div>
 
       <div class="option-group">
-        <div class="option-label">
-          Kích thước
-          <span class="required">*</span>
+        <div class="option-label size-label-row">
+          <span>
+            Kích thước
+            <span class="required">*</span>
+          </span>
+
+          <button
+            *ngIf="isShirtProduct"
+            type="button"
+            class="size-guide-link"
+            (click)="openSizeGuide()"
+          >
+            <i class="bi bi-rulers me-1"></i>
+            Hướng dẫn chọn size
+          </button>
         </div>
 
         <p *ngIf="!selectedColorId" class="text-muted small">
@@ -253,4 +265,96 @@
       </button>
     </div>
   </section>
+
+  <div
+    *ngIf="showSizeGuide"
+    class="size-guide-overlay"
+    (click)="closeSizeGuide()"
+  >
+    <div
+      class="size-guide-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Hướng dẫn chọn size áo"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="size-guide-header">
+        <div>
+          <p class="section-label mb-1">SIZE GUIDE</p>
+          <h3>Hướng dẫn chọn size áo</h3>
+        </div>
+
+        <button
+          type="button"
+          class="size-guide-close"
+          aria-label="Đóng hướng dẫn chọn size"
+          (click)="closeSizeGuide()"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <p class="size-guide-description">
+        Bảng size tham khảo cho các sản phẩm áo. Hãy đo một chiếc áo vừa vặn của
+        bạn rồi so sánh để chọn size phù hợp.
+      </p>
+
+      <div class="table-responsive">
+        <table class="table size-guide-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>Ngang ngực</th>
+              <th>Dài áo</th>
+              <th>Rộng vai</th>
+              <th>Cân nặng gợi ý</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><strong>S</strong></td>
+              <td>48 cm</td>
+              <td>66 cm</td>
+              <td>42 cm</td>
+              <td>45 – 55 kg</td>
+            </tr>
+
+            <tr>
+              <td><strong>M</strong></td>
+              <td>51 cm</td>
+              <td>69 cm</td>
+              <td>44 cm</td>
+              <td>55 – 65 kg</td>
+            </tr>
+
+            <tr>
+              <td><strong>L</strong></td>
+              <td>54 cm</td>
+              <td>72 cm</td>
+              <td>46 cm</td>
+              <td>65 – 75 kg</td>
+            </tr>
+
+            <tr>
+              <td><strong>XL</strong></td>
+              <td>57 cm</td>
+              <td>75 cm</td>
+              <td>48 cm</td>
+              <td>75 – 85 kg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="size-guide-note">
+        <i class="bi bi-info-circle"></i>
+
+        <span>
+          Số đo có thể chênh lệch từ 1–2 cm. Nếu bạn thích mặc rộng hoặc đang
+          phân vân giữa hai size, hãy chọn size lớn hơn.
+        </span>
+      </div>
+    </div>
+  </div>
 </div>

@@ -38,6 +38,8 @@ export class ProductDetailComponent implements OnInit {
   reviewTotalPages = 1;
   reviewTotalItems = 0;
 
+  showSizeGuide = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -329,5 +331,17 @@ export class ProductDetailComponent implements OnInit {
 
   getStars(rating: number): number[] {
     return Array(rating).fill(0);
+  }
+
+  get isShirtProduct(): boolean {
+    return (this.product?.categoryName || '').toLowerCase().includes('áo');
+  }
+
+  openSizeGuide(): void {
+    this.showSizeGuide = true;
+  }
+
+  closeSizeGuide(): void {
+    this.showSizeGuide = false;
   }
 }
