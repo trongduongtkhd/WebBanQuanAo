@@ -1,0 +1,25 @@
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f6f6f6;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 32px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+.brand {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: #111111;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+}

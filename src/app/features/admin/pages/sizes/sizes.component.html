@@ -1,0 +1,127 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">DỮ LIỆU NỀN</p>
+    <h2 class="fw-bold mb-0">Quản lý size</h2>
+  </div>
+</div>
+
+<div class="row g-4 mt-1">
+  <div class="col-lg-4">
+    <section class="admin-card">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="mb-0">
+          {{ editingSizeId ? "Cập nhật size" : "Thêm size mới" }}
+        </h5>
+
+        <button
+          *ngIf="editingSizeId"
+          class="btn btn-sm btn-outline-dark"
+          (click)="resetForm()"
+        >
+          Hủy sửa
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <form (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label class="form-label">Tên size *</label>
+          <input
+            class="form-control text-uppercase"
+            [(ngModel)]="form.sizeName"
+            name="sizeName"
+            placeholder="Ví dụ: M"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Thứ tự hiển thị *</label>
+          <input
+            type="number"
+            min="0"
+            class="form-control"
+            [(ngModel)]="form.displayOrder"
+            name="displayOrder"
+          />
+
+          <small class="text-muted">
+            Ví dụ: S = 1, M = 2, L = 3, XL = 4.
+          </small>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-dark w-100"
+          [disabled]="isSubmitting"
+        >
+          {{
+            isSubmitting
+              ? "Đang lưu..."
+              : editingSizeId
+                ? "Lưu thay đổi"
+                : "Thêm size"
+          }}
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <div class="col-lg-8">
+    <section class="admin-card">
+      <h5 class="mb-4">Danh sách size</h5>
+
+      <div *ngIf="isLoading" class="py-5 text-center">Đang tải size...</div>
+
+      <div
+        *ngIf="!isLoading && !sizes.length"
+        class="py-5 text-center text-muted"
+      >
+        Chưa có size nào.
+      </div>
+
+      <div class="table-responsive" *ngIf="!isLoading && sizes.length">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Thứ tự</th>
+              <th>Tên size</th>
+              <th class="text-end">Thao tác</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let size of sizes">
+              <td>{{ size.displayOrder }}</td>
+              <td>
+                <span class="size-badge">{{ size.sizeName }}</span>
+              </td>
+
+              <td class="text-end">
+                <button
+                  class="btn btn-sm btn-outline-dark me-2"
+                  (click)="edit(size)"
+                >
+                  Sửa
+                </button>
+
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="remove(size)"
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

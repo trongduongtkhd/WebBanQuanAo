@@ -1,0 +1,168 @@
+<div class="container py-5">
+  <div class="page-header">
+    <div>
+      <h1>Đánh giá của tôi</h1>
+      <p>Quản lý các nhận xét bạn đã gửi cho sản phẩm.</p>
+    </div>
+
+    <a routerLink="/account/profile" class="btn btn-outline-dark">
+      Tài khoản của tôi
+    </a>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="!loading && reviews.length === 0" class="empty-state">
+    <i class="bi bi-star"></i>
+    <h3>Bạn chưa gửi đánh giá nào</h3>
+    <p>Hoàn thành đơn hàng để có thể đánh giá sản phẩm.</p>
+
+    <a routerLink="/account/orders" class="btn btn-dark"> Xem đơn hàng </a>
+  </div>
+
+  <div *ngIf="!loading && reviews.length > 0" class="review-list">
+    <article *ngFor="let review of reviews" class="review-card">
+      <div class="review-top">
+        <div>
+          <h4>{{ review.productName }}</h4>
+
+          <div class="stars">
+            <i
+              *ngFor="let star of getStars(review.rating)"
+              class="bi bi-star-fill"
+            ></i>
+
+            <span>{{ review.rating }}/5</span>
+          </div>
+        </div>
+
+        <span
+          class="review-status"
+          [class.approved]="review.isApproved"
+          [class.pending]="!review.isApproved"
+        >
+          {{ review.isApproved ? "Đã duyệt" : "Chờ duyệt" }}
+        </span>
+      </div>
+
+      <p class="review-comment">
+        {{ review.comment || "Bạn chưa để lại nhận xét bằng văn bản." }}
+      </p>
+
+      <div class="review-bottom">
+        <small>
+          Gửi lúc {{ review.createdAt | date: "dd/MM/yyyy HH:mm" }}
+        </small>
+
+        <div class="d-flex gap-2">
+          <button
+            class="btn btn-sm btn-outline-dark"
+            (click)="openEditForm(review)"
+          >
+            Sửa
+          </button>
+
+          <button
+            class="btn btn-sm btn-outline-danger"
+            [disabled]="deletingReviewId === review.reviewId"
+            (click)="deleteReview(review)"
+          >
+            {{ deletingReviewId === review.reviewId ? "Đang xóa..." : "Xóa" }}
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div
+    *ngIf="!loading && totalPages > 1"
+    class="d-flex justify-content-center align-items-center gap-2 mt-4"
+  >
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === 1"
+      (click)="previousPage()"
+    >
+      Trước
+    </button>
+
+    <span>Trang {{ page }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === totalPages"
+      (click)="nextPage()"
+    >
+      Sau
+    </button>
+  </div>
+
+  <div *ngIf="showEditForm && editingReview" class="review-overlay">
+    <div class="review-modal">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Sửa đánh giá</h4>
+
+        <button
+          type="button"
+          class="btn-close"
+          [disabled]="saving"
+          (click)="closeEditForm()"
+        ></button>
+      </div>
+
+      <p class="text-muted">{{ editingReview.productName }}</p>
+
+      <div class="rating-picker mb-3">
+        <button
+          *ngFor="let star of [1, 2, 3, 4, 5]"
+          type="button"
+          [class.active]="star <= editRating"
+          (click)="editRating = star"
+        >
+          <i class="bi bi-star-fill"></i>
+        </button>
+      </div>
+
+      <textarea
+        class="form-control"
+        rows="4"
+        maxlength="1000"
+        [(ngModel)]="editComment"
+      ></textarea>
+
+      <p class="small text-muted mt-2">
+        Khi sửa, đánh giá sẽ chuyển về trạng thái chờ Admin duyệt lại.
+      </p>
+
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [disabled]="saving"
+          (click)="closeEditForm()"
+        >
+          Hủy
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-dark"
+          [disabled]="saving"
+          (click)="updateReview()"
+        >
+          {{ saving ? "Đang lưu..." : "Lưu đánh giá" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

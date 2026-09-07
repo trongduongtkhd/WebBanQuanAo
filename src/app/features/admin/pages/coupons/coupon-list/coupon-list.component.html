@@ -1,0 +1,115 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Quản lý mã giảm giá</h2>
+      <p>Tạo và quản lý các chương trình khuyến mãi.</p>
+    </div>
+
+    <button class="btn btn-dark" (click)="goToCreate()">
+      <i class="bi bi-plus-lg me-2"></i>
+      Tạo coupon
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="!loading" class="admin-card table-responsive">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Mã</th>
+          <th>Chương trình</th>
+          <th>Giảm giá</th>
+          <th>Thời gian</th>
+          <th>Đã dùng</th>
+          <th>Trạng thái</th>
+          <th class="text-end">Thao tác</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let coupon of coupons">
+          <td>
+            <code>{{ coupon.code }}</code>
+          </td>
+
+          <td>
+            <strong>{{ coupon.name }}</strong>
+            <small class="d-block text-muted" *ngIf="coupon.description">
+              {{ coupon.description }}
+            </small>
+          </td>
+
+          <td>
+            <strong>{{ getDiscountText(coupon) }}</strong>
+            <small
+              *ngIf="coupon.discountType === 1 && coupon.maxDiscountAmount"
+              class="d-block text-muted"
+            >
+              Tối đa {{ coupon.maxDiscountAmount | number: "1.0-0" }} ₫
+            </small>
+          </td>
+
+          <td>
+            <small>
+              {{ coupon.startDate | date: "dd/MM/yyyy HH:mm" }}
+              <br />
+              đến {{ coupon.endDate | date: "dd/MM/yyyy HH:mm" }}
+            </small>
+          </td>
+
+          <td>
+            {{ coupon.usedCount }}
+            <span *ngIf="coupon.usageLimit">/ {{ coupon.usageLimit }}</span>
+          </td>
+
+          <td>
+            <span class="badge bg-{{ getStateClass(coupon) }}">
+              {{ getCouponState(coupon) }}
+            </span>
+          </td>
+
+          <td class="text-end">
+            <button
+              class="btn btn-sm btn-outline-secondary me-1"
+              title="Lịch sử sử dụng"
+              (click)="goToUsages(coupon.couponId)"
+            >
+              <i class="bi bi-clock-history"></i>
+            </button>
+
+            <button
+              class="btn btn-sm btn-outline-dark me-1"
+              title="Chỉnh sửa"
+              (click)="goToEdit(coupon.couponId)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+
+            <button
+              class="btn btn-sm"
+              [class.btn-outline-success]="!coupon.isActive"
+              [class.btn-outline-danger]="coupon.isActive"
+              [disabled]="changingCouponId === coupon.couponId"
+              (click)="toggleStatus(coupon)"
+            >
+              {{ coupon.isActive ? "Tắt" : "Bật" }}
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="coupons.length === 0">
+          <td colspan="7" class="text-center py-4 text-muted">
+            Chưa có mã giảm giá nào.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

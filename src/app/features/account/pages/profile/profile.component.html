@@ -1,0 +1,176 @@
+<div class="container py-5">
+  <div class="page-header">
+    <div>
+      <h1>Tài khoản của tôi</h1>
+      <p>Cập nhật thông tin cá nhân và bảo mật tài khoản.</p>
+    </div>
+
+    <div class="account-links">
+      <a routerLink="/account/orders" class="btn btn-outline-dark">
+        Đơn hàng
+      </a>
+
+      <a routerLink="/account/addresses" class="btn btn-outline-dark">
+        Địa chỉ
+      </a>
+
+      <a routerLink="/account/reviews" class="btn btn-outline-dark">
+        Đánh giá của tôi
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="text-muted mt-3">Đang tải hồ sơ...</p>
+  </div>
+
+  <div *ngIf="!loading" class="row g-4">
+    <div class="col-lg-7">
+      <section class="profile-card">
+        <h3>Thông tin cá nhân</h3>
+
+        <div *ngIf="profileSuccessMessage" class="alert alert-success">
+          {{ profileSuccessMessage }}
+        </div>
+
+        <div *ngIf="profileErrorMessage" class="alert alert-danger">
+          {{ profileErrorMessage }}
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div class="avatar-area">
+            <img
+              *ngIf="profileForm.get('avatarUrl')?.value"
+              [src]="avatarPreview"
+              alt="Avatar"
+              class="profile-avatar"
+              (error)="onAvatarError($event)"
+            />
+
+            <span
+              *ngIf="!profileForm.get('avatarUrl')?.value"
+              class="profile-avatar initials"
+            >
+              {{ getInitials() }}
+            </span>
+
+            <div>
+              <strong>{{ profile?.email }}</strong>
+              <small>Email không thể thay đổi.</small>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Họ và tên *</label>
+
+              <input class="form-control" formControlName="fullName" />
+
+              <small
+                *ngIf="isInvalid('profile', 'fullName')"
+                class="text-danger"
+              >
+                Vui lòng nhập họ và tên.
+              </small>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Số điện thoại</label>
+              <input class="form-control" formControlName="phoneNumber" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Avatar URL</label>
+
+              <input
+                class="form-control"
+                placeholder="https://... hoặc assets/images/avatar.jpg"
+                formControlName="avatarUrl"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-dark mt-4"
+            [disabled]="savingProfile"
+          >
+            <span
+              *ngIf="savingProfile"
+              class="spinner-border spinner-border-sm me-2"
+            ></span>
+
+            {{ savingProfile ? "Đang lưu..." : "Lưu thay đổi" }}
+          </button>
+        </form>
+      </section>
+    </div>
+
+    <div class="col-lg-5">
+      <section class="profile-card">
+        <h3>Đổi mật khẩu</h3>
+
+        <div *ngIf="passwordSuccessMessage" class="alert alert-success">
+          {{ passwordSuccessMessage }}
+        </div>
+
+        <div *ngIf="passwordErrorMessage" class="alert alert-danger">
+          {{ passwordErrorMessage }}
+        </div>
+
+        <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+          <div class="mb-3">
+            <label class="form-label">Mật khẩu hiện tại *</label>
+
+            <input
+              type="password"
+              class="form-control"
+              formControlName="currentPassword"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mật khẩu mới *</label>
+
+            <input
+              type="password"
+              class="form-control"
+              formControlName="newPassword"
+            />
+
+            <small
+              *ngIf="isInvalid('password', 'newPassword')"
+              class="text-danger"
+            >
+              Mật khẩu mới phải có ít nhất 6 ký tự.
+            </small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Xác nhận mật khẩu mới *</label>
+
+            <input
+              type="password"
+              class="form-control"
+              formControlName="confirmNewPassword"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-outline-dark"
+            [disabled]="changingPassword"
+          >
+            <span
+              *ngIf="changingPassword"
+              class="spinner-border spinner-border-sm me-2"
+            ></span>
+
+            {{ changingPassword ? "Đang đổi..." : "Đổi mật khẩu" }}
+          </button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

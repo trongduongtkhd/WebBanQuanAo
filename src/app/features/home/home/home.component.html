@@ -1,0 +1,118 @@
+<section class="hero-section">
+  <div class="container hero-content">
+    <p class="hero-label">NEW COLLECTION</p>
+    <h1>Phong cách tạo nên dấu ấn riêng</h1>
+    <p>Khám phá những thiết kế thời trang hiện đại tại Clothing Store.</p>
+    <a routerLink="/products" class="btn btn-dark btn-lg"> Mua sắm ngay </a>
+  </div>
+</section>
+
+<section class="container py-5" *ngIf="isLoading">
+  <div class="text-center py-5">Đang tải dữ liệu...</div>
+</section>
+
+<section class="container py-5" *ngIf="errorMessage">
+  <div class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+</section>
+
+<ng-container *ngIf="!isLoading && !errorMessage">
+  <section class="container py-5" *ngIf="categories.length">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">DANH MỤC</p>
+        <h2>Mua sắm theo phong cách</h2>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-4" *ngFor="let category of categories">
+        <div class="category-showcase">
+          <!-- Click vùng ảnh: xem toàn bộ danh mục cha -->
+          <a
+            [routerLink]="['/products']"
+            [queryParams]="{ categoryId: category.categoryId }"
+            class="category-card"
+          >
+            <img
+              [src]="category.imageUrl || 'assets/images/placeholders/ao.jpg'"
+              [alt]="category.categoryName"
+            />
+
+            <span class="category-parent-content">
+              <strong>{{ category.categoryName }}</strong>
+
+              <small>
+                Khám phá
+                <i class="bi bi-arrow-right"></i>
+              </small>
+            </span>
+          </a>
+
+          <!-- Click pill: lọc theo danh mục con -->
+          <div
+            *ngIf="category.children && category.children.length > 0"
+            class="category-submenu"
+          >
+            <a
+              *ngFor="let child of category.children"
+              [routerLink]="['/products']"
+              [queryParams]="{ categoryId: child.categoryId }"
+              class="subcategory-pill"
+            >
+              {{ child.categoryName }}
+              <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container py-5">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">NỔI BẬT</p>
+        <h2>Sản phẩm được yêu thích</h2>
+      </div>
+
+      <a routerLink="/products" [queryParams]="{ sort: 'newest' }">
+        Xem tất cả
+      </a>
+    </div>
+
+    <div class="row g-4" *ngIf="featuredProducts.length; else noFeatured">
+      <div class="col-6 col-md-3" *ngFor="let product of featuredProducts">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+
+    <ng-template #noFeatured>
+      <p class="text-muted">Chưa có sản phẩm nổi bật.</p>
+    </ng-template>
+  </section>
+
+  <section class="container py-5">
+    <div class="section-heading">
+      <div>
+        <p class="section-label">MỚI VỀ</p>
+        <h2>Khám phá sản phẩm mới</h2>
+      </div>
+
+      <a routerLink="/products" [queryParams]="{ sort: 'newest' }">
+        Xem tất cả
+      </a>
+    </div>
+
+    <div class="row g-4" *ngIf="newArrivalProducts.length; else noNewArrival">
+      <div class="col-6 col-md-3" *ngFor="let product of newArrivalProducts">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+
+    <ng-template #noNewArrival>
+      <p class="text-muted">Chưa có sản phẩm mới.</p>
+    </ng-template>
+  </section>
+</ng-container>

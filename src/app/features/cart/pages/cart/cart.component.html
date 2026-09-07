@@ -1,0 +1,182 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="page-title mb-1">Giỏ hàng</h1>
+      <p class="text-muted mb-0">
+        Kiểm tra sản phẩm trước khi tiến hành thanh toán.
+      </p>
+    </div>
+
+    <a routerLink="/products" class="btn btn-outline-dark">
+      <i class="bi bi-arrow-left me-2"></i>
+      Tiếp tục mua sắm
+    </a>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="text-muted mt-3">Đang tải giỏ hàng...</p>
+  </div>
+
+  <div *ngIf="!loading && errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="!loading && cart && cart.items.length === 0" class="empty-cart">
+    <i class="bi bi-bag-x"></i>
+    <h3>Giỏ hàng của bạn đang trống</h3>
+    <p>Hãy chọn vài sản phẩm phù hợp với bạn nhé.</p>
+    <a routerLink="/products" class="btn btn-dark"> Khám phá sản phẩm </a>
+  </div>
+
+  <div *ngIf="!loading && cart && cart.items.length > 0" class="row g-4">
+    <div class="col-lg-8">
+      <div class="cart-card">
+        <div *ngFor="let item of cart.items" class="cart-item">
+          <div class="cart-image">
+            <img
+              [src]="
+                item.thumbnailUrl || 'assets/images/product-placeholder.png'
+              "
+              [alt]="item.productName"
+              (error)="onImageError($event)"
+            />
+          </div>
+
+          <div class="cart-info">
+            <div class="product-name">
+              {{ item.productName }}
+            </div>
+
+            <p class="variant-info mb-1">
+              Màu: {{ item.colorName }} · Size: {{ item.sizeName }}
+            </p>
+
+            <p *ngIf="!item.isAvailable" class="text-danger small mt-2 mb-0">
+              Biến thể sản phẩm hiện không còn khả dụng.
+            </p>
+
+            <p
+              *ngIf="item.isAvailable && item.stockQuantity <= 0"
+              class="text-danger small mt-2 mb-0"
+            >
+              Sản phẩm hiện đã hết hàng.
+            </p>
+
+            <p
+              *ngIf="item.stockQuantity <= 0"
+              class="text-danger small mt-2 mb-0"
+            >
+              Sản phẩm hiện đã hết hàng.
+            </p>
+          </div>
+
+          <div class="cart-price">{{ item.unitPrice | number: "1.0-0" }} ₫</div>
+
+          <div class="quantity-control">
+            <button
+              type="button"
+              class="quantity-button"
+              aria-label="Giảm số lượng"
+              [disabled]="
+                !item.isAvailable ||
+                item.quantity <= 1 ||
+                updatingItemId === item.cartItemId
+              "
+              (click)="decreaseQuantity(item)"
+            >
+              &minus;
+            </button>
+
+            <span class="quantity-value">
+              {{ item.quantity }}
+            </span>
+
+            <button
+              type="button"
+              class="quantity-button"
+              aria-label="Tăng số lượng"
+              [disabled]="
+                !item.isAvailable ||
+                item.quantity >= item.stockQuantity ||
+                updatingItemId === item.cartItemId
+              "
+              (click)="increaseQuantity(item)"
+            >
+              +
+            </button>
+          </div>
+
+          <div class="line-total">
+            {{ item.totalPrice | number: "1.0-0" }} ₫
+          </div>
+
+          <button
+            type="button"
+            class="remove-button"
+            [disabled]="removingItemId === item.cartItemId"
+            (click)="removeItem(item)"
+          >
+            <span
+              *ngIf="removingItemId === item.cartItemId"
+              class="spinner-border spinner-border-sm"
+            ></span>
+
+            <i
+              *ngIf="removingItemId !== item.cartItemId"
+              class="bi bi-trash3"
+            ></i>
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-link text-danger px-0 mt-3"
+        [disabled]="clearing"
+        (click)="clearCart()"
+      >
+        <span
+          *ngIf="clearing"
+          class="spinner-border spinner-border-sm me-2"
+        ></span>
+        Xóa toàn bộ giỏ hàng
+      </button>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="summary-card">
+        <h4>Thông tin đơn hàng</h4>
+
+        <div class="summary-row">
+          <span>Tạm tính ({{ cart.totalQuantity }} sản phẩm)</span>
+          <strong>{{ cart.subtotal | number: "1.0-0" }} ₫</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Phí vận chuyển</span>
+          <span>Sẽ tính khi thanh toán</span>
+        </div>
+
+        <hr />
+
+        <div class="summary-total">
+          <span>Tổng tạm tính</span>
+          <strong>{{ cart.subtotal | number: "1.0-0" }} ₫</strong>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-dark w-100 mt-4 py-3"
+          (click)="goToCheckout()"
+        >
+          Tiến hành thanh toán
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

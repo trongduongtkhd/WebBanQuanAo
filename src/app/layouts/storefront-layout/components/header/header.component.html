@@ -1,0 +1,56 @@
+<header class="border-bottom bg-white sticky-top">
+  <div class="container py-3 d-flex align-items-center gap-4">
+    <a routerLink="/" class="text-decoration-none text-dark fw-bold fs-4">
+      CLOTHING STORE
+    </a>
+
+    <nav class="d-none d-md-flex gap-3">
+      <a routerLink="/" class="text-decoration-none text-dark">Trang chủ</a>
+      <a routerLink="/products" class="text-decoration-none text-dark">
+        Sản phẩm
+      </a>
+    </nav>
+
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <ng-container *ngIf="currentUser$ | async as user; else guestActions">
+        <a
+          routerLink="/account/profile"
+          class="text-decoration-none text-dark"
+          title="Quản lý địa chỉ giao hàng"
+        >
+          <i class="bi bi-person-circle me-1"></i>
+          {{ user.fullName }}
+        </a>
+        <a routerLink="/account/orders" class="text-decoration-none text-dark">
+          <i class="bi bi-receipt me-1"></i>
+          Đơn hàng của tôi
+        </a>
+        <a
+          *ngIf="user.roles.includes('Admin')"
+          routerLink="/admin/dashboard"
+          class="text-decoration-none text-dark"
+        >
+          Quản trị
+        </a>
+
+        <button class="btn btn-sm btn-outline-dark" (click)="logout()">
+          Đăng xuất
+        </button>
+      </ng-container>
+
+      <ng-template #guestActions>
+        <a routerLink="/auth/login" class="text-decoration-none text-dark">
+          Đăng nhập
+        </a>
+      </ng-template>
+
+      <a routerLink="/cart" class="cart-link">
+        <i class="bi bi-bag"></i>
+
+        <span *ngIf="cartCount$ | async as cartCount" class="cart-badge">
+          {{ cartCount }}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>

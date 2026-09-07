@@ -1,0 +1,208 @@
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.detail-header h1 {
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.detail-header p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.status-badge {
+  padding: 8px 12px;
+  background: #fff3cd;
+  color: #664d03;
+  font-weight: 600;
+}
+
+.order-timeline {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.timeline-item {
+  flex: 1;
+  color: #adb5bd;
+  text-align: center;
+}
+
+.timeline-item i {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.4rem;
+}
+
+.timeline-item.active {
+  color: #198754;
+}
+
+.timeline-item.cancelled {
+  color: #dc3545;
+}
+
+.timeline-line {
+  flex: 0.4;
+  height: 2px;
+  margin-top: 12px;
+  background: #dee2e6;
+}
+
+.detail-card {
+  margin-bottom: 20px;
+  padding: 22px;
+  border: 1px solid #dee2e6;
+  background: #fff;
+}
+
+.detail-card h4 {
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.order-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.order-item small {
+  display: block;
+  margin-top: 5px;
+  color: #6c757d;
+}
+
+.item-price {
+  min-width: 150px;
+  text-align: right;
+}
+
+.item-price span,
+.item-price strong {
+  display: block;
+}
+
+.item-price span {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.history-row {
+  padding: 12px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.history-row:last-child {
+  border-bottom: 0;
+}
+
+.history-row span,
+.history-row small {
+  display: block;
+  margin-top: 4px;
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+.payment-row,
+.summary-row,
+.summary-total,
+.qr-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.discount strong {
+  color: #198754;
+}
+
+.summary-total {
+  font-size: 1.1rem;
+}
+
+.summary-total strong {
+  color: #dc3545;
+  font-size: 1.3rem;
+}
+
+.qr-icon {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 5rem;
+  text-align: center;
+}
+
+.qr-row {
+  font-size: 0.9rem;
+}
+
+.qr-row strong {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .detail-header,
+  .order-item {
+    flex-direction: column;
+  }
+
+  .item-price {
+    text-align: left;
+  }
+
+  .order-timeline {
+    overflow-x: auto;
+    min-width: 650px;
+  }
+}
+
+.review-overlay {
+  position: fixed;
+  z-index: 1050;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.review-modal {
+  width: min(500px, 100%);
+  padding: 24px;
+  background: #fff;
+}
+
+.rating-picker {
+  display: flex;
+  gap: 6px;
+}
+
+.rating-picker button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ced4da;
+  font-size: 1.8rem;
+}
+
+.rating-picker button.active {
+  color: #ffc107;
+}

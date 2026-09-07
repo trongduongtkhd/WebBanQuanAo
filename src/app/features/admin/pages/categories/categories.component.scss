@@ -1,0 +1,27 @@
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-card {
+  padding: 22px;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.image-preview {
+  display: block;
+  width: 100%;
+  max-height: 160px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.table-image {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  object-fit: cover;
+}

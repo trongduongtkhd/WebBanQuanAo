@@ -1,0 +1,95 @@
+.user-detail-card {
+  max-width: 900px;
+  padding: 30px;
+  border: 1px solid #dee2e6;
+  background: #fff;
+}
+
+.user-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.detail-avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail-avatar.initials {
+  display: grid;
+  place-items: center;
+  background: #212529;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.user-hero h2 {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.user-hero p {
+  margin-bottom: 10px;
+  color: #6c757d;
+}
+
+.label {
+  display: block;
+  margin-bottom: 6px;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.role-badge,
+.status-badge {
+  display: inline-block;
+  margin-right: 5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #e9ecef;
+  color: #495057;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.role-badge.admin-role {
+  background: #e7f1ff;
+  color: #0d6efd;
+}
+
+.status-badge.active {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-badge.locked {
+  background: #f8d7da;
+  color: #842029;
+}
+
+.action-area {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-top: 22px;
+  border-top: 1px solid #e9ecef;
+}
+
+@media (max-width: 576px) {
+  .user-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .action-area {
+    justify-content: stretch;
+  }
+
+  .action-area button {
+    width: 100%;
+  }
+}

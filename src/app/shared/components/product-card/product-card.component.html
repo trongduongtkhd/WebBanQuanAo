@@ -1,0 +1,28 @@
+<article class="product-card">
+  <a [routerLink]="['/products', product.slug]" class="image-link">
+    <img
+      [src]="product.thumbnailUrl || 'assets/images/placeholders/ao.jpg'"
+      [alt]="product.productName"
+      class="product-image"
+      (error)="onImageError($event)"
+    />
+  </a>
+
+  <div class="product-content">
+    <p class="product-brand">{{ product.brandName || product.categoryName }}</p>
+
+    <a [routerLink]="['/products', product.slug]" class="product-name">
+      {{ product.productName }}
+    </a>
+
+    <div class="price-row">
+      <strong class="sale-price">
+        {{ product.salePrice || product.basePrice | number: "1.0-0" }} ₫
+      </strong>
+
+      <del *ngIf="product.salePrice" class="base-price">
+        {{ product.basePrice | number: "1.0-0" }} ₫
+      </del>
+    </div>
+  </div>
+</article>

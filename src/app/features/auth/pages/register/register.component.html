@@ -1,0 +1,67 @@
+<div class="auth-page">
+  <form class="auth-card" [formGroup]="registerForm" (ngSubmit)="submit()">
+    <a routerLink="/" class="brand">CLOTHING STORE</a>
+
+    <h1>Tạo tài khoản</h1>
+    <p class="text-muted">Đăng ký để bắt đầu mua sắm.</p>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Họ và tên</label>
+      <input class="form-control" formControlName="fullName" />
+      <small *ngIf="fullName?.touched && fullName?.invalid" class="text-danger">
+        Vui lòng nhập họ tên.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email" />
+      <small *ngIf="email?.touched && email?.invalid" class="text-danger">
+        Vui lòng nhập email hợp lệ.
+      </small>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Số điện thoại</label>
+      <input class="form-control" formControlName="phoneNumber" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Mật khẩu</label>
+      <input type="password" class="form-control" formControlName="password" />
+      <small *ngIf="password?.touched && password?.invalid" class="text-danger">
+        Mật khẩu cần ít nhất 6 ký tự.
+      </small>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label">Xác nhận mật khẩu</label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="confirmPassword"
+      />
+      <small
+        *ngIf="
+          confirmPassword?.touched && registerForm.errors?.passwordMismatch
+        "
+        class="text-danger"
+      >
+        Xác nhận mật khẩu không khớp.
+      </small>
+    </div>
+
+    <button type="submit" class="btn btn-dark w-100" [disabled]="isSubmitting">
+      {{ isSubmitting ? "Đang đăng ký..." : "Đăng ký" }}
+    </button>
+
+    <p class="text-center mt-4 mb-0">
+      Đã có tài khoản?
+      <a routerLink="/auth/login">Đăng nhập</a>
+    </p>
+  </form>
+</div>

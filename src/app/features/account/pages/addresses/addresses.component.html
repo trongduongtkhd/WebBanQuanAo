@@ -1,0 +1,191 @@
+<div class="container py-5">
+  <div class="page-header">
+    <div>
+      <h1>Địa chỉ giao hàng</h1>
+      <p>Quản lý địa chỉ để thanh toán đơn hàng nhanh hơn.</p>
+    </div>
+
+    <button class="btn btn-dark" (click)="openCreateForm()">
+      <i class="bi bi-plus-lg me-2"></i>
+      Thêm địa chỉ mới
+    </button>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="mt-3 text-muted">Đang tải địa chỉ...</p>
+  </div>
+
+  <div *ngIf="!loading && addresses.length === 0" class="empty-state">
+    <i class="bi bi-geo-alt"></i>
+    <h3>Bạn chưa có địa chỉ giao hàng</h3>
+    <p>Thêm địa chỉ đầu tiên để có thể đặt hàng.</p>
+
+    <button class="btn btn-dark" (click)="openCreateForm()">
+      Thêm địa chỉ
+    </button>
+  </div>
+
+  <div *ngIf="!loading && addresses.length > 0" class="address-list">
+    <div *ngFor="let address of addresses" class="address-card">
+      <div class="address-main">
+        <div class="address-title">
+          <strong>{{ address.receiverName }}</strong>
+          <span class="separator">|</span>
+          <span>{{ address.receiverPhone }}</span>
+
+          <span *ngIf="address.isDefault" class="default-badge">
+            Mặc định
+          </span>
+        </div>
+
+        <p>{{ getAddressText(address) }}</p>
+      </div>
+
+      <div class="address-actions">
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-dark"
+          (click)="openEditForm(address)"
+        >
+          Sửa
+        </button>
+
+        <button
+          *ngIf="!address.isDefault"
+          type="button"
+          class="btn btn-sm btn-outline-success"
+          [disabled]="changingDefaultId === address.addressId"
+          (click)="setDefault(address)"
+        >
+          {{
+            changingDefaultId === address.addressId
+              ? "Đang đặt..."
+              : "Đặt mặc định"
+          }}
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          [disabled]="deletingAddressId === address.addressId"
+          (click)="deleteAddress(address)"
+        >
+          {{ deletingAddressId === address.addressId ? "Đang xóa..." : "Xóa" }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form thêm / sửa -->
+  <div *ngIf="showForm" class="form-overlay">
+    <div class="address-form-card">
+      <div class="form-header">
+        <h3>
+          {{ editingAddressId ? "Cập nhật địa chỉ" : "Thêm địa chỉ mới" }}
+        </h3>
+
+        <button type="button" (click)="closeForm()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Tên người nhận *</label>
+            <input class="form-control" formControlName="receiverName" />
+
+            <small *ngIf="isInvalid('receiverName')" class="text-danger">
+              Vui lòng nhập tên người nhận.
+            </small>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Số điện thoại *</label>
+            <input class="form-control" formControlName="receiverPhone" />
+
+            <small *ngIf="isInvalid('receiverPhone')" class="text-danger">
+              Vui lòng nhập số điện thoại.
+            </small>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Địa chỉ chi tiết *</label>
+            <input
+              class="form-control"
+              placeholder="Số nhà, tên đường..."
+              formControlName="addressDetail"
+            />
+
+            <small *ngIf="isInvalid('addressDetail')" class="text-danger">
+              Vui lòng nhập địa chỉ chi tiết.
+            </small>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Phường/Xã</label>
+            <input class="form-control" formControlName="ward" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Quận/Huyện</label>
+            <input class="form-control" formControlName="district" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Tỉnh/Thành phố *</label>
+            <input class="form-control" formControlName="province" />
+
+            <small *ngIf="isInvalid('province')" class="text-danger">
+              Vui lòng nhập tỉnh/thành phố.
+            </small>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input
+                id="isDefault"
+                type="checkbox"
+                class="form-check-input"
+                formControlName="isDefault"
+              />
+
+              <label class="form-check-label" for="isDefault">
+                Đặt làm địa chỉ mặc định
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            [disabled]="saving"
+            (click)="closeForm()"
+          >
+            Hủy
+          </button>
+
+          <button type="submit" class="btn btn-dark" [disabled]="saving">
+            <span
+              *ngIf="saving"
+              class="spinner-border spinner-border-sm me-2"
+            ></span>
+
+            {{ saving ? "Đang lưu..." : "Lưu địa chỉ" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="image-upload">
+  <div *ngIf="currentImageUrl" class="preview-wrapper">
+    <img
+      [src]="currentImageUrl"
+      alt="Ảnh đã chọn"
+      class="image-preview"
+      (error)="onImageError($event)"
+    />
+  </div>
+
+  <label class="upload-button">
+    <input
+      type="file"
+      accept=".jpg,.jpeg,.png,.webp,image/*"
+      [disabled]="uploading"
+      (change)="onFileSelected($event)"
+    />
+
+    <span *ngIf="!uploading">
+      <i class="bi bi-upload me-2"></i>
+      {{ currentImageUrl ? "Thay ảnh khác" : "Chọn ảnh từ máy" }}
+    </span>
+
+    <span *ngIf="uploading">
+      <span class="spinner-border spinner-border-sm me-2"></span>
+      Đang upload...
+    </span>
+  </label>
+
+  <small class="upload-note">
+    JPG, PNG hoặc WEBP. Dung lượng tối đa 5 MB.
+  </small>
+
+  <small *ngIf="errorMessage" class="text-danger d-block mt-2">
+    {{ errorMessage }}
+  </small>
+</div>

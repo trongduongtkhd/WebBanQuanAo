@@ -1,0 +1,153 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Quản lý đơn hàng</h2>
+      <p>Theo dõi và xử lý các đơn hàng từ khách hàng.</p>
+    </div>
+  </div>
+
+  <div class="admin-card mb-4">
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Tìm mã đơn, tên hoặc email khách hàng..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+      </div>
+
+      <div class="col-lg-3">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedStatus"
+          (change)="search()"
+        >
+          <option *ngFor="let status of orderStatuses" [ngValue]="status.value">
+            {{ status.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-lg-3">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedPaymentStatus"
+          (change)="search()"
+        >
+          <option
+            *ngFor="let status of paymentStatuses"
+            [ngValue]="status.value"
+          >
+            {{ status.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-lg-2 d-flex gap-2">
+        <button class="btn btn-dark flex-grow-1" (click)="search()">Tìm</button>
+
+        <button
+          class="btn btn-outline-secondary"
+          title="Xóa bộ lọc"
+          (click)="resetFilters()"
+        >
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="!loading" class="admin-card table-responsive">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Mã đơn</th>
+          <th>Khách hàng</th>
+          <th>Người nhận</th>
+          <th>Tổng tiền</th>
+          <th>Trạng thái đơn</th>
+          <th>Thanh toán</th>
+          <th>Ngày đặt</th>
+          <th class="text-end">Chi tiết</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>
+            <strong>{{ order.orderCode }}</strong>
+          </td>
+
+          <td>
+            {{ order.customerName }}
+            <small class="d-block text-muted">{{ order.customerEmail }}</small>
+          </td>
+
+          <td>{{ order.receiverName }}</td>
+
+          <td class="fw-semibold">
+            {{ order.totalAmount | number: "1.0-0" }} ₫
+          </td>
+
+          <td>
+            <span class="badge bg-{{ getOrderStatusClass(order.orderStatus) }}">
+              {{ getOrderStatusText(order.orderStatus) }}
+            </span>
+          </td>
+
+          <td>{{ getPaymentStatusText(order.paymentStatus) }}</td>
+
+          <td>{{ order.createdAt | date: "dd/MM/yyyy HH:mm" }}</td>
+
+          <td class="text-end">
+            <button
+              class="btn btn-sm btn-outline-dark"
+              (click)="viewDetail(order.orderId)"
+            >
+              Xem
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="orders.length === 0">
+          <td colspan="8" class="text-center py-4 text-muted">
+            Không tìm thấy đơn hàng phù hợp.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    *ngIf="!loading && totalPages > 1"
+    class="d-flex justify-content-end align-items-center gap-2 mt-4"
+  >
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === 1"
+      (click)="previousPage()"
+    >
+      Trước
+    </button>
+
+    <span>Trang {{ page }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === totalPages"
+      (click)="nextPage()"
+    >
+      Sau
+    </button>
+  </div>
+</div>

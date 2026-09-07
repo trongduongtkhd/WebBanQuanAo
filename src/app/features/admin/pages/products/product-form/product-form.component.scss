@@ -1,0 +1,41 @@
+@import "../../categories/categories.component.scss";
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.product-image-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  border-radius: 10px;
+}
+
+.product-image-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1.15;
+  object-fit: cover;
+}
+
+.product-image-card .badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.product-image-card .btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}
+
+.color-dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  vertical-align: -2px;
+}

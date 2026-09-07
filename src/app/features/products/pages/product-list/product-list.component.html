@@ -1,0 +1,165 @@
+<section class="container py-5">
+  <div class="mb-4">
+    <p class="text-uppercase text-muted small mb-1">CLOTHING STORE</p>
+    <h1 class="fw-bold">Sản phẩm</h1>
+  </div>
+
+  <div class="row g-4">
+    <aside class="col-lg-3">
+      <div class="filter-panel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Bộ lọc</h5>
+          <button class="btn btn-link p-0 text-dark" (click)="clearFilters()">
+            Xóa lọc
+          </button>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Tìm kiếm</label>
+          <input
+            class="form-control"
+            [(ngModel)]="filters.keyword"
+            (keyup.enter)="applyFilters()"
+            placeholder="Tên sản phẩm..."
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Danh mục</label>
+          <select class="form-select" [(ngModel)]="filters.categoryId">
+            <option [ngValue]="null">Tất cả danh mục</option>
+            <option
+              *ngFor="let category of categories"
+              [ngValue]="category.categoryId"
+            >
+              {{ category.categoryName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Thương hiệu</label>
+          <select class="form-select" [(ngModel)]="filters.brandId">
+            <option [ngValue]="null">Tất cả thương hiệu</option>
+            <option *ngFor="let brand of brands" [ngValue]="brand.brandId">
+              {{ brand.brandName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Giới tính</label>
+          <select class="form-select" [(ngModel)]="filters.gender">
+            <option value="">Tất cả</option>
+            <option value="Male">Nam</option>
+            <option value="Female">Nữ</option>
+            <option value="Unisex">Unisex</option>
+          </select>
+        </div>
+
+        <div class="row g-2 mb-4">
+          <div class="col-6">
+            <label class="form-label">Giá từ</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="filters.minPrice"
+              placeholder="0"
+            />
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Giá đến</label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="filters.maxPrice"
+              placeholder="500000"
+            />
+          </div>
+        </div>
+
+        <button class="btn btn-dark w-100" (click)="applyFilters()">
+          Áp dụng
+        </button>
+      </div>
+    </aside>
+
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <p class="mb-0 text-muted">{{ result.totalItems }} sản phẩm</p>
+
+        <select
+          class="form-select sort-select"
+          [(ngModel)]="filters.sort"
+          (change)="applyFilters()"
+        >
+          <option value="newest">Mới nhất</option>
+          <option value="priceAsc">Giá tăng dần</option>
+          <option value="priceDesc">Giá giảm dần</option>
+          <option value="bestSelling">Bán chạy</option>
+        </select>
+      </div>
+
+      <div *ngIf="isLoading" class="text-center py-5">Đang tải sản phẩm...</div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div
+        *ngIf="!isLoading && !errorMessage && result.items.length"
+        class="row g-4"
+      >
+        <div class="col-6 col-md-4" *ngFor="let product of result.items">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      </div>
+
+      <div
+        *ngIf="!isLoading && !errorMessage && !result.items.length"
+        class="text-center border rounded p-5"
+      >
+        <h5>Không tìm thấy sản phẩm phù hợp</h5>
+        <button class="btn btn-outline-dark mt-2" (click)="clearFilters()">
+          Xóa bộ lọc
+        </button>
+      </div>
+
+      <nav
+        *ngIf="result.totalPages > 1"
+        class="mt-5 d-flex justify-content-center"
+      >
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="result.page === 1">
+            <button class="page-link" (click)="changePage(result.page - 1)">
+              Trước
+            </button>
+          </li>
+
+          <li
+            class="page-item"
+            *ngFor="
+              let item of [].constructor(result.totalPages);
+              let index = index
+            "
+            [class.active]="result.page === index + 1"
+          >
+            <button class="page-link" (click)="changePage(index + 1)">
+              {{ index + 1 }}
+            </button>
+          </li>
+
+          <li
+            class="page-item"
+            [class.disabled]="result.page === result.totalPages"
+          >
+            <button class="page-link" (click)="changePage(result.page + 1)">
+              Sau
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>

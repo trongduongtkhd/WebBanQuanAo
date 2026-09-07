@@ -1,0 +1,98 @@
+<div class="admin-page">
+  <button class="btn btn-outline-dark mb-4" (click)="goBack()">
+    <i class="bi bi-arrow-left me-2"></i>
+    Quay lại danh sách
+  </button>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="!loading && user" class="user-detail-card">
+    <div class="user-hero">
+      <img
+        *ngIf="user.avatarUrl"
+        [src]="user.avatarUrl"
+        [alt]="user.fullName"
+        class="detail-avatar"
+        (error)="onAvatarError($event)"
+      />
+
+      <span *ngIf="!user.avatarUrl" class="detail-avatar initials">
+        {{ getInitials() }}
+      </span>
+
+      <div>
+        <h2>{{ user.fullName }}</h2>
+        <p>{{ user.email }}</p>
+
+        <span
+          class="status-badge"
+          [class.active]="user.isActive"
+          [class.locked]="!user.isActive"
+        >
+          {{ user.isActive ? "Đang hoạt động" : "Đã khóa" }}
+        </span>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <span class="label">Email</span>
+        <strong>{{ user.email }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <span class="label">Số điện thoại</span>
+        <strong>{{ user.phoneNumber || "Chưa cập nhật" }}</strong>
+      </div>
+
+      <div class="col-md-6">
+        <span class="label">Vai trò</span>
+
+        <div>
+          <span
+            *ngFor="let role of user.roles"
+            class="role-badge"
+            [class.admin-role]="role === 'Admin'"
+          >
+            {{ role }}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <span class="label">Ngày tham gia</span>
+        <strong>{{ user.createdAt | date: "dd/MM/yyyy HH:mm" }}</strong>
+      </div>
+    </div>
+
+    <div class="action-area">
+      <button
+        type="button"
+        class="btn"
+        [class.btn-danger]="user.isActive"
+        [class.btn-success]="!user.isActive"
+        [disabled]="changingStatus"
+        (click)="toggleStatus()"
+      >
+        <span
+          *ngIf="changingStatus"
+          class="spinner-border spinner-border-sm me-2"
+        ></span>
+
+        {{ user.isActive ? "Khóa tài khoản" : "Mở khóa tài khoản" }}
+      </button>
+    </div>
+  </div>
+</div>

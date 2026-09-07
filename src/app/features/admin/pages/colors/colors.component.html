@@ -1,0 +1,141 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">DỮ LIỆU NỀN</p>
+    <h2 class="fw-bold mb-0">Quản lý màu sắc</h2>
+  </div>
+</div>
+
+<div class="row g-4 mt-1">
+  <div class="col-lg-4">
+    <section class="admin-card">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="mb-0">
+          {{ editingColorId ? "Cập nhật màu" : "Thêm màu mới" }}
+        </h5>
+
+        <button
+          *ngIf="editingColorId"
+          class="btn btn-sm btn-outline-dark"
+          (click)="resetForm()"
+        >
+          Hủy sửa
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <form (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label class="form-label">Tên màu *</label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.colorName"
+            name="colorName"
+            placeholder="Ví dụ: Đen"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Mã màu</label>
+
+          <div class="d-flex align-items-center gap-3">
+            <input
+              type="color"
+              class="form-control form-control-color"
+              [(ngModel)]="form.colorCode"
+              name="colorPicker"
+            />
+
+            <input
+              class="form-control"
+              [(ngModel)]="form.colorCode"
+              name="colorCode"
+              placeholder="#000000"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-dark w-100"
+          [disabled]="isSubmitting"
+        >
+          {{
+            isSubmitting
+              ? "Đang lưu..."
+              : editingColorId
+                ? "Lưu thay đổi"
+                : "Thêm màu"
+          }}
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <div class="col-lg-8">
+    <section class="admin-card">
+      <h5 class="mb-4">Danh sách màu sắc</h5>
+
+      <div *ngIf="isLoading" class="py-5 text-center">Đang tải màu sắc...</div>
+
+      <div
+        *ngIf="!isLoading && !colors.length"
+        class="py-5 text-center text-muted"
+      >
+        Chưa có màu sắc nào.
+      </div>
+
+      <div class="table-responsive" *ngIf="!isLoading && colors.length">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Màu</th>
+              <th>Tên màu</th>
+              <th>Mã HEX</th>
+              <th class="text-end">Thao tác</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let color of colors">
+              <td>
+                <span
+                  class="color-circle"
+                  [style.background-color]="color.colorCode || '#cccccc'"
+                ></span>
+              </td>
+
+              <td class="fw-semibold">{{ color.colorName }}</td>
+
+              <td>
+                <code>{{ color.colorCode || "—" }}</code>
+              </td>
+
+              <td class="text-end">
+                <button
+                  class="btn btn-sm btn-outline-dark me-2"
+                  (click)="edit(color)"
+                >
+                  Sửa
+                </button>
+
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="remove(color)"
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.page-header h2 {
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.total-amount {
+  color: #dc3545;
+  font-size: 1.5rem;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.order-item:last-child {
+  border-bottom: 0;
+}
+
+.order-item small {
+  display: block;
+  margin-top: 4px;
+  color: #6c757d;
+}
+
+.payment-row,
+.summary-row,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.summary-total {
+  font-size: 1.1rem;
+}
+
+.summary-total strong {
+  color: #dc3545;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .page-header,
+  .order-item {
+    flex-direction: column;
+  }
+
+  .order-item .text-end {
+    text-align: left !important;
+  }
+}

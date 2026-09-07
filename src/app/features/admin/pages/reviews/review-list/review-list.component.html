@@ -1,0 +1,130 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Quản lý đánh giá</h2>
+      <p>Duyệt hoặc ẩn đánh giá từ khách hàng.</p>
+    </div>
+  </div>
+
+  <div class="admin-card mb-4">
+    <div class="row g-3">
+      <div class="col-md-7">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Tìm sản phẩm, khách hàng hoặc email..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedApproval"
+          (change)="search()"
+        >
+          <option value="all">Tất cả đánh giá</option>
+          <option value="pending">Chờ duyệt</option>
+          <option value="approved">Đã duyệt</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-dark w-100" (click)="search()">Tìm kiếm</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="!loading" class="review-list">
+    <article *ngFor="let review of reviews" class="admin-card review-card">
+      <div class="review-head">
+        <div>
+          <strong>{{ review.productName }}</strong>
+          <span class="review-status" [class.approved]="review.isApproved">
+            {{ review.isApproved ? "Đã duyệt" : "Chờ duyệt" }}
+          </span>
+        </div>
+
+        <small>{{ review.createdAt | date: "dd/MM/yyyy HH:mm" }}</small>
+      </div>
+
+      <div class="stars">
+        <i
+          *ngFor="let star of getStars(review.rating)"
+          class="bi bi-star-fill"
+        ></i>
+        <span>{{ review.rating }}/5</span>
+      </div>
+
+      <p *ngIf="review.comment" class="review-comment">
+        {{ review.comment }}
+      </p>
+
+      <div class="review-footer">
+        <div>
+          <strong>{{ review.userFullName }}</strong>
+          <small>{{ review.userEmail }}</small>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button
+            *ngIf="!review.isApproved"
+            class="btn btn-sm btn-success"
+            [disabled]="processingReviewId === review.reviewId"
+            (click)="approve(review)"
+          >
+            Duyệt
+          </button>
+
+          <button
+            *ngIf="review.isApproved"
+            class="btn btn-sm btn-outline-danger"
+            [disabled]="processingReviewId === review.reviewId"
+            (click)="reject(review)"
+          >
+            Ẩn
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <div
+      *ngIf="reviews.length === 0"
+      class="admin-card text-center py-5 text-muted"
+    >
+      Không có đánh giá phù hợp.
+    </div>
+  </div>
+
+  <div
+    *ngIf="!loading && totalPages > 1"
+    class="d-flex justify-content-end align-items-center gap-2 mt-4"
+  >
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === 1"
+      (click)="previousPage()"
+    >
+      Trước
+    </button>
+
+    <span>Trang {{ page }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === totalPages"
+      (click)="nextPage()"
+    >
+      Sau
+    </button>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 80px;
+  padding: 16px 28px;
+  border-bottom: 1px solid #e7e7e7;
+  background: #fff;
+}
+
+.admin-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+@media (max-width: 991px) {
+  .admin-header {
+    padding: 16px;
+  }
+}

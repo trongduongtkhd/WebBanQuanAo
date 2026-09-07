@@ -1,0 +1,23 @@
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: #111;
+  font-size: 1.35rem;
+  text-decoration: none;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  font-size: 0.7rem;
+  line-height: 19px;
+  text-align: center;
+}

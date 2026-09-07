@@ -1,0 +1,176 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">SẢN PHẨM</p>
+    <h2 class="fw-bold mb-0">Quản lý sản phẩm</h2>
+  </div>
+
+  <a routerLink="/admin/products/create" class="btn btn-dark">
+    <i class="bi bi-plus-lg me-1"></i>
+    Thêm sản phẩm
+  </a>
+</div>
+
+<section class="admin-card mt-4">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-6">
+      <label class="form-label">Tìm sản phẩm</label>
+      <input
+        class="form-control"
+        [(ngModel)]="keyword"
+        (keyup.enter)="search()"
+        placeholder="Tên sản phẩm..."
+      />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Trạng thái</label>
+      <select class="form-select" [(ngModel)]="isActive">
+        <option value="">Tất cả</option>
+        <option value="true">Đang bán</option>
+        <option value="false">Đã ẩn</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <button class="btn btn-outline-dark w-100" (click)="search()">
+        <i class="bi bi-search me-1"></i>
+        Tìm kiếm
+      </button>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-4">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success mt-4">
+  {{ successMessage }}
+</div>
+
+<section class="admin-card mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h5 class="mb-0">Danh sách sản phẩm</h5>
+    <span class="text-muted">{{ result.totalItems }} sản phẩm</span>
+  </div>
+
+  <div *ngIf="isLoading" class="py-5 text-center">Đang tải sản phẩm...</div>
+
+  <div
+    *ngIf="!isLoading && !result.items.length"
+    class="py-5 text-center text-muted"
+  >
+    Chưa có sản phẩm phù hợp.
+  </div>
+
+  <div *ngIf="!isLoading && result.items.length" class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Ảnh</th>
+          <th>Sản phẩm</th>
+          <th>Danh mục</th>
+          <th>Giá bán</th>
+          <th>Tồn kho</th>
+          <th>Trạng thái</th>
+          <th class="text-end">Thao tác</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let product of result.items">
+          <td>
+            <img
+              [src]="
+                product.thumbnailUrl ||
+                'assets/images/placeholders/product-placeholder.png'
+              "
+              [alt]="product.productName"
+              class="product-thumbnail"
+            />
+          </td>
+
+          <td>
+            <div class="fw-semibold">{{ product.productName }}</div>
+            <small class="text-muted">{{
+              product.brandName || "Không thương hiệu"
+            }}</small>
+          </td>
+
+          <td>{{ product.categoryName }}</td>
+
+          <td>
+            <strong>
+              {{ product.salePrice || product.basePrice | number: "1.0-0" }} ₫
+            </strong>
+
+            <small
+              *ngIf="product.salePrice"
+              class="d-block text-decoration-line-through text-muted"
+            >
+              {{ product.basePrice | number: "1.0-0" }} ₫
+            </small>
+          </td>
+
+          <td>{{ product.totalStockQuantity }}</td>
+
+          <td>
+            <span
+              class="badge"
+              [class.bg-success]="product.isActive"
+              [class.bg-secondary]="!product.isActive"
+            >
+              {{ product.isActive ? "Đang bán" : "Đã ẩn" }}
+            </span>
+          </td>
+
+          <td class="text-end">
+            <a
+              [routerLink]="['/admin/products', product.productId, 'edit']"
+              class="btn btn-sm btn-outline-dark me-2"
+            >
+              Sửa
+            </a>
+
+            <button
+              class="btn btn-sm btn-outline-danger"
+              [disabled]="!product.isActive"
+              (click)="remove(product)"
+            >
+              Ẩn
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav *ngIf="result.totalPages > 1" class="d-flex justify-content-center mt-4">
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="result.page === 1">
+        <button class="page-link" (click)="changePage(result.page - 1)">
+          Trước
+        </button>
+      </li>
+
+      <li
+        class="page-item"
+        *ngFor="let page of getPageNumbers()"
+        [class.active]="page === result.page"
+      >
+        <button class="page-link" (click)="changePage(page)">
+          {{ page }}
+        </button>
+      </li>
+
+      <li
+        class="page-item"
+        [class.disabled]="result.page === result.totalPages"
+      >
+        <button class="page-link" (click)="changePage(result.page + 1)">
+          Sau
+        </button>
+      </li>
+    </ul>
+  </nav>
+</section>

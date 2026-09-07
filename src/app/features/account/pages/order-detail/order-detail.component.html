@@ -1,0 +1,282 @@
+<div class="container py-5">
+  <button class="btn btn-outline-dark mb-4" (click)="goBack()">
+    <i class="bi bi-arrow-left me-2"></i>
+    Quay lại đơn hàng
+  </button>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <ng-container *ngIf="!loading && order">
+    <div class="detail-header">
+      <div>
+        <h1>Đơn hàng {{ order.orderCode }}</h1>
+        <p>Đặt lúc {{ order.createdAt | date: "dd/MM/yyyy HH:mm" }}</p>
+      </div>
+
+      <span class="status-badge">
+        {{ getOrderStatusText(order.orderStatus) }}
+      </span>
+    </div>
+
+    <div *ngIf="order.orderStatus !== 5" class="order-timeline">
+      <div class="timeline-item" [class]="getTimelineClass(1)">
+        <i class="bi bi-clock"></i>
+        <span>Chờ xác nhận</span>
+      </div>
+
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item" [class]="getTimelineClass(2)">
+        <i class="bi bi-check-circle"></i>
+        <span>Đã xác nhận</span>
+      </div>
+
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item" [class]="getTimelineClass(3)">
+        <i class="bi bi-truck"></i>
+        <span>Đang giao</span>
+      </div>
+
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item" [class]="getTimelineClass(4)">
+        <i class="bi bi-bag-check"></i>
+        <span>Hoàn thành</span>
+      </div>
+    </div>
+
+    <div *ngIf="order.orderStatus === 5" class="alert alert-secondary">
+      Đơn hàng này đã bị hủy.
+    </div>
+
+    <div class="row g-4 mt-1">
+      <div class="col-lg-8">
+        <section class="detail-card">
+          <h4>Sản phẩm đã đặt</h4>
+
+          <div *ngFor="let item of order.items" class="order-item">
+            <div>
+              <strong>{{ item.productName }}</strong>
+              <small>
+                Màu: {{ item.colorName }} · Size: {{ item.sizeName }}
+              </small>
+              <small>SKU: {{ item.sku }}</small>
+
+              <button
+                *ngIf="isCompleted"
+                type="button"
+                class="btn btn-sm btn-outline-dark mt-2"
+                (click)="openReviewForm(item.orderItemId, item.productName)"
+              >
+                <i class="bi bi-star me-1"></i>
+                Đánh giá sản phẩm
+              </button>
+            </div>
+
+            <div class="item-price">
+              <span>
+                {{ item.unitPrice | number: "1.0-0" }} ₫ × {{ item.quantity }}
+              </span>
+              <strong>{{ item.totalPrice | number: "1.0-0" }} ₫</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="detail-card">
+          <h4>Địa chỉ giao hàng</h4>
+          <strong>{{ order.receiverName }} · {{ order.receiverPhone }}</strong>
+          <p class="mb-0 mt-2">{{ order.shippingAddress }}</p>
+        </section>
+
+        <section *ngIf="order.note" class="detail-card">
+          <h4>Ghi chú</h4>
+          <p class="mb-0">{{ order.note }}</p>
+        </section>
+
+        <section *ngIf="order.statusHistories.length > 0" class="detail-card">
+          <h4>Lịch sử trạng thái</h4>
+
+          <div
+            *ngFor="let history of order.statusHistories"
+            class="history-row"
+          >
+            <strong>{{ getOrderStatusText(history.status) }}</strong>
+
+            <span>
+              {{ history.createdAt | date: "dd/MM/yyyy HH:mm" }}
+              <span *ngIf="history.changedByName">
+                · {{ history.changedByName }}
+              </span>
+            </span>
+
+            <small *ngIf="history.note">{{ history.note }}</small>
+          </div>
+        </section>
+      </div>
+
+      <div class="col-lg-4">
+        <aside class="detail-card payment-summary">
+          <h4>Thanh toán</h4>
+
+          <div *ngFor="let payment of order.payments" class="payment-row">
+            <span>{{ getPaymentMethodText(payment.paymentMethod) }}</span>
+            <strong>{{ getPaymentStatusText(payment.paymentStatus) }}</strong>
+          </div>
+
+          <hr />
+
+          <div class="summary-row">
+            <span>Tạm tính</span>
+            <strong>{{ order.subtotal | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Phí vận chuyển</span>
+            <strong>{{ order.shippingFee | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div *ngIf="order.discountAmount > 0" class="summary-row discount">
+            <span
+              >Giảm giá
+              {{ order.couponCode ? "(" + order.couponCode + ")" : "" }}</span
+            >
+            <strong>-{{ order.discountAmount | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <hr />
+
+          <div class="summary-total">
+            <span>Tổng thanh toán</span>
+            <strong>{{ order.totalAmount | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <button
+            *ngIf="isPending"
+            type="button"
+            class="btn btn-outline-danger w-100 mt-4"
+            [disabled]="cancelling"
+            (click)="cancelOrder()"
+          >
+            {{ cancelling ? "Đang hủy..." : "Hủy đơn hàng" }}
+          </button>
+        </aside>
+
+        <aside
+          *ngIf="isMockQrUnpaid && mockQr"
+          class="detail-card mock-qr-card"
+        >
+          <i class="bi bi-qr-code qr-icon"></i>
+          <h4>QR thanh toán mô phỏng</h4>
+
+          <p class="small">{{ mockQr.message }}</p>
+
+          <div class="qr-row">
+            <span>Ngân hàng</span>
+            <strong>{{ mockQr.bankName }}</strong>
+          </div>
+
+          <div class="qr-row">
+            <span>Số tài khoản</span>
+            <strong>{{ mockQr.accountNumber }}</strong>
+          </div>
+
+          <div class="qr-row">
+            <span>Số tiền</span>
+            <strong>{{ mockQr.amount | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div class="qr-row">
+            <span>Nội dung</span>
+            <strong>{{ mockQr.transferContent }}</strong>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-success w-100 mt-3"
+            [disabled]="confirmingQr"
+            (click)="confirmMockQr()"
+          >
+            {{
+              confirmingQr ? "Đang xác nhận..." : "Mô phỏng: Tôi đã thanh toán"
+            }}
+          </button>
+        </aside>
+      </div>
+    </div>
+    <div *ngIf="showReviewForm" class="review-overlay">
+      <div class="review-modal">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h4 class="mb-1">Đánh giá sản phẩm</h4>
+            <p class="text-muted mb-0">{{ selectedProductName }}</p>
+          </div>
+
+          <button
+            type="button"
+            class="btn-close"
+            [disabled]="submittingReview"
+            (click)="closeReviewForm()"
+          ></button>
+        </div>
+
+        <div *ngIf="reviewErrorMessage" class="alert alert-danger">
+          {{ reviewErrorMessage }}
+        </div>
+
+        <label class="form-label">Số sao *</label>
+
+        <div class="rating-picker mb-3">
+          <button
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            type="button"
+            [class.active]="star <= reviewRating"
+            (click)="reviewRating = star"
+          >
+            <i class="bi bi-star-fill"></i>
+          </button>
+        </div>
+
+        <label class="form-label">Nhận xét</label>
+
+        <textarea
+          class="form-control"
+          rows="4"
+          maxlength="1000"
+          placeholder="Chia sẻ cảm nhận của bạn về sản phẩm..."
+          [(ngModel)]="reviewComment"
+        ></textarea>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            [disabled]="submittingReview"
+            (click)="closeReviewForm()"
+          >
+            Hủy
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-dark"
+            [disabled]="submittingReview"
+            (click)="submitReview()"
+          >
+            {{ submittingReview ? "Đang gửi..." : "Gửi đánh giá" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

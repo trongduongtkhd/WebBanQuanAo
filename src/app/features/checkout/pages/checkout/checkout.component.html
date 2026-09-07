@@ -1,0 +1,274 @@
+<div class="container py-5">
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="mt-3 text-muted">Đang chuẩn bị thông tin thanh toán...</p>
+  </div>
+
+  <div *ngIf="!loading && !createdOrder">
+    <h1 class="page-title mb-4">Thanh toán</h1>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <section class="checkout-card">
+          <h4>1. Địa chỉ giao hàng</h4>
+
+          <div *ngIf="addresses.length === 0" class="alert alert-warning mb-0">
+            Bạn chưa có địa chỉ giao hàng. Hãy thêm địa chỉ trong trang Tài
+            khoản trước khi đặt hàng.
+          </div>
+
+          <label
+            *ngFor="let address of addresses"
+            class="address-option"
+            [class.active]="selectedAddressId === address.addressId"
+          >
+            <input
+              type="radio"
+              name="address"
+              [value]="address.addressId"
+              [(ngModel)]="selectedAddressId"
+            />
+
+            <span>
+              <strong>
+                {{ address.receiverName }} · {{ address.receiverPhone }}
+              </strong>
+
+              <small *ngIf="address.isDefault" class="default-label">
+                Mặc định
+              </small>
+
+              <span class="d-block mt-1">
+                {{ getAddressText(address) }}
+              </span>
+            </span>
+          </label>
+        </section>
+
+        <section class="checkout-card">
+          <h4>2. Mã giảm giá</h4>
+
+          <div *ngIf="!appliedCoupon" class="coupon-form">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ví dụ: SALE10"
+              [(ngModel)]="couponCode"
+              (keyup.enter)="applyCoupon()"
+            />
+
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              [disabled]="applyingCoupon"
+              (click)="applyCoupon()"
+            >
+              {{ applyingCoupon ? "Đang kiểm tra..." : "Áp dụng" }}
+            </button>
+          </div>
+
+          <div *ngIf="couponErrorMessage" class="text-danger small mt-2">
+            {{ couponErrorMessage }}
+          </div>
+
+          <div *ngIf="appliedCoupon" class="applied-coupon mt-3">
+            <div>
+              <strong>{{ appliedCoupon.couponCode }}</strong>
+              <span> - {{ appliedCoupon.couponName }}</span>
+            </div>
+
+            <button type="button" (click)="removeCoupon()">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </section>
+
+        <section class="checkout-card">
+          <h4>3. Phương thức thanh toán</h4>
+
+          <label
+            class="payment-option"
+            [class.active]="selectedPaymentMethod === 1"
+          >
+            <input
+              type="radio"
+              name="paymentMethod"
+              [value]="1"
+              [(ngModel)]="selectedPaymentMethod"
+            />
+
+            <span>
+              <strong>Thanh toán khi nhận hàng (COD)</strong>
+              <small
+                >Thanh toán trực tiếp khi đơn hàng được giao đến bạn.</small
+              >
+            </span>
+          </label>
+
+          <label
+            class="payment-option"
+            [class.active]="selectedPaymentMethod === 2"
+          >
+            <input
+              type="radio"
+              name="paymentMethod"
+              [value]="2"
+              [(ngModel)]="selectedPaymentMethod"
+            />
+
+            <span>
+              <strong>Thanh toán bằng QR mô phỏng</strong>
+              <small
+                >Phục vụ mục đích demo đồ án, không phát sinh giao dịch
+                thật.</small
+              >
+            </span>
+          </label>
+        </section>
+
+        <section class="checkout-card">
+          <h4>4. Ghi chú đơn hàng</h4>
+
+          <textarea
+            class="form-control"
+            rows="3"
+            maxlength="500"
+            placeholder="Ví dụ: Giao hàng giờ hành chính..."
+            [(ngModel)]="note"
+          ></textarea>
+        </section>
+      </div>
+
+      <div class="col-lg-4">
+        <aside class="order-summary">
+          <h4>Đơn hàng của bạn</h4>
+
+          <div *ngFor="let item of cart?.items" class="summary-item">
+            <span>
+              {{ item.productName }}
+              <small>× {{ item.quantity }}</small>
+            </span>
+
+            <strong>{{ item.totalPrice | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <hr />
+
+          <div class="summary-row">
+            <span>Tạm tính</span>
+            <strong>{{ cart?.subtotal | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div *ngIf="appliedCoupon" class="summary-row discount">
+            <span>Giảm giá</span>
+            <strong>-{{ discountAmount | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Phí vận chuyển</span>
+            <span>Backend sẽ xác nhận</span>
+          </div>
+
+          <hr />
+
+          <div class="summary-total">
+            <span>Tạm tính sau giảm giá</span>
+            <strong>{{ amountAfterDiscount | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-dark w-100 mt-4 py-3"
+            [disabled]="!canCreateOrder"
+            (click)="createOrder()"
+          >
+            <span
+              *ngIf="creatingOrder"
+              class="spinner-border spinner-border-sm me-2"
+            ></span>
+
+            {{ creatingOrder ? "Đang tạo đơn..." : "Đặt hàng" }}
+          </button>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kết quả tạo đơn -->
+  <div *ngIf="!loading && createdOrder" class="order-result">
+    <div class="result-icon">
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+
+    <h1>Đặt hàng thành công!</h1>
+
+    <p>
+      Mã đơn hàng:
+      <strong>{{ createdOrder.orderCode }}</strong>
+    </p>
+
+    <div class="result-card">
+      <div>
+        <span>Tổng thanh toán</span>
+        <strong>{{ createdOrder.totalAmount | number: "1.0-0" }} ₫</strong>
+      </div>
+
+      <div>
+        <span>Địa chỉ giao hàng</span>
+        <strong>{{ createdOrder.shippingAddress }}</strong>
+      </div>
+    </div>
+
+    <div *ngIf="selectedPaymentMethod === 1" class="alert alert-info mt-4">
+      Bạn đã chọn thanh toán COD. Vui lòng thanh toán khi nhận hàng.
+    </div>
+
+    <div
+      *ngIf="selectedPaymentMethod === 2 && mockQr"
+      class="mock-qr-card mt-4"
+    >
+      <i class="bi bi-qr-code qr-icon"></i>
+
+      <h4>QR thanh toán mô phỏng</h4>
+      <p>{{ mockQr.message }}</p>
+
+      <div class="qr-info">
+        <span>Ngân hàng</span>
+        <strong>{{ mockQr.bankName }}</strong>
+
+        <span>Số tài khoản</span>
+        <strong>{{ mockQr.accountNumber }}</strong>
+
+        <span>Số tiền</span>
+        <strong>{{ mockQr.amount | number: "1.0-0" }} ₫</strong>
+
+        <span>Nội dung chuyển khoản</span>
+        <strong>{{ mockQr.transferContent }}</strong>
+      </div>
+
+      <button
+        *ngIf="!paymentConfirmed"
+        type="button"
+        class="btn btn-success mt-4"
+        [disabled]="confirmingQr"
+        (click)="confirmMockQr()"
+      >
+        {{ confirmingQr ? "Đang xác nhận..." : "Mô phỏng: Tôi đã thanh toán" }}
+      </button>
+
+      <div *ngIf="paymentConfirmed" class="alert alert-success mt-4 mb-0">
+        Thanh toán QR mô phỏng thành công.
+      </div>
+    </div>
+
+    <a routerLink="/products" class="btn btn-dark mt-4"> Tiếp tục mua sắm </a>
+  </div>
+</div>

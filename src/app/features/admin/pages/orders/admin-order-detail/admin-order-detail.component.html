@@ -1,0 +1,154 @@
+<div class="admin-page">
+  <button class="btn btn-outline-dark mb-4" (click)="goBack()">
+    <i class="bi bi-arrow-left me-2"></i>
+    Quay lại danh sách
+  </button>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <ng-container *ngIf="!loading && order">
+    <div class="page-header">
+      <div>
+        <h2>Đơn hàng {{ order.orderCode }}</h2>
+        <p>Ngày tạo: {{ order.createdAt | date: "dd/MM/yyyy HH:mm" }}</p>
+      </div>
+
+      <strong class="total-amount">
+        {{ order.totalAmount | number: "1.0-0" }} ₫
+      </strong>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <section class="admin-card mb-4">
+          <h4>Sản phẩm</h4>
+
+          <div *ngFor="let item of order.items" class="order-item">
+            <div>
+              <strong>{{ item.productName }}</strong>
+              <small>
+                Màu: {{ item.colorName }} · Size: {{ item.sizeName }}
+              </small>
+              <small>SKU: {{ item.sku }}</small>
+            </div>
+
+            <div class="text-end">
+              <small>
+                {{ item.unitPrice | number: "1.0-0" }} ₫ × {{ item.quantity }}
+              </small>
+              <strong class="d-block">
+                {{ item.totalPrice | number: "1.0-0" }} ₫
+              </strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="admin-card mb-4">
+          <h4>Giao hàng</h4>
+          <p class="mb-1">
+            <strong
+              >{{ order.receiverName }} · {{ order.receiverPhone }}</strong
+            >
+          </p>
+          <p class="mb-0">{{ order.shippingAddress }}</p>
+        </section>
+
+        <section *ngIf="order.note" class="admin-card">
+          <h4>Ghi chú khách hàng</h4>
+          <p class="mb-0">{{ order.note }}</p>
+        </section>
+      </div>
+
+      <div class="col-lg-4">
+        <section class="admin-card mb-4">
+          <h4>Trạng thái đơn</h4>
+
+          <p>
+            Hiện tại:
+            <strong>{{ getOrderStatusText(order.orderStatus) }}</strong>
+          </p>
+
+          <button
+            *ngIf="nextOrderStatus"
+            type="button"
+            class="btn btn-dark w-100"
+            [disabled]="updatingOrderStatus"
+            (click)="updateOrderStatus()"
+          >
+            {{
+              updatingOrderStatus
+                ? "Đang cập nhật..."
+                : "Chuyển sang: " + nextOrderStatusLabel
+            }}
+          </button>
+
+          <p *ngIf="!nextOrderStatus" class="text-muted small mb-0">
+            Đơn hàng đã ở trạng thái cuối cùng hoặc đã bị hủy.
+          </p>
+        </section>
+
+        <section class="admin-card mb-4">
+          <h4>Thanh toán</h4>
+
+          <div *ngFor="let payment of order.payments" class="payment-row">
+            <span>{{ getPaymentMethodText(payment.paymentMethod) }}</span>
+            <strong>{{ getPaymentStatusText(payment.paymentStatus) }}</strong>
+          </div>
+
+          <button
+            *ngIf="nextPaymentStatus"
+            type="button"
+            class="btn btn-outline-success w-100 mt-3"
+            [disabled]="updatingPaymentStatus"
+            (click)="updatePaymentStatus()"
+          >
+            {{
+              updatingPaymentStatus
+                ? "Đang cập nhật..."
+                : "Chuyển sang: " + nextPaymentStatusLabel
+            }}
+          </button>
+        </section>
+
+        <section class="admin-card">
+          <h4>Tổng tiền</h4>
+
+          <div class="summary-row">
+            <span>Tạm tính</span>
+            <strong>{{ order.subtotal | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Vận chuyển</span>
+            <strong>{{ order.shippingFee | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <div
+            *ngIf="order.discountAmount > 0"
+            class="summary-row text-success"
+          >
+            <span>Giảm giá</span>
+            <strong>-{{ order.discountAmount | number: "1.0-0" }} ₫</strong>
+          </div>
+
+          <hr />
+
+          <div class="summary-total">
+            <span>Tổng cộng</span>
+            <strong>{{ order.totalAmount | number: "1.0-0" }} ₫</strong>
+          </div>
+        </section>
+      </div>
+    </div>
+  </ng-container>
+</div>

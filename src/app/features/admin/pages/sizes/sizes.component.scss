@@ -1,0 +1,11 @@
+@import "../categories/categories.component.scss";
+
+.size-badge {
+  display: inline-flex;
+  min-width: 42px;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #f1f1f1;
+  font-weight: 700;
+}

@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #f4f6f8;
+}
+
+app-admin-sidebar {
+  flex: 0 0 325px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.admin-main {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+app-admin-header {
+  display: block;
+  z-index: 10;
+  flex: 0 0 auto;
+}
+
+.admin-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+}

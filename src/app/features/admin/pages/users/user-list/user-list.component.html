@@ -1,0 +1,197 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Quản lý người dùng</h2>
+      <p>Tìm kiếm, xem role và khóa/mở khóa tài khoản.</p>
+    </div>
+  </div>
+
+  <div class="admin-card mb-4">
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Tìm họ tên, email hoặc số điện thoại..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+      </div>
+
+      <div class="col-lg-2">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedRole"
+          (change)="search()"
+        >
+          <option value="">Tất cả role</option>
+          <option value="Customer">Customer</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="col-lg-3">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedStatus"
+          (change)="search()"
+        >
+          <option value="all">Tất cả trạng thái</option>
+          <option value="active">Đang hoạt động</option>
+          <option value="locked">Đã khóa</option>
+        </select>
+      </div>
+
+      <div class="col-lg-2 d-flex gap-2">
+        <button class="btn btn-dark flex-grow-1" (click)="search()">Tìm</button>
+
+        <button
+          class="btn btn-outline-secondary"
+          title="Xóa bộ lọc"
+          (click)="resetFilters()"
+        >
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="!loading" class="admin-card table-responsive">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Người dùng</th>
+          <th>Liên hệ</th>
+          <th>Role</th>
+          <th>Trạng thái</th>
+          <th>Ngày tham gia</th>
+          <th class="text-end">Thao tác</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>
+            <div class="user-info">
+              <img
+                *ngIf="user.avatarUrl"
+                [src]="user.avatarUrl"
+                [alt]="user.fullName"
+                class="user-avatar"
+              />
+
+              <span *ngIf="!user.avatarUrl" class="user-avatar initials">
+                {{ getInitials(user.fullName) }}
+              </span>
+
+              <div>
+                <strong>{{ user.fullName }}</strong>
+                <small>ID: {{ user.userId }}</small>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <strong>{{ user.email }}</strong>
+            <small *ngIf="user.phoneNumber">
+              {{ user.phoneNumber }}
+            </small>
+          </td>
+
+          <td>
+            <span
+              *ngFor="let role of user.roles"
+              class="role-badge"
+              [class.admin-role]="role === 'Admin'"
+            >
+              {{ role }}
+            </span>
+          </td>
+
+          <td>
+            <span
+              class="status-badge"
+              [class.active]="user.isActive"
+              [class.locked]="!user.isActive"
+            >
+              {{ user.isActive ? "Đang hoạt động" : "Đã khóa" }}
+            </span>
+          </td>
+
+          <td>{{ user.createdAt | date: "dd/MM/yyyy" }}</td>
+
+          <td class="text-end">
+            <div class="d-flex justify-content-end gap-2">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-dark"
+                (click)="viewDetail(user.userId)"
+              >
+                Xem
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-sm"
+                [class.btn-outline-danger]="user.isActive"
+                [class.btn-outline-success]="!user.isActive"
+                [disabled]="changingUserId === user.userId"
+                (click)="toggleStatus(user)"
+              >
+                <span
+                  *ngIf="changingUserId === user.userId"
+                  class="spinner-border spinner-border-sm"
+                ></span>
+
+                <span *ngIf="changingUserId !== user.userId">
+                  {{ user.isActive ? "Khóa" : "Mở khóa" }}
+                </span>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngIf="users.length === 0">
+          <td colspan="6" class="text-center py-4 text-muted">
+            Không tìm thấy người dùng phù hợp.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    *ngIf="!loading && totalPages > 1"
+    class="d-flex justify-content-end align-items-center gap-2 mt-4"
+  >
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === 1"
+      (click)="previousPage()"
+    >
+      Trước
+    </button>
+
+    <span>Trang {{ page }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === totalPages"
+      (click)="nextPage()"
+    >
+      Sau
+    </button>
+  </div>
+</div>

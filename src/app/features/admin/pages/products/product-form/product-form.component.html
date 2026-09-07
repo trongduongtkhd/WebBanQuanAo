@@ -1,0 +1,454 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">SẢN PHẨM</p>
+    <h2 class="fw-bold mb-0">
+      {{ productId ? "Cập nhật sản phẩm" : "Thêm sản phẩm mới" }}
+    </h2>
+  </div>
+
+  <a routerLink="/admin/products" class="btn btn-outline-dark"> Quay lại </a>
+</div>
+
+<div *ngIf="isLoading" class="py-5 text-center">
+  Đang tải thông tin sản phẩm...
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-4">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="successMessage" class="alert alert-success mt-4">
+  {{ successMessage }}
+</div>
+
+<section class="admin-card mt-4" *ngIf="!isLoading">
+  <h5 class="mb-4">1. Thông tin chung</h5>
+
+  <form (ngSubmit)="saveProduct()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Danh mục *</label>
+        <select
+          class="form-select"
+          [(ngModel)]="productForm.categoryId"
+          name="categoryId"
+        >
+          <option [ngValue]="0">Chọn danh mục</option>
+
+          <option
+            *ngFor="let category of categories"
+            [ngValue]="category.categoryId"
+          >
+            {{
+              category.parentCategoryName
+                ? category.parentCategoryName + " — "
+                : ""
+            }}
+            {{ category.categoryName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Thương hiệu</label>
+        <select
+          class="form-select"
+          [(ngModel)]="productForm.brandId"
+          name="brandId"
+        >
+          <option [ngValue]="null">Không có thương hiệu</option>
+
+          <option *ngFor="let brand of brands" [ngValue]="brand.brandId">
+            {{ brand.brandName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-8">
+        <label class="form-label">Tên sản phẩm *</label>
+        <input
+          class="form-control"
+          [(ngModel)]="productForm.productName"
+          name="productName"
+          placeholder="Ví dụ: Áo thun basic unisex"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Giới tính *</label>
+        <select
+          class="form-select"
+          [(ngModel)]="productForm.gender"
+          name="gender"
+        >
+          <option *ngFor="let gender of genders" [value]="gender.value">
+            {{ gender.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Giá gốc *</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="productForm.basePrice"
+          name="basePrice"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Giá giảm</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="productForm.salePrice"
+          name="salePrice"
+          placeholder="Để trống nếu không giảm giá"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Chất liệu</label>
+        <input
+          class="form-control"
+          [(ngModel)]="productForm.material"
+          name="material"
+          placeholder="Ví dụ: Cotton 100%"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Mô tả ngắn</label>
+        <input
+          class="form-control"
+          [(ngModel)]="productForm.shortDescription"
+          name="shortDescription"
+        />
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Mô tả chi tiết *</label>
+        <textarea
+          class="form-control"
+          rows="5"
+          [(ngModel)]="productForm.description"
+          name="description"
+        ></textarea>
+      </div>
+
+      <div class="col-12 d-flex flex-wrap gap-4">
+        <div class="form-check">
+          <input
+            id="isFeatured"
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="productForm.isFeatured"
+            name="isFeatured"
+          />
+
+          <label class="form-check-label" for="isFeatured">
+            Sản phẩm nổi bật
+          </label>
+        </div>
+
+        <div class="form-check">
+          <input
+            id="isActive"
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="productForm.isActive"
+            name="isActive"
+          />
+
+          <label class="form-check-label" for="isActive"> Đang bán </label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-dark" [disabled]="isSavingProduct">
+          {{
+            isSavingProduct
+              ? "Đang lưu..."
+              : productId
+                ? "Lưu thông tin sản phẩm"
+                : "Tạo sản phẩm và tiếp tục"
+          }}
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<ng-container *ngIf="productId && product">
+  <section class="admin-card mt-4">
+    <h5 class="mb-4">2. Hình ảnh sản phẩm</h5>
+
+    <form class="row g-3 align-items-end" (ngSubmit)="saveImage()">
+      <div class="col-md-7">
+        <label class="form-label">Đường dẫn ảnh *</label>
+
+        <app-image-upload
+          folder="products"
+          [currentImageUrl]="imageForm.imageUrl || ''"
+          (imageUploaded)="onProductImageUploaded($event)"
+        ></app-image-upload>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Thứ tự</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="imageForm.displayOrder"
+          name="displayOrder"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-check mb-2">
+          <input
+            id="isThumbnail"
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="imageForm.isThumbnail"
+            name="isThumbnail"
+          />
+
+          <label class="form-check-label" for="isThumbnail">
+            Ảnh đại diện
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-outline-dark w-100"
+          [disabled]="isSavingImage"
+        >
+          {{ isSavingImage ? "Đang thêm..." : "Thêm ảnh" }}
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="product.images.length" class="image-grid mt-4">
+      <div class="product-image-card" *ngFor="let image of product.images">
+        <img [src]="image.imageUrl" alt="Ảnh sản phẩm" />
+
+        <span *ngIf="image.isThumbnail" class="badge bg-dark">
+          Ảnh đại diện
+        </span>
+
+        <button
+          class="btn btn-sm btn-danger"
+          (click)="deleteImage(image.imageId)"
+        >
+          Xóa
+        </button>
+      </div>
+    </div>
+
+    <p *ngIf="!product.images.length" class="text-muted mb-0 mt-4">
+      Chưa có ảnh. Hãy thêm ít nhất một ảnh đại diện.
+    </p>
+  </section>
+
+  <section class="admin-card mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h5 class="mb-0">
+        {{ editingVariantId ? "Cập nhật biến thể" : "3. Biến thể và tồn kho" }}
+      </h5>
+
+      <button
+        *ngIf="editingVariantId"
+        class="btn btn-sm btn-outline-dark"
+        (click)="resetVariantForm()"
+      >
+        Hủy sửa biến thể
+      </button>
+    </div>
+
+    <form class="row g-3" (ngSubmit)="saveVariant()">
+      <div class="col-md-3">
+        <label class="form-label">Màu *</label>
+        <select
+          class="form-select"
+          [(ngModel)]="variantForm.colorId"
+          name="colorId"
+        >
+          <option [ngValue]="0">Chọn màu</option>
+
+          <option *ngFor="let color of colors" [ngValue]="color.colorId">
+            {{ color.colorName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Size *</label>
+        <select
+          class="form-select"
+          [(ngModel)]="variantForm.sizeId"
+          name="sizeId"
+        >
+          <option [ngValue]="0">Chọn size</option>
+
+          <option *ngFor="let size of sizes" [ngValue]="size.sizeId">
+            {{ size.sizeName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">SKU *</label>
+        <input
+          class="form-control text-uppercase"
+          [(ngModel)]="variantForm.sku"
+          name="sku"
+          placeholder="ATB-DEN-M"
+        />
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Giá *</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="variantForm.price"
+          name="variantPrice"
+        />
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Giá giảm</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          [(ngModel)]="variantForm.salePrice"
+          name="variantSalePrice"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Tồn kho *</label>
+        <input
+          type="number"
+          min="0"
+          class="form-control"
+          [(ngModel)]="variantForm.stockQuantity"
+          name="stockQuantity"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Ảnh theo màu (tùy chọn)</label>
+        <app-image-upload
+          folder="variants"
+          [currentImageUrl]="variantForm.imageUrl || ''"
+          (imageUploaded)="onVariantImageUploaded($event)"
+        ></app-image-upload>
+      </div>
+
+      <div class="col-md-3 d-flex align-items-end">
+        <div class="form-check mb-2">
+          <input
+            id="variantActive"
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="variantForm.isActive"
+            name="variantActive"
+          />
+
+          <label class="form-check-label" for="variantActive"> Đang bán </label>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-dark" [disabled]="isSavingVariant">
+          {{
+            isSavingVariant
+              ? "Đang lưu..."
+              : editingVariantId
+                ? "Lưu biến thể"
+                : "Thêm biến thể"
+          }}
+        </button>
+      </div>
+    </form>
+
+    <div class="table-responsive mt-4">
+      <table class="table align-middle" *ngIf="product.variants.length">
+        <thead>
+          <tr>
+            <th>Màu</th>
+            <th>Size</th>
+            <th>SKU</th>
+            <th>Giá</th>
+            <th>Tồn kho</th>
+            <th>Trạng thái</th>
+            <th class="text-end">Thao tác</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let variant of product.variants">
+            <td>
+              <span
+                class="color-dot me-2"
+                [style.background-color]="variant.colorCode || '#cccccc'"
+              ></span>
+              {{ variant.colorName }}
+            </td>
+
+            <td>{{ variant.sizeName }}</td>
+
+            <td>
+              <code>{{ variant.sku }}</code>
+            </td>
+
+            <td>
+              {{ variant.salePrice || variant.price | number: "1.0-0" }} ₫
+            </td>
+
+            <td>{{ variant.stockQuantity }}</td>
+
+            <td>
+              <span
+                class="badge"
+                [class.bg-success]="variant.isActive"
+                [class.bg-secondary]="!variant.isActive"
+              >
+                {{ variant.isActive ? "Đang bán" : "Đã ẩn" }}
+              </span>
+            </td>
+
+            <td class="text-end">
+              <button
+                class="btn btn-sm btn-outline-dark me-2"
+                (click)="editVariant(variant)"
+              >
+                Sửa
+              </button>
+
+              <button
+                class="btn btn-sm btn-outline-danger"
+                [disabled]="!variant.isActive"
+                (click)="deleteVariant(variant)"
+              >
+                Ẩn
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="!product.variants.length" class="text-muted mb-0">
+        Chưa có biến thể nào. Mỗi tổ hợp màu và size là một biến thể riêng.
+      </p>
+    </div>
+  </section>
+</ng-container>

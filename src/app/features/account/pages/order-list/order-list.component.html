@@ -1,0 +1,100 @@
+<div class="container py-5">
+  <div class="page-header">
+    <div>
+      <h1>Đơn hàng của tôi</h1>
+      <p>Theo dõi tình trạng các đơn hàng đã đặt.</p>
+    </div>
+
+    <a routerLink="/account/addresses" class="btn btn-outline-dark">
+      <i class="bi bi-geo-alt me-2"></i>
+      Địa chỉ giao hàng
+    </a>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="filter-bar">
+    <select
+      class="form-select"
+      [(ngModel)]="selectedStatus"
+      (change)="changeStatus()"
+    >
+      <option *ngFor="let status of statuses" [ngValue]="status.value">
+        {{ status.label }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="text-muted mt-3">Đang tải đơn hàng...</p>
+  </div>
+
+  <div *ngIf="!loading && orders.length === 0" class="empty-state">
+    <i class="bi bi-receipt"></i>
+    <h3>Chưa có đơn hàng nào</h3>
+    <p>Hãy khám phá các sản phẩm phù hợp với bạn.</p>
+
+    <a routerLink="/products" class="btn btn-dark"> Mua sắm ngay </a>
+  </div>
+
+  <div *ngIf="!loading && orders.length > 0" class="order-list">
+    <button
+      *ngFor="let order of orders"
+      type="button"
+      class="order-card"
+      (click)="viewDetail(order.orderId)"
+    >
+      <div class="order-top">
+        <div>
+          <strong>Mã đơn: {{ order.orderCode }}</strong>
+          <span class="order-date">
+            {{ order.createdAt | date: "dd/MM/yyyy HH:mm" }}
+          </span>
+        </div>
+
+        <span class="badge bg-{{ getOrderStatusClass(order.orderStatus) }}">
+          {{ getOrderStatusText(order.orderStatus) }}
+        </span>
+      </div>
+
+      <div class="order-bottom">
+        <span>{{ order.totalItems }} sản phẩm</span>
+
+        <span>
+          Thanh toán:
+          <strong>{{ getPaymentStatusText(order.paymentStatus) }}</strong>
+        </span>
+
+        <strong class="total-price">
+          {{ order.totalAmount | number: "1.0-0" }} ₫
+        </strong>
+      </div>
+    </button>
+  </div>
+
+  <div
+    *ngIf="!loading && totalPages > 1"
+    class="d-flex justify-content-center align-items-center gap-3 mt-4"
+  >
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === 1"
+      (click)="previousPage()"
+    >
+      Trước
+    </button>
+
+    <span>Trang {{ page }} / {{ totalPages }}</span>
+
+    <button
+      class="btn btn-outline-secondary"
+      [disabled]="page === totalPages"
+      (click)="nextPage()"
+    >
+      Sau
+    </button>
+  </div>
+</div>

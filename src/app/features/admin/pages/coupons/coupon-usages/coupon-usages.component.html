@@ -1,0 +1,76 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>Lịch sử sử dụng coupon</h2>
+      <p>Tổng số lượt sử dụng: {{ totalItems }}</p>
+    </div>
+
+    <button class="btn btn-outline-dark" (click)="goBack()">Quay lại</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <div *ngIf="!loading" class="admin-card table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Khách hàng</th>
+          <th>Đơn hàng</th>
+          <th>Giảm giá</th>
+          <th>Thời gian dùng</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let usage of usages">
+          <td>
+            <strong>{{ usage.userFullName }}</strong>
+            <small class="d-block text-muted">{{ usage.userEmail }}</small>
+          </td>
+
+          <td>#{{ usage.orderCode }}</td>
+
+          <td class="text-success">
+            -{{ usage.discountAmount | number: "1.0-0" }} ₫
+          </td>
+
+          <td>{{ usage.usedAt | date: "dd/MM/yyyy HH:mm" }}</td>
+        </tr>
+
+        <tr *ngIf="usages.length === 0">
+          <td colspan="4" class="text-center py-4 text-muted">
+            Coupon này chưa được sử dụng.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button
+        class="btn btn-outline-secondary"
+        [disabled]="page <= 1"
+        (click)="previousPage()"
+      >
+        Trước
+      </button>
+
+      <span class="align-self-center">
+        Trang {{ page }} / {{ totalPages }}
+      </span>
+
+      <button
+        class="btn btn-outline-secondary"
+        [disabled]="page >= totalPages"
+        (click)="nextPage()"
+      >
+        Sau
+      </button>
+    </div>
+  </div>
+</div>

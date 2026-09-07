@@ -1,0 +1,201 @@
+<div class="admin-page">
+  <div class="page-header">
+    <div>
+      <h2>{{ couponId ? "Chỉnh sửa coupon" : "Tạo coupon mới" }}</h2>
+      <p>Thiết lập điều kiện và mức giảm giá cho chương trình.</p>
+    </div>
+
+    <button class="btn btn-outline-dark" (click)="cancel()">Quay lại</button>
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+  </div>
+
+  <form
+    *ngIf="!loading"
+    [formGroup]="couponForm"
+    (ngSubmit)="save()"
+    class="admin-card coupon-form"
+  >
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">Mã coupon *</label>
+        <input class="form-control" formControlName="code" />
+      </div>
+
+      <div class="col-md-8">
+        <label class="form-label">Tên chương trình *</label>
+        <input class="form-control" formControlName="name" />
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Mô tả</label>
+        <textarea
+          rows="2"
+          class="form-control"
+          formControlName="description"
+        ></textarea>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Kiểu giảm giá *</label>
+        <select class="form-select" formControlName="discountType">
+          <option [ngValue]="1">Giảm theo phần trăm (%)</option>
+          <option [ngValue]="2">Giảm theo số tiền (₫)</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">
+          {{ isPercentage ? "Phần trăm giảm (%)" : "Số tiền giảm (₫)" }} *
+        </label>
+
+        <input
+          type="number"
+          min="0.01"
+          class="form-control"
+          formControlName="discountValue"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">
+          Mức giảm tối đa (₫)
+          <span *ngIf="!isPercentage">(không bắt buộc)</span>
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          class="form-control"
+          formControlName="maxDiscountAmount"
+          [readonly]="!isPercentage"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Đơn hàng tối thiểu (₫)</label>
+        <input
+          type="number"
+          min="0"
+          class="form-control"
+          formControlName="minOrderAmount"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Ngày bắt đầu *</label>
+        <input
+          type="datetime-local"
+          class="form-control"
+          formControlName="startDate"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Ngày kết thúc *</label>
+        <input
+          type="datetime-local"
+          class="form-control"
+          formControlName="endDate"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Tổng lượt dùng tối đa</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          placeholder="Bỏ trống nếu không giới hạn"
+          formControlName="usageLimit"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Lượt dùng tối đa mỗi khách</label>
+        <input
+          type="number"
+          min="1"
+          class="form-control"
+          placeholder="Bỏ trống nếu không giới hạn"
+          formControlName="usageLimitPerUser"
+        />
+      </div>
+
+      <div class="col-12">
+        <div class="form-check form-switch">
+          <input
+            id="isActive"
+            type="checkbox"
+            class="form-check-input"
+            formControlName="isActive"
+          />
+          <label class="form-check-label" for="isActive">
+            Kích hoạt coupon ngay sau khi lưu
+          </label>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">
+          Áp dụng cho danh mục
+          <small>(không chọn = tất cả danh mục)</small>
+        </label>
+
+        <div class="selection-box">
+          <label *ngFor="let category of categories" class="check-row">
+            <input
+              type="checkbox"
+              [checked]="isCategorySelected(category.categoryId)"
+              (change)="toggleCategory(category.categoryId)"
+            />
+            {{ category.categoryName }}
+          </label>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">
+          Áp dụng cho sản phẩm
+          <small>(không chọn = tất cả sản phẩm)</small>
+        </label>
+
+        <div class="selection-box">
+          <label *ngFor="let product of products" class="check-row">
+            <input
+              type="checkbox"
+              [checked]="isProductSelected(product.productId)"
+              (change)="toggleProduct(product.productId)"
+            />
+            {{ product.productName }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+      <button type="submit" class="btn btn-dark" [disabled]="saving">
+        <span
+          *ngIf="saving"
+          class="spinner-border spinner-border-sm me-2"
+        ></span>
+
+        {{ saving ? "Đang lưu..." : "Lưu coupon" }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="cancel()"
+      >
+        Hủy
+      </button>
+    </div>
+  </form>
+</div>

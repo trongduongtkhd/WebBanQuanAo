@@ -1,0 +1,256 @@
+<div class="container py-5">
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-dark"></div>
+    <p class="mt-3 text-muted">Đang tải sản phẩm...</p>
+  </div>
+
+  <div *ngIf="!loading && errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!loading && product" class="row g-5">
+    <div class="col-lg-6">
+      <div class="main-image-wrapper">
+        <img
+          [src]="selectedImage"
+          [alt]="product.productName"
+          class="main-image"
+          (error)="onImageError($event)"
+        />
+      </div>
+
+      <div class="thumbnail-list mt-3" *ngIf="product.images.length > 0">
+        <button
+          type="button"
+          class="thumbnail-item"
+          *ngFor="let image of product.images"
+          [class.active]="selectedImage === image.imageUrl"
+          (click)="selectImage(image)"
+        >
+          <img
+            [src]="image.imageUrl"
+            [alt]="product.productName"
+            (error)="onImageError($event)"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <p class="text-uppercase text-muted small mb-2">
+        {{ product.categoryName }}
+        <span *ngIf="product.brandName">· {{ product.brandName }}</span>
+      </p>
+
+      <h1 class="product-title">{{ product.productName }}</h1>
+
+      <div class="price-box mb-4">
+        <span class="current-price">
+          {{ currentPrice | number: "1.0-0" }} ₫
+        </span>
+
+        <del
+          *ngIf="
+            selectedVariant?.salePrice ||
+            (!selectedVariant && product.salePrice)
+          "
+          class="old-price ms-2"
+        >
+          {{ selectedVariant?.price || product.basePrice | number: "1.0-0" }} ₫
+        </del>
+      </div>
+
+      <p class="description" *ngIf="product.description">
+        {{ product.description }}
+      </p>
+
+      <hr />
+
+      <div class="option-group">
+        <div class="option-label">
+          Màu sắc
+          <span class="required">*</span>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+          <button
+            type="button"
+            class="color-button"
+            *ngFor="let color of colors"
+            [class.active]="selectedColorId === color.colorId"
+            (click)="selectColor(color.colorId)"
+            [title]="color.colorName"
+          >
+            <span
+              class="color-dot"
+              [style.backgroundColor]="color.colorCode || '#333'"
+            ></span>
+            {{ color.colorName }}
+          </button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <div class="option-label">
+          Kích thước
+          <span class="required">*</span>
+        </div>
+
+        <p *ngIf="!selectedColorId" class="text-muted small">
+          Hãy chọn màu trước để xem kích thước có sẵn.
+        </p>
+
+        <div class="d-flex flex-wrap gap-2" *ngIf="selectedColorId">
+          <button
+            type="button"
+            class="size-button"
+            *ngFor="let size of availableSizes"
+            [class.active]="selectedSizeId === size.sizeId"
+            [class.out-of-stock]="size.stockQuantity <= 0"
+            (click)="selectSize(size.sizeId)"
+          >
+            {{ size.sizeName }}
+          </button>
+        </div>
+      </div>
+
+      <div class="stock-message" *ngIf="selectedVariant">
+        <span *ngIf="stockQuantity > 0" class="text-success">
+          <i class="bi bi-check-circle-fill"></i>
+          Còn {{ stockQuantity }} sản phẩm
+        </span>
+
+        <span *ngIf="stockQuantity <= 0" class="text-danger">
+          <i class="bi bi-x-circle-fill"></i>
+          Sản phẩm này đã hết hàng
+        </span>
+      </div>
+
+      <div class="alert alert-success mt-3" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="alert alert-danger mt-3" *ngIf="cartErrorMessage">
+        {{ cartErrorMessage }}
+      </div>
+
+      <div class="add-cart-row mt-4">
+        <div class="quantity-control product-quantity-control">
+          <button
+            type="button"
+            class="quantity-button"
+            aria-label="Giảm số lượng"
+            [disabled]="quantity <= 1"
+            (click)="decreaseQuantity()"
+          >
+            &minus;
+          </button>
+
+          <span class="quantity-value">{{ quantity }}</span>
+
+          <button
+            type="button"
+            class="quantity-button"
+            aria-label="Tăng số lượng"
+            [disabled]="!selectedVariant || quantity >= stockQuantity"
+            (click)="increaseQuantity()"
+          >
+            +
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-dark add-cart-button"
+          [disabled]="!canAddToCart"
+          (click)="addToCart()"
+        >
+          <span
+            *ngIf="addingToCart"
+            class="spinner-border spinner-border-sm me-2"
+          ></span>
+
+          <i *ngIf="!addingToCart" class="bi bi-bag-plus me-2"></i>
+
+          {{ addingToCart ? "Đang thêm..." : "Thêm vào giỏ hàng" }}
+        </button>
+      </div>
+
+      <p class="sku-text mt-3" *ngIf="selectedVariant">
+        SKU: {{ selectedVariant.sku }}
+      </p>
+    </div>
+  </div>
+  <!--  Review Section -->
+  <section *ngIf="!loading && product" class="review-section">
+    <div class="review-heading">
+      <div>
+        <h3>Đánh giá từ khách hàng</h3>
+        <p>{{ reviewTotalItems }} đánh giá đã được duyệt</p>
+      </div>
+    </div>
+
+    <div *ngIf="reviewsLoading" class="text-center py-4">
+      <div class="spinner-border spinner-border-sm"></div>
+      <span class="ms-2 text-muted">Đang tải đánh giá...</span>
+    </div>
+
+    <div *ngIf="!reviewsLoading && reviews.length === 0" class="empty-review">
+      Chưa có đánh giá nào cho sản phẩm này.
+    </div>
+
+    <article *ngFor="let review of reviews" class="review-item">
+      <div class="review-user">
+        <div class="avatar">
+          {{ review.userFullName.charAt(0).toUpperCase() }}
+        </div>
+
+        <div>
+          <strong>{{ review.userFullName }}</strong>
+
+          <div class="stars">
+            <i
+              *ngFor="let star of getStars(review.rating)"
+              class="bi bi-star-fill"
+            ></i>
+
+            <span>{{ review.rating }}/5</span>
+          </div>
+        </div>
+
+        <small>
+          {{ review.createdAt | date: "dd/MM/yyyy" }}
+        </small>
+      </div>
+
+      <p *ngIf="review.comment" class="review-content">
+        {{ review.comment }}
+      </p>
+    </article>
+
+    <div
+      *ngIf="!reviewsLoading && reviewTotalPages > 1"
+      class="d-flex justify-content-center align-items-center gap-2 mt-4"
+    >
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="reviewPage === 1"
+        (click)="previousReviewPage()"
+      >
+        Trước
+      </button>
+
+      <span>Trang {{ reviewPage }} / {{ reviewTotalPages }}</span>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="reviewPage === reviewTotalPages"
+        (click)="nextReviewPage()"
+      >
+        Sau
+      </button>
+    </div>
+  </section>
+</div>
