@@ -9,7 +9,7 @@ import {
 } from '../../../../core/models/checkout.model';
 import { CartService } from '../../../../core/services/cart.service';
 import { CheckoutService } from '../../../../core/services/checkout.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -45,14 +45,19 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+    this.couponCode = this.route.snapshot.queryParamMap.get('coupon') || '';
     this.loadCheckoutData();
   }
 
   loadCheckoutData(): void {
     this.loading = true;
+    if (this.couponCode.trim()) {
+      this.applyCoupon();
+    }
 
     forkJoin({
       cartResponse: this.cartService.getCart(),

@@ -1,0 +1,111 @@
+<div class="container py-5">
+  <div class="page-header">
+    <div>
+      <p class="section-label mb-1">KHUYẾN MÃI</p>
+      <h1>Ưu đãi của tôi</h1>
+      <p>Xem các mã giảm giá được áp dụng cho giỏ hàng hiện tại.</p>
+    </div>
+
+    <a routerLink="/cart" class="btn btn-outline-dark">
+      <i class="bi bi-bag me-2"></i>
+      Xem giỏ hàng
+    </a>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="mt-3 text-muted">Đang kiểm tra ưu đãi phù hợp...</p>
+  </div>
+
+  <div *ngIf="!loading && coupons.length === 0" class="empty-state">
+    <i class="bi bi-ticket-perforated"></i>
+    <h3>Hiện chưa có ưu đãi</h3>
+    <p>Hãy quay lại sau để cập nhật các chương trình khuyến mãi mới.</p>
+
+    <a routerLink="/products" class="btn btn-dark"> Tiếp tục mua sắm </a>
+  </div>
+
+  <div *ngIf="!loading && coupons.length > 0" class="coupon-grid">
+    <article
+      *ngFor="let coupon of coupons"
+      class="coupon-card"
+      [class.unavailable]="!coupon.isUsable"
+    >
+      <div class="coupon-discount">
+        <i class="bi bi-ticket-perforated-fill"></i>
+        <strong>{{ getDiscountText(coupon) }}</strong>
+
+        <small *ngIf="coupon.maxDiscountAmount">
+          Tối đa {{ coupon.maxDiscountAmount | number: "1.0-0" }} ₫
+        </small>
+      </div>
+
+      <div class="coupon-content">
+        <div class="coupon-head">
+          <div>
+            <h4>{{ coupon.name }}</h4>
+            <p *ngIf="coupon.description">{{ coupon.description }}</p>
+          </div>
+
+          <span
+            class="coupon-status"
+            [class.usable]="coupon.isUsable"
+            [class.unusable]="!coupon.isUsable"
+          >
+            {{ coupon.isUsable ? "Dùng được" : "Chưa áp dụng được" }}
+          </span>
+        </div>
+
+        <div class="coupon-code-row">
+          <code>{{ coupon.code }}</code>
+
+          <button type="button" (click)="copyCode(coupon.code)">
+            <i class="bi bi-copy me-1"></i>
+            {{ copiedCode === coupon.code ? "Đã sao chép" : "Sao chép" }}
+          </button>
+        </div>
+
+        <ul class="coupon-conditions">
+          <li>
+            Đơn hợp lệ từ
+            <strong>{{ coupon.minOrderAmount | number: "1.0-0" }} ₫</strong>
+          </li>
+
+          <li>
+            Hạn dùng:
+            <strong>{{ coupon.endDate | date: "dd/MM/yyyy HH:mm" }}</strong>
+          </li>
+
+          <li *ngIf="coupon.usageLimitPerUser">
+            Đã dùng {{ coupon.userUsedCount }}/{{ coupon.usageLimitPerUser }}
+            lượt của bạn
+          </li>
+        </ul>
+
+        <div *ngIf="coupon.isUsable" class="coupon-saving">
+          Bạn có thể tiết kiệm
+          <strong>{{ coupon.discountAmount | number: "1.0-0" }} ₫</strong>
+          với giỏ hàng hiện tại.
+        </div>
+
+        <div *ngIf="!coupon.isUsable" class="coupon-reason">
+          <i class="bi bi-info-circle me-1"></i>
+          {{ coupon.unavailableReason }}
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-dark w-100 mt-3"
+          [disabled]="!coupon.isUsable"
+          (click)="useCoupon(coupon)"
+        >
+          {{ coupon.isUsable ? "Dùng mã này" : "Chưa đủ điều kiện" }}
+        </button>
+      </div>
+    </article>
+  </div>
+</div>

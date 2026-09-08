@@ -8,8 +8,9 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyReviewsComponent } from './pages/my-reviews/my-reviews.component';
+import { MyCouponsComponent } from './pages/my-coupons/my-coupons.component';
 @NgModule({
-  declarations: [AddressesComponent, OrderListComponent, OrderDetailComponent, ProfileComponent, MyReviewsComponent],
+  declarations: [AddressesComponent, OrderListComponent, OrderDetailComponent, ProfileComponent, MyReviewsComponent, MyCouponsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

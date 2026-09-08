@@ -25,6 +25,11 @@
           <i class="bi bi-receipt me-1"></i>
           Đơn hàng của tôi
         </a>
+
+        <a routerLink="/account/coupons" class="text-decoration-none text-dark">
+          <i class="bi bi-ticket-perforated me-1"></i>
+          Ưu đãi
+        </a>
         <a
           *ngIf="user.roles.includes('Admin')"
           routerLink="/admin/dashboard"

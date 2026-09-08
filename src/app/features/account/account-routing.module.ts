@@ -6,6 +6,8 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyReviewsComponent } from './pages/my-reviews/my-reviews.component';
+
+import { MyCouponsComponent } from './pages/my-coupons/my-coupons.component';
 const routes: Routes = [
   {
     path: '',
@@ -37,6 +39,10 @@ const routes: Routes = [
       {
         path: 'reviews',
         component: MyReviewsComponent,
+      },
+      {
+        path: 'coupons',
+        component: MyCouponsComponent,
       },
     ],
   },
