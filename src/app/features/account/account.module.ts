@@ -9,13 +9,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyReviewsComponent } from './pages/my-reviews/my-reviews.component';
 import { MyCouponsComponent } from './pages/my-coupons/my-coupons.component';
+import { SharedModule } from '../../shared/shared.module';
 @NgModule({
-  declarations: [AddressesComponent, OrderListComponent, OrderDetailComponent, ProfileComponent, MyReviewsComponent, MyCouponsComponent],
+  declarations: [
+    AddressesComponent,
+    OrderListComponent,
+    OrderDetailComponent,
+    ProfileComponent,
+    MyReviewsComponent,
+    MyCouponsComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     AccountRoutingModule,
+    SharedModule,
   ],
 })
 export class AccountModule {}

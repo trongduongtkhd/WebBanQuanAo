@@ -85,14 +85,14 @@
               <input class="form-control" formControlName="phoneNumber" />
             </div>
 
-            <div class="col-md-6">
-              <label class="form-label">Avatar URL</label>
+            <div class="col-12">
+              <label class="form-label">Ảnh đại diện</label>
 
-              <input
-                class="form-control"
-                placeholder="https://... hoặc assets/images/avatar.jpg"
-                formControlName="avatarUrl"
-              />
+              <app-image-upload
+                uploadMode="avatar"
+                [currentImageUrl]="profileForm.get('avatarUrl')?.value || ''"
+                (imageUploaded)="onAvatarUploaded($event)"
+              ></app-image-upload>
             </div>
           </div>
 

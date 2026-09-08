@@ -16,10 +16,22 @@ export class ImageUploadService {
 
   uploadImage(file: File, folder: string) {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('File', file);
 
     return this.http.post<ApiResponse<UploadImageResponse>>(
       `${environment.apiUrl}/uploads/images/${folder}`,
+      formData,
+    );
+  }
+
+  uploadAvatar(file: File) {
+    const formData = new FormData();
+
+    // Phải khớp UploadImageRequestDto.File của backend.
+    formData.append('File', file);
+
+    return this.http.post<ApiResponse<UploadImageResponse>>(
+      `${environment.apiUrl}/uploads/avatar`,
       formData,
     );
   }

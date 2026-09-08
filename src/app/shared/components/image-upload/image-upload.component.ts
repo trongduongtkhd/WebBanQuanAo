@@ -9,7 +9,7 @@ import { ImageUploadService } from '../../../core/services/image-upload.service'
 export class ImageUploadComponent {
   @Input() folder = 'products';
   @Input() currentImageUrl = '';
-
+  @Input() uploadMode: 'admin' | 'avatar' = 'admin';
   @Output() imageUploaded = new EventEmitter<string>();
 
   uploading = false;
@@ -35,7 +35,12 @@ export class ImageUploadComponent {
 
     this.uploading = true;
 
-    this.imageUploadService.uploadImage(file, this.folder).subscribe({
+    const uploadRequest =
+      this.uploadMode === 'avatar'
+        ? this.imageUploadService.uploadAvatar(file)
+        : this.imageUploadService.uploadImage(file, this.folder);
+
+    uploadRequest.subscribe({
       next: (response) => {
         this.uploading = false;
         this.currentImageUrl = response.data.imageUrl;

@@ -175,4 +175,10 @@ export class ProfileComponent implements OnInit {
 
     return !!control && control.invalid && (control.touched || control.dirty);
   }
+
+  onAvatarUploaded(imageUrl: string): void {
+    this.profileForm.patchValue({
+      avatarUrl: imageUrl,
+    });
+  }
 }
