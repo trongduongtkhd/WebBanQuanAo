@@ -1,27 +1,41 @@
-# ShopClothingUi
+# Clothing Store — Frontend (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.18.
+Giao diện website bán quần áo (trang khách hàng + trang quản trị), viết bằng Angular 12 và Bootstrap 5.
 
-## Development server
+Backend và hướng dẫn chạy toàn bộ hệ thống: **https://github.com/trongduongtkhd/ClothingAPI**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Chạy toàn bộ hệ thống bằng Docker (khuyến nghị)
 
-## Code scaffolding
+Repo này được build tự động bởi `docker-compose.yml` nằm trong repo backend. Clone cả 2 repo cạnh nhau:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+mkdir ClothingStore
+cd ClothingStore
+git clone https://github.com/trongduongtkhd/ClothingAPI.git
+git clone https://github.com/trongduongtkhd/WebBanQuanAo.git shop-clothing-ui
+
+cd ClothingAPI
+cp .env.example .env
+docker compose up -d --build
+```
+
+Sau đó mở http://localhost:4200. Chi tiết (tài khoản admin, xử lý sự cố) xem README của repo backend.
+
+## Chạy frontend riêng để phát triển
+
+Cần Node.js 14 hoặc 16 và backend đang chạy ở `http://localhost:8080` (ví dụ bằng Docker như trên).
+
+```bash
+npm install
+npx ng serve
+```
+
+Mở http://localhost:4200 — trang tự tải lại khi sửa code. Địa chỉ API khi phát triển được cấu hình trong `src/environments/environment.ts`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npx ng build
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Kết quả nằm trong thư mục `dist/`. Khi chạy bằng Docker, bản build được phục vụ bởi Nginx (`nginx.conf`), Nginx chuyển tiếp `/api` và `/uploads` sang container backend.
