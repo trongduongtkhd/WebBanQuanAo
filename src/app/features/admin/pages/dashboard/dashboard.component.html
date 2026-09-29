@@ -116,6 +116,47 @@
       </div>
     </div>
 
+    <div class="admin-card profit-report mb-4">
+      <h5 class="mb-3">
+        <i class="bi bi-graph-up-arrow me-2"></i>
+        Báo cáo lợi nhuận
+        <small class="text-muted fw-normal">(đơn đã hoàn thành)</small>
+      </h5>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="profit-item">
+            <span>Doanh thu</span>
+            <strong>{{ dashboard.totalRevenue | number: "1.0-0" }} ₫</strong>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="profit-item">
+            <span>Giá vốn hàng bán</span>
+            <strong class="text-danger">
+              − {{ dashboard.totalCostOfGoodsSold | number: "1.0-0" }} ₫
+            </strong>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="profit-item highlight">
+            <span>Lợi nhuận gộp</span>
+            <strong
+              [class.text-success]="dashboard.totalProfit > 0"
+              [class.text-danger]="dashboard.totalProfit <= 0"
+            >
+              {{ dashboard.totalProfit | number: "1.0-0" }} ₫
+              <small class="d-block fw-normal">
+                Tỷ suất: {{ dashboard.profitMarginPercent | number: "1.1-1" }}%
+              </small>
+            </strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row g-4">
       <div class="col-xl-7">
         <section class="admin-card h-100">

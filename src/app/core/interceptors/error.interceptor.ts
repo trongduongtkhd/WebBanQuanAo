@@ -34,7 +34,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.router.navigate(['/403']);
         }
 
-        return throwError(() => error);
+        // Lưu ý: dự án dùng RxJS 6.x — throwError() ở bản này CHỈ nhận giá trị
+        // lỗi trực tiếp, KHÔNG hỗ trợ cú pháp factory function throwError(() => error)
+        // của RxJS 7 (nếu viết vậy, cả hàm sẽ bị coi là "lỗi" thay vì error thật).
+        return throwError(error);
       }),
     );
   }

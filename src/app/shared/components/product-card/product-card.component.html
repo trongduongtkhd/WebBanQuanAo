@@ -1,15 +1,59 @@
 <article class="product-card">
-  <a [routerLink]="['/products', product.slug]" class="image-link">
-    <img
-      [src]="product.thumbnailUrl || 'assets/images/placeholders/ao.jpg'"
-      [alt]="product.productName"
-      class="product-image"
-      (error)="onImageError($event)"
-    />
-  </a>
+  <div class="image-wrapper">
+    <a [routerLink]="['/products', product.slug]" class="image-link">
+      <img
+        [src]="(product.thumbnailUrl | imageUrl) || 'assets/images/placeholders/ao.jpg'"
+        [alt]="product.productName"
+        class="product-image"
+        (error)="onImageError($event)"
+      />
+    </a>
+
+    <span class="discount-badge" *ngIf="discountPercent > 0">
+      -{{ discountPercent }}%
+    </span>
+
+    <button
+      type="button"
+      class="wishlist-toggle"
+      [class.active]="isFavorited"
+      [attr.aria-label]="
+        isFavorited ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích'
+      "
+      (click)="toggleWishlist($event)"
+    >
+      <i
+        class="bi"
+        [class.bi-heart-fill]="isFavorited"
+        [class.bi-heart]="!isFavorited"
+      ></i>
+    </button>
+
+    <button
+      type="button"
+      class="quick-cart-btn"
+      title="Chọn màu/size để mua"
+      aria-label="Xem chi tiết để mua hàng"
+      (click)="goToDetail($event)"
+    >
+      <i class="bi bi-bag-plus"></i>
+    </button>
+  </div>
 
   <div class="product-content">
-    <p class="product-brand">{{ product.brandName || product.categoryName }}</p>
+    <div class="product-brand-row">
+      <img
+        *ngIf="product.brandLogoUrl"
+        [src]="product.brandLogoUrl"
+        [alt]="product.brandName || ''"
+        class="brand-logo"
+        (error)="onBrandLogoError($event)"
+      />
+
+      <p class="product-brand">
+        {{ product.brandName || product.categoryName }}
+      </p>
+    </div>
 
     <a [routerLink]="['/products', product.slug]" class="product-name">
       {{ product.productName }}

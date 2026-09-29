@@ -1,0 +1,70 @@
+@import "../../categories/categories.component.scss";
+
+.search-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.88rem;
+  }
+
+  &:hover {
+    border-color: #111;
+  }
+}
+
+.variant-pick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.variant-pick-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+
+  small {
+    margin-left: auto;
+    color: #777;
+  }
+
+  i {
+    color: #111;
+  }
+
+  &:hover {
+    border-color: #111;
+  }
+}

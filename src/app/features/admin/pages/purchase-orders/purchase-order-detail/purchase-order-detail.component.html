@@ -1,0 +1,171 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">KHO HÀNG</p>
+    <h2 class="fw-bold mb-0">
+      Phiếu nhập {{ purchaseOrder?.purchaseOrderCode }}
+      <span *ngIf="purchaseOrder" class="badge fs-6 align-middle ms-2"
+        [class.bg-success]="!isCancelled"
+        [class.bg-secondary]="isCancelled">
+        {{ isCancelled ? "Đã hủy" : "Đã nhập kho" }}
+      </span>
+    </h2>
+  </div>
+
+  <div class="d-flex gap-2">
+    <ng-container *ngIf="purchaseOrder && !isCancelled">
+      <a
+        [routerLink]="['/admin/purchase-orders', purchaseOrder.purchaseOrderId, 'edit']"
+        class="btn btn-outline-primary"
+      >
+        <i class="bi bi-pencil me-1"></i>
+        Sửa phiếu
+      </a>
+
+      <button
+        type="button"
+        class="btn btn-outline-danger"
+        (click)="toggleCancelForm()"
+      >
+        <i class="bi bi-x-circle me-1"></i>
+        Hủy phiếu
+      </button>
+    </ng-container>
+
+    <a routerLink="/admin/purchase-orders" class="btn btn-outline-dark">
+      Quay lại
+    </a>
+  </div>
+</div>
+
+<section *ngIf="showCancelForm && purchaseOrder && !isCancelled" class="admin-card mt-4 border border-danger">
+  <h5 class="mb-2 text-danger">Hủy phiếu nhập kho</h5>
+  <p class="text-muted small mb-3">
+    Tồn kho của các sản phẩm trong phiếu sẽ bị trừ lại và giá vốn được tính
+    lại. Không thể hủy nếu hàng của phiếu đã được bán bớt.
+  </p>
+
+  <div *ngIf="cancelErrorMessage" class="alert alert-danger py-2">
+    {{ cancelErrorMessage }}
+  </div>
+
+  <label class="form-label">Lý do hủy *</label>
+  <textarea
+    class="form-control mb-3"
+    rows="2"
+    maxlength="500"
+    [(ngModel)]="cancelReason"
+    name="cancelReason"
+    placeholder="VD: Nhập nhầm số lượng, nhà cung ứng giao thiếu hàng..."
+  ></textarea>
+
+  <div class="d-flex gap-2">
+    <button
+      type="button"
+      class="btn btn-danger"
+      [disabled]="isCancelling"
+      (click)="confirmCancel()"
+    >
+      {{ isCancelling ? "Đang hủy..." : "Xác nhận hủy phiếu" }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      [disabled]="isCancelling"
+      (click)="toggleCancelForm()"
+    >
+      Đóng
+    </button>
+  </div>
+</section>
+
+<div *ngIf="isLoading" class="py-5 text-center">Đang tải...</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && purchaseOrder" class="row g-4 mt-1">
+  <div class="col-lg-4">
+    <section class="admin-card">
+      <h5 class="mb-3">Thông tin phiếu</h5>
+
+      <dl class="info-list">
+        <dt>Nhà cung ứng</dt>
+        <dd>{{ purchaseOrder.supplierName }}</dd>
+
+        <dt>SĐT nhà cung ứng</dt>
+        <dd>{{ purchaseOrder.supplierPhone || "—" }}</dd>
+
+        <dt>Người tạo</dt>
+        <dd>{{ purchaseOrder.createdByUserName }}</dd>
+
+        <dt>Ngày tạo</dt>
+        <dd>{{ purchaseOrder.createdAt | date: "dd/MM/yyyy HH:mm" }}</dd>
+
+        <ng-container *ngIf="purchaseOrder.updatedAt">
+          <dt>Sửa lần cuối</dt>
+          <dd>{{ purchaseOrder.updatedAt | date: "dd/MM/yyyy HH:mm" }}</dd>
+        </ng-container>
+
+        <dt>Ghi chú</dt>
+        <dd>{{ purchaseOrder.note || "—" }}</dd>
+
+        <ng-container *ngIf="isCancelled">
+          <dt>Ngày hủy</dt>
+          <dd>{{ purchaseOrder.cancelledAt | date: "dd/MM/yyyy HH:mm" }}</dd>
+
+          <dt>Lý do hủy</dt>
+          <dd class="text-danger">{{ purchaseOrder.cancelReason }}</dd>
+        </ng-container>
+      </dl>
+    </section>
+  </div>
+
+  <div class="col-lg-8">
+    <section class="admin-card">
+      <h5 class="mb-4">Danh sách hàng nhập</h5>
+
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>SKU</th>
+              <th class="text-end">Số lượng</th>
+              <th class="text-end">Đơn giá</th>
+              <th class="text-end">Thành tiền</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of purchaseOrder.items">
+              <td>
+                {{ item.productName }}
+                <div class="text-muted small">
+                  {{ item.colorName }} / {{ item.sizeName }}
+                </div>
+              </td>
+              <td>{{ item.sku }}</td>
+              <td class="text-end">{{ item.quantity }}</td>
+              <td class="text-end">
+                {{ item.unitCost | number: "1.0-0" }} ₫
+              </td>
+              <td class="text-end">
+                {{ item.lineTotal | number: "1.0-0" }} ₫
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-end fw-semibold">Tổng cộng</td>
+              <td class="text-end fw-bold">
+                {{ purchaseOrder.totalAmount | number: "1.0-0" }} ₫
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

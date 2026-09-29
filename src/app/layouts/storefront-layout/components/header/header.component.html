@@ -1,61 +1,138 @@
-<header class="border-bottom bg-white sticky-top">
-  <div class="container py-3 d-flex align-items-center gap-4">
-    <a routerLink="/" class="text-decoration-none text-dark fw-bold fs-4">
+<header class="site-header sticky-top">
+  <div class="container header-inner">
+    <a routerLink="/" class="brand" (click)="closeMobileMenu()">
       CLOTHING STORE
     </a>
 
-    <nav class="d-none d-md-flex gap-3">
-      <a routerLink="/" class="text-decoration-none text-dark">Trang chủ</a>
-      <a routerLink="/products" class="text-decoration-none text-dark">
-        Sản phẩm
-      </a>
+    <button
+      type="button"
+      class="mobile-toggle"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="mobileMenuOpen"
+      aria-label="Mở menu"
+    >
+      <i class="bi" [class.bi-list]="!mobileMenuOpen" [class.bi-x-lg]="mobileMenuOpen"></i>
+    </button>
+
+    <nav class="main-nav" [class.open]="mobileMenuOpen">
+      <a routerLink="/" (click)="closeMobileMenu()">Trang chủ</a>
+      <a routerLink="/products" (click)="closeMobileMenu()">Sản phẩm</a>
+
+      <form class="search-form nav-search" (ngSubmit)="submitSearch()">
+        <i class="bi bi-search"></i>
+        <input
+          type="search"
+          name="searchKeyword"
+          [(ngModel)]="searchKeyword"
+          placeholder="Tìm sản phẩm..."
+        />
+      </form>
     </nav>
 
-    <div class="ms-auto d-flex align-items-center gap-3">
+    <div class="header-actions">
+      <a
+        *ngIf="currentUser$ | async"
+        routerLink="/account/wishlist"
+        class="icon-link"
+        title="Sản phẩm yêu thích"
+        (click)="closeMobileMenu()"
+      >
+        <span class="icon-box">
+          <i class="bi bi-heart"></i>
+          <span
+            *ngIf="wishlistCount$ | async as wishlistCount"
+            class="icon-badge"
+          >
+            {{ wishlistCount }}
+          </span>
+        </span>
+      </a>
+
+      <a
+        routerLink="/cart"
+        class="icon-link"
+        title="Giỏ hàng"
+        (click)="closeMobileMenu()"
+      >
+        <span class="icon-box">
+          <i class="bi bi-bag"></i>
+          <span *ngIf="cartCount$ | async as cartCount" class="icon-badge">
+            {{ cartCount }}
+          </span>
+        </span>
+      </a>
+
       <ng-container *ngIf="currentUser$ | async as user; else guestActions">
-        <a
-          routerLink="/account/profile"
-          class="text-decoration-none text-dark"
-          title="Quản lý địa chỉ giao hàng"
-        >
-          <i class="bi bi-person-circle me-1"></i>
-          {{ user.fullName }}
-        </a>
-        <a routerLink="/account/orders" class="text-decoration-none text-dark">
-          <i class="bi bi-receipt me-1"></i>
-          Đơn hàng của tôi
-        </a>
+        <div class="account-menu">
+          <button
+            type="button"
+            class="account-trigger"
+            (click)="toggleAccountMenu($event)"
+          >
+            <img
+              *ngIf="user.avatarUrl"
+              [src]="user.avatarUrl | imageUrl"
+              alt="Avatar"
+              class="account-avatar"
+            />
+            <span *ngIf="!user.avatarUrl" class="account-avatar initials">
+              {{ getInitials(user.fullName) }}
+            </span>
 
-        <a routerLink="/account/coupons" class="text-decoration-none text-dark">
-          <i class="bi bi-ticket-perforated me-1"></i>
-          Ưu đãi
-        </a>
-        <a
-          *ngIf="user.roles.includes('Admin')"
-          routerLink="/admin/dashboard"
-          class="text-decoration-none text-dark"
-        >
-          Quản trị
-        </a>
+            <span class="account-name">{{ user.fullName }}</span>
+            <i
+              class="bi bi-chevron-down account-caret"
+              [class.rotated]="accountMenuOpen"
+            ></i>
+          </button>
 
-        <button class="btn btn-sm btn-outline-dark" (click)="logout()">
-          Đăng xuất
-        </button>
+          <div class="account-dropdown" *ngIf="accountMenuOpen">
+            <a routerLink="/account/profile" (click)="accountMenuOpen = false">
+              <i class="bi bi-person"></i>
+              Hồ sơ của tôi
+            </a>
+
+            <a routerLink="/account/orders" (click)="accountMenuOpen = false">
+              <i class="bi bi-receipt"></i>
+              Đơn hàng của tôi
+            </a>
+
+            <a routerLink="/account/coupons" (click)="accountMenuOpen = false">
+              <i class="bi bi-ticket-perforated"></i>
+              Ưu đãi của tôi
+            </a>
+
+            <a
+              routerLink="/account/wishlist"
+              class="mobile-only-item"
+              (click)="accountMenuOpen = false"
+            >
+              <i class="bi bi-heart"></i>
+              Sản phẩm yêu thích
+            </a>
+
+            <a
+              *ngIf="user.roles.includes('Admin')"
+              routerLink="/admin/dashboard"
+              (click)="accountMenuOpen = false"
+            >
+              <i class="bi bi-speedometer2"></i>
+              Quản trị
+            </a>
+
+            <hr />
+
+            <button type="button" class="logout-item" (click)="logout()">
+              <i class="bi bi-box-arrow-right"></i>
+              Đăng xuất
+            </button>
+          </div>
+        </div>
       </ng-container>
 
       <ng-template #guestActions>
-        <a routerLink="/auth/login" class="text-decoration-none text-dark">
-          Đăng nhập
-        </a>
+        <a routerLink="/auth/login" class="btn-login">Đăng nhập</a>
       </ng-template>
-
-      <a routerLink="/cart" class="cart-link">
-        <i class="bi bi-bag"></i>
-
-        <span *ngIf="cartCount$ | async as cartCount" class="cart-badge">
-          {{ cartCount }}
-        </span>
-      </a>
     </div>
   </div>
 </header>

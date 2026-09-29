@@ -1,0 +1,209 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">KHO HÀNG</p>
+    <h2 class="fw-bold mb-0">Quản lý nhà cung ứng</h2>
+  </div>
+
+  <a routerLink="/admin/purchase-orders" class="btn btn-outline-dark">
+    <i class="bi bi-box-seam me-1"></i>
+    Xem phiếu nhập kho
+  </a>
+</div>
+
+<div class="row g-4 mt-1">
+  <div class="col-lg-4">
+    <section class="admin-card">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="mb-0">
+          {{
+            editingSupplierId ? "Cập nhật nhà cung ứng" : "Thêm nhà cung ứng"
+          }}
+        </h5>
+
+        <button
+          *ngIf="editingSupplierId"
+          class="btn btn-sm btn-outline-dark"
+          (click)="resetForm()"
+        >
+          Hủy sửa
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <form (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label class="form-label">Tên nhà cung ứng *</label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.supplierName"
+            name="supplierName"
+            placeholder="Ví dụ: Công ty TNHH Dệt may ABC"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Người liên hệ</label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.contactName"
+            name="contactName"
+          />
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label class="form-label">Số điện thoại</label>
+            <input
+              class="form-control"
+              [(ngModel)]="form.phone"
+              name="phone"
+            />
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Email</label>
+            <input
+              class="form-control"
+              [(ngModel)]="form.email"
+              name="email"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Địa chỉ</label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.address"
+            name="address"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mã số thuế</label>
+          <input
+            class="form-control"
+            [(ngModel)]="form.taxCode"
+            name="taxCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ghi chú</label>
+          <textarea
+            class="form-control"
+            rows="2"
+            [(ngModel)]="form.description"
+            name="description"
+          ></textarea>
+        </div>
+
+        <div class="form-check mb-4">
+          <input
+            id="supplierIsActive"
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="form.isActive"
+            name="isActive"
+          />
+
+          <label class="form-check-label" for="supplierIsActive">
+            Đang hợp tác
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-dark w-100"
+          [disabled]="isSubmitting"
+        >
+          {{
+            isSubmitting
+              ? "Đang lưu..."
+              : editingSupplierId
+                ? "Lưu thay đổi"
+                : "Thêm nhà cung ứng"
+          }}
+        </button>
+      </form>
+    </section>
+  </div>
+
+  <div class="col-lg-8">
+    <section class="admin-card">
+      <h5 class="mb-4">Danh sách nhà cung ứng</h5>
+
+      <div *ngIf="isLoading" class="py-5 text-center">
+        Đang tải nhà cung ứng...
+      </div>
+
+      <div
+        *ngIf="!isLoading && !suppliers.length"
+        class="py-5 text-center text-muted"
+      >
+        Chưa có nhà cung ứng nào.
+      </div>
+
+      <div class="table-responsive" *ngIf="!isLoading && suppliers.length">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Tên nhà cung ứng</th>
+              <th>Liên hệ</th>
+              <th>SĐT / Email</th>
+              <th>Trạng thái</th>
+              <th class="text-end">Thao tác</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let supplier of suppliers">
+              <td class="fw-semibold">{{ supplier.supplierName }}</td>
+
+              <td>{{ supplier.contactName || "—" }}</td>
+
+              <td>
+                <div>{{ supplier.phone || "—" }}</div>
+                <small class="text-muted">{{ supplier.email || "" }}</small>
+              </td>
+
+              <td>
+                <span
+                  class="badge"
+                  [class.bg-success]="supplier.isActive"
+                  [class.bg-secondary]="!supplier.isActive"
+                >
+                  {{ supplier.isActive ? "Đang hợp tác" : "Ngừng hợp tác" }}
+                </span>
+              </td>
+
+              <td class="text-end">
+                <button
+                  class="btn btn-sm btn-outline-dark me-2"
+                  (click)="edit(supplier)"
+                >
+                  Sửa
+                </button>
+
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  [disabled]="!supplier.isActive"
+                  (click)="remove(supplier)"
+                >
+                  Ẩn
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,9 +10,11 @@ import { AuthService } from '../../../../core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   isSubmitting = false;
   errorMessage = '';
+  successMessage = '';
+  showPassword = false;
 
   readonly loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -25,6 +27,13 @@ export class LoginComponent {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+    if (this.route.snapshot.queryParamMap.get('resetSuccess')) {
+      this.successMessage =
+        'Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.';
+    }
+  }
 
   get email() {
     return this.loginForm.get('email');

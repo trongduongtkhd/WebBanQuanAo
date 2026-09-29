@@ -1,0 +1,64 @@
+<section
+  class="banner-carousel"
+  (mouseenter)="stopAutoplay()"
+  (mouseleave)="startAutoplay()"
+>
+  <div
+    class="slides-track"
+    [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
+  >
+    <a
+      *ngFor="let slide of slides"
+      [routerLink]="slide.link"
+      class="slide"
+    >
+      <img [src]="slide.imageUrl | imageUrl" [alt]="slide.alt" />
+
+      <div class="slide-overlay" *ngIf="slide.title">
+        <div class="container">
+          <div class="slide-overlay-content">
+            <p class="slide-label" *ngIf="slide.label">{{ slide.label }}</p>
+            <h1>{{ slide.title }}</h1>
+            <p class="slide-subtitle" *ngIf="slide.subtitle">
+              {{ slide.subtitle }}
+            </p>
+
+            <span class="slide-cta" *ngIf="slide.ctaText">
+              {{ slide.ctaText }}
+              <i class="bi bi-arrow-right"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <button
+    type="button"
+    class="carousel-nav prev"
+    (click)="previous()"
+    aria-label="Slide trước"
+  >
+    <i class="bi bi-chevron-left"></i>
+  </button>
+
+  <button
+    type="button"
+    class="carousel-nav next"
+    (click)="next()"
+    aria-label="Slide sau"
+  >
+    <i class="bi bi-chevron-right"></i>
+  </button>
+
+  <div class="carousel-dots">
+    <button
+      type="button"
+      *ngFor="let slide of slides; let i = index"
+      class="dot"
+      [class.active]="i === currentIndex"
+      (click)="goTo(i)"
+      [attr.aria-label]="'Xem slide ' + (i + 1)"
+    ></button>
+  </div>
+</section>

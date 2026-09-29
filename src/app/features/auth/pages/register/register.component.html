@@ -1,67 +1,169 @@
 <div class="auth-page">
-  <form class="auth-card" [formGroup]="registerForm" (ngSubmit)="submit()">
-    <a routerLink="/" class="brand">CLOTHING STORE</a>
+  <div class="auth-shell">
+    <aside class="auth-visual">
+      <div class="auth-visual__content">
+        <a routerLink="/" class="auth-visual__brand">
+          <i class="bi bi-bag-heart"></i>
+          CLOTHING STORE
+        </a>
 
-    <h1>Tạo tài khoản</h1>
-    <p class="text-muted">Đăng ký để bắt đầu mua sắm.</p>
+        <h2>Tham gia cùng chúng tôi,<br /><span>ưu đãi dành riêng cho thành viên</span></h2>
+        <p>
+          Tạo tài khoản để lưu giỏ hàng, theo dõi đơn hàng và nhận những ưu đãi
+          độc quyền.
+        </p>
+      </div>
 
-    <div *ngIf="errorMessage" class="alert alert-danger">
-      {{ errorMessage }}
-    </div>
+      <ul class="auth-visual__perks">
+        <li><i class="bi bi-gift"></i> Ưu đãi chào mừng cho thành viên mới</li>
+        <li><i class="bi bi-bell"></i> Cập nhật sớm các bộ sưu tập mới</li>
+        <li><i class="bi bi-shield-check"></i> Thông tin cá nhân được bảo mật</li>
+      </ul>
+    </aside>
 
-    <div class="mb-3">
-      <label class="form-label">Họ và tên</label>
-      <input class="form-control" formControlName="fullName" />
-      <small *ngIf="fullName?.touched && fullName?.invalid" class="text-danger">
-        Vui lòng nhập họ tên.
-      </small>
-    </div>
+    <main class="auth-form-panel">
+      <form class="auth-card" [formGroup]="registerForm" (ngSubmit)="submit()">
+        <a routerLink="/" class="brand-mobile">CLOTHING STORE</a>
 
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input type="email" class="form-control" formControlName="email" />
-      <small *ngIf="email?.touched && email?.invalid" class="text-danger">
-        Vui lòng nhập email hợp lệ.
-      </small>
-    </div>
+        <div class="auth-card__header">
+          <h1>Tạo tài khoản</h1>
+          <p class="text-muted">Đăng ký để bắt đầu mua sắm.</p>
+        </div>
 
-    <div class="mb-3">
-      <label class="form-label">Số điện thoại</label>
-      <input class="form-control" formControlName="phoneNumber" />
-    </div>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>{{ errorMessage }}</span>
+        </div>
 
-    <div class="mb-3">
-      <label class="form-label">Mật khẩu</label>
-      <input type="password" class="form-control" formControlName="password" />
-      <small *ngIf="password?.touched && password?.invalid" class="text-danger">
-        Mật khẩu cần ít nhất 6 ký tự.
-      </small>
-    </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="fullName">Họ và tên</label>
+            <div
+              class="input-with-icon"
+              [class.is-invalid]="fullName?.touched && fullName?.invalid"
+            >
+              <i class="bi bi-person"></i>
+              <input
+                id="fullName"
+                formControlName="fullName"
+                placeholder="Nguyễn Văn A"
+                autocomplete="name"
+              />
+            </div>
+            <small *ngIf="fullName?.touched && fullName?.invalid" class="field-error">
+              <i class="bi bi-exclamation-circle"></i>
+              Vui lòng nhập họ tên.
+            </small>
+          </div>
 
-    <div class="mb-4">
-      <label class="form-label">Xác nhận mật khẩu</label>
-      <input
-        type="password"
-        class="form-control"
-        formControlName="confirmPassword"
-      />
-      <small
-        *ngIf="
-          confirmPassword?.touched && registerForm.errors?.passwordMismatch
-        "
-        class="text-danger"
-      >
-        Xác nhận mật khẩu không khớp.
-      </small>
-    </div>
+          <div class="form-field">
+            <label class="form-label" for="phoneNumber">Số điện thoại</label>
+            <div class="input-with-icon">
+              <i class="bi bi-telephone"></i>
+              <input
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                placeholder="09xxxxxxxx"
+                autocomplete="tel"
+              />
+            </div>
+          </div>
+        </div>
 
-    <button type="submit" class="btn btn-dark w-100" [disabled]="isSubmitting">
-      {{ isSubmitting ? "Đang đăng ký..." : "Đăng ký" }}
-    </button>
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <div
+            class="input-with-icon"
+            [class.is-invalid]="email?.touched && email?.invalid"
+          >
+            <i class="bi bi-envelope"></i>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="example@email.com"
+              autocomplete="email"
+            />
+          </div>
+          <small *ngIf="email?.touched && email?.invalid" class="field-error">
+            <i class="bi bi-exclamation-circle"></i>
+            Vui lòng nhập email hợp lệ.
+          </small>
+        </div>
 
-    <p class="text-center mt-4 mb-0">
-      Đã có tài khoản?
-      <a routerLink="/auth/login">Đăng nhập</a>
-    </p>
-  </form>
+        <div class="form-field">
+          <label class="form-label" for="password">Mật khẩu</label>
+          <div
+            class="input-with-icon"
+            [class.is-invalid]="password?.touched && password?.invalid"
+          >
+            <i class="bi bi-lock"></i>
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Tối thiểu 6 ký tự"
+              autocomplete="new-password"
+            />
+            <button
+              type="button"
+              class="toggle-visibility"
+              (click)="showPassword = !showPassword"
+              [attr.aria-label]="showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'"
+            >
+              <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+          <small *ngIf="password?.touched && password?.invalid" class="field-error">
+            <i class="bi bi-exclamation-circle"></i>
+            Mật khẩu cần ít nhất 6 ký tự.
+          </small>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
+          <div
+            class="input-with-icon"
+            [class.is-invalid]="
+              confirmPassword?.touched && registerForm.errors?.passwordMismatch
+            "
+          >
+            <i class="bi bi-lock-fill"></i>
+            <input
+              id="confirmPassword"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="Nhập lại mật khẩu"
+              autocomplete="new-password"
+            />
+            <button
+              type="button"
+              class="toggle-visibility"
+              (click)="showConfirmPassword = !showConfirmPassword"
+              [attr.aria-label]="showConfirmPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'"
+            >
+              <i class="bi" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword"></i>
+            </button>
+          </div>
+          <small
+            *ngIf="confirmPassword?.touched && registerForm.errors?.passwordMismatch"
+            class="field-error"
+          >
+            <i class="bi bi-exclamation-circle"></i>
+            Xác nhận mật khẩu không khớp.
+          </small>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
+          {{ isSubmitting ? "Đang đăng ký..." : "Đăng ký" }}
+        </button>
+
+        <p class="auth-switch">
+          Đã có tài khoản?
+          <a routerLink="/auth/login">Đăng nhập</a>
+        </p>
+      </form>
+    </main>
+  </div>
 </div>

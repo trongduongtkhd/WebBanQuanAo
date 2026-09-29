@@ -165,6 +165,16 @@
 
           <label class="form-check-label" for="isActive"> Đang bán </label>
         </div>
+
+        <div
+          *ngIf="productForm.isActive && productId && totalStockQuantity <= 0"
+          class="alert alert-warning mt-2 mb-0 py-2 px-3 small"
+        >
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          Sản phẩm đang có tồn kho = 0. Hãy tạo
+          <a routerLink="/admin/purchase-orders/new">phiếu nhập kho</a>
+          trước khi mở bán.
+        </div>
       </div>
 
       <div class="col-12">
@@ -235,7 +245,7 @@
 
     <div *ngIf="product.images.length" class="image-grid mt-4">
       <div class="product-image-card" *ngFor="let image of product.images">
-        <img [src]="image.imageUrl" alt="Ảnh sản phẩm" />
+        <img [src]="image.imageUrl | imageUrl" alt="Ảnh sản phẩm" />
 
         <span *ngIf="image.isThumbnail" class="badge bg-dark">
           Ảnh đại diện
@@ -334,14 +344,44 @@
       </div>
 
       <div class="col-md-3">
-        <label class="form-label">Tồn kho *</label>
+        <label class="form-label">Tồn kho</label>
         <input
           type="number"
-          min="0"
           class="form-control"
-          [(ngModel)]="variantForm.stockQuantity"
-          name="stockQuantity"
+          [value]="editingVariantId ? variantForm.stockQuantity : 0"
+          readonly
+          disabled
         />
+        <small class="text-muted">
+          <i class="bi bi-lock me-1"></i>
+          Tồn kho chỉ thay đổi qua phiếu nhập kho
+        </small>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Giá vốn bình quân</label>
+        <input
+          type="text"
+          class="form-control"
+          [value]="
+            editingVariantCostPrice
+              ? (editingVariantCostPrice | number: '1.0-0') + ' ₫'
+              : 'Chưa nhập kho'
+          "
+          readonly
+          disabled
+        />
+        <small
+          *ngIf="variantProfit !== null"
+          [class.text-success]="variantProfit > 0"
+          [class.text-danger]="variantProfit <= 0"
+        >
+          <i class="bi bi-graph-up-arrow me-1"></i>
+          Lợi nhuận: {{ variantProfit | number: "1.0-0" }} ₫
+          <span *ngIf="variantProfitPercent !== null">
+            ({{ variantProfitPercent | number: "1.1-1" }}%)
+          </span>
+        </small>
       </div>
 
       <div class="col-md-6">

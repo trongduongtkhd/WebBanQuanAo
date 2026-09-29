@@ -40,7 +40,8 @@
           <div class="cart-image">
             <img
               [src]="
-                item.thumbnailUrl || 'assets/images/product-placeholder.png'
+                (item.thumbnailUrl | imageUrl) ||
+                'assets/images/product-placeholder.png'
               "
               [alt]="item.productName"
               (error)="onImageError($event)"
@@ -134,18 +135,21 @@
         </div>
       </div>
 
-      <button
-        type="button"
-        class="btn btn-link text-danger px-0 mt-3"
-        [disabled]="clearing"
-        (click)="clearCart()"
-      >
-        <span
-          *ngIf="clearing"
-          class="spinner-border spinner-border-sm me-2"
-        ></span>
-        Xóa toàn bộ giỏ hàng
-      </button>
+      <div class="clear-cart-row">
+        <button
+          type="button"
+          class="clear-cart-btn"
+          [disabled]="clearing"
+          (click)="clearCart()"
+        >
+          <span
+            *ngIf="clearing"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <i *ngIf="!clearing" class="bi bi-trash3"></i>
+          Xóa toàn bộ giỏ hàng
+        </button>
+      </div>
     </div>
 
     <div class="col-lg-4">

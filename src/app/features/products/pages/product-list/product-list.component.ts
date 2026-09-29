@@ -87,6 +87,12 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/products']);
   }
 
+  onBrandLogoError(event: Event): void {
+    const image = event.target as HTMLImageElement;
+
+    image.style.display = 'none';
+  }
+
   changePage(page: number): void {
     if (
       page < 1 ||

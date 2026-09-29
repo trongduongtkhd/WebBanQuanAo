@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7201/api', // Hoặc http://localhost:5000/api tùy port của bạn
+  apiUrl: 'http://localhost:8080/api', // Backend chạy qua docker-compose (clothing-api)
+  apiOrigin: 'http://localhost:8080', // Dùng để dựng URL ảnh trả về dạng đường dẫn tương đối (/uploads/...)
 };
 
 /*

@@ -18,6 +18,10 @@ import { AdminOrderDetailComponent } from './pages/orders/admin-order-detail/adm
 import { ReviewListComponent } from './pages/reviews/review-list/review-list.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
+import { SuppliersComponent } from './pages/suppliers/suppliers.component';
+import { PurchaseOrderListComponent } from './pages/purchase-orders/purchase-order-list/purchase-order-list.component';
+import { PurchaseOrderFormComponent } from './pages/purchase-orders/purchase-order-form/purchase-order-form.component';
+import { PurchaseOrderDetailComponent } from './pages/purchase-orders/purchase-order-detail/purchase-order-detail.component';
 import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   declarations: [
@@ -36,6 +40,10 @@ import { SharedModule } from '../../shared/shared.module';
     ReviewListComponent,
     UserListComponent,
     UserDetailComponent,
+    SuppliersComponent,
+    PurchaseOrderListComponent,
+    PurchaseOrderFormComponent,
+    PurchaseOrderDetailComponent,
   ],
   imports: [
     CommonModule,

@@ -39,12 +39,34 @@
 
         <div class="mb-3">
           <label class="form-label">Thương hiệu</label>
-          <select class="form-select" [(ngModel)]="filters.brandId">
-            <option [ngValue]="null">Tất cả thương hiệu</option>
-            <option *ngFor="let brand of brands" [ngValue]="brand.brandId">
-              {{ brand.brandName }}
-            </option>
-          </select>
+
+          <div class="brand-chip-list">
+            <button
+              type="button"
+              class="brand-chip"
+              [class.active]="filters.brandId === null"
+              (click)="filters.brandId = null"
+            >
+              Tất cả
+            </button>
+
+            <button
+              type="button"
+              class="brand-chip"
+              *ngFor="let brand of brands"
+              [class.active]="filters.brandId === brand.brandId"
+              (click)="filters.brandId = brand.brandId"
+              [title]="brand.brandName"
+            >
+              <img
+                *ngIf="brand.logoUrl"
+                [src]="brand.logoUrl"
+                [alt]="brand.brandName"
+                (error)="onBrandLogoError($event)"
+              />
+              <span>{{ brand.brandName }}</span>
+            </button>
+          </div>
         </div>
 
         <div class="mb-3">

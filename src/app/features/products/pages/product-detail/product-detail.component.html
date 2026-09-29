@@ -28,7 +28,7 @@
           (click)="selectImage(image)"
         >
           <img
-            [src]="image.imageUrl"
+            [src]="image.imageUrl | imageUrl"
             [alt]="product.productName"
             (error)="onImageError($event)"
           />
@@ -43,6 +43,19 @@
       </p>
 
       <h1 class="product-title">{{ product.productName }}</h1>
+
+      <div class="sku-row" *ngIf="selectedVariant">
+        <span>SKU: <strong>{{ selectedVariant.sku }}</strong></span>
+
+        <button type="button" class="copy-sku-btn" (click)="copySku()">
+          <i
+            class="bi"
+            [class.bi-copy]="!skuCopied"
+            [class.bi-check2]="skuCopied"
+          ></i>
+          {{ skuCopied ? "Đã sao chép" : "Sao chép" }}
+        </button>
+      </div>
 
       <div class="price-box mb-4">
         <span class="current-price">
@@ -60,8 +73,8 @@
         </del>
       </div>
 
-      <p class="description" *ngIf="product.description">
-        {{ product.description }}
+      <p class="short-description" *ngIf="product.shortDescription">
+        {{ product.shortDescription }}
       </p>
 
       <hr />
@@ -188,9 +201,53 @@
         </button>
       </div>
 
-      <p class="sku-text mt-3" *ngIf="selectedVariant">
-        SKU: {{ selectedVariant.sku }}
-      </p>
+      <div class="description-block" *ngIf="product.description">
+        <h3 class="info-heading">Mô tả sản phẩm</h3>
+        <p class="description">{{ product.description }}</p>
+      </div>
+
+      <div class="product-info-list">
+        <h3 class="info-heading">Thông tin sản phẩm</h3>
+
+        <ul>
+          <li>
+            <span>Danh mục</span>
+            <strong>{{ product.categoryName }}</strong>
+          </li>
+
+          <li *ngIf="product.brandName">
+            <span>Thương hiệu</span>
+            <strong>{{ product.brandName }}</strong>
+          </li>
+
+          <li *ngIf="product.material">
+            <span>Chất liệu</span>
+            <strong>{{ product.material }}</strong>
+          </li>
+
+          <li>
+            <span>Giới tính</span>
+            <strong>{{ genderLabel }}</strong>
+          </li>
+        </ul>
+      </div>
+
+      <div class="policy-list">
+        <div class="policy-item">
+          <i class="bi bi-truck"></i>
+          <span>Miễn phí vận chuyển cho đơn từ 500K</span>
+        </div>
+
+        <div class="policy-item">
+          <i class="bi bi-arrow-repeat"></i>
+          <span>Đổi trả dễ dàng trong 30 ngày</span>
+        </div>
+
+        <div class="policy-item">
+          <i class="bi bi-patch-check"></i>
+          <span>Cam kết sản phẩm chính hãng 100%</span>
+        </div>
+      </div>
     </div>
   </div>
   <!--  Review Section -->
@@ -263,6 +320,21 @@
       >
         Sau
       </button>
+    </div>
+  </section>
+
+  <!-- Related products -->
+  <section
+    *ngIf="!loading && !relatedLoading && relatedProducts.length > 0"
+    class="related-section"
+  >
+    <h3 class="related-heading">Sản phẩm liên quan</h3>
+
+    <div class="related-grid">
+      <app-product-card
+        *ngFor="let related of relatedProducts"
+        [product]="related"
+      ></app-product-card>
     </div>
   </section>
 

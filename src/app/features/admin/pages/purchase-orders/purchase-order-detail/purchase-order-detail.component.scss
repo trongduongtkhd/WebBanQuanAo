@@ -1,0 +1,18 @@
+@import "../../categories/categories.component.scss";
+
+.info-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 14px;
+  margin: 0;
+}
+
+.info-list dt {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.info-list dd {
+  margin: 0;
+  font-weight: 600;
+}

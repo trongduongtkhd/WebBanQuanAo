@@ -15,6 +15,10 @@ import { AdminOrderListComponent } from './pages/orders/admin-order-list/admin-o
 import { AdminOrderDetailComponent } from './pages/orders/admin-order-detail/admin-order-detail.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
+import { SuppliersComponent } from './pages/suppliers/suppliers.component';
+import { PurchaseOrderListComponent } from './pages/purchase-orders/purchase-order-list/purchase-order-list.component';
+import { PurchaseOrderFormComponent } from './pages/purchase-orders/purchase-order-form/purchase-order-form.component';
+import { PurchaseOrderDetailComponent } from './pages/purchase-orders/purchase-order-detail/purchase-order-detail.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -35,6 +39,26 @@ const routes: Routes = [
   {
     path: 'sizes',
     component: SizesComponent,
+  },
+  {
+    path: 'suppliers',
+    component: SuppliersComponent,
+  },
+  {
+    path: 'purchase-orders',
+    component: PurchaseOrderListComponent,
+  },
+  {
+    path: 'purchase-orders/new',
+    component: PurchaseOrderFormComponent,
+  },
+  {
+    path: 'purchase-orders/:id/edit',
+    component: PurchaseOrderFormComponent,
+  },
+  {
+    path: 'purchase-orders/:id',
+    component: PurchaseOrderDetailComponent,
   },
   {
     path: 'products',

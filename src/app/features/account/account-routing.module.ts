@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { MyReviewsComponent } from './pages/my-reviews/my-reviews.component';
 
 import { MyCouponsComponent } from './pages/my-coupons/my-coupons.component';
+import { MyWishlistComponent } from './pages/my-wishlist/my-wishlist.component';
 const routes: Routes = [
   {
     path: '',
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: 'coupons',
         component: MyCouponsComponent,
+      },
+      {
+        path: 'wishlist',
+        component: MyWishlistComponent,
       },
     ],
   },

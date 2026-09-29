@@ -18,6 +18,8 @@ import { AuthService } from '../../../../core/services/auth.service';
 export class RegisterComponent {
   isSubmitting = false;
   errorMessage = '';
+  showPassword = false;
+  showConfirmPassword = false;
 
   readonly registerForm = this.formBuilder.group(
     {

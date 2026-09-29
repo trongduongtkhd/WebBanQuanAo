@@ -11,6 +11,7 @@ import { TokenService } from '../../../../core/services/token.service';
 
 import { PublicReview } from '../../../../core/models/review.model';
 import { ReviewService } from '../../../../core/services/review.service';
+import { PublicProduct } from '../../../../core/models/catalog.model';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -39,6 +40,11 @@ export class ProductDetailComponent implements OnInit {
   reviewTotalItems = 0;
 
   showSizeGuide = false;
+
+  relatedProducts: PublicProduct[] = [];
+  relatedLoading = false;
+
+  skuCopied = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,6 +78,7 @@ export class ProductDetailComponent implements OnInit {
         this.product = response.data;
         this.reviewPage = 1;
         this.loadReviews(this.product.productId);
+        this.loadRelatedProducts(this.product.productId);
         this.loading = false;
 
         const thumbnail = this.product.images?.find((x) => x.isThumbnail);
@@ -333,8 +340,50 @@ export class ProductDetailComponent implements OnInit {
     return Array(rating).fill(0);
   }
 
+  loadRelatedProducts(productId: number): void {
+    this.relatedLoading = true;
+
+    this.catalogService.getRelatedProducts(productId).subscribe({
+      next: (response) => {
+        this.relatedProducts = response.data || [];
+        this.relatedLoading = false;
+      },
+      error: () => {
+        this.relatedProducts = [];
+        this.relatedLoading = false;
+      },
+    });
+  }
+
   get isShirtProduct(): boolean {
     return (this.product?.categoryName || '').toLowerCase().includes('áo');
+  }
+
+  get genderLabel(): string {
+    switch (this.product?.gender) {
+      case 'Male':
+        return 'Nam';
+      case 'Female':
+        return 'Nữ';
+      case 'Unisex':
+        return 'Unisex';
+      default:
+        return '';
+    }
+  }
+
+  copySku(): void {
+    if (!this.selectedVariant?.sku) {
+      return;
+    }
+
+    navigator.clipboard.writeText(this.selectedVariant.sku).then(() => {
+      this.skuCopied = true;
+
+      window.setTimeout(() => {
+        this.skuCopied = false;
+      }, 2000);
+    });
   }
 
   openSizeGuide(): void {

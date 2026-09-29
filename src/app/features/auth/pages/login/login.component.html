@@ -1,49 +1,126 @@
 <div class="auth-page">
-  <form class="auth-card" [formGroup]="loginForm" (ngSubmit)="submit()">
-    <a routerLink="/" class="brand">CLOTHING STORE</a>
+  <div class="auth-shell">
+    <aside class="auth-visual">
+      <div class="auth-visual__content">
+        <a routerLink="/" class="auth-visual__brand">
+          <i class="bi bi-bag-heart"></i>
+          CLOTHING STORE
+        </a>
 
-    <h1>Chào mừng trở lại</h1>
-    <p class="text-muted">Đăng nhập để tiếp tục mua sắm.</p>
+        <h2>Phong cách của bạn,<br /><span>câu chuyện của riêng bạn</span></h2>
+        <p>
+          Khám phá những bộ sưu tập thời trang mới nhất, được tuyển chọn dành
+          riêng cho bạn.
+        </p>
+      </div>
 
-    <div *ngIf="errorMessage" class="alert alert-danger">
-      {{ errorMessage }}
-    </div>
+      <ul class="auth-visual__perks">
+        <li><i class="bi bi-truck"></i> Miễn phí vận chuyển cho đơn từ 500K</li>
+        <li>
+          <i class="bi bi-arrow-repeat"></i> Đổi trả dễ dàng trong 30 ngày
+        </li>
+        <li>
+          <i class="bi bi-patch-check"></i> Cam kết sản phẩm chính hãng 100%
+        </li>
+      </ul>
+    </aside>
 
-    <div class="mb-3">
-      <label class="form-label" for="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        class="form-control"
-        formControlName="email"
-        placeholder="example@email.com"
-      />
-      <small *ngIf="email?.touched && email?.invalid" class="text-danger">
-        Vui lòng nhập email hợp lệ.
-      </small>
-    </div>
+    <main class="auth-form-panel">
+      <form class="auth-card" [formGroup]="loginForm" (ngSubmit)="submit()">
+        <a routerLink="/" class="brand-mobile">CLOTHING STORE</a>
 
-    <div class="mb-4">
-      <label class="form-label" for="password">Mật khẩu</label>
-      <input
-        id="password"
-        type="password"
-        class="form-control"
-        formControlName="password"
-        placeholder="Nhập mật khẩu"
-      />
-      <small *ngIf="password?.touched && password?.invalid" class="text-danger">
-        Vui lòng nhập mật khẩu.
-      </small>
-    </div>
+        <div class="auth-card__header">
+          <h1>Chào mừng trở lại</h1>
+          <p class="text-muted">
+            Đăng nhập để tiếp tục hành trình mua sắm của bạn.
+          </p>
+        </div>
 
-    <button type="submit" class="btn btn-dark w-100" [disabled]="isSubmitting">
-      {{ isSubmitting ? "Đang đăng nhập..." : "Đăng nhập" }}
-    </button>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>{{ errorMessage }}</span>
+        </div>
 
-    <p class="text-center mt-4 mb-0">
-      Chưa có tài khoản?
-      <a routerLink="/auth/register">Đăng ký ngay</a>
-    </p>
-  </form>
+        <div *ngIf="successMessage" class="alert alert-success">
+          <i class="bi bi-check-circle"></i>
+          <span>{{ successMessage }}</span>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <div
+            class="input-with-icon"
+            [class.is-invalid]="email?.touched && email?.invalid"
+          >
+            <i class="bi bi-envelope"></i>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="example@email.com"
+              autocomplete="email"
+            />
+          </div>
+          <small *ngIf="email?.touched && email?.invalid" class="field-error">
+            <i class="bi bi-exclamation-circle"></i>
+            Vui lòng nhập email hợp lệ.
+          </small>
+        </div>
+
+        <div class="form-field">
+          <div class="form-label-row">
+            <label class="form-label" for="password">Mật khẩu</label>
+            <a routerLink="/auth/forgot-password" class="forgot-password-link"
+              >Quên mật khẩu?</a
+            >
+          </div>
+          <div
+            class="input-with-icon"
+            [class.is-invalid]="password?.touched && password?.invalid"
+          >
+            <i class="bi bi-lock"></i>
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Nhập mật khẩu"
+              autocomplete="current-password"
+            />
+            <button
+              type="button"
+              class="toggle-visibility"
+              (click)="showPassword = !showPassword"
+              [attr.aria-label]="showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'"
+            >
+              <i
+                class="bi"
+                [class.bi-eye]="!showPassword"
+                [class.bi-eye-slash]="showPassword"
+              ></i>
+            </button>
+          </div>
+          <small
+            *ngIf="password?.touched && password?.invalid"
+            class="field-error"
+          >
+            <i class="bi bi-exclamation-circle"></i>
+            Vui lòng nhập mật khẩu.
+          </small>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+          <span
+            *ngIf="isSubmitting"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          {{ isSubmitting ? "Đang đăng nhập..." : "Đăng nhập" }}
+        </button>
+
+        <p class="auth-switch">
+          Chưa có tài khoản?
+          <a routerLink="/auth/register">Đăng ký ngay</a>
+        </p>
+      </form>
+    </main>
+  </div>
 </div>

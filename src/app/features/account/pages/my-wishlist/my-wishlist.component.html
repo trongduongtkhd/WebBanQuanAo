@@ -1,0 +1,38 @@
+<div class="container py-5">
+  <div class="page-header">
+    <div>
+      <p class="section-label mb-1">YÊU THÍCH</p>
+      <h1>Sản phẩm yêu thích</h1>
+      <p>Những sản phẩm bạn đã lưu lại để mua sau.</p>
+    </div>
+
+    <a routerLink="/products" class="btn btn-outline-dark">
+      <i class="bi bi-bag me-2"></i>
+      Tiếp tục mua sắm
+    </a>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="mt-3 text-muted">Đang tải danh sách yêu thích...</p>
+  </div>
+
+  <div *ngIf="!loading && items.length === 0" class="empty-state">
+    <i class="bi bi-heart"></i>
+    <h3>Chưa có sản phẩm yêu thích</h3>
+    <p>Bấm vào biểu tượng trái tim trên sản phẩm để lưu lại đây.</p>
+
+    <a routerLink="/products" class="btn btn-dark">Khám phá sản phẩm</a>
+  </div>
+
+  <div *ngIf="!loading && items.length > 0" class="wishlist-grid">
+    <app-product-card
+      *ngFor="let item of items"
+      [product]="item"
+    ></app-product-card>
+  </div>
+</div>

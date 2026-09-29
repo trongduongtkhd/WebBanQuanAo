@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { ImageUrlPipe } from './pipes/image-url.pipe';
 
 @NgModule({
-  declarations: [ProductCardComponent, ImageUploadComponent],
+  declarations: [ProductCardComponent, ImageUploadComponent, ImageUrlPipe],
   imports: [CommonModule, RouterModule],
-  exports: [ProductCardComponent, RouterModule, ImageUploadComponent],
+  exports: [ProductCardComponent, RouterModule, ImageUploadComponent, ImageUrlPipe],
 })
 export class SharedModule {}

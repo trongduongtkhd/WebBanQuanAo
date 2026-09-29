@@ -6,3 +6,26 @@
   border-radius: 8px;
   object-fit: cover;
 }
+
+.variant-detail-row td {
+  padding: 0;
+  background: #f8f9fa;
+}
+
+.variant-table {
+  margin: 10px 16px;
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.variant-table th {
+  font-size: 0.78rem;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.variant-table td {
+  font-size: 0.88rem;
+}

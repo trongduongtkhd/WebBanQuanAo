@@ -1,36 +1,8 @@
-.hero-section {
-  min-height: 480px;
-  display: flex;
-  align-items: center;
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.12)),
-    url("/assets/images/banners/hero-banner.jpg") center / cover;
-  color: #fff;
-}
-
-.hero-content {
-  max-width: 650px;
-}
-
-.hero-label,
 .section-label {
   margin-bottom: 10px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
-}
-
-.hero-section h1 {
-  max-width: 600px;
-  margin-bottom: 18px;
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 700;
-}
-
-.hero-section p:not(.hero-label) {
-  max-width: 500px;
-  margin-bottom: 28px;
-  font-size: 18px;
 }
 
 .section-heading {
@@ -46,34 +18,43 @@
   font-weight: 700;
 }
 
-.section-heading > a {
+.view-all-link {
   display: inline-flex;
-
   align-items: center;
-  gap: 6px;
-  color: #212529;
-  font-size: 1rem;
-  font-weight: 600;
+  gap: 10px;
+  padding-bottom: 2px;
+  color: #111;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
   text-decoration: none;
   white-space: nowrap;
+  border-bottom: 1.5px solid transparent;
   transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    border-color 0.2s ease,
+    gap 0.2s ease;
 }
 
-.section-heading > a::after {
-  content: "->";
-  font-size: 1rem;
+.view-all-link:hover {
+  gap: 14px;
+  border-color: #111;
+}
+
+.view-all-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 0.78rem;
   transition: transform 0.2s ease;
 }
 
-.section-heading > a:hover {
-  color: #6c757d;
+.view-all-link:hover .view-all-arrow {
   transform: translateX(2px);
-}
-
-.section-heading > a:hover::after {
-  transform: translateX(3px);
 }
 
 .section-label {

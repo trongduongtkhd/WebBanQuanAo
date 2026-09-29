@@ -122,6 +122,30 @@
   text-align: right;
 }
 
+.profit-item {
+  height: 100%;
+  padding: 16px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.profit-item span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.profit-item strong {
+  font-size: 1.25rem;
+}
+
+.profit-item.highlight {
+  border-color: #212529;
+  background: #fff;
+}
+
 @media (max-width: 768px) {
   .filter-card .d-flex {
     flex-wrap: wrap;

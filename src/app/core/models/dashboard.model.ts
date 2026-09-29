@@ -1,5 +1,8 @@
 export interface Dashboard {
   totalRevenue: number;
+  totalCostOfGoodsSold: number;
+  totalProfit: number;
+  profitMarginPercent: number;
   totalOrders: number;
   totalCustomers: number;
   pendingOrders: number;

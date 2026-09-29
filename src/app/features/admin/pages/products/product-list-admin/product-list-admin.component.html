@@ -67,10 +67,13 @@
     <table class="table align-middle">
       <thead>
         <tr>
+          <th></th>
           <th>Ảnh</th>
           <th>Sản phẩm</th>
           <th>Danh mục</th>
           <th>Giá bán</th>
+          <th>Giá vốn (TB)</th>
+          <th>Lợi nhuận (TB)</th>
           <th>Tồn kho</th>
           <th>Trạng thái</th>
           <th class="text-end">Thao tác</th>
@@ -78,69 +81,215 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let product of result.items">
-          <td>
-            <img
-              [src]="
-                product.thumbnailUrl ||
-                'assets/images/placeholders/product-placeholder.png'
-              "
-              [alt]="product.productName"
-              class="product-thumbnail"
-            />
-          </td>
+        <ng-container *ngFor="let product of result.items">
+          <tr>
+            <td>
+              <button
+                type="button"
+                class="btn btn-sm btn-link p-0"
+                title="Xem chi tiết biến thể"
+                (click)="toggleVariants(product)"
+              >
+                <i
+                  class="bi"
+                  [class.bi-chevron-right]="expandedProductId !== product.productId"
+                  [class.bi-chevron-down]="expandedProductId === product.productId"
+                ></i>
+              </button>
+            </td>
 
-          <td>
-            <div class="fw-semibold">{{ product.productName }}</div>
-            <small class="text-muted">{{
-              product.brandName || "Không thương hiệu"
-            }}</small>
-          </td>
+            <td>
+              <img
+                [src]="
+                  (product.thumbnailUrl | imageUrl) ||
+                  'assets/images/placeholders/product-placeholder.png'
+                "
+                [alt]="product.productName"
+                class="product-thumbnail"
+              />
+            </td>
 
-          <td>{{ product.categoryName }}</td>
+            <td>
+              <div class="fw-semibold">{{ product.productName }}</div>
+              <small class="text-muted">{{
+                product.brandName || "Không thương hiệu"
+              }}</small>
+            </td>
 
-          <td>
-            <strong>
-              {{ product.salePrice || product.basePrice | number: "1.0-0" }} ₫
-            </strong>
+            <td>{{ product.categoryName }}</td>
 
-            <small
-              *ngIf="product.salePrice"
-              class="d-block text-decoration-line-through text-muted"
-            >
-              {{ product.basePrice | number: "1.0-0" }} ₫
-            </small>
-          </td>
+            <td>
+              <strong>
+                {{ product.salePrice || product.basePrice | number: "1.0-0" }} ₫
+              </strong>
 
-          <td>{{ product.totalStockQuantity }}</td>
+              <small
+                *ngIf="product.salePrice"
+                class="d-block text-decoration-line-through text-muted"
+              >
+                {{ product.basePrice | number: "1.0-0" }} ₫
+              </small>
+            </td>
 
-          <td>
-            <span
-              class="badge"
-              [class.bg-success]="product.isActive"
-              [class.bg-secondary]="!product.isActive"
-            >
-              {{ product.isActive ? "Đang bán" : "Đã ẩn" }}
-            </span>
-          </td>
+            <td>
+              <span *ngIf="product.averageCostPrice; else noCost">
+                {{ product.averageCostPrice | number: "1.0-0" }} ₫
+              </span>
 
-          <td class="text-end">
-            <a
-              [routerLink]="['/admin/products', product.productId, 'edit']"
-              class="btn btn-sm btn-outline-dark me-2"
-            >
-              Sửa
-            </a>
+              <ng-template #noCost>
+                <small class="text-muted">Chưa nhập kho</small>
+              </ng-template>
+            </td>
 
-            <button
-              class="btn btn-sm btn-outline-danger"
-              [disabled]="!product.isActive"
-              (click)="remove(product)"
-            >
-              Ẩn
-            </button>
-          </td>
-        </tr>
+            <td>
+              <ng-container *ngIf="getProfit(product) as profit; else noProfit">
+                <span
+                  [class.text-success]="profit.amount > 0"
+                  [class.text-danger]="profit.amount <= 0"
+                >
+                  {{ profit.amount | number: "1.0-0" }} ₫
+                  <small class="d-block">
+                    ({{ profit.percent | number: "1.1-1" }}%)
+                  </small>
+                </span>
+              </ng-container>
+
+              <ng-template #noProfit>
+                <small class="text-muted">—</small>
+              </ng-template>
+            </td>
+
+            <td>{{ product.totalStockQuantity }}</td>
+
+            <td>
+              <span
+                class="badge"
+                [class.bg-success]="product.isActive"
+                [class.bg-secondary]="!product.isActive"
+              >
+                {{ product.isActive ? "Đang bán" : "Đã ẩn" }}
+              </span>
+            </td>
+
+            <td class="text-end">
+              <a
+                [routerLink]="['/admin/products', product.productId, 'edit']"
+                class="btn btn-sm btn-outline-dark me-2"
+              >
+                Sửa
+              </a>
+
+              <button
+                *ngIf="product.isActive"
+                class="btn btn-sm btn-outline-danger"
+                (click)="remove(product)"
+              >
+                Ẩn
+              </button>
+
+              <button
+                *ngIf="!product.isActive"
+                class="btn btn-sm btn-outline-success"
+                (click)="restore(product)"
+              >
+                Hiện
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="expandedProductId === product.productId" class="variant-detail-row">
+            <td [attr.colspan]="10">
+              <div *ngIf="loadingVariantsFor === product.productId" class="py-3 text-center text-muted">
+                Đang tải biến thể...
+              </div>
+
+              <table
+                *ngIf="
+                  loadingVariantsFor !== product.productId &&
+                  variantsByProduct.get(product.productId) as variants
+                "
+                class="table table-sm variant-table mb-0"
+              >
+                <thead>
+                  <tr>
+                    <th>Màu / Size</th>
+                    <th>SKU</th>
+                    <th>Giá bán</th>
+                    <th>Giá vốn</th>
+                    <th>Lợi nhuận</th>
+                    <th>Tồn kho</th>
+                    <th>Trạng thái</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngIf="!variants.length">
+                    <td colspan="7" class="text-center text-muted">
+                      Sản phẩm chưa có biến thể nào.
+                    </td>
+                  </tr>
+
+                  <tr *ngFor="let variant of variants">
+                    <td>{{ variant.colorName }} / {{ variant.sizeName }}</td>
+                    <td>{{ variant.sku }}</td>
+
+                    <td>
+                      <strong>
+                        {{ variant.salePrice || variant.price | number: "1.0-0" }} ₫
+                      </strong>
+                      <small
+                        *ngIf="variant.salePrice"
+                        class="d-block text-decoration-line-through text-muted"
+                      >
+                        {{ variant.price | number: "1.0-0" }} ₫
+                      </small>
+                    </td>
+
+                    <td>
+                      <span *ngIf="variant.averageCostPrice; else noVariantCost">
+                        {{ variant.averageCostPrice | number: "1.0-0" }} ₫
+                      </span>
+                      <ng-template #noVariantCost>
+                        <small class="text-muted">Chưa nhập kho</small>
+                      </ng-template>
+                    </td>
+
+                    <td>
+                      <ng-container
+                        *ngIf="getVariantProfit(variant) as profit; else noVariantProfit"
+                      >
+                        <span
+                          [class.text-success]="profit.amount > 0"
+                          [class.text-danger]="profit.amount <= 0"
+                        >
+                          {{ profit.amount | number: "1.0-0" }} ₫
+                          ({{ profit.percent | number: "1.1-1" }}%)
+                        </span>
+                      </ng-container>
+                      <ng-template #noVariantProfit>
+                        <small class="text-muted">—</small>
+                      </ng-template>
+                    </td>
+
+                    <td [class.text-danger]="variant.stockQuantity <= 0">
+                      {{ variant.stockQuantity }}
+                    </td>
+
+                    <td>
+                      <span
+                        class="badge"
+                        [class.bg-success]="variant.isActive"
+                        [class.bg-secondary]="!variant.isActive"
+                      >
+                        {{ variant.isActive ? "Đang bán" : "Đã ẩn" }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>

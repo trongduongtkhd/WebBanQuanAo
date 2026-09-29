@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { AdminProductList } from '../../../../../core/models/admin.model';
+import {
+  AdminProductList,
+  AdminProductVariant,
+} from '../../../../../core/models/admin.model';
 import { PagedResult } from '../../../../../core/models/catalog.model';
 import { AdminProductService } from '../../../services/admin-product.service';
 
@@ -26,10 +29,35 @@ export class ProductListAdminComponent implements OnInit {
   errorMessage = '';
   successMessage = '';
 
+  expandedProductId: number | null = null;
+  variantsByProduct = new Map<number, AdminProductVariant[]>();
+  loadingVariantsFor: number | null = null;
+
   constructor(private readonly adminProductService: AdminProductService) {}
 
   ngOnInit(): void {
     this.loadProducts();
+  }
+
+  getProfit(
+    product: AdminProductList,
+  ): { amount: number; percent: number } | null {
+    if (!product.averageCostPrice) {
+      return null;
+    }
+
+    const sellingPrice = product.salePrice || product.basePrice;
+
+    if (!sellingPrice) {
+      return null;
+    }
+
+    const amount = sellingPrice - product.averageCostPrice;
+
+    return {
+      amount,
+      percent: (amount / sellingPrice) * 100,
+    };
   }
 
   loadProducts(page = 1): void {
@@ -80,6 +108,92 @@ export class ProductListAdminComponent implements OnInit {
         this.errorMessage = error.error?.message || 'Không thể ẩn sản phẩm.';
       },
     });
+  }
+
+  restore(product: AdminProductList): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    this.adminProductService.getById(product.productId).subscribe({
+      next: (detailResponse) => {
+        const detail = detailResponse.data;
+
+        this.adminProductService
+          .update(product.productId, {
+            categoryId: detail.categoryId,
+            brandId: detail.brandId,
+            productName: detail.productName,
+            shortDescription: detail.shortDescription,
+            description: detail.description,
+            material: detail.material,
+            gender: detail.gender,
+            basePrice: detail.basePrice,
+            salePrice: detail.salePrice,
+            isFeatured: detail.isFeatured,
+            isActive: true,
+          })
+          .subscribe({
+            next: (response) => {
+              this.successMessage = response.message;
+              this.loadProducts(this.result.page);
+            },
+            error: (error: HttpErrorResponse) => {
+              this.errorMessage =
+                error.error?.message || 'Không thể hiện lại sản phẩm.';
+            },
+          });
+      },
+      error: () => {
+        this.errorMessage = 'Không thể tải thông tin sản phẩm.';
+      },
+    });
+  }
+
+  toggleVariants(product: AdminProductList): void {
+    if (this.expandedProductId === product.productId) {
+      this.expandedProductId = null;
+      return;
+    }
+
+    this.expandedProductId = product.productId;
+
+    if (this.variantsByProduct.has(product.productId)) {
+      return;
+    }
+
+    this.loadingVariantsFor = product.productId;
+
+    this.adminProductService.getById(product.productId).subscribe({
+      next: (response) => {
+        this.variantsByProduct.set(product.productId, response.data.variants);
+        this.loadingVariantsFor = null;
+      },
+      error: () => {
+        this.loadingVariantsFor = null;
+        this.errorMessage = 'Không thể tải danh sách biến thể.';
+      },
+    });
+  }
+
+  getVariantProfit(
+    variant: AdminProductVariant,
+  ): { amount: number; percent: number } | null {
+    if (!variant.averageCostPrice) {
+      return null;
+    }
+
+    const sellingPrice = variant.salePrice || variant.price;
+
+    if (!sellingPrice) {
+      return null;
+    }
+
+    const amount = sellingPrice - variant.averageCostPrice;
+
+    return {
+      amount,
+      percent: (amount / sellingPrice) * 100,
+    };
   }
 
   getPageNumbers(): number[] {

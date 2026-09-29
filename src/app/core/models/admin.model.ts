@@ -66,6 +66,7 @@ export interface AdminProductList {
   salePrice?: number | null;
   thumbnailUrl?: string | null;
   totalStockQuantity: number;
+  averageCostPrice?: number | null;
   isFeatured: boolean;
   isActive: boolean;
   createdAt: string;
@@ -82,6 +83,7 @@ export interface AdminProductVariant {
   price: number;
   salePrice?: number | null;
   stockQuantity: number;
+  averageCostPrice?: number | null;
   imageUrl?: string | null;
   isActive: boolean;
 }
@@ -138,6 +140,86 @@ export interface UpsertProductVariantRequest {
   stockQuantity: number;
   imageUrl?: string | null;
   isActive: boolean;
+}
+
+export interface AdminSupplier {
+  supplierId: number;
+  supplierName: string;
+  contactName?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+  taxCode?: string | null;
+  description?: string | null;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface UpsertSupplierRequest {
+  supplierName: string;
+  contactName?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+  taxCode?: string | null;
+  description?: string | null;
+  isActive: boolean;
+}
+
+export interface PurchaseOrderListItem {
+  purchaseOrderId: number;
+  purchaseOrderCode: string;
+  supplierId: number;
+  supplierName: string;
+  createdByUserName: string;
+  totalItemCount: number;
+  totalQuantity: number;
+  totalAmount: number;
+  status: PurchaseOrderStatus;
+  createdAt: string;
+}
+
+export type PurchaseOrderStatus = 'Completed' | 'Cancelled';
+
+export interface PurchaseOrderItem {
+  purchaseOrderItemId: number;
+  variantId: number;
+  productName: string;
+  sku: string;
+  colorName: string;
+  sizeName: string;
+  unitCost: number;
+  quantity: number;
+  lineTotal: number;
+}
+
+export interface PurchaseOrderDetail {
+  purchaseOrderId: number;
+  purchaseOrderCode: string;
+  supplierId: number;
+  supplierName: string;
+  supplierPhone?: string | null;
+  createdByUserName: string;
+  note?: string | null;
+  totalAmount: number;
+  status: PurchaseOrderStatus;
+  createdAt: string;
+  updatedAt?: string | null;
+  cancelledAt?: string | null;
+  cancelReason?: string | null;
+  items: PurchaseOrderItem[];
+}
+
+export interface CreatePurchaseOrderItemRequest {
+  variantId: number;
+  quantity: number;
+  unitCost: number;
+}
+
+export interface CreatePurchaseOrderRequest {
+  supplierId: number;
+  note?: string | null;
+  items: CreatePurchaseOrderItemRequest[];
 }
 
 export interface UpsertProductImageRequest {

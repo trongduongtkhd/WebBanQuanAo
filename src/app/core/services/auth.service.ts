@@ -7,8 +7,10 @@ import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import {
   AuthResponse,
+  ForgotPasswordRequest,
   LoginRequest,
   RegisterRequest,
+  ResetPasswordRequest,
 } from '../models/auth.model';
 import { CurrentUser } from '../models/user.model';
 import { TokenService } from './token.service';
@@ -44,6 +46,22 @@ export class AuthService {
     return this.http
       .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/register`, payload)
       .pipe(tap((response) => this.handleAuthResponse(response)));
+  }
+
+  forgotPassword(
+    payload: ForgotPasswordRequest,
+  ): Observable<ApiResponse<null>> {
+    return this.http.post<ApiResponse<null>>(
+      `${this.apiUrl}/forgot-password`,
+      payload,
+    );
+  }
+
+  resetPassword(payload: ResetPasswordRequest): Observable<ApiResponse<null>> {
+    return this.http.post<ApiResponse<null>>(
+      `${this.apiUrl}/reset-password`,
+      payload,
+    );
   }
 
   getMe(): Observable<ApiResponse<CurrentUser>> {

@@ -1,11 +1,4 @@
-<section class="hero-section">
-  <div class="container hero-content">
-    <p class="hero-label">NEW COLLECTION</p>
-    <h1>Phong cách tạo nên dấu ấn riêng</h1>
-    <p>Khám phá những thiết kế thời trang hiện đại tại Clothing Store.</p>
-    <a routerLink="/products" class="btn btn-dark btn-lg"> Mua sắm ngay </a>
-  </div>
-</section>
+<app-banner-carousel></app-banner-carousel>
 
 <section class="container py-5" *ngIf="isLoading">
   <div class="text-center py-5">Đang tải dữ liệu...</div>
@@ -36,7 +29,7 @@
             class="category-card"
           >
             <img
-              [src]="category.imageUrl || 'assets/images/placeholders/ao.jpg'"
+              [src]="(category.imageUrl | imageUrl) || 'assets/images/placeholders/ao.jpg'"
               [alt]="category.categoryName"
             />
 
@@ -77,8 +70,13 @@
         <h2>Sản phẩm được yêu thích</h2>
       </div>
 
-      <a routerLink="/products" [queryParams]="{ sort: 'newest' }">
+      <a
+        routerLink="/products"
+        [queryParams]="{ sort: 'newest' }"
+        class="view-all-link"
+      >
         Xem tất cả
+        <span class="view-all-arrow"><i class="bi bi-arrow-right"></i></span>
       </a>
     </div>
 
@@ -100,8 +98,13 @@
         <h2>Khám phá sản phẩm mới</h2>
       </div>
 
-      <a routerLink="/products" [queryParams]="{ sort: 'newest' }">
+      <a
+        routerLink="/products"
+        [queryParams]="{ sort: 'newest' }"
+        class="view-all-link"
+      >
         Xem tất cả
+        <span class="view-all-arrow"><i class="bi bi-arrow-right"></i></span>
       </a>
     </div>
 

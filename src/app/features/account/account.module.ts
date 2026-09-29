@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MyReviewsComponent } from './pages/my-reviews/my-reviews.component';
 import { MyCouponsComponent } from './pages/my-coupons/my-coupons.component';
+import { MyWishlistComponent } from './pages/my-wishlist/my-wishlist.component';
 import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from '../../shared/shared.module';
     ProfileComponent,
     MyReviewsComponent,
     MyCouponsComponent,
+    MyWishlistComponent,
   ],
   imports: [
     CommonModule,

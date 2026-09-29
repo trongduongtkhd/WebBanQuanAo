@@ -22,6 +22,11 @@
         <i class="bi bi-ticket-perforated me-1"></i>
         Ưu đãi của tôi
       </a>
+
+      <a routerLink="/account/wishlist" class="btn btn-outline-dark">
+        <i class="bi bi-heart me-1"></i>
+        Sản phẩm yêu thích
+      </a>
     </div>
   </div>
 
@@ -47,7 +52,7 @@
           <div class="avatar-area">
             <img
               *ngIf="profileForm.get('avatarUrl')?.value"
-              [src]="avatarPreview"
+              [src]="avatarPreview | imageUrl"
               alt="Avatar"
               class="profile-avatar"
               (error)="onAvatarError($event)"

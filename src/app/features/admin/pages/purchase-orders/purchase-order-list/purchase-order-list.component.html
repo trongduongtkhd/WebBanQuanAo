@@ -1,0 +1,137 @@
+<div class="page-heading">
+  <div>
+    <p class="text-uppercase text-muted small mb-1">KHO HÀNG</p>
+    <h2 class="fw-bold mb-0">Phiếu nhập kho</h2>
+  </div>
+
+  <div class="d-flex gap-2">
+    <a routerLink="/admin/suppliers" class="btn btn-outline-dark">
+      Nhà cung ứng
+    </a>
+
+    <a routerLink="/admin/purchase-orders/new" class="btn btn-dark">
+      <i class="bi bi-plus-lg me-1"></i>
+      Tạo phiếu nhập mới
+    </a>
+  </div>
+</div>
+
+<section class="admin-card mt-4">
+  <div class="row g-3 align-items-end mb-4">
+    <div class="col-md-4">
+      <label class="form-label">Lọc theo nhà cung ứng</label>
+      <select
+        class="form-select"
+        [(ngModel)]="selectedSupplierId"
+        (change)="onFilterChange()"
+      >
+        <option [ngValue]="null">Tất cả nhà cung ứng</option>
+        <option
+          *ngFor="let supplier of suppliers"
+          [ngValue]="supplier.supplierId"
+        >
+          {{ supplier.supplierName }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="py-5 text-center">
+    Đang tải danh sách phiếu nhập...
+  </div>
+
+  <div
+    *ngIf="!isLoading && !result.items.length"
+    class="py-5 text-center text-muted"
+  >
+    Chưa có phiếu nhập kho nào.
+  </div>
+
+  <div class="table-responsive" *ngIf="!isLoading && result.items.length">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Mã phiếu</th>
+          <th>Nhà cung ứng</th>
+          <th>Người tạo</th>
+          <th class="text-end">Số dòng</th>
+          <th class="text-end">Tổng SL</th>
+          <th class="text-end">Tổng tiền</th>
+          <th>Ngày tạo</th>
+          <th>Trạng thái</th>
+          <th class="text-end">Thao tác</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let purchaseOrder of result.items"
+          [class.text-muted]="purchaseOrder.status === 'Cancelled'"
+        >
+          <td class="fw-semibold">{{ purchaseOrder.purchaseOrderCode }}</td>
+          <td>{{ purchaseOrder.supplierName }}</td>
+          <td>{{ purchaseOrder.createdByUserName }}</td>
+          <td class="text-end">{{ purchaseOrder.totalItemCount }}</td>
+          <td class="text-end">{{ purchaseOrder.totalQuantity }}</td>
+          <td class="text-end">
+            {{ purchaseOrder.totalAmount | number: "1.0-0" }} ₫
+          </td>
+          <td>{{ purchaseOrder.createdAt | date: "dd/MM/yyyy HH:mm" }}</td>
+          <td>
+            <span
+              class="badge"
+              [class.bg-success]="purchaseOrder.status !== 'Cancelled'"
+              [class.bg-secondary]="purchaseOrder.status === 'Cancelled'"
+            >
+              {{ purchaseOrder.status === "Cancelled" ? "Đã hủy" : "Đã nhập kho" }}
+            </span>
+          </td>
+          <td class="text-end">
+            <a
+              [routerLink]="['/admin/purchase-orders', purchaseOrder.purchaseOrderId]"
+              class="btn btn-sm btn-outline-dark"
+            >
+              Xem chi tiết
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav
+    *ngIf="!isLoading && result.totalPages > 1"
+    class="d-flex justify-content-center mt-4"
+  >
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="result.page === 1">
+        <button class="page-link" (click)="changePage(result.page - 1)">
+          Trước
+        </button>
+      </li>
+
+      <li
+        class="page-item"
+        *ngFor="let item of [].constructor(result.totalPages); let index = index"
+        [class.active]="result.page === index + 1"
+      >
+        <button class="page-link" (click)="changePage(index + 1)">
+          {{ index + 1 }}
+        </button>
+      </li>
+
+      <li
+        class="page-item"
+        [class.disabled]="result.page === result.totalPages"
+      >
+        <button class="page-link" (click)="changePage(result.page + 1)">
+          Sau
+        </button>
+      </li>
+    </ul>
+  </nav>
+</section>

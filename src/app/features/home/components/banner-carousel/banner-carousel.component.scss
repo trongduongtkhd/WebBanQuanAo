@@ -1,0 +1,209 @@
+.banner-carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 480px;
+  background: #f2f2f2;
+}
+
+.slides-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// -- Overlay text (chỉ cho slide thương hiệu, các slide banner có sẵn) --------
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.28) 55%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+.slide-overlay-content {
+  max-width: 560px;
+  color: #fff;
+}
+
+.slide-label {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+.slide-overlay-content h1 {
+  margin-bottom: 16px;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.slide-subtitle {
+  max-width: 460px;
+  margin-bottom: 26px;
+  font-size: 17px;
+  opacity: 0.92;
+}
+
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+
+  i {
+    transition: transform 0.2s ease;
+  }
+}
+
+.slide:hover .slide-cta {
+  background: #111;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+.slide:hover .slide-cta i {
+  transform: translateX(4px);
+}
+
+// -- Nav arrows ----------------------------------------------------------------
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: #111;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  &.prev {
+    left: 20px;
+  }
+
+  &.next {
+    right: 20px;
+  }
+}
+
+// -- Dots ------------------------------------------------------------------------
+
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    width 0.2s ease;
+
+  &.active {
+    width: 24px;
+    border-radius: 5px;
+    background: #fff;
+  }
+}
+
+// -- Responsive --------------------------------------------------------------------
+
+@media (max-width: 991px) {
+  .banner-carousel {
+    height: 340px;
+  }
+
+  .slide-subtitle {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-carousel {
+    height: 220px;
+  }
+
+  .slide-overlay-content h1 {
+    margin-bottom: 10px;
+  }
+
+  .slide-cta {
+    padding: 10px 20px;
+    font-size: 0.88rem;
+  }
+
+  .carousel-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+
+  .carousel-nav.prev {
+    left: 10px;
+  }
+
+  .carousel-nav.next {
+    right: 10px;
+  }
+}

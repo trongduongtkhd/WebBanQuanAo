@@ -11,6 +11,47 @@
   width: 180px;
 }
 
+.brand-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brand-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1.5px solid #e2e2e2;
+  border-radius: 999px;
+  background: #fff;
+  color: #444;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  img {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    border-color: #111;
+  }
+
+  &.active {
+    border-color: #111;
+    background: #111;
+    color: #fff;
+  }
+}
+
 @media (max-width: 991px) {
   .filter-panel {
     position: static;

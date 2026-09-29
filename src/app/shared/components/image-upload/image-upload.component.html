@@ -1,7 +1,7 @@
 <div class="image-upload">
   <div *ngIf="currentImageUrl" class="preview-wrapper">
     <img
-      [src]="currentImageUrl"
+      [src]="currentImageUrl | imageUrl"
       alt="Ảnh đã chọn"
       class="image-preview"
       (error)="onImageError($event)"

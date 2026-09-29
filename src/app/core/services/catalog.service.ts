@@ -69,4 +69,16 @@ export class CatalogService {
       `${environment.apiUrl}/products/slug/${slug}`,
     );
   }
+
+  getRelatedProducts(
+    productId: number,
+    limit = 4,
+  ): Observable<ApiResponse<PublicProduct[]>> {
+    return this.http.get<ApiResponse<PublicProduct[]>>(
+      `${this.apiUrl}/products/${productId}/related`,
+      {
+        params: new HttpParams().set('limit', limit.toString()),
+      },
+    );
+  }
 }

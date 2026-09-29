@@ -20,7 +20,7 @@
     <div class="user-hero">
       <img
         *ngIf="user.avatarUrl"
-        [src]="user.avatarUrl"
+        [src]="user.avatarUrl | imageUrl"
         [alt]="user.fullName"
         class="detail-avatar"
         (error)="onAvatarError($event)"

@@ -1,23 +1,355 @@
-.cart-link {
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 0;
+}
+
+// -- Brand -----------------------------------------------------------------
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #111;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+
+  i {
+    font-size: 1.25rem;
+  }
+}
+
+// -- Mobile toggle -----------------------------------------------------------
+
+.mobile-toggle {
+  display: none;
+  margin-left: auto;
+  padding: 6px;
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  color: #111;
+}
+
+// -- Main nav ----------------------------------------------------------------
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+
+  a {
+    flex-shrink: 0;
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+// -- Search --------------------------------------------------------------------
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1.5px solid #e4e4e4;
+  border-radius: 999px;
+  background: #f7f7f7;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+
+  i {
+    color: #999;
+    font-size: 0.95rem;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    color: #222;
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+
+  &:focus-within {
+    border-color: #111;
+    background: #fff;
+  }
+}
+
+.nav-search {
+  flex: 1;
+  min-width: 160px;
+  max-width: 420px;
+  margin-left: 4px;
+}
+
+// -- Header actions --------------------------------------------------------------
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #111;
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: #f2f2f2;
+  }
+}
+
+.icon-box {
   position: relative;
   display: inline-flex;
   align-items: center;
-  color: #111;
-  font-size: 1.35rem;
-  text-decoration: none;
+  justify-content: center;
 }
 
-.cart-badge {
+.icon-badge {
   position: absolute;
-  top: -10px;
-  right: -12px;
-  min-width: 19px;
-  height: 19px;
-  padding: 0 5px;
+  top: -8px;
+  right: -10px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
   border-radius: 10px;
   background: #111;
   color: #fff;
-  font-size: 0.7rem;
-  line-height: 19px;
+  font-size: 0.65rem;
+  line-height: 17px;
   text-align: center;
+}
+
+// -- Account menu ------------------------------------------------------------------
+
+.account-menu {
+  position: relative;
+  margin-left: 6px;
+}
+
+.account-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: #f2f2f2;
+  }
+}
+
+.account-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+
+  &.initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+}
+
+.account-name {
+  max-width: 130px;
+  overflow: hidden;
+  color: #222;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-caret {
+  font-size: 0.7rem;
+  color: #888;
+  transition: transform 0.15s ease;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.account-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1000;
+  width: 230px;
+  padding: 8px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #333;
+    font-size: 0.88rem;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+
+    i {
+      width: 18px;
+      color: #777;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: #f5f5f5;
+      color: #000;
+    }
+  }
+
+  hr {
+    margin: 6px 4px;
+    border-color: #eee;
+  }
+
+  .logout-item {
+    color: #c62828;
+
+    i {
+      color: #c62828;
+    }
+  }
+
+  .mobile-only-item {
+    display: none;
+  }
+}
+
+// -- Guest login button -------------------------------------------------------------
+
+.btn-login {
+  margin-left: 6px;
+  padding: 8px 18px;
+  border: 1.5px solid #111;
+  border-radius: 999px;
+  color: #111;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: #111;
+    color: #fff;
+  }
+}
+
+// -- Responsive -----------------------------------------------------------------------
+
+@media (max-width: 991px) {
+  .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .header-actions {
+    order: 3;
+    margin-left: 0;
+  }
+
+  .main-nav {
+    display: none;
+    order: 4;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: 100%;
+    padding-top: 14px;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+
+    &.open {
+      display: flex;
+    }
+
+    a {
+      padding: 8px 4px;
+    }
+  }
+
+  .nav-search {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 6px;
+  }
+
+  .account-name {
+    display: none;
+  }
+
+  .account-dropdown .mobile-only-item {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-dropdown {
+    right: -10px;
+    width: 210px;
+  }
 }

@@ -87,7 +87,7 @@
             <div class="user-info">
               <img
                 *ngIf="user.avatarUrl"
-                [src]="user.avatarUrl"
+                [src]="user.avatarUrl | imageUrl"
                 [alt]="user.fullName"
                 class="user-avatar"
               />

@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminSidebarComponent } from './layouts/admin-layout/components/admin-sidebar/admin-sidebar.component';
 import { AdminHeaderComponent } from './layouts/admin-layout/components/admin-header/admin-header.component';
 import { ForbiddenComponent } from './features/forbidden/forbidden.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { ForbiddenComponent } from './features/forbidden/forbidden.component';
     AdminHeaderComponent,
     ForbiddenComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, SharedModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

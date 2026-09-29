@@ -19,6 +19,7 @@ export interface PublicProduct {
   slug: string;
   categoryName: string;
   brandName?: string | null;
+  brandLogoUrl?: string | null;
   basePrice: number;
   salePrice?: number | null;
   thumbnailUrl?: string | null;

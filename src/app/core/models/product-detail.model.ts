@@ -27,7 +27,10 @@ export interface ProductDetail {
   productId: number;
   productName: string;
   slug: string;
+  shortDescription?: string | null;
   description?: string | null;
+  material?: string | null;
+  gender: 'Male' | 'Female' | 'Unisex';
 
   categoryName: string;
   brandName?: string | null;

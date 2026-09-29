@@ -44,6 +44,7 @@ export class ProductFormComponent implements OnInit {
   successMessage = '';
 
   editingVariantId: number | null = null;
+  editingVariantCostPrice: number | null = null;
 
   productForm: UpsertProductRequest = this.createEmptyProductForm();
 
@@ -244,8 +245,43 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  get variantProfit(): number | null {
+    if (!this.editingVariantCostPrice) {
+      return null;
+    }
+
+    const sellingPrice =
+      Number(this.variantForm.salePrice) || Number(this.variantForm.price) || 0;
+
+    if (sellingPrice <= 0) {
+      return null;
+    }
+
+    return sellingPrice - this.editingVariantCostPrice;
+  }
+
+  get variantProfitPercent(): number | null {
+    const profit = this.variantProfit;
+
+    if (profit === null) {
+      return null;
+    }
+
+    const sellingPrice =
+      Number(this.variantForm.salePrice) || Number(this.variantForm.price) || 0;
+
+    return sellingPrice > 0 ? (profit / sellingPrice) * 100 : null;
+  }
+
+  get totalStockQuantity(): number {
+    return (this.product?.variants || [])
+      .filter((x) => x.isActive)
+      .reduce((sum, x) => sum + x.stockQuantity, 0);
+  }
+
   editVariant(variant: AdminProductVariant): void {
     this.editingVariantId = variant.variantId;
+    this.editingVariantCostPrice = variant.averageCostPrice ?? null;
 
     this.variantForm = {
       colorId: variant.colorId,
@@ -301,6 +337,7 @@ export class ProductFormComponent implements OnInit {
 
   resetVariantForm(): void {
     this.editingVariantId = null;
+    this.editingVariantCostPrice = null;
     this.variantForm = this.createEmptyVariantForm();
   }
 
@@ -378,7 +415,8 @@ export class ProductFormComponent implements OnInit {
       basePrice: 0,
       salePrice: null,
       isFeatured: false,
-      isActive: true,
+      // Sản phẩm mới mặc định chưa bán: phải nhập kho xong mới mở bán.
+      isActive: false,
     };
   }
 
