@@ -16,6 +16,20 @@ import {
 import { AdminCategoryService } from '../../../services/admin-category.service';
 import { AdminProductService } from '../../../services/admin-product.service';
 import { AdminCouponService } from '../../../services/admin-coupon.service';
+import { getApiErrorMessage } from '../../../../../core/utils/api-error.util';
+import { notBlank } from '../../../../../core/utils/validators.util';
+
+// Giới hạn độ dài khớp [StringLength] ở UpsertCouponDto (backend).
+const COUPON_FIELDS = {
+  code: { label: 'Mã coupon', max: 50 },
+  name: { label: 'Tên chương trình', max: 200 },
+  description: { label: 'Mô tả', max: 500 },
+  discountValue: { label: 'Giá trị giảm', max: 0 },
+  startDate: { label: 'Ngày bắt đầu', max: 0 },
+  endDate: { label: 'Ngày kết thúc', max: 0 },
+} as const;
+
+type CouponFieldName = keyof typeof COUPON_FIELDS;
 
 @Component({
   selector: 'app-coupon-form',
@@ -35,8 +49,8 @@ export class CouponFormComponent implements OnInit {
   selectedProductIds: number[] = [];
 
   couponForm = this.fb.group({
-    code: ['', [Validators.required, Validators.maxLength(50)]],
-    name: ['', [Validators.required, Validators.maxLength(200)]],
+    code: ['', [Validators.required, notBlank, Validators.maxLength(50)]],
+    name: ['', [Validators.required, notBlank, Validators.maxLength(200)]],
     description: ['', Validators.maxLength(500)],
 
     discountType: [1, Validators.required],
@@ -211,9 +225,34 @@ export class CouponFormComponent implements OnInit {
       },
       error: (error) => {
         this.saving = false;
-        this.errorMessage = error?.error?.message || 'Không thể lưu coupon.';
+        this.errorMessage = getApiErrorMessage(error, 'Không thể lưu coupon.');
       },
     });
+  }
+
+  isInvalid(controlName: CouponFieldName): boolean {
+    const control = this.couponForm.get(controlName);
+
+    return !!control && control.invalid && (control.touched || control.dirty);
+  }
+
+  getFieldError(controlName: CouponFieldName): string {
+    const errors = this.couponForm.get(controlName)?.errors;
+    const field = COUPON_FIELDS[controlName];
+
+    if (errors?.['required']) {
+      return `${field.label} là bắt buộc.`;
+    }
+
+    if (errors?.['maxlength']) {
+      return `${field.label} tối đa ${field.max} ký tự.`;
+    }
+
+    if (errors?.['min']) {
+      return `${field.label} phải lớn hơn 0.`;
+    }
+
+    return '';
   }
 
   cancel(): void {

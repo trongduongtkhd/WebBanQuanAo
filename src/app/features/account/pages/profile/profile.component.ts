@@ -1,8 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { UserProfileService } from '../../../../core/services/user-profile.service';
 import { UserProfile } from '../../../../core/models/profile.model';
+import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
+import { notBlank } from '../../../../core/utils/validators.util';
+
+// Giới hạn độ dài khớp [StringLength] ở UpdateProfileDto (backend).
+const PROFILE_FIELDS = {
+  fullName: { label: 'Họ tên', max: 150 },
+  phoneNumber: { label: 'Số điện thoại', max: 20 },
+} as const;
+
+type ProfileFieldName = keyof typeof PROFILE_FIELDS;
 
 @Component({
   selector: 'app-profile',
@@ -23,8 +34,15 @@ export class ProfileComponent implements OnInit {
   passwordErrorMessage = '';
 
   profileForm = this.fb.group({
-    fullName: ['', [Validators.required, Validators.maxLength(150)]],
-    phoneNumber: ['', Validators.maxLength(20)],
+    fullName: [
+      '',
+      [
+        Validators.required,
+        notBlank,
+        Validators.maxLength(PROFILE_FIELDS.fullName.max),
+      ],
+    ],
+    phoneNumber: ['', Validators.maxLength(PROFILE_FIELDS.phoneNumber.max)],
     avatarUrl: ['', Validators.maxLength(500)],
   });
 
@@ -38,6 +56,7 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private userProfileService: UserProfileService,
     private authService: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -98,8 +117,10 @@ export class ProfileComponent implements OnInit {
         },
         error: (error) => {
           this.savingProfile = false;
-          this.profileErrorMessage =
-            error?.error?.message || 'Không thể cập nhật hồ sơ.';
+          this.profileErrorMessage = getApiErrorMessage(
+            error,
+            'Không thể cập nhật hồ sơ.',
+          );
         },
       });
   }
@@ -129,10 +150,13 @@ export class ProfileComponent implements OnInit {
         confirmNewPassword: value.confirmNewPassword!,
       })
       .subscribe({
-        next: (response) => {
+        next: () => {
+          // Server đã thu hồi mọi refresh token (kể cả thiết bị này) => xoá phiên và yêu cầu đăng nhập lại.
           this.changingPassword = false;
-          this.passwordSuccessMessage = response.message;
-          this.passwordForm.reset();
+          this.authService.clearSession();
+          this.router.navigate(['/auth/login'], {
+            queryParams: { passwordChanged: 1 },
+          });
         },
         error: (error) => {
           this.changingPassword = false;
@@ -166,6 +190,21 @@ export class ProfileComponent implements OnInit {
   onAvatarError(event: Event): void {
     const image = event.target as HTMLImageElement;
     image.src = 'assets/images/avatar-placeholder.png';
+  }
+
+  getFieldError(controlName: ProfileFieldName): string {
+    const errors = this.profileForm.get(controlName)?.errors;
+    const field = PROFILE_FIELDS[controlName];
+
+    if (errors?.['required']) {
+      return `${field.label} là bắt buộc.`;
+    }
+
+    if (errors?.['maxlength']) {
+      return `${field.label} tối đa ${field.max} ký tự.`;
+    }
+
+    return '';
   }
 
   isInvalid(formName: 'profile' | 'password', controlName: string): boolean {

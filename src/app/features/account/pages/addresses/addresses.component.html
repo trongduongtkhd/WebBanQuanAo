@@ -105,7 +105,7 @@
             <input class="form-control" formControlName="receiverName" />
 
             <small *ngIf="isInvalid('receiverName')" class="text-danger">
-              Vui lòng nhập tên người nhận.
+              {{ getFieldError("receiverName") }}
             </small>
           </div>
 
@@ -114,7 +114,7 @@
             <input class="form-control" formControlName="receiverPhone" />
 
             <small *ngIf="isInvalid('receiverPhone')" class="text-danger">
-              Vui lòng nhập số điện thoại.
+              {{ getFieldError("receiverPhone") }}
             </small>
           </div>
 
@@ -127,18 +127,26 @@
             />
 
             <small *ngIf="isInvalid('addressDetail')" class="text-danger">
-              Vui lòng nhập địa chỉ chi tiết.
+              {{ getFieldError("addressDetail") }}
             </small>
           </div>
 
           <div class="col-md-4">
             <label class="form-label">Phường/Xã</label>
             <input class="form-control" formControlName="ward" />
+
+            <small *ngIf="isInvalid('ward')" class="text-danger">
+              {{ getFieldError("ward") }}
+            </small>
           </div>
 
           <div class="col-md-4">
             <label class="form-label">Quận/Huyện</label>
             <input class="form-control" formControlName="district" />
+
+            <small *ngIf="isInvalid('district')" class="text-danger">
+              {{ getFieldError("district") }}
+            </small>
           </div>
 
           <div class="col-md-4">
@@ -146,7 +154,7 @@
             <input class="form-control" formControlName="province" />
 
             <small *ngIf="isInvalid('province')" class="text-danger">
-              Vui lòng nhập tỉnh/thành phố.
+              {{ getFieldError("province") }}
             </small>
           </div>
 

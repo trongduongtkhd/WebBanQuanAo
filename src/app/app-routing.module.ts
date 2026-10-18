@@ -5,6 +5,7 @@ import { StorefrontLayoutComponent } from './layouts/storefront-layout/storefron
 import { AdminGuard } from './core/guards/admin.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ForbiddenComponent } from './features/forbidden/forbidden.component';
+import { NotFoundComponent } from './features/not-found/not-found.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 const routes: Routes = [
   {
@@ -63,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    component: NotFoundComponent,
   },
 ];
 

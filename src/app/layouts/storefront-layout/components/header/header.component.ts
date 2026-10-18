@@ -70,8 +70,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
     this.accountMenuOpen = false;
-    this.router.navigate(['/']);
+    this.authService.logout().subscribe(() => this.router.navigate(['/']));
   }
 }

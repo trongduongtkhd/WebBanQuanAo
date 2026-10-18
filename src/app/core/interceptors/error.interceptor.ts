@@ -10,14 +10,9 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AuthService } from '../services/auth.service';
-
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly router: Router,
-  ) {}
+  constructor(private readonly router: Router) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -25,10 +20,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 && !request.url.includes('/auth/login')) {
-          this.authService.logout();
-          this.router.navigate(['/auth/login']);
-        }
+        // 401 do AuthInterceptor xử lý (thử refresh token, thất bại mới về trang đăng nhập).
+        // Interceptor này nằm "trong" AuthInterceptor nên thấy lỗi trước; nếu logout ở đây sẽ mất cơ hội refresh.
 
         if (error.status === 403) {
           this.router.navigate(['/403']);

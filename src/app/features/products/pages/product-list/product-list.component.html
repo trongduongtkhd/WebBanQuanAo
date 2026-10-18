@@ -83,7 +83,8 @@
           <div class="col-6">
             <label class="form-label">Giá từ</label>
             <input
-              type="number"
+              type="text"
+              appMoneyInput
               class="form-control"
               [(ngModel)]="filters.minPrice"
               placeholder="0"
@@ -93,10 +94,11 @@
           <div class="col-6">
             <label class="form-label">Giá đến</label>
             <input
-              type="number"
+              type="text"
+              appMoneyInput
               class="form-control"
               [(ngModel)]="filters.maxPrice"
-              placeholder="500000"
+              placeholder="500,000"
             />
           </div>
         </div>

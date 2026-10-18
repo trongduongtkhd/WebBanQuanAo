@@ -16,8 +16,10 @@ export interface ProductVariantDetail {
   sizeName: string;
 
   sku: string;
-  price: number;
+  price: number | null;
   salePrice?: number | null;
+  effectivePrice: number;
+  effectiveSalePrice?: number | null;
   stockQuantity: number;
   imageUrl?: string | null;
   isActive: boolean;

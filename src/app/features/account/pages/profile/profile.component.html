@@ -75,19 +75,34 @@
             <div class="col-12">
               <label class="form-label">Họ và tên *</label>
 
-              <input class="form-control" formControlName="fullName" />
+              <input
+                class="form-control"
+                [class.is-invalid]="isInvalid('profile', 'fullName')"
+                formControlName="fullName"
+              />
 
               <small
                 *ngIf="isInvalid('profile', 'fullName')"
                 class="text-danger"
               >
-                Vui lòng nhập họ và tên.
+                {{ getFieldError("fullName") }}
               </small>
             </div>
 
             <div class="col-md-6">
               <label class="form-label">Số điện thoại</label>
-              <input class="form-control" formControlName="phoneNumber" />
+              <input
+                class="form-control"
+                [class.is-invalid]="isInvalid('profile', 'phoneNumber')"
+                formControlName="phoneNumber"
+              />
+
+              <small
+                *ngIf="isInvalid('profile', 'phoneNumber')"
+                class="text-danger"
+              >
+                {{ getFieldError("phoneNumber") }}
+              </small>
             </div>
 
             <div class="col-12">

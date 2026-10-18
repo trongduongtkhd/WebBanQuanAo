@@ -85,9 +85,16 @@
               autocomplete="email"
             />
           </div>
-          <small *ngIf="email?.touched && email?.invalid" class="field-error">
+          <small *ngIf="email?.touched && email?.hasError('required')" class="field-error">
             <i class="bi bi-exclamation-circle"></i>
-            Vui lòng nhập email hợp lệ.
+            Vui lòng nhập email.
+          </small>
+          <small
+            *ngIf="email?.touched && email?.invalid && !email?.hasError('required')"
+            class="field-error"
+          >
+            <i class="bi bi-exclamation-circle"></i>
+            Email không đúng định dạng.
           </small>
         </div>
 
@@ -102,7 +109,7 @@
               id="password"
               [type]="showPassword ? 'text' : 'password'"
               formControlName="password"
-              placeholder="Tối thiểu 6 ký tự"
+              placeholder="VD: Abc@1234"
               autocomplete="new-password"
             />
             <button
@@ -114,10 +121,28 @@
               <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
             </button>
           </div>
-          <small *ngIf="password?.touched && password?.invalid" class="field-error">
+          <small *ngIf="password?.touched && password?.hasError('required')" class="field-error">
             <i class="bi bi-exclamation-circle"></i>
-            Mật khẩu cần ít nhất 6 ký tự.
+            Vui lòng nhập mật khẩu.
           </small>
+          <!-- Danh sách điều kiện: đỏ = chưa đạt, xanh = đã đạt -->
+          <ul
+            *ngIf="(password?.dirty || password?.touched) && password?.value"
+            class="password-rules"
+          >
+            <li
+              *ngFor="let rule of passwordRules"
+              [class.is-valid]="!password?.hasError(rule.key)"
+              [class.is-invalid]="password?.hasError(rule.key)"
+            >
+              <i
+                class="bi"
+                [class.bi-check-circle-fill]="!password?.hasError(rule.key)"
+                [class.bi-x-circle]="password?.hasError(rule.key)"
+              ></i>
+              {{ rule.label }}
+            </li>
+          </ul>
         </div>
 
         <div class="form-field">

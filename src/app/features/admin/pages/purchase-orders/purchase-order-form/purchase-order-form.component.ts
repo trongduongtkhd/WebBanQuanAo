@@ -12,11 +12,17 @@ import { AdminProductService } from '../../../services/admin-product.service';
 import { AdminPurchaseOrderService } from '../../../services/admin-purchase-order.service';
 import { AdminSupplierService } from '../../../services/admin-supplier.service';
 
-interface PurchaseOrderLine extends CreatePurchaseOrderItemRequest {
+interface PurchaseOrderLine
+  extends Omit<CreatePurchaseOrderItemRequest, 'unitCost'> {
   productName: string;
   colorName: string;
   sizeName: string;
   sku: string;
+  // Giá nhập theo hoá đơn nhà cung ứng, null = chưa nhập.
+  unitCost: number | null;
+  // Chỉ để tham khảo khi nhập giá (không gửi lên server).
+  currentCost?: number | null;
+  sellingPrice?: number;
 }
 
 @Component({
@@ -115,7 +121,19 @@ export class PurchaseOrderFormComponent implements OnInit {
   }
 
   get totalAmount(): number {
-    return this.lines.reduce((sum, x) => sum + x.quantity * x.unitCost, 0);
+    return this.lines.reduce(
+      (sum, x) => sum + x.quantity * (x.unitCost ?? 0),
+      0,
+    );
+  }
+
+  // Nhập giá ≥ giá bán thì bán ra sẽ lỗ: chỉ cảnh báo, vẫn cho lưu.
+  isAboveSellingPrice(line: PurchaseOrderLine): boolean {
+    return (
+      !!line.sellingPrice &&
+      !!line.unitCost &&
+      line.unitCost >= line.sellingPrice
+    );
   }
 
   searchProducts(): void {
@@ -168,7 +186,11 @@ export class PurchaseOrderFormComponent implements OnInit {
       sizeName: variant.sizeName,
       sku: variant.sku,
       quantity: 1,
-      unitCost: variant.price,
+      // Giá nhập lấy theo hoá đơn NCC, không phải giá bán. Gợi ý bằng giá vốn hiện tại
+      // nếu biến thể đã từng nhập, chưa nhập lần nào thì để trống bắt buộc người dùng điền.
+      unitCost: variant.averageCostPrice ?? null,
+      currentCost: variant.averageCostPrice ?? null,
+      sellingPrice: variant.effectiveSalePrice || variant.effectivePrice,
     });
   }
 
@@ -190,11 +212,11 @@ export class PurchaseOrderFormComponent implements OnInit {
     }
 
     const invalidLine = this.lines.find(
-      (x) => x.quantity <= 0 || x.unitCost < 0,
+      (x) => x.quantity <= 0 || !x.unitCost || x.unitCost <= 0,
     );
 
     if (invalidLine) {
-      this.errorMessage = 'Số lượng phải lớn hơn 0 và đơn giá không được âm.';
+      this.errorMessage = `Dòng ${invalidLine.sku}: số lượng và đơn giá nhập (theo hoá đơn nhà cung ứng) phải lớn hơn 0.`;
       return;
     }
 
@@ -206,7 +228,7 @@ export class PurchaseOrderFormComponent implements OnInit {
       items: this.lines.map((x) => ({
         variantId: x.variantId,
         quantity: x.quantity,
-        unitCost: x.unitCost,
+        unitCost: Number(x.unitCost),
       })),
     };
 

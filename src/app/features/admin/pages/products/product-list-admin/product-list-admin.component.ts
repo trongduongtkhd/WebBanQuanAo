@@ -182,7 +182,7 @@ export class ProductListAdminComponent implements OnInit {
       return null;
     }
 
-    const sellingPrice = variant.salePrice || variant.price;
+    const sellingPrice = variant.effectiveSalePrice || variant.effectivePrice;
 
     if (!sellingPrice) {
       return null;

@@ -10,6 +10,42 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../core/services/auth.service';
 
+const PASSWORD_MIN_LENGTH = 8;
+
+/** Kiểm tra từng điều kiện mật khẩu, mỗi điều kiện sai là một key lỗi riêng. */
+function strongPasswordValidator(
+  control: AbstractControl,
+): ValidationErrors | null {
+  const value: string = control.value ?? '';
+  if (!value) {
+    return null; // để Validators.required xử lý
+  }
+
+  const firstChar = value.charAt(0);
+  const errors: ValidationErrors = {};
+
+  if (value.length < PASSWORD_MIN_LENGTH) {
+    errors.minLength = true;
+  }
+  if (firstChar === firstChar.toLowerCase() || firstChar !== firstChar.toUpperCase()) {
+    errors.firstUppercase = true;
+  }
+  if (!/\d/.test(value)) {
+    errors.digit = true;
+  }
+  // Ký tự đặc biệt: không phải chữ (chữ có hoa/thường), không phải số, không phải khoảng trắng.
+  const hasSpecial = value
+    .split('')
+    .some(
+      (c) => c.toLowerCase() === c.toUpperCase() && !/[\d\s]/.test(c),
+    );
+  if (!hasSpecial) {
+    errors.special = true;
+  }
+
+  return Object.keys(errors).length ? errors : null;
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -21,12 +57,27 @@ export class RegisterComponent {
   showPassword = false;
   showConfirmPassword = false;
 
+  readonly passwordRules = [
+    { key: 'minLength', label: `Ít nhất ${PASSWORD_MIN_LENGTH} ký tự` },
+    { key: 'firstUppercase', label: 'Ký tự đầu tiên viết hoa' },
+    { key: 'digit', label: 'Có ít nhất 1 chữ số' },
+    { key: 'special', label: 'Có ít nhất 1 ký tự đặc biệt (@, !, #, $...)' },
+  ];
+
   readonly registerForm = this.formBuilder.group(
     {
       fullName: ['', [Validators.required, Validators.maxLength(150)]],
-      email: ['', [Validators.required, Validators.email]],
+      // Validators.email chấp nhận cả "abc@gmail" (thiếu tên miền), nên bắt buộc thêm phần ".xx" ở cuối.
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(/^\s*[^\s@]+@[^\s@]+\.[A-Za-z]{2,}\s*$/),
+        ],
+      ],
       phoneNumber: ['', [Validators.maxLength(20)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, strongPasswordValidator]],
       confirmPassword: ['', [Validators.required]],
     },
     {
@@ -78,8 +129,15 @@ export class RegisterComponent {
       .subscribe({
         next: () => this.router.navigate(['/']),
         error: (error: HttpErrorResponse) => {
+          // Lỗi validate của ASP.NET trả về dạng { errors: { Field: [msg] } }.
+          const validationErrors = error.error?.errors
+            ? Object.values(error.error.errors as Record<string, string[]>)
+                .reduce((all, messages) => all.concat(messages), [])
+            : [];
           this.errorMessage =
-            error.error?.message || 'Đăng ký thất bại. Vui lòng thử lại.';
+            error.error?.message ||
+            validationErrors[0] ||
+            'Đăng ký thất bại. Vui lòng thử lại.';
           this.isSubmitting = false;
         },
       });

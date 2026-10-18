@@ -33,6 +33,11 @@ export class LoginComponent implements OnInit {
       this.successMessage =
         'Đặt lại mật khẩu thành công. Vui lòng đăng nhập lại.';
     }
+
+    if (this.route.snapshot.queryParamMap.get('passwordChanged')) {
+      this.successMessage =
+        'Đổi mật khẩu thành công. Vui lòng đăng nhập lại.';
+    }
   }
 
   get email() {

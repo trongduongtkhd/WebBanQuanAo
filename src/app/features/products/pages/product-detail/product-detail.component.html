@@ -64,12 +64,12 @@
 
         <del
           *ngIf="
-            selectedVariant?.salePrice ||
+            selectedVariant?.effectiveSalePrice ||
             (!selectedVariant && product.salePrice)
           "
           class="old-price ms-2"
         >
-          {{ selectedVariant?.price || product.basePrice | number: "1.0-0" }} ₫
+          {{ selectedVariant?.effectivePrice || product.basePrice | number: "1.0-0" }} ₫
         </del>
       </div>
 
@@ -177,7 +177,11 @@
             type="button"
             class="quantity-button"
             aria-label="Tăng số lượng"
-            [disabled]="!selectedVariant || quantity >= stockQuantity"
+            [disabled]="
+              !selectedVariant ||
+              quantity >= stockQuantity ||
+              quantity >= maxCartQuantity
+            "
             (click)="increaseQuantity()"
           >
             +

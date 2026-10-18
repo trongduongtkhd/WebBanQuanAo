@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cart, CartItem } from '../../../../core/models/cart.model';
 import { CartService } from '../../../../core/services/cart.service';
+import {
+  CART_QUANTITY_RANGE_MESSAGE,
+  getApiErrorMessage,
+  MAX_CART_QUANTITY,
+} from '../../../../core/utils/api-error.util';
 
 @Component({
   selector: 'app-cart',
@@ -61,6 +66,11 @@ export class CartComponent implements OnInit {
       return;
     }
 
+    if (quantity > MAX_CART_QUANTITY) {
+      this.errorMessage = CART_QUANTITY_RANGE_MESSAGE;
+      return;
+    }
+
     this.updatingItemId = item.cartItemId;
     this.errorMessage = '';
 
@@ -71,8 +81,10 @@ export class CartComponent implements OnInit {
       },
       error: (error) => {
         this.updatingItemId = null;
-        this.errorMessage =
-          error?.error?.message || 'Không thể cập nhật số lượng.';
+        this.errorMessage = getApiErrorMessage(
+          error,
+          'Không thể cập nhật số lượng.',
+        );
       },
     });
   }

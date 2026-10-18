@@ -92,6 +92,16 @@
             }}
           </button>
 
+          <button
+            *ngIf="canCancelOrder"
+            type="button"
+            class="btn btn-outline-danger w-100 mt-2"
+            [disabled]="updatingOrderStatus"
+            (click)="cancelOrder()"
+          >
+            Hủy đơn hàng
+          </button>
+
           <p *ngIf="!nextOrderStatus" class="text-muted small mb-0">
             Đơn hàng đã ở trạng thái cuối cùng hoặc đã bị hủy.
           </p>

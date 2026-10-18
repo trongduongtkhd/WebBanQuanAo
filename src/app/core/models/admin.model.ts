@@ -80,8 +80,12 @@ export interface AdminProductVariant {
   sizeId: number;
   sizeName: string;
   sku: string;
-  price: number;
+  // Giá riêng của biến thể, null = theo giá sản phẩm.
+  price: number | null;
   salePrice?: number | null;
+  // Giá thực tế đang áp dụng (đã tính kế thừa từ sản phẩm).
+  effectivePrice: number;
+  effectiveSalePrice?: number | null;
   stockQuantity: number;
   averageCostPrice?: number | null;
   imageUrl?: string | null;
@@ -135,7 +139,7 @@ export interface UpsertProductVariantRequest {
   colorId: number;
   sizeId: number;
   sku: string;
-  price: number;
+  price: number | null;
   salePrice?: number | null;
   stockQuantity: number;
   imageUrl?: string | null;

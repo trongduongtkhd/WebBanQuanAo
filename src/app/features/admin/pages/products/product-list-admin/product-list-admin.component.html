@@ -235,13 +235,13 @@
 
                     <td>
                       <strong>
-                        {{ variant.salePrice || variant.price | number: "1.0-0" }} ₫
+                        {{ variant.effectiveSalePrice || variant.effectivePrice | number: "1.0-0" }} ₫
                       </strong>
                       <small
-                        *ngIf="variant.salePrice"
+                        *ngIf="variant.effectiveSalePrice"
                         class="d-block text-decoration-line-through text-muted"
                       >
-                        {{ variant.price | number: "1.0-0" }} ₫
+                        {{ variant.effectivePrice | number: "1.0-0" }} ₫
                       </small>
                     </td>
 

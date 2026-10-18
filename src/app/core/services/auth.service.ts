@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, of, throwError, timer } from 'rxjs';
+import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
@@ -36,6 +36,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  // Các request tới /auth/* được AuthInterceptor gắn withCredentials để trình duyệt gửi/nhận cookie refresh token.
   login(payload: LoginRequest): Observable<ApiResponse<AuthResponse>> {
     return this.http
       .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, payload)
@@ -46,6 +47,52 @@ export class AuthService {
     return this.http
       .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/register`, payload)
       .pipe(tap((response) => this.handleAuthResponse(response)));
+  }
+
+  // Server đọc refresh token từ cookie HttpOnly, xoay vòng và trả access token mới.
+  refresh(): Observable<ApiResponse<AuthResponse>> {
+    return this.http
+      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/refresh`, {})
+      .pipe(tap((response) => this.handleAuthResponse(response)));
+  }
+
+  // Refresh, nếu bị 401 thì chờ ~500ms rồi thử lại ĐÚNG 1 lần: tab khác có thể vừa xoay token
+  // (request này gửi cookie cũ), sau 500ms trình duyệt đã nhận cookie mới. Hàm này KHÔNG xoá phiên,
+  // lỗi cuối cùng được trả cho nơi gọi tự quyết định (dùng chung cho restoreSession và AuthInterceptor).
+  refreshWithRetry(): Observable<ApiResponse<AuthResponse>> {
+    return this.refresh().pipe(
+      catchError((error: HttpErrorResponse) =>
+        error.status === 401
+          ? timer(500).pipe(switchMap(() => this.refresh()))
+          : throwError(error),
+      ),
+    );
+  }
+
+  // Gọi trong APP_INITIALIZER: khôi phục access token (nằm trong bộ nhớ nên mất khi F5)
+  // TRƯỚC khi router chạy guard. Luôn resolve để app vẫn khởi động khi refresh thất bại.
+  restoreSession(): Promise<void> {
+    // Chưa từng đăng nhập trên trình duyệt này => không cần gọi API.
+    if (!this.tokenService.getUser()) {
+      return Promise.resolve();
+    }
+
+    return this.refreshWithRetry()
+      .pipe(
+        mapTo(undefined),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            // Đã thử lại mà vẫn 401 => phiên thật sự không còn.
+            this.clearSession();
+          } else {
+            // Lỗi mạng / 5xx: GIỮ gợi ý user trong localStorage (dùng chung giữa các tab, F5 sau thử lại),
+            // chỉ bỏ user trong bộ nhớ vì app chưa có access token.
+            this.currentUserSubject.next(null);
+          }
+          return of(undefined);
+        }),
+      )
+      .toPromise();
   }
 
   forgotPassword(
@@ -67,19 +114,26 @@ export class AuthService {
   getMe(): Observable<ApiResponse<CurrentUser>> {
     return this.http.get<ApiResponse<CurrentUser>>(`${this.apiUrl}/me`).pipe(
       tap((response) => {
-        if (response.success) {
-          const token = this.tokenService.getToken();
-
-          if (token) {
-            this.tokenService.setSession(token, response.data);
-            this.currentUserSubject.next(response.data);
-          }
+        if (response.success && this.tokenService.getToken()) {
+          this.tokenService.setUser(response.data);
+          this.currentUserSubject.next(response.data);
         }
       }),
     );
   }
 
-  logout(): void {
+  // Thu hồi refresh token ở server (và xoá cookie) rồi mới xoá trạng thái local.
+  // Lỗi mạng vẫn xoá local để người dùng không bị kẹt ở trạng thái đăng nhập.
+  logout(): Observable<void> {
+    return this.http.post<unknown>(`${this.apiUrl}/logout`, {}).pipe(
+      mapTo(undefined),
+      catchError(() => of(undefined)),
+      finalize(() => this.clearSession()),
+    );
+  }
+
+  // Chỉ xoá trạng thái phía trình duyệt (dùng khi server đã từ chối phiên, ví dụ refresh thất bại).
+  clearSession(): void {
     this.tokenService.clearSession();
     this.currentUserSubject.next(null);
   }

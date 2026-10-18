@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderDetail } from '../../../../../core/models/order.model';
 import { AdminOrderService } from '../../../services/admin-order.service';
+import { getApiErrorMessage } from '../../../../../core/utils/api-error.util';
 
 @Component({
   selector: 'app-admin-order-detail',
@@ -103,24 +104,81 @@ export class AdminOrderDetailComponent implements OnInit {
       return;
     }
 
+    this.sendOrderStatus(
+      this.nextOrderStatus,
+      note.trim() || null,
+      'Đã cập nhật trạng thái đơn hàng.',
+    );
+  }
+
+  // Chỉ đơn Chờ xử lý / Đã xác nhận mới hủy được (khớp IsValidStatusTransition ở backend).
+  get canCancelOrder(): boolean {
+    const current = this.normalizeOrderStatus(this.order?.orderStatus);
+
+    return current === 1 || current === 2;
+  }
+
+  cancelOrder(): void {
+    if (!this.order || !this.canCancelOrder) {
+      return;
+    }
+
+    const reason = window.prompt(
+      `Nhập lý do hủy đơn ${this.order.orderCode} (bắt buộc):`,
+    );
+
+    if (reason === null) {
+      return;
+    }
+
+    if (!reason.trim()) {
+      this.successMessage = '';
+      this.errorMessage = 'Vui lòng nhập lý do hủy đơn.';
+      return;
+    }
+
+    if (
+      !window.confirm(
+        'Hủy đơn này? Tồn kho và lượt dùng mã giảm giá sẽ được hoàn lại.',
+      )
+    ) {
+      return;
+    }
+
+    this.sendOrderStatus(
+      5,
+      reason.trim(),
+      'Đã hủy đơn hàng. Tồn kho và lượt dùng mã giảm giá đã được hoàn lại.',
+    );
+  }
+
+  private sendOrderStatus(
+    status: number,
+    note: string | null,
+    successMessage: string,
+  ): void {
+    if (!this.order) {
+      return;
+    }
+
     this.updatingOrderStatus = true;
     this.errorMessage = '';
+    this.successMessage = '';
 
     this.adminOrderService
-      .updateOrderStatus(this.order.orderId, {
-        status: this.nextOrderStatus,
-        note: note.trim() || null,
-      })
+      .updateOrderStatus(this.order.orderId, { status, note })
       .subscribe({
         next: (response) => {
           this.order = response.data;
           this.updatingOrderStatus = false;
-          this.successMessage = 'Đã cập nhật trạng thái đơn hàng.';
+          this.successMessage = successMessage;
         },
         error: (error) => {
           this.updatingOrderStatus = false;
-          this.errorMessage =
-            error?.error?.message || 'Không thể cập nhật trạng thái đơn.';
+          this.errorMessage = getApiErrorMessage(
+            error,
+            'Không thể cập nhật trạng thái đơn.',
+          );
         },
       });
   }

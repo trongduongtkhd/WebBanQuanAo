@@ -89,25 +89,31 @@
 
       <div class="col-md-6">
         <label class="form-label">Giá gốc *</label>
-        <input
-          type="number"
-          min="1"
-          class="form-control"
-          [(ngModel)]="productForm.basePrice"
-          name="basePrice"
-        />
+        <div class="input-group">
+          <input
+            type="text"
+            appMoneyInput
+            class="form-control"
+            [(ngModel)]="productForm.basePrice"
+            name="basePrice"
+          />
+          <span class="input-group-text">₫</span>
+        </div>
       </div>
 
       <div class="col-md-6">
         <label class="form-label">Giá giảm</label>
-        <input
-          type="number"
-          min="1"
-          class="form-control"
-          [(ngModel)]="productForm.salePrice"
-          name="salePrice"
-          placeholder="Để trống nếu không giảm giá"
-        />
+        <div class="input-group">
+          <input
+            type="text"
+            appMoneyInput
+            class="form-control"
+            [(ngModel)]="productForm.salePrice"
+            name="salePrice"
+            placeholder="Để trống nếu không giảm giá"
+          />
+          <span class="input-group-text">₫</span>
+        </div>
       </div>
 
       <div class="col-md-6">
@@ -322,25 +328,44 @@
       </div>
 
       <div class="col-md-2">
-        <label class="form-label">Giá *</label>
-        <input
-          type="number"
-          min="1"
-          class="form-control"
-          [(ngModel)]="variantForm.price"
-          name="variantPrice"
-        />
+        <label class="form-label">Giá bán riêng</label>
+        <div class="input-group">
+          <input
+            type="text"
+            appMoneyInput
+            class="form-control"
+            [(ngModel)]="variantForm.price"
+            name="variantPrice"
+            [placeholder]="productForm.basePrice | number: '1.0-0'"
+          />
+          <span class="input-group-text">₫</span>
+        </div>
+        <small class="text-muted">
+          Để trống = theo giá sản phẩm
+        </small>
       </div>
 
       <div class="col-md-2">
-        <label class="form-label">Giá giảm</label>
-        <input
-          type="number"
-          min="1"
-          class="form-control"
-          [(ngModel)]="variantForm.salePrice"
-          name="variantSalePrice"
-        />
+        <label class="form-label">Giá giảm riêng</label>
+        <div class="input-group">
+          <input
+            type="text"
+            appMoneyInput
+            class="form-control"
+            [(ngModel)]="variantForm.salePrice"
+            name="variantSalePrice"
+            [disabled]="!hasVariantOwnPrice"
+            [placeholder]="
+              !hasVariantOwnPrice && productForm.salePrice
+                ? (productForm.salePrice | number: '1.0-0')
+                : ''
+            "
+          />
+          <span class="input-group-text">₫</span>
+        </div>
+        <small class="text-muted">
+          Đang bán: {{ variantSellingPrice | number: "1.0-0" }} ₫
+        </small>
       </div>
 
       <div class="col-md-3">
@@ -451,7 +476,18 @@
             </td>
 
             <td>
-              {{ variant.salePrice || variant.price | number: "1.0-0" }} ₫
+              {{
+                variant.effectiveSalePrice || variant.effectivePrice
+                  | number: "1.0-0"
+              }}
+              ₫
+              <span
+                *ngIf="variant.price !== null"
+                class="badge text-bg-warning ms-1"
+                title="Biến thể này có giá riêng, không theo giá sản phẩm"
+              >
+                Giá riêng
+              </span>
             </td>
 
             <td>{{ variant.stockQuantity }}</td>

@@ -163,8 +163,9 @@ export class ProductFormComponent implements OnInit {
     }
 
     if (
+      this.hasVariantOwnPrice &&
       this.variantForm.salePrice &&
-      this.variantForm.salePrice > this.variantForm.price
+      this.variantForm.salePrice > Number(this.variantForm.price)
     ) {
       this.errorMessage = 'Giá giảm biến thể không được lớn hơn giá gốc.';
       return;
@@ -179,10 +180,13 @@ export class ProductFormComponent implements OnInit {
       colorId: Number(this.variantForm.colorId),
       sizeId: Number(this.variantForm.sizeId),
       sku: this.variantForm.sku.trim().toUpperCase(),
-      price: Number(this.variantForm.price),
-      salePrice: this.variantForm.salePrice
-        ? Number(this.variantForm.salePrice)
-        : null,
+      // Để trống = biến thể bán theo giá sản phẩm.
+      // Giá giảm riêng chỉ có nghĩa khi biến thể có giá riêng.
+      price: this.hasVariantOwnPrice ? Number(this.variantForm.price) : null,
+      salePrice:
+        this.hasVariantOwnPrice && this.variantForm.salePrice
+          ? Number(this.variantForm.salePrice)
+          : null,
       stockQuantity: Number(this.variantForm.stockQuantity),
       imageUrl: this.variantForm.imageUrl?.trim() || null,
     };
@@ -245,13 +249,31 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
+  get hasVariantOwnPrice(): boolean {
+    return Number(this.variantForm.price) > 0;
+  }
+
+  // Giá bán thực tế của biến thể đang sửa: giá riêng nếu có, không thì theo giá sản phẩm.
+  get variantSellingPrice(): number {
+    if (this.hasVariantOwnPrice) {
+      return (
+        Number(this.variantForm.salePrice) || Number(this.variantForm.price)
+      );
+    }
+
+    return (
+      Number(this.productForm.salePrice) ||
+      Number(this.productForm.basePrice) ||
+      0
+    );
+  }
+
   get variantProfit(): number | null {
     if (!this.editingVariantCostPrice) {
       return null;
     }
 
-    const sellingPrice =
-      Number(this.variantForm.salePrice) || Number(this.variantForm.price) || 0;
+    const sellingPrice = this.variantSellingPrice;
 
     if (sellingPrice <= 0) {
       return null;
@@ -267,8 +289,7 @@ export class ProductFormComponent implements OnInit {
       return null;
     }
 
-    const sellingPrice =
-      Number(this.variantForm.salePrice) || Number(this.variantForm.price) || 0;
+    const sellingPrice = this.variantSellingPrice;
 
     return sellingPrice > 0 ? (profit / sellingPrice) * 100 : null;
   }
@@ -287,7 +308,7 @@ export class ProductFormComponent implements OnInit {
       colorId: variant.colorId,
       sizeId: variant.sizeId,
       sku: variant.sku,
-      price: variant.price,
+      price: variant.price ?? null,
       salePrice: variant.salePrice || null,
       stockQuantity: variant.stockQuantity,
       imageUrl: variant.imageUrl || null,
@@ -425,7 +446,7 @@ export class ProductFormComponent implements OnInit {
       colorId: 0,
       sizeId: 0,
       sku: '',
-      price: 0,
+      price: null,
       salePrice: null,
       stockQuantity: 0,
       imageUrl: null,

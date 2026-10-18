@@ -5,6 +5,19 @@ import {
   UpsertAddressRequest,
 } from '../../../../core/models/address.model';
 import { AddressService } from '../../../../core/services/address.service';
+import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
+
+// Giới hạn độ dài khớp [StringLength] ở UpsertAddressDto (backend).
+const ADDRESS_FIELDS = {
+  receiverName: { label: 'Tên người nhận', max: 150 },
+  receiverPhone: { label: 'Số điện thoại', max: 20 },
+  addressDetail: { label: 'Địa chỉ chi tiết', max: 500 },
+  ward: { label: 'Phường/Xã', max: 100 },
+  district: { label: 'Quận/Huyện', max: 100 },
+  province: { label: 'Tỉnh/Thành phố', max: 100 },
+} as const;
+
+type AddressFieldName = keyof typeof ADDRESS_FIELDS;
 
 @Component({
   selector: 'app-addresses',
@@ -26,13 +39,25 @@ export class AddressesComponent implements OnInit {
   successMessage = '';
 
   addressForm = this.fb.group({
-    receiverName: ['', [Validators.required, Validators.maxLength(150)]],
-    receiverPhone: ['', [Validators.required, Validators.maxLength(20)]],
+    receiverName: [
+      '',
+      [Validators.required, Validators.maxLength(ADDRESS_FIELDS.receiverName.max)],
+    ],
+    receiverPhone: [
+      '',
+      [Validators.required, Validators.maxLength(ADDRESS_FIELDS.receiverPhone.max)],
+    ],
 
-    addressDetail: ['', [Validators.required, Validators.maxLength(500)]],
-    ward: ['', Validators.maxLength(100)],
-    district: ['', Validators.maxLength(100)],
-    province: ['', [Validators.required, Validators.maxLength(100)]],
+    addressDetail: [
+      '',
+      [Validators.required, Validators.maxLength(ADDRESS_FIELDS.addressDetail.max)],
+    ],
+    ward: ['', Validators.maxLength(ADDRESS_FIELDS.ward.max)],
+    district: ['', Validators.maxLength(ADDRESS_FIELDS.district.max)],
+    province: [
+      '',
+      [Validators.required, Validators.maxLength(ADDRESS_FIELDS.province.max)],
+    ],
 
     isDefault: [false],
   });
@@ -149,7 +174,7 @@ export class AddressesComponent implements OnInit {
       },
       error: (error) => {
         this.saving = false;
-        this.errorMessage = error?.error?.message || 'Không thể lưu địa chỉ.';
+        this.errorMessage = getApiErrorMessage(error, 'Không thể lưu địa chỉ.');
       },
     });
   }
@@ -208,6 +233,21 @@ export class AddressesComponent implements OnInit {
     ]
       .filter(Boolean)
       .join(', ');
+  }
+
+  getFieldError(controlName: AddressFieldName): string {
+    const errors = this.addressForm.get(controlName)?.errors;
+    const field = ADDRESS_FIELDS[controlName];
+
+    if (errors?.['required']) {
+      return `Vui lòng nhập ${field.label.toLowerCase()}.`;
+    }
+
+    if (errors?.['maxlength']) {
+      return `${field.label} tối đa ${field.max} ký tự.`;
+    }
+
+    return '';
   }
 
   isInvalid(controlName: string): boolean {

@@ -8,6 +8,10 @@ import {
 import { CatalogService } from '../../../../core/services/catalog.service';
 import { CartService } from '../../../../core/services/cart.service';
 import { TokenService } from '../../../../core/services/token.service';
+import {
+  getApiErrorMessage,
+  MAX_CART_QUANTITY,
+} from '../../../../core/utils/api-error.util';
 
 import { PublicReview } from '../../../../core/models/review.model';
 import { ReviewService } from '../../../../core/services/review.service';
@@ -24,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
   errorMessage = '';
   successMessage = '';
   cartErrorMessage = '';
+  readonly maxCartQuantity = MAX_CART_QUANTITY;
 
   selectedImage = 'assets/images/product-placeholder.png';
   selectedColorId: number | null = null;
@@ -153,7 +158,10 @@ export class ProductDetailComponent implements OnInit {
 
   get currentPrice(): number {
     if (this.selectedVariant) {
-      return this.selectedVariant.salePrice || this.selectedVariant.price;
+      return (
+        this.selectedVariant.effectiveSalePrice ||
+        this.selectedVariant.effectivePrice
+      );
     }
 
     if (!this.product) {
@@ -223,7 +231,11 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
 
-    this.quantity = Math.min(this.stockQuantity, this.quantity + 1);
+    this.quantity = Math.min(
+      this.stockQuantity,
+      MAX_CART_QUANTITY,
+      this.quantity + 1,
+    );
   }
 
   addToCart(): void {
@@ -231,7 +243,7 @@ export class ProductDetailComponent implements OnInit {
     this.cartErrorMessage = '';
 
     if (!this.tokenService.getToken()) {
-      this.router.navigate(['/login'], {
+      this.router.navigate(['/auth/login'], {
         queryParams: {
           returnUrl: this.router.url,
         },
@@ -285,10 +297,10 @@ export class ProductDetailComponent implements OnInit {
             },
           });
 
-          this.cartErrorMessage =
-            error?.error?.message ||
-            error?.error?.title ||
-            'Không thể thêm sản phẩm vào giỏ hàng.';
+          this.cartErrorMessage = getApiErrorMessage(
+            error,
+            'Không thể thêm sản phẩm vào giỏ hàng.',
+          );
         },
       });
   }

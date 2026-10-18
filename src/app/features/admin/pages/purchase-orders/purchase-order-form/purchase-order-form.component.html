@@ -144,7 +144,9 @@
               <th>Sản phẩm</th>
               <th>SKU</th>
               <th style="width: 110px">Số lượng</th>
-              <th style="width: 150px">Đơn giá nhập</th>
+              <th style="width: 170px">Đơn giá nhập (theo HĐ NCC)</th>
+              <th class="text-end">Giá vốn hiện tại</th>
+              <th class="text-end">Giá bán</th>
               <th class="text-end">Thành tiền</th>
               <th></th>
             </tr>
@@ -170,15 +172,38 @@
               </td>
               <td>
                 <input
-                  type="number"
-                  min="0"
+                  type="text"
+                  appMoneyInput
                   class="form-control form-control-sm"
+                  [class.is-invalid]="!line.unitCost || line.unitCost <= 0"
                   [(ngModel)]="line.unitCost"
                   name="unitCost{{ i }}"
+                  placeholder="Nhập giá NCC"
                 />
+                <div
+                  *ngIf="isAboveSellingPrice(line)"
+                  class="text-warning small mt-1"
+                >
+                  <i class="bi bi-exclamation-triangle me-1"></i>
+                  Giá nhập ≥ giá bán, bán sẽ lỗ
+                </div>
+              </td>
+              <td class="text-end text-muted">
+                {{
+                  line.currentCost
+                    ? (line.currentCost | number: "1.0-0") + " ₫"
+                    : "—"
+                }}
+              </td>
+              <td class="text-end text-muted">
+                {{
+                  line.sellingPrice
+                    ? (line.sellingPrice | number: "1.0-0") + " ₫"
+                    : "—"
+                }}
               </td>
               <td class="text-end">
-                {{ line.quantity * line.unitCost | number: "1.0-0" }} ₫
+                {{ line.quantity * (line.unitCost ?? 0) | number: "1.0-0" }} ₫
               </td>
               <td class="text-end">
                 <button
@@ -194,7 +219,7 @@
 
           <tfoot>
             <tr>
-              <td colspan="4" class="text-end fw-semibold">Tổng cộng</td>
+              <td colspan="6" class="text-end fw-semibold">Tổng cộng</td>
               <td class="text-end fw-bold">
                 {{ totalAmount | number: "1.0-0" }} ₫
               </td>

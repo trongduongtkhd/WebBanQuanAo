@@ -25,12 +25,28 @@
     <div class="row g-3">
       <div class="col-md-4">
         <label class="form-label">Mã coupon *</label>
-        <input class="form-control" formControlName="code" />
+        <input
+          class="form-control"
+          [class.is-invalid]="isInvalid('code')"
+          formControlName="code"
+        />
+
+        <small *ngIf="isInvalid('code')" class="text-danger">
+          {{ getFieldError("code") }}
+        </small>
       </div>
 
       <div class="col-md-8">
         <label class="form-label">Tên chương trình *</label>
-        <input class="form-control" formControlName="name" />
+        <input
+          class="form-control"
+          [class.is-invalid]="isInvalid('name')"
+          formControlName="name"
+        />
+
+        <small *ngIf="isInvalid('name')" class="text-danger">
+          {{ getFieldError("name") }}
+        </small>
       </div>
 
       <div class="col-12">
@@ -55,12 +71,27 @@
           {{ isPercentage ? "Phần trăm giảm (%)" : "Số tiền giảm (₫)" }} *
         </label>
 
+        <!-- Giảm theo % có thể là số thập phân nên giữ ô number; giảm theo tiền thì có dấu phẩy. -->
         <input
+          *ngIf="isPercentage"
           type="number"
           min="0.01"
           class="form-control"
+          [class.is-invalid]="isInvalid('discountValue')"
           formControlName="discountValue"
         />
+        <input
+          *ngIf="!isPercentage"
+          type="text"
+          appMoneyInput
+          class="form-control"
+          [class.is-invalid]="isInvalid('discountValue')"
+          formControlName="discountValue"
+        />
+
+        <small *ngIf="isInvalid('discountValue')" class="text-danger">
+          {{ getFieldError("discountValue") }}
+        </small>
       </div>
 
       <div class="col-md-4">
@@ -70,8 +101,8 @@
         </label>
 
         <input
-          type="number"
-          min="0"
+          type="text"
+          appMoneyInput
           class="form-control"
           formControlName="maxDiscountAmount"
           [readonly]="!isPercentage"
@@ -81,8 +112,8 @@
       <div class="col-md-4">
         <label class="form-label">Đơn hàng tối thiểu (₫)</label>
         <input
-          type="number"
-          min="0"
+          type="text"
+          appMoneyInput
           class="form-control"
           formControlName="minOrderAmount"
         />
@@ -93,8 +124,13 @@
         <input
           type="datetime-local"
           class="form-control"
+          [class.is-invalid]="isInvalid('startDate')"
           formControlName="startDate"
         />
+
+        <small *ngIf="isInvalid('startDate')" class="text-danger">
+          {{ getFieldError("startDate") }}
+        </small>
       </div>
 
       <div class="col-md-4">
@@ -102,8 +138,13 @@
         <input
           type="datetime-local"
           class="form-control"
+          [class.is-invalid]="isInvalid('endDate')"
           formControlName="endDate"
         />
+
+        <small *ngIf="isInvalid('endDate')" class="text-danger">
+          {{ getFieldError("endDate") }}
+        </small>
       </div>
 
       <div class="col-md-6">
