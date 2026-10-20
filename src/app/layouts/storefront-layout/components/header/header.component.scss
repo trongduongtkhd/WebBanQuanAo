@@ -8,7 +8,9 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 14px 0;
+  // Chỉ đặt padding dọc: padding ngang để .container của Bootstrap lo (tránh chữ dính sát mép trên mobile).
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 // -- Brand -----------------------------------------------------------------
@@ -295,19 +297,25 @@
 
 // -- Responsive -----------------------------------------------------------------------
 
+// Mobile: hàng 1 = [logo ... icon, avatar, nút menu]; menu mở ra chiếm trọn hàng 2.
 @media (max-width: 991px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .header-actions {
+    order: 2;
+    gap: 2px;
+    margin-left: auto;
+  }
+
   .mobile-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    order: 2;
-  }
-
-  .header-inner {
-    flex-wrap: wrap;
-  }
-
-  .header-actions {
     order: 3;
     margin-left: 0;
   }
@@ -315,6 +323,7 @@
   .main-nav {
     display: none;
     order: 4;
+    flex: 0 0 100%;
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
@@ -333,12 +342,23 @@
   }
 
   .nav-search {
+    flex: 0 0 auto;
     width: 100%;
+    max-width: none;
     margin-left: 0;
     margin-top: 6px;
   }
 
-  .account-name {
+  .account-menu {
+    margin-left: 2px;
+  }
+
+  .account-trigger {
+    padding: 4px;
+  }
+
+  .account-name,
+  .account-caret {
     display: none;
   }
 
@@ -348,6 +368,15 @@
 }
 
 @media (max-width: 480px) {
+  .brand {
+    font-size: 1rem;
+  }
+
+  .btn-login {
+    margin-left: 2px;
+    padding: 6px 12px;
+  }
+
   .account-dropdown {
     right: -10px;
     width: 210px;

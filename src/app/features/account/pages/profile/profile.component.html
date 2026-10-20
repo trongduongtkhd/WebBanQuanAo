@@ -197,5 +197,14 @@
         </form>
       </section>
     </div>
+
+    <div class="col-12">
+      <section class="profile-card">
+        <app-two-factor-settings
+          [enabled]="!!profile?.twoFactorEnabled"
+          (enabledChange)="profile && (profile.twoFactorEnabled = $event)"
+        ></app-two-factor-settings>
+      </section>
+    </div>
   </div>
 </div>

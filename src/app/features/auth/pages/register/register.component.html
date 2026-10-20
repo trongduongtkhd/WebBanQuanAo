@@ -179,7 +179,14 @@
           </small>
         </div>
 
-        <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+        <div class="form-field">
+          <app-turnstile (tokenChange)="captchaToken = $event"></app-turnstile>
+          <small *ngIf="!captchaToken" class="field-hint">
+            Hoàn tất xác minh bên trên để đăng ký.
+          </small>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="isSubmitting || !captchaToken">
           <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
           {{ isSubmitting ? "Đang đăng ký..." : "Đăng ký" }}
         </button>

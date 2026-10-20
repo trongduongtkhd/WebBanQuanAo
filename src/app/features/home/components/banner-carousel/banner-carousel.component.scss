@@ -184,8 +184,20 @@
     height: 220px;
   }
 
+  // Chừa chỗ hai bên cho nút mũi tên (36px + lề 10px) để chữ không bị đè.
+  .slide-overlay-content {
+    padding: 0 38px;
+  }
+
+  .slide-label {
+    margin-bottom: 6px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
   .slide-overlay-content h1 {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-size: 24px;
   }
 
   .slide-cta {

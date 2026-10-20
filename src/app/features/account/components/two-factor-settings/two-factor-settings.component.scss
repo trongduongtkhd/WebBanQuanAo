@@ -1,0 +1,72 @@
+.two-factor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  h3 {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+.qr-image {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #dee2e6;
+  image-rendering: pixelated;
+}
+
+.setup-steps {
+  padding-left: 1.2rem;
+
+  li {
+    margin-bottom: 8px;
+  }
+}
+
+.manual-key {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: #f1f3f5;
+  color: #212529;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  word-break: break-all;
+}
+
+.code-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.otp-input {
+  max-width: 160px;
+  letter-spacing: 0.3em;
+  font-variant-numeric: tabular-nums;
+}
+
+.recovery-codes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 16px;
+  list-style: none;
+  border: 1px dashed #adb5bd;
+  background: #f8f9fa;
+
+  code {
+    color: #212529;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+.disable-form {
+  max-width: 420px;
+}

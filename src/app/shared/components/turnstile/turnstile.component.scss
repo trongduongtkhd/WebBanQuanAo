@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+// Giữ chỗ bằng chiều cao widget (65px) để form không bị giật khi script tải xong.
+.turnstile-widget:not(:empty) {
+  min-height: 65px;
+}
+
+.turnstile-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #dc3545;
+  font-size: 0.85rem;
+}

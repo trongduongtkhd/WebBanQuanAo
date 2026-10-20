@@ -27,6 +27,9 @@ export class AuthInterceptor implements HttpInterceptor {
     'logout',
     'forgot-password',
     'reset-password',
+    // Đăng nhập bước 2: 401 = sai mã / challenge hết hạn (chưa hề có phiên), không phải access token hết hạn.
+    'two-factor/verify',
+    'two-factor/recovery',
   ];
 
   // Single-flight: khi đang refresh, mọi request bị 401 cùng chờ kết quả của ĐÚNG MỘT lần gọi /auth/refresh.

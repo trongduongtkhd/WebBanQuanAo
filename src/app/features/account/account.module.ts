@@ -11,8 +11,10 @@ import { MyReviewsComponent } from './pages/my-reviews/my-reviews.component';
 import { MyCouponsComponent } from './pages/my-coupons/my-coupons.component';
 import { MyWishlistComponent } from './pages/my-wishlist/my-wishlist.component';
 import { SharedModule } from '../../shared/shared.module';
+import { TwoFactorSettingsComponent } from './components/two-factor-settings/two-factor-settings.component';
 @NgModule({
   declarations: [
+    TwoFactorSettingsComponent,
     AddressesComponent,
     OrderListComponent,
     OrderDetailComponent,

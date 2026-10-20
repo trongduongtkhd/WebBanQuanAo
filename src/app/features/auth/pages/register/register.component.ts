@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../core/services/auth.service';
+import { TurnstileComponent } from '../../../../shared/components/turnstile/turnstile.component';
 
 const PASSWORD_MIN_LENGTH = 8;
 
@@ -56,6 +57,11 @@ export class RegisterComponent {
   errorMessage = '';
   showPassword = false;
   showConfirmPassword = false;
+
+  // Token CAPTCHA (Turnstile), dùng một lần: đăng ký thất bại phải reset widget.
+  captchaToken = '';
+
+  @ViewChild(TurnstileComponent) private turnstile?: TurnstileComponent;
 
   readonly passwordRules = [
     { key: 'minLength', label: `Ít nhất ${PASSWORD_MIN_LENGTH} ký tự` },
@@ -113,6 +119,11 @@ export class RegisterComponent {
       return;
     }
 
+    if (!this.captchaToken) {
+      this.errorMessage = 'Vui lòng hoàn tất xác minh CAPTCHA.';
+      return;
+    }
+
     this.isSubmitting = true;
     this.errorMessage = '';
 
@@ -125,6 +136,7 @@ export class RegisterComponent {
         phoneNumber: value.phoneNumber?.trim() || null,
         password: value.password ?? '',
         confirmPassword: value.confirmPassword ?? '',
+        captchaToken: this.captchaToken,
       })
       .subscribe({
         next: () => this.router.navigate(['/']),
@@ -139,8 +151,15 @@ export class RegisterComponent {
             validationErrors[0] ||
             'Đăng ký thất bại. Vui lòng thử lại.';
           this.isSubmitting = false;
+          // Token đã bị server tiêu (kể cả khi lỗi do email trùng...): lấy token mới cho lần thử sau.
+          this.resetCaptcha();
         },
       });
+  }
+
+  private resetCaptcha(): void {
+    this.captchaToken = '';
+    this.turnstile?.reset();
   }
 
   private passwordMatchValidator(

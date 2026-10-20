@@ -432,6 +432,36 @@ $auth-danger: #dc3545;
   }
 }
 
+// -- Bước 2: xác thực hai lớp ---------------------------------------------------
+
+.input-with-icon .otp-input {
+  font-size: 1.15rem;
+  letter-spacing: 0.3em;
+  font-variant-numeric: tabular-nums;
+}
+
+.two-factor-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.link-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: $auth-muted;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  &:hover {
+    color: $auth-ink;
+    text-decoration: underline;
+  }
+}
+
 // -- Responsive -----------------------------------------------------------------
 
 @media (max-width: 991px) {

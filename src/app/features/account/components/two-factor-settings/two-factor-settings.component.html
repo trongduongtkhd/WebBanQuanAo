@@ -1,0 +1,166 @@
+<div class="two-factor-header">
+  <h3>Bảo mật</h3>
+  <span
+    class="badge"
+    [class.bg-success]="enabled"
+    [class.bg-secondary]="!enabled"
+  >
+    <i class="bi" [class.bi-shield-check]="enabled" [class.bi-shield]="!enabled"></i>
+    {{ enabled ? "2FA đang bật" : "2FA chưa bật" }}
+  </span>
+</div>
+
+<p class="text-muted">
+  Xác thực hai lớp (2FA) yêu cầu thêm mã 6 số từ ứng dụng xác thực (Google
+  Authenticator, Microsoft Authenticator...) mỗi khi đăng nhập.
+</p>
+
+<div *ngIf="successMessage" class="alert alert-success">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<!-- Chưa bật / đang bật -->
+<ng-container *ngIf="mode === 'idle'">
+  <button
+    *ngIf="!enabled"
+    type="button"
+    class="btn btn-dark"
+    [disabled]="loading"
+    (click)="startSetup()"
+  >
+    <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+    Bật xác thực hai lớp
+  </button>
+
+  <button
+    *ngIf="enabled"
+    type="button"
+    class="btn btn-outline-danger"
+    (click)="startDisable()"
+  >
+    Tắt xác thực hai lớp
+  </button>
+</ng-container>
+
+<!-- Thiết lập: QR + khóa nhập tay + mã xác nhận -->
+<div *ngIf="mode === 'setup' && setup" class="row g-4 align-items-start">
+  <div class="col-md-auto text-center">
+    <img
+      [src]="setup.qrCodeDataUri"
+      alt="Mã QR để thêm tài khoản vào ứng dụng xác thực"
+      class="qr-image"
+    />
+  </div>
+
+  <div class="col">
+    <ol class="setup-steps">
+      <li>Mở ứng dụng xác thực và quét mã QR bên cạnh.</li>
+      <li>
+        Không quét được? Nhập khóa thủ công (loại "Dựa trên thời gian"):
+        <code class="manual-key">{{ setup.secret }}</code>
+      </li>
+      <li>Nhập mã 6 số đang hiển thị trong ứng dụng để xác nhận.</li>
+    </ol>
+
+    <form [formGroup]="enableForm" (ngSubmit)="confirmEnable()" class="code-form">
+      <input
+        class="form-control otp-input"
+        formControlName="code"
+        inputmode="numeric"
+        autocomplete="one-time-code"
+        maxlength="6"
+        placeholder="000000"
+        aria-label="Mã xác thực 6 số"
+      />
+
+      <button type="submit" class="btn btn-dark" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        Xác nhận
+      </button>
+
+      <button type="button" class="btn btn-link" (click)="cancel()">Hủy</button>
+    </form>
+  </div>
+</div>
+
+<!-- Vừa bật: hiện mã khôi phục MỘT lần -->
+<div *ngIf="mode === 'codes'">
+  <div class="alert alert-warning">
+    <strong
+      ><i class="bi bi-exclamation-triangle-fill me-1"></i> Đừng tải lại trang,
+      mã chỉ hiện một lần.</strong
+    >
+    File <code>recovery-codes-ClothingStore.txt</code> đã được tự động tải
+    xuống (nếu trình duyệt chặn, bấm "Tải .txt"). Mỗi mã dùng được một lần khi
+    bạn không có điện thoại. Mọi phiên đăng nhập cũ đã bị đăng xuất.
+  </div>
+
+  <ul class="recovery-codes">
+    <li *ngFor="let code of recoveryCodes">
+      <code>{{ code }}</code>
+    </li>
+  </ul>
+
+  <div class="d-flex flex-wrap gap-2 align-items-center">
+    <button type="button" class="btn btn-outline-dark" (click)="copyRecoveryCodes()">
+      <i class="bi bi-clipboard me-1"></i> Sao chép
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="downloadRecoveryCodes()">
+      <i class="bi bi-download me-1"></i> Tải .txt
+    </button>
+    <button type="button" class="btn btn-dark" (click)="finishEnable()">
+      Tôi đã lưu mã, đăng nhập lại
+    </button>
+    <small *ngIf="copyMessage" class="text-success">{{ copyMessage }}</small>
+  </div>
+</div>
+
+<!-- Tắt: mật khẩu + mã hiện tại hoặc mã khôi phục -->
+<form
+  *ngIf="mode === 'disable'"
+  [formGroup]="disableForm"
+  (ngSubmit)="confirmDisable()"
+  class="disable-form"
+>
+  <div class="mb-3">
+    <label class="form-label" for="twoFactorPassword">Mật khẩu hiện tại *</label>
+    <input
+      id="twoFactorPassword"
+      type="password"
+      class="form-control"
+      formControlName="password"
+      autocomplete="current-password"
+    />
+  </div>
+
+  <div class="mb-2">
+    <label class="form-label" for="twoFactorCode">
+      {{ useRecoveryCode ? "Mã khôi phục *" : "Mã xác thực 6 số *" }}
+    </label>
+    <input
+      id="twoFactorCode"
+      class="form-control"
+      formControlName="code"
+      [attr.inputmode]="useRecoveryCode ? null : 'numeric'"
+      [attr.autocomplete]="useRecoveryCode ? 'off' : 'one-time-code'"
+      [attr.maxlength]="useRecoveryCode ? 20 : 6"
+      [placeholder]="useRecoveryCode ? 'XXXX-XXXX-XXXX' : '000000'"
+    />
+  </div>
+
+  <button type="button" class="btn btn-link px-0 mb-3" (click)="toggleRecoveryCode()">
+    {{ useRecoveryCode ? "Dùng mã từ ứng dụng xác thực" : "Dùng mã khôi phục" }}
+  </button>
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-danger" [disabled]="loading">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+      Xác nhận tắt
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="cancel()">Hủy</button>
+  </div>
+</form>

@@ -5,4 +5,5 @@ export interface CurrentUser {
   phoneNumber?: string | null;
   avatarUrl?: string | null;
   roles: string[];
+  twoFactorEnabled?: boolean;
 }

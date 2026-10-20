@@ -26,7 +26,12 @@
     </aside>
 
     <main class="auth-form-panel">
-      <form class="auth-card" [formGroup]="loginForm" (ngSubmit)="submit()">
+      <form
+        *ngIf="step === 'credentials'"
+        class="auth-card"
+        [formGroup]="loginForm"
+        (ngSubmit)="submit()"
+      >
         <a routerLink="/" class="brand-mobile">CLOTHING STORE</a>
 
         <div class="auth-card__header">
@@ -108,7 +113,18 @@
           </small>
         </div>
 
-        <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+        <div class="form-field">
+          <app-turnstile (tokenChange)="captchaToken = $event"></app-turnstile>
+          <small *ngIf="!captchaToken" class="field-hint">
+            Hoàn tất xác minh bên trên để đăng nhập.
+          </small>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="isSubmitting || !captchaToken"
+        >
           <span
             *ngIf="isSubmitting"
             class="spinner-border spinner-border-sm"
@@ -120,6 +136,108 @@
           Chưa có tài khoản?
           <a routerLink="/auth/register">Đăng ký ngay</a>
         </p>
+      </form>
+
+      <!-- Bước 2: tài khoản bật xác thực hai lớp. Chưa có phiên đăng nhập cho tới khi mã đúng. -->
+      <form
+        *ngIf="step !== 'credentials'"
+        class="auth-card"
+        [formGroup]="codeForm"
+        (ngSubmit)="submitCode()"
+      >
+        <a routerLink="/" class="brand-mobile">CLOTHING STORE</a>
+
+        <div class="auth-card__header">
+          <h1>Xác thực hai lớp</h1>
+          <p class="text-muted" *ngIf="step === 'totp'">
+            Nhập mã 6 số đang hiển thị trong ứng dụng xác thực (Google
+            Authenticator...).
+          </p>
+          <p class="text-muted" *ngIf="step === 'recovery'">
+            Nhập một mã khôi phục bạn đã lưu khi bật xác thực hai lớp. Mỗi mã
+            chỉ dùng được một lần.
+          </p>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="code">
+            {{ step === "totp" ? "Mã xác thực" : "Mã khôi phục" }}
+          </label>
+          <div class="input-with-icon">
+            <i
+              class="bi"
+              [class.bi-shield-lock]="step === 'totp'"
+              [class.bi-key]="step === 'recovery'"
+            ></i>
+            <input
+              *ngIf="step === 'totp'"
+              id="code"
+              class="otp-input"
+              type="text"
+              formControlName="code"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              maxlength="6"
+              placeholder="000000"
+              (input)="onTotpInput()"
+            />
+            <input
+              *ngIf="step === 'recovery'"
+              id="code"
+              class="otp-input"
+              type="text"
+              formControlName="code"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              maxlength="20"
+              placeholder="XXXX-XXXX-XXXX"
+            />
+          </div>
+          <small class="field-hint">
+            Phiên xác thực có hiệu lực {{ challengeMinutes }} phút. Hết thời
+            gian bạn cần đăng nhập lại.
+          </small>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+          <span
+            *ngIf="isSubmitting"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          {{ isSubmitting ? "Đang xác thực..." : "Xác nhận" }}
+        </button>
+
+        <div class="two-factor-links">
+          <button
+            *ngIf="step === 'totp'"
+            type="button"
+            class="link-button"
+            (click)="switchStep('recovery')"
+          >
+            Dùng mã khôi phục
+          </button>
+          <button
+            *ngIf="step === 'recovery'"
+            type="button"
+            class="link-button"
+            (click)="switchStep('totp')"
+          >
+            Dùng mã từ ứng dụng xác thực
+          </button>
+          <button
+            type="button"
+            class="link-button"
+            (click)="backToCredentials()"
+          >
+            <i class="bi bi-arrow-left"></i> Quay lại
+          </button>
+        </div>
       </form>
     </main>
   </div>

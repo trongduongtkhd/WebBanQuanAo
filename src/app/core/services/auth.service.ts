@@ -8,9 +8,13 @@ import { ApiResponse } from '../models/api-response.model';
 import {
   AuthResponse,
   ForgotPasswordRequest,
+  isTwoFactorChallenge,
   LoginRequest,
+  LoginResponse,
   RegisterRequest,
   ResetPasswordRequest,
+  TwoFactorRecoveryRequest,
+  TwoFactorVerifyRequest,
 } from '../models/auth.model';
 import { CurrentUser } from '../models/user.model';
 import { TokenService } from './token.service';
@@ -37,9 +41,41 @@ export class AuthService {
   }
 
   // Các request tới /auth/* được AuthInterceptor gắn withCredentials để trình duyệt gửi/nhận cookie refresh token.
-  login(payload: LoginRequest): Observable<ApiResponse<AuthResponse>> {
+  // Tài khoản bật 2FA: phản hồi là TwoFactorChallenge (chưa có token) => KHÔNG tạo phiên, nơi gọi chuyển sang bước nhập mã.
+  // payload.captchaToken (Turnstile) bắt buộc với login/register; server kiểm tra trước cả mật khẩu.
+  login(payload: LoginRequest): Observable<ApiResponse<LoginResponse>> {
     return this.http
-      .post<ApiResponse<AuthResponse>>(`${this.apiUrl}/login`, payload)
+      .post<ApiResponse<LoginResponse>>(`${this.apiUrl}/login`, payload)
+      .pipe(
+        tap((response) => {
+          if (!isTwoFactorChallenge(response.data)) {
+            this.handleAuthResponse(response as ApiResponse<AuthResponse>);
+          }
+        }),
+      );
+  }
+
+  // Đăng nhập bước 2 bằng mã 6 số từ ứng dụng xác thực. Thành công thì server mới cấp access token + cookie refresh.
+  verifyTwoFactor(
+    payload: TwoFactorVerifyRequest,
+  ): Observable<ApiResponse<AuthResponse>> {
+    return this.http
+      .post<ApiResponse<AuthResponse>>(
+        `${this.apiUrl}/two-factor/verify`,
+        payload,
+      )
+      .pipe(tap((response) => this.handleAuthResponse(response)));
+  }
+
+  // Đăng nhập bước 2 bằng mã khôi phục (mỗi mã dùng một lần).
+  verifyRecoveryCode(
+    payload: TwoFactorRecoveryRequest,
+  ): Observable<ApiResponse<AuthResponse>> {
+    return this.http
+      .post<ApiResponse<AuthResponse>>(
+        `${this.apiUrl}/two-factor/recovery`,
+        payload,
+      )
       .pipe(tap((response) => this.handleAuthResponse(response)));
   }
 
@@ -147,7 +183,12 @@ export class AuthService {
   }
 
   private handleAuthResponse(response: ApiResponse<AuthResponse>): void {
-    if (!response.success) {
+    // Phòng thủ thêm một lớp: không có access token (ví dụ phản hồi challenge 2FA) thì không tạo phiên.
+    if (
+      !response.success ||
+      isTwoFactorChallenge(response.data) ||
+      !response.data?.accessToken
+    ) {
       return;
     }
 

@@ -6,6 +6,9 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/api', // Backend chạy qua docker-compose (clothing-api)
   apiOrigin: 'http://localhost:8080', // Dùng để dựng URL ảnh trả về dạng đường dẫn tương đối (/uploads/...)
+  // Site key Cloudflare Turnstile (công khai, khác secret key ở backend). Để trống thì form đăng nhập/đăng ký báo lỗi cấu hình.
+  // Khóa thử nghiệm: 1x00000000000000000000AA (luôn đạt), 2x00000000000000000000AB (luôn trượt).
+  turnstileSiteKey: '0x4AAAAAAFaY5MWqwzQyD6s4',
 };
 
 /*

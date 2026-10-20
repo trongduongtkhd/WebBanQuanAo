@@ -8,6 +8,7 @@ export interface UserProfile {
 
   isActive: boolean;
   roles: string[];
+  twoFactorEnabled?: boolean;
 }
 
 export interface UpdateProfileRequest {

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { TurnstileComponent } from './components/turnstile/turnstile.component';
 import { ImageUrlPipe } from './pipes/image-url.pipe';
 import { MoneyInputDirective } from './directives/money-input.directive';
 
@@ -11,6 +12,7 @@ import { MoneyInputDirective } from './directives/money-input.directive';
   declarations: [
     ProductCardComponent,
     ImageUploadComponent,
+    TurnstileComponent,
     ImageUrlPipe,
     MoneyInputDirective,
   ],
@@ -19,6 +21,7 @@ import { MoneyInputDirective } from './directives/money-input.directive';
     ProductCardComponent,
     RouterModule,
     ImageUploadComponent,
+    TurnstileComponent,
     ImageUrlPipe,
     MoneyInputDirective,
   ],
