@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { PublicProduct } from '../../../core/models/catalog.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { QuickBuyService } from '../../../core/services/quick-buy.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     private readonly wishlistService: WishlistService,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly quickBuyService: QuickBuyService,
   ) {}
 
   ngOnInit(): void {
@@ -59,11 +61,11 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     image.style.display = 'none';
   }
 
-  goToDetail(event: Event): void {
+  openQuickBuy(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
 
-    this.router.navigate(['/products', this.product.slug]);
+    this.quickBuyService.open(this.product);
   }
 
   toggleWishlist(event: Event): void {

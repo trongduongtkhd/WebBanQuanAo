@@ -29,15 +29,26 @@
       ></i>
     </button>
 
-    <button
-      type="button"
-      class="quick-cart-btn"
-      title="Chọn màu/size để mua"
-      aria-label="Xem chi tiết để mua hàng"
-      (click)="goToDetail($event)"
-    >
-      <i class="bi bi-bag-plus"></i>
-    </button>
+    <div class="quick-actions">
+      <button
+        type="button"
+        class="buy-now-btn"
+        title="Chọn màu/size và thanh toán ngay"
+        (click)="openQuickBuy($event)"
+      >
+        Mua ngay
+      </button>
+
+      <button
+        type="button"
+        class="quick-cart-btn"
+        title="Chọn màu/size để thêm vào giỏ"
+        aria-label="Thêm vào giỏ hàng"
+        (click)="openQuickBuy($event)"
+      >
+        <i class="bi bi-bag-plus"></i>
+      </button>
+    </div>
   </div>
 
   <div class="product-content">

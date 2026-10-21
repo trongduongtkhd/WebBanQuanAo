@@ -66,6 +66,20 @@ export interface OrderDetail {
   items: OrderItem[];
   payments: Payment[];
   statusHistories: OrderStatusHistory[];
+
+  returnRequest?: ReturnRequest | null;
+  canRequestReturn: boolean;
+  returnDeadline?: string | null;
+}
+
+export interface ReturnRequest {
+  returnRequestId: number;
+  reason: string;
+  // Pending | Approved | Rejected (hoặc 1 | 2 | 3)
+  status: number | string;
+  adminNote?: string | null;
+  createdAt: string;
+  processedAt?: string | null;
 }
 
 export interface MockQr {
@@ -95,6 +109,7 @@ export interface AdminOrderSummary {
   paymentStatus: number | string;
 
   createdAt: string;
+  hasPendingReturn: boolean;
 }
 
 export interface UpdateOrderStatusRequest {

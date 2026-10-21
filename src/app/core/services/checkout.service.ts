@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import {
   Address,
+  BuyNowItem,
   CouponValidation,
   CreateOrderRequest,
   MockQr,
@@ -23,10 +24,10 @@ export class CheckoutService {
     );
   }
 
-  validateCoupon(code: string) {
+  validateCoupon(code: string, buyNowItem?: BuyNowItem | null) {
     return this.http.post<ApiResponse<CouponValidation>>(
       `${environment.apiUrl}/coupons/validate`,
-      { code },
+      { code, buyNowItem: buyNowItem || null },
     );
   }
 

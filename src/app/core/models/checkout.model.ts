@@ -21,6 +21,11 @@ export interface CouponValidation {
   amountAfterDiscount: number;
 }
 
+export interface BuyNowItem {
+  variantId: number;
+  quantity: number;
+}
+
 export interface CreateOrderRequest {
   addressId: number;
 
@@ -30,6 +35,9 @@ export interface CreateOrderRequest {
 
   couponCode?: string | null;
   note?: string | null;
+
+  // Có giá trị => "Mua ngay": chỉ đặt sản phẩm này, không đụng giỏ hàng.
+  buyNowItem?: BuyNowItem | null;
 }
 
 export interface Payment {

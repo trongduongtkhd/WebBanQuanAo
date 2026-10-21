@@ -22,6 +22,8 @@ export interface Cart {
   items: CartItem[];
   totalQuantity: number;
   subtotal: number;
+  shippingFee: number;
+  freeShippingThreshold: number;
 }
 
 export interface UpdateCartItemRequest {

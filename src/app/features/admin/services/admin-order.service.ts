@@ -65,4 +65,18 @@ export class AdminOrderService {
       request,
     );
   }
+
+  approveReturn(orderId: number, note: string | null) {
+    return this.http.put<ApiResponse<OrderDetail>>(
+      `${environment.apiUrl}/admin/orders/${orderId}/return-request/approve`,
+      { note },
+    );
+  }
+
+  rejectReturn(orderId: number, note: string) {
+    return this.http.put<ApiResponse<OrderDetail>>(
+      `${environment.apiUrl}/admin/orders/${orderId}/return-request/reject`,
+      { note },
+    );
+  }
 }

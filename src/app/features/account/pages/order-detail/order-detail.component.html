@@ -23,12 +23,12 @@
         <p>Đặt lúc {{ order.createdAt | date: "dd/MM/yyyy HH:mm" }}</p>
       </div>
 
-      <span class="status-badge">
+      <span class="status-badge {{ getOrderStatusClass(order.orderStatus) }}">
         {{ getOrderStatusText(order.orderStatus) }}
       </span>
     </div>
 
-    <div *ngIf="order.orderStatus !== 5" class="order-timeline">
+    <div *ngIf="!isCancelled && !isReturned" class="order-timeline">
       <div class="timeline-item" [class]="getTimelineClass(1)">
         <i class="bi bi-clock"></i>
         <span>Chờ xác nhận</span>
@@ -56,8 +56,13 @@
       </div>
     </div>
 
-    <div *ngIf="order.orderStatus === 5" class="alert alert-secondary">
+    <div *ngIf="isCancelled" class="alert alert-secondary">
       Đơn hàng này đã bị hủy.
+    </div>
+
+    <div *ngIf="isReturned" class="alert alert-secondary">
+      <i class="bi bi-arrow-counterclockwise me-1"></i>
+      Đơn hàng đã được trả và hoàn tiền.
     </div>
 
     <div class="row g-4 mt-1">
@@ -129,9 +134,39 @@
         <aside class="detail-card payment-summary">
           <h4>Thanh toán</h4>
 
-          <div *ngFor="let payment of order.payments" class="payment-row">
-            <span>{{ getPaymentMethodText(payment.paymentMethod) }}</span>
-            <strong>{{ getPaymentStatusText(payment.paymentStatus) }}</strong>
+          <div *ngFor="let payment of order.payments" class="payment-block">
+            <div class="payment-row">
+              <span>{{ getPaymentMethodText(payment.paymentMethod) }}</span>
+              <span
+                class="badge {{ getPaymentStatusClass(payment.paymentStatus) }}"
+              >
+                {{ getPaymentStatusText(payment.paymentStatus) }}
+              </span>
+            </div>
+
+            <p *ngIf="isPaidPayment(payment)" class="payment-note paid">
+              <i class="bi bi-check-circle-fill me-1"></i>
+              {{
+                isCodPayment(payment)
+                  ? "Đã thanh toán tiền mặt khi nhận hàng"
+                  : "Đã thanh toán qua QR"
+              }}
+              <span *ngIf="payment.paidAt">
+                lúc {{ payment.paidAt | date: "dd/MM/yyyy HH:mm" }}
+              </span>
+            </p>
+
+            <p
+              *ngIf="
+                isCodPayment(payment) && isUnpaidPayment(payment) && !isCancelled
+              "
+              class="payment-note"
+            >
+              <i class="bi bi-cash-coin me-1"></i>
+              Vui lòng chuẩn bị
+              <strong>{{ order.totalAmount | number: "1.0-0" }} ₫</strong>
+              để thanh toán khi nhận hàng.
+            </p>
           </div>
 
           <hr />
@@ -160,6 +195,98 @@
             <span>Tổng thanh toán</span>
             <strong>{{ order.totalAmount | number: "1.0-0" }} ₫</strong>
           </div>
+
+          <!-- Trả hàng / hoàn tiền -->
+          <div *ngIf="order.returnRequest as request" class="return-box">
+            <h5>Yêu cầu trả hàng</h5>
+
+            <div *ngIf="returnRequestStatus === 1" class="return-status pending">
+              <i class="bi bi-hourglass-split me-1"></i>
+              Đang chờ shop xử lý
+            </div>
+
+            <div *ngIf="returnRequestStatus === 2" class="return-status approved">
+              <i class="bi bi-check-circle-fill me-1"></i>
+              Đã chấp nhận — hoàn
+              <strong>{{ order.totalAmount | number: "1.0-0" }} ₫</strong>
+              <span *ngIf="request.processedAt">
+                lúc {{ request.processedAt | date: "dd/MM/yyyy HH:mm" }}
+              </span>
+            </div>
+
+            <div *ngIf="returnRequestStatus === 3" class="return-status rejected">
+              <i class="bi bi-x-circle-fill me-1"></i>
+              Bị từ chối
+            </div>
+
+            <p class="return-meta">
+              Gửi lúc {{ request.createdAt | date: "dd/MM/yyyy HH:mm" }}
+            </p>
+            <p class="return-reason"><strong>Lý do:</strong> {{ request.reason }}</p>
+            <p *ngIf="request.adminNote" class="return-reason">
+              <strong>Phản hồi của shop:</strong> {{ request.adminNote }}
+            </p>
+          </div>
+
+          <ng-container *ngIf="order.canRequestReturn">
+            <button
+              *ngIf="!showReturnForm"
+              type="button"
+              class="btn btn-outline-dark w-100 mt-4"
+              (click)="openReturnForm()"
+            >
+              <i class="bi bi-arrow-counterclockwise me-1"></i>
+              Yêu cầu trả hàng / hoàn tiền
+            </button>
+
+            <p
+              *ngIf="!showReturnForm && order.returnDeadline"
+              class="return-meta text-center mt-2"
+            >
+              Hạn yêu cầu đến
+              {{ order.returnDeadline | date: "dd/MM/yyyy HH:mm" }}
+            </p>
+
+            <div *ngIf="showReturnForm" class="return-box">
+              <h5>Yêu cầu trả hàng</h5>
+
+              <textarea
+                class="form-control"
+                rows="4"
+                maxlength="500"
+                placeholder="Mô tả lý do trả hàng (sản phẩm lỗi, sai size, không giống mô tả...)"
+                [(ngModel)]="returnReason"
+              ></textarea>
+
+              <small class="return-meta d-block mt-1">
+                {{ returnReason.length }}/500 · Tiền sẽ được hoàn sau khi shop
+                nhận lại hàng.
+              </small>
+
+              <div *ngIf="returnErrorMessage" class="text-danger small mt-2">
+                {{ returnErrorMessage }}
+              </div>
+
+              <div class="d-flex gap-2 mt-3">
+                <button
+                  type="button"
+                  class="btn btn-dark flex-fill"
+                  [disabled]="submittingReturn"
+                  (click)="submitReturnRequest()"
+                >
+                  {{ submittingReturn ? "Đang gửi..." : "Gửi yêu cầu" }}
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  [disabled]="submittingReturn"
+                  (click)="closeReturnForm()"
+                >
+                  Hủy
+                </button>
+              </div>
+            </div>
+          </ng-container>
 
           <button
             *ngIf="isPending"

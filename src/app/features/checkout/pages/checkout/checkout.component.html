@@ -7,6 +7,12 @@
   <div *ngIf="!loading && !createdOrder">
     <h1 class="page-title mb-4">Thanh toán</h1>
 
+    <div *ngIf="buyNowItem" class="alert alert-info">
+      <i class="bi bi-lightning-charge-fill"></i>
+      Mua ngay – chỉ thanh toán sản phẩm này, giỏ hàng của bạn không bị ảnh
+      hưởng.
+    </div>
+
     <div *ngIf="errorMessage" class="alert alert-danger">
       {{ errorMessage }}
     </div>
@@ -154,6 +160,7 @@
           <div *ngFor="let item of cart?.items" class="summary-item">
             <span>
               {{ item.productName }}
+              <small *ngIf="buyNowItem">({{ item.colorName }} / {{ item.sizeName }})</small>
               <small>× {{ item.quantity }}</small>
             </span>
 
@@ -168,20 +175,30 @@
           </div>
 
           <div *ngIf="appliedCoupon" class="summary-row discount">
-            <span>Giảm giá</span>
+            <span>Giảm giá ({{ appliedCoupon.couponCode }})</span>
             <strong>-{{ discountAmount | number: "1.0-0" }} ₫</strong>
           </div>
 
           <div class="summary-row">
             <span>Phí vận chuyển</span>
-            <span>Backend sẽ xác nhận</span>
+            <strong *ngIf="shippingFee > 0; else freeShipping">
+              {{ shippingFee | number: "1.0-0" }} ₫
+            </strong>
+            <ng-template #freeShipping>
+              <strong class="free-shipping">Miễn phí</strong>
+            </ng-template>
           </div>
+
+          <p *ngIf="shippingFee > 0 && amountToFreeShipping > 0" class="shipping-hint">
+            Mua thêm {{ amountToFreeShipping | number: "1.0-0" }} ₫ để được
+            miễn phí vận chuyển.
+          </p>
 
           <hr />
 
           <div class="summary-total">
-            <span>Tạm tính sau giảm giá</span>
-            <strong>{{ amountAfterDiscount | number: "1.0-0" }} ₫</strong>
+            <span>Tổng thanh toán</span>
+            <strong>{{ totalAmount | number: "1.0-0" }} ₫</strong>
           </div>
 
           <button

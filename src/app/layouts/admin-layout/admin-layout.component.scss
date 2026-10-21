@@ -37,5 +37,11 @@ app-admin-header {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0;
+  padding: 28px 32px;
+}
+
+@media (max-width: 768px) {
+  .admin-content {
+    padding: 16px;
+  }
 }

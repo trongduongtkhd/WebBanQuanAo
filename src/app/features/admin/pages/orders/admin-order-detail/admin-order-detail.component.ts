@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ApiResponse } from '../../../../../core/models/api-response.model';
 import { OrderDetail } from '../../../../../core/models/order.model';
 import { AdminOrderService } from '../../../services/admin-order.service';
 import { getApiErrorMessage } from '../../../../../core/utils/api-error.util';
@@ -15,6 +17,7 @@ export class AdminOrderDetailComponent implements OnInit {
   loading = true;
   updatingOrderStatus = false;
   updatingPaymentStatus = false;
+  processingReturn = false;
 
   errorMessage = '';
   successMessage = '';
@@ -71,18 +74,116 @@ export class AdminOrderDetailComponent implements OnInit {
     return next ? this.getOrderStatusText(next) : '';
   }
 
+  get isCod(): boolean {
+    return !!this.order?.payments.some(
+      (payment) => this.normalizePaymentMethod(payment.paymentMethod) === 1,
+    );
+  }
+
+  get isUnpaid(): boolean {
+    return this.normalizePaymentStatus(this.order?.paymentStatus) === 1;
+  }
+
+  // Đơn COD chưa thu tiền mà bước tiếp theo là Hoàn thành: hoàn thành = giao hàng + thu tiền mặt.
+  get isCodDeliveryStep(): boolean {
+    return this.nextOrderStatus === 4 && this.isCod && this.isUnpaid;
+  }
+
+  // Chỉ còn bước Chưa thanh toán -> Đã thanh toán. Hoàn tiền đi qua duyệt yêu cầu trả hàng hoặc hủy đơn.
   get nextPaymentStatus(): number | null {
     const current = this.normalizePaymentStatus(this.order?.paymentStatus);
+    const orderStatus = this.normalizeOrderStatus(this.order?.orderStatus);
 
-    if (current === 1) {
-      return 2; // Unpaid -> Paid
+    if (current !== 1 || orderStatus === 5 || orderStatus === 6) {
+      return null;
     }
 
-    if (current === 2) {
-      return 4; // Paid -> Refunded
+    // COD tự ghi nhận khi Hoàn thành; chỉ cho bấm tay với đơn đã Hoàn thành mà chưa thanh toán (dữ liệu cũ).
+    return !this.isCod || orderStatus === 4 ? 2 : null;
+  }
+
+  // Pending = 1, Approved = 2, Rejected = 3
+  get returnRequestStatus(): number {
+    const map: { [key: string]: number } = {
+      Pending: 1,
+      Approved: 2,
+      Rejected: 3,
+    };
+    const status = this.order?.returnRequest?.status;
+
+    return map[String(status)] || Number(status) || 0;
+  }
+
+  approveReturn(): void {
+    if (!this.order || this.returnRequestStatus !== 1) {
+      return;
     }
 
-    return null;
+    if (
+      !window.confirm(
+        `Duyệt trả hàng: hoàn ${this.order.totalAmount.toLocaleString('vi-VN')} ₫ cho khách và nhập lại kho?`,
+      )
+    ) {
+      return;
+    }
+
+    const note = window.prompt('Ghi chú gửi khách (có thể bỏ trống):');
+
+    if (note === null) {
+      return;
+    }
+
+    this.processReturn(
+      this.adminOrderService.approveReturn(
+        this.order.orderId,
+        note.trim() || null,
+      ),
+      'Không thể duyệt yêu cầu trả hàng.',
+    );
+  }
+
+  rejectReturn(): void {
+    if (!this.order || this.returnRequestStatus !== 1) {
+      return;
+    }
+
+    const note = window.prompt('Lý do từ chối (bắt buộc, khách sẽ thấy):');
+
+    if (note === null) {
+      return;
+    }
+
+    if (!note.trim()) {
+      this.successMessage = '';
+      this.errorMessage = 'Vui lòng nhập lý do từ chối.';
+      return;
+    }
+
+    this.processReturn(
+      this.adminOrderService.rejectReturn(this.order.orderId, note.trim()),
+      'Không thể từ chối yêu cầu trả hàng.',
+    );
+  }
+
+  private processReturn(
+    request$: Observable<ApiResponse<OrderDetail>>,
+    fallbackError: string,
+  ): void {
+    this.processingReturn = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    request$.subscribe({
+      next: (response) => {
+        this.order = response.data;
+        this.processingReturn = false;
+        this.successMessage = response.message;
+      },
+      error: (error) => {
+        this.processingReturn = false;
+        this.errorMessage = getApiErrorMessage(error, fallbackError);
+      },
+    });
   }
 
   get nextPaymentStatusLabel(): string {
@@ -93,6 +194,15 @@ export class AdminOrderDetailComponent implements OnInit {
 
   updateOrderStatus(): void {
     if (!this.order || !this.nextOrderStatus) {
+      return;
+    }
+
+    if (
+      this.isCodDeliveryStep &&
+      !window.confirm(
+        `Xác nhận shipper đã giao hàng và thu đủ ${this.order.totalAmount.toLocaleString('vi-VN')} ₫ tiền mặt?`,
+      )
+    ) {
       return;
     }
 
@@ -229,14 +339,50 @@ export class AdminOrderDetailComponent implements OnInit {
       '3': 'Đang giao hàng',
       '4': 'Hoàn thành',
       '5': 'Đã hủy',
+      '6': 'Đã trả hàng',
       Pending: 'Chờ xác nhận',
       Confirmed: 'Đã xác nhận',
       Shipping: 'Đang giao hàng',
       Completed: 'Hoàn thành',
       Cancelled: 'Đã hủy',
+      Returned: 'Đã trả hàng',
     };
 
     return map[String(status)] || 'Không xác định';
+  }
+
+  getOrderStatusClass(status: number | string): string {
+    const map: { [key: string]: string } = {
+      '1': 'warning',
+      '2': 'info',
+      '3': 'primary',
+      '4': 'success',
+      '5': 'danger',
+      '6': 'dark',
+      Pending: 'warning',
+      Confirmed: 'info',
+      Shipping: 'primary',
+      Completed: 'success',
+      Cancelled: 'danger',
+      Returned: 'dark',
+    };
+
+    return map[String(status)] || 'secondary';
+  }
+
+  getPaymentStatusClass(status: number | string): string {
+    const map: { [key: string]: string } = {
+      '1': 'secondary',
+      '2': 'success',
+      '3': 'danger',
+      '4': 'danger',
+      Unpaid: 'secondary',
+      Paid: 'success',
+      Failed: 'danger',
+      Refunded: 'danger',
+    };
+
+    return map[String(status)] || 'secondary';
   }
 
   getPaymentStatusText(status: number | string): string {
@@ -273,9 +419,20 @@ export class AdminOrderDetailComponent implements OnInit {
       Shipping: 3,
       Completed: 4,
       Cancelled: 5,
+      Returned: 6,
     };
 
     return map[String(status)] || Number(status);
+  }
+
+  private normalizePaymentMethod(method: number | string | undefined): number {
+    const map: { [key: string]: number } = {
+      COD: 1,
+      MockQR: 2,
+      MockQr: 2,
+    };
+
+    return map[String(method)] || Number(method);
   }
 
   private normalizePaymentStatus(status: number | string | undefined): number {

@@ -21,6 +21,11 @@ import { AdminColorService } from '../../../services/admin-color.service';
 import { AdminProductService } from '../../../services/admin-product.service';
 import { AdminSizeService } from '../../../services/admin-size.service';
 
+// Dữ liệu form: giá gốc được phép trống (null) trong lúc nhập.
+type ProductFormModel = Omit<UpsertProductRequest, 'basePrice'> & {
+  basePrice: number | null;
+};
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -46,7 +51,7 @@ export class ProductFormComponent implements OnInit {
   editingVariantId: number | null = null;
   editingVariantCostPrice: number | null = null;
 
-  productForm: UpsertProductRequest = this.createEmptyProductForm();
+  productForm: ProductFormModel = this.createEmptyProductForm();
 
   variantForm: UpsertProductVariantRequest = this.createEmptyVariantForm();
 
@@ -94,9 +99,16 @@ export class ProductFormComponent implements OnInit {
       return;
     }
 
+    const basePrice = this.productForm.basePrice;
+
+    if (!basePrice || basePrice <= 0) {
+      this.errorMessage = 'Vui lòng nhập giá gốc lớn hơn 0.';
+      return;
+    }
+
     if (
       this.productForm.salePrice &&
-      this.productForm.salePrice > this.productForm.basePrice
+      this.productForm.salePrice > basePrice
     ) {
       this.errorMessage = 'Giá giảm không được lớn hơn giá gốc.';
       return;
@@ -113,7 +125,7 @@ export class ProductFormComponent implements OnInit {
       description: this.productForm.description.trim(),
       material: this.productForm.material?.trim() || null,
       brandId: this.productForm.brandId || null,
-      basePrice: Number(this.productForm.basePrice),
+      basePrice: Number(basePrice),
       salePrice: this.productForm.salePrice
         ? Number(this.productForm.salePrice)
         : null,
@@ -424,7 +436,7 @@ export class ProductFormComponent implements OnInit {
     };
   }
 
-  private createEmptyProductForm(): UpsertProductRequest {
+  private createEmptyProductForm(): ProductFormModel {
     return {
       categoryId: 0,
       brandId: null,
@@ -433,7 +445,8 @@ export class ProductFormComponent implements OnInit {
       description: '',
       material: '',
       gender: 'Unisex',
-      basePrice: 0,
+      // Để trống thay vì 0 để ô giá gốc không hiện sẵn số 0.
+      basePrice: null,
       salePrice: null,
       isFeatured: false,
       // Sản phẩm mới mặc định chưa bán: phải nhập kho xong mới mở bán.

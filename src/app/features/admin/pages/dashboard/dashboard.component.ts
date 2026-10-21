@@ -74,12 +74,14 @@ export class DashboardComponent implements OnInit {
       '3': 'Đang giao hàng',
       '4': 'Hoàn thành',
       '5': 'Đã hủy',
+      '6': 'Đã trả hàng',
 
       Pending: 'Chờ xác nhận',
       Confirmed: 'Đã xác nhận',
       Shipping: 'Đang giao hàng',
       Completed: 'Hoàn thành',
       Cancelled: 'Đã hủy',
+      Returned: 'Đã trả hàng',
     };
 
     return map[String(status)] || 'Không xác định';
@@ -92,12 +94,14 @@ export class DashboardComponent implements OnInit {
       '3': 'primary',
       '4': 'success',
       '5': 'danger',
+      '6': 'dark',
 
       Pending: 'warning',
       Confirmed: 'info',
       Shipping: 'primary',
       Completed: 'success',
       Cancelled: 'danger',
+      Returned: 'dark',
     };
 
     return map[String(status)] || 'secondary';

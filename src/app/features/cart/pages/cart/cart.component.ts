@@ -131,6 +131,8 @@ export class CartComponent implements OnInit {
           items: [],
           subtotal: 0,
           totalQuantity: 0,
+          shippingFee: 0,
+          freeShippingThreshold: this.cart?.freeShippingThreshold ?? 0,
         };
         this.successMessage = 'Đã xóa toàn bộ giỏ hàng.';
       },

@@ -43,6 +43,13 @@ export class CustomerOrderService {
     );
   }
 
+  requestReturn(orderId: number, reason: string) {
+    return this.http.post<ApiResponse<OrderDetail>>(
+      `${environment.apiUrl}/orders/${orderId}/return-request`,
+      { reason },
+    );
+  }
+
   getMockQr(orderId: number) {
     return this.http.get<ApiResponse<MockQr>>(
       `${environment.apiUrl}/orders/${orderId}/mock-qr`,

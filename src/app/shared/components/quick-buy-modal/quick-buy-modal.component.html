@@ -1,0 +1,126 @@
+<div class="qb-backdrop" *ngIf="card" (click)="close()">
+  <div
+    class="qb-dialog"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Chọn nhanh ' + card.productName"
+    (click)="$event.stopPropagation()"
+  >
+    <button
+      type="button"
+      class="qb-close"
+      aria-label="Đóng"
+      (click)="close()"
+    >
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <div class="qb-header">
+      <img
+        class="qb-image"
+        [src]="(imageUrl | imageUrl) || 'assets/images/placeholders/ao.jpg'"
+        [alt]="card.productName"
+      />
+
+      <div class="qb-summary">
+        <h3 class="qb-name">{{ card.productName }}</h3>
+        <strong class="qb-price">{{ currentPrice | number: "1.0-0" }} ₫</strong>
+        <small class="qb-stock" *ngIf="selectedVariant">
+          {{
+            stockQuantity > 0 ? "Còn " + stockQuantity + " sản phẩm" : "Hết hàng"
+          }}
+        </small>
+      </div>
+    </div>
+
+    <p class="qb-loading" *ngIf="loading">Đang tải...</p>
+
+    <ng-container *ngIf="product">
+      <div class="qb-group">
+        <span class="qb-label">Màu sắc</span>
+        <div class="qb-options">
+          <button
+            type="button"
+            class="qb-chip"
+            *ngFor="let color of colors"
+            [class.active]="selectedColorId === color.colorId"
+            (click)="selectColor(color.colorId)"
+          >
+            <span
+              class="qb-dot"
+              [style.backgroundColor]="color.colorCode || '#333'"
+            ></span>
+            {{ color.colorName }}
+          </button>
+        </div>
+      </div>
+
+      <div class="qb-group">
+        <span class="qb-label">Kích thước</span>
+        <p class="qb-hint" *ngIf="!selectedColorId">Chọn màu trước.</p>
+        <div class="qb-options">
+          <button
+            type="button"
+            class="qb-chip"
+            *ngFor="let size of availableSizes"
+            [class.active]="selectedSizeId === size.sizeId"
+            [class.disabled]="size.stockQuantity <= 0"
+            (click)="selectSize(size.sizeId)"
+          >
+            {{ size.sizeName }}
+          </button>
+        </div>
+      </div>
+
+      <div class="qb-group qb-qty-row">
+        <span class="qb-label">Số lượng</span>
+        <div class="qb-qty">
+          <button
+            type="button"
+            (click)="decreaseQuantity()"
+            [disabled]="quantity <= 1"
+            aria-label="Giảm"
+          >
+            −
+          </button>
+          <span>{{ quantity }}</span>
+          <button
+            type="button"
+            (click)="increaseQuantity()"
+            [disabled]="!selectedVariant || quantity >= stockQuantity"
+            aria-label="Tăng"
+          >
+            +
+          </button>
+        </div>
+      </div>
+    </ng-container>
+
+    <p class="qb-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="qb-success" *ngIf="successMessage">
+      {{ successMessage }}
+      <a routerLink="/cart" (click)="close()">Xem giỏ hàng</a>
+    </p>
+
+    <div class="qb-actions">
+      <button
+        type="button"
+        class="qb-btn qb-btn-outline"
+        [disabled]="!product || addingToCart"
+        (click)="addToCart()"
+      >
+        <i class="bi bi-bag-plus"></i>
+        {{ addingToCart ? "Đang thêm..." : "Thêm vào giỏ" }}
+      </button>
+
+      <button
+        type="button"
+        class="qb-btn qb-btn-primary"
+        [disabled]="!product"
+        (click)="buyNow()"
+      >
+        Mua ngay
+      </button>
+    </div>
+  </div>
+</div>

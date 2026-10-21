@@ -2,12 +2,14 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
 .page-header h2 {
   margin-bottom: 6px;
   font-weight: 700;
+  word-break: break-all;
 }
 
 .page-header p {
@@ -15,9 +17,33 @@
   color: #6c757d;
 }
 
-.total-amount {
-  color: #dc3545;
-  font-size: 1.5rem;
+.status-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-badges .badge {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.admin-card {
+  padding: 22px;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.return-card.pending {
+  border-color: #ffc107;
+}
+
+.admin-card h4 {
+  margin-bottom: 16px;
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
 .order-item {

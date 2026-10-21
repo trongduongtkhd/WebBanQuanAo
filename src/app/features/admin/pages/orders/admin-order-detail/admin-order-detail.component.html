@@ -23,9 +23,16 @@
         <p>Ngày tạo: {{ order.createdAt | date: "dd/MM/yyyy HH:mm" }}</p>
       </div>
 
-      <strong class="total-amount">
-        {{ order.totalAmount | number: "1.0-0" }} ₫
-      </strong>
+      <div class="status-badges">
+        <span class="badge bg-{{ getOrderStatusClass(order.orderStatus) }}">
+          {{ getOrderStatusText(order.orderStatus) }}
+        </span>
+        <span
+          class="badge bg-{{ getPaymentStatusClass(order.paymentStatus) }}"
+        >
+          {{ getPaymentStatusText(order.paymentStatus) }}
+        </span>
+      </div>
     </div>
 
     <div class="row g-4">
@@ -63,9 +70,67 @@
           <p class="mb-0">{{ order.shippingAddress }}</p>
         </section>
 
-        <section *ngIf="order.note" class="admin-card">
+        <section *ngIf="order.note" class="admin-card mb-4">
           <h4>Ghi chú khách hàng</h4>
           <p class="mb-0">{{ order.note }}</p>
+        </section>
+
+        <section
+          *ngIf="order.returnRequest as request"
+          class="admin-card return-card"
+          [class.pending]="returnRequestStatus === 1"
+        >
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">Yêu cầu trả hàng</h4>
+            <span
+              class="badge"
+              [class.bg-warning]="returnRequestStatus === 1"
+              [class.text-dark]="returnRequestStatus === 1"
+              [class.bg-success]="returnRequestStatus === 2"
+              [class.bg-danger]="returnRequestStatus === 3"
+            >
+              {{
+                returnRequestStatus === 1
+                  ? "Chờ xử lý"
+                  : returnRequestStatus === 2
+                    ? "Đã duyệt & hoàn tiền"
+                    : "Đã từ chối"
+              }}
+            </span>
+          </div>
+
+          <p class="text-muted small mb-2">
+            Khách gửi lúc {{ request.createdAt | date: "dd/MM/yyyy HH:mm" }}
+            <span *ngIf="request.processedAt">
+              · Xử lý lúc {{ request.processedAt | date: "dd/MM/yyyy HH:mm" }}
+            </span>
+          </p>
+
+          <p class="mb-2"><strong>Lý do:</strong> {{ request.reason }}</p>
+
+          <p *ngIf="request.adminNote" class="mb-0">
+            <strong>Phản hồi của shop:</strong> {{ request.adminNote }}
+          </p>
+
+          <div *ngIf="returnRequestStatus === 1" class="d-flex gap-2 mt-3">
+            <button
+              type="button"
+              class="btn btn-dark"
+              [disabled]="processingReturn"
+              (click)="approveReturn()"
+            >
+              <i class="bi bi-check2 me-1"></i>
+              Duyệt & hoàn tiền
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              [disabled]="processingReturn"
+              (click)="rejectReturn()"
+            >
+              Từ chối
+            </button>
+          </div>
         </section>
       </div>
 
@@ -88,7 +153,9 @@
             {{
               updatingOrderStatus
                 ? "Đang cập nhật..."
-                : "Chuyển sang: " + nextOrderStatusLabel
+                : isCodDeliveryStep
+                  ? "Đã giao & thu tiền (COD)"
+                  : "Chuyển sang: " + nextOrderStatusLabel
             }}
           </button>
 
@@ -114,6 +181,10 @@
             <span>{{ getPaymentMethodText(payment.paymentMethod) }}</span>
             <strong>{{ getPaymentStatusText(payment.paymentStatus) }}</strong>
           </div>
+
+          <p *ngIf="isCod && isUnpaid && nextOrderStatus" class="text-muted small mb-0">
+            Thu tiền mặt khi giao hàng — hệ thống tự ghi nhận khi đơn Hoàn thành.
+          </p>
 
           <button
             *ngIf="nextPaymentStatus"

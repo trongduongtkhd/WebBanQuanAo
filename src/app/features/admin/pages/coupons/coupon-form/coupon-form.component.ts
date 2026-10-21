@@ -197,8 +197,9 @@ export class CouponFormComponent implements OnInit {
 
       minOrderAmount: Number(formValue.minOrderAmount || 0),
 
-      startDate: formValue.startDate!,
-      endDate: formValue.endDate!,
+      // Gửi UTC (có hậu tố Z) để backend so sánh đúng với DateTime.UtcNow.
+      startDate: new Date(formValue.startDate!).toISOString(),
+      endDate: new Date(formValue.endDate!).toISOString(),
 
       usageLimit: formValue.usageLimit ? Number(formValue.usageLimit) : null,
 
@@ -263,7 +264,14 @@ export class CouponFormComponent implements OnInit {
     return list.includes(id) ? list.filter((x) => x !== id) : [...list, id];
   }
 
+  // Định dạng cho <input type="datetime-local"> theo giờ địa phương (yyyy-MM-ddTHH:mm).
   private toDateTimeLocal(value: string | Date): string {
-    return String(value).substring(0, 16);
+    const date = new Date(value);
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    return (
+      `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` +
+      `T${pad(date.getHours())}:${pad(date.getMinutes())}`
+    );
   }
 }

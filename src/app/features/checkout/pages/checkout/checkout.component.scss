@@ -91,8 +91,16 @@
   color: #6c757d;
 }
 
-.discount strong {
+.discount strong,
+.free-shipping {
   color: #198754;
+}
+
+.shipping-hint {
+  margin-top: -6px;
+  margin-bottom: 14px;
+  color: #6c757d;
+  font-size: 0.85rem;
 }
 
 .summary-total {

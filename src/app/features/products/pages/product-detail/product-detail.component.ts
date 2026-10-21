@@ -305,6 +305,36 @@ export class ProductDetailComponent implements OnInit {
       });
   }
 
+  buyNow(): void {
+    this.successMessage = '';
+    this.cartErrorMessage = '';
+
+    if (!this.product || !this.selectedVariant || this.stockQuantity <= 0) {
+      this.cartErrorMessage = 'Vui lòng chọn màu và kích thước còn hàng.';
+      return;
+    }
+
+    const queryParams = {
+      buyNow: this.selectedVariant.variantId,
+      qty: this.quantity,
+      slug: this.product.slug,
+    };
+
+    if (!this.tokenService.getToken()) {
+      this.router.navigate(['/auth/login'], {
+        queryParams: {
+          returnUrl: this.router
+            .createUrlTree(['/checkout'], { queryParams })
+            .toString(),
+        },
+      });
+
+      return;
+    }
+
+    this.router.navigate(['/checkout'], { queryParams });
+  }
+
   onImageError(event: Event): void {
     const image = event.target as HTMLImageElement;
     image.src = 'assets/images/product-placeholder.png';

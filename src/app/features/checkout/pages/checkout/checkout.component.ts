@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Cart } from '../../../../core/models/cart.model';
 import {
   Address,
+  BuyNowItem,
   CouponValidation,
   MockQr,
   OrderDetail,
 } from '../../../../core/models/checkout.model';
 import { CartService } from '../../../../core/services/cart.service';
+import { CatalogService } from '../../../../core/services/catalog.service';
 import { CheckoutService } from '../../../../core/services/checkout.service';
+import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
 import { ActivatedRoute } from '@angular/router';
+
+// Khớp ShippingHelper ở backend.
+const STANDARD_SHIPPING_FEE = 30000;
+const FREE_SHIPPING_THRESHOLD = 500000;
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -18,6 +27,10 @@ import { ActivatedRoute } from '@angular/router';
 export class CheckoutComponent implements OnInit {
   cart: Cart | null = null;
   addresses: Address[] = [];
+
+  // Khác null => đang ở chế độ "Mua ngay" (không dùng giỏ hàng).
+  buyNowItem: BuyNowItem | null = null;
+  private buyNowSlug: string | null = null;
 
   selectedAddressId: number | null = null;
 
@@ -44,27 +57,44 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
+    private catalogService: CatalogService,
     private checkoutService: CheckoutService,
     private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.couponCode = this.route.snapshot.queryParamMap.get('coupon') || '';
+    const params = this.route.snapshot.queryParamMap;
+
+    this.couponCode = params.get('coupon') || '';
+
+    const variantId = Number(params.get('buyNow'));
+    const quantity = Number(params.get('qty')) || 1;
+
+    // "Mua ngay": chỉ thanh toán sản phẩm được chọn, không đụng giỏ hàng.
+    if (variantId > 0 && params.get('slug')) {
+      this.buyNowItem = {
+        variantId,
+        quantity: Math.min(Math.max(1, Math.floor(quantity)), 100),
+      };
+      this.buyNowSlug = params.get('slug');
+    }
+
     this.loadCheckoutData();
   }
 
   loadCheckoutData(): void {
     this.loading = true;
-    if (this.couponCode.trim()) {
-      this.applyCoupon();
-    }
+
+    const cart$ = this.buyNowItem
+      ? this.loadBuyNowCart()
+      : this.cartService.getCart().pipe(map((response) => response.data));
 
     forkJoin({
-      cartResponse: this.cartService.getCart(),
+      cart: cart$,
       addressResponse: this.checkoutService.getMyAddresses(),
     }).subscribe({
-      next: ({ cartResponse, addressResponse }) => {
-        this.cart = cartResponse.data;
+      next: ({ cart, addressResponse }) => {
+        this.cart = cart;
         this.addresses = addressResponse.data || [];
 
         const defaultAddress = this.addresses.find((x) => x.isDefault);
@@ -73,25 +103,100 @@ export class CheckoutComponent implements OnInit {
           defaultAddress?.addressId || this.addresses[0]?.addressId || null;
 
         this.loading = false;
+
+        // Áp mã sau khi đã có sản phẩm/giỏ hàng để backend tính đúng.
+        if (this.couponCode.trim()) {
+          this.applyCoupon();
+        }
       },
       error: (error) => {
         this.loading = false;
-        this.errorMessage =
-          error?.error?.message || 'Không thể tải dữ liệu thanh toán.';
+        this.errorMessage = getApiErrorMessage(
+          error,
+          'Không thể tải dữ liệu thanh toán.',
+        );
       },
     });
+  }
+
+  // Dựng một "giỏ" 1 dòng từ sản phẩm Mua ngay, công thức phí ship khớp ShippingHelper ở backend.
+  private loadBuyNowCart(): Observable<Cart> {
+    const item = this.buyNowItem as BuyNowItem;
+
+    return this.catalogService.getProductDetail(this.buyNowSlug || '').pipe(
+      map((response) => {
+        const product = response.data;
+        const variant = product.variants.find(
+          (x) => x.variantId === item.variantId && x.isActive,
+        );
+
+        if (!variant) {
+          throw { error: { message: 'Sản phẩm không còn được bán.' } };
+        }
+
+        if (variant.stockQuantity < item.quantity) {
+          throw {
+            error: {
+              message: `Sản phẩm chỉ còn ${variant.stockQuantity} cái trong kho.`,
+            },
+          };
+        }
+
+        const unitPrice = variant.effectiveSalePrice || variant.effectivePrice;
+        const subtotal = unitPrice * item.quantity;
+
+        return {
+          items: [
+            {
+              cartItemId: 0,
+              variantId: variant.variantId,
+              productId: product.productId,
+              productName: product.productName,
+              thumbnailUrl: variant.imageUrl || product.images?.[0]?.imageUrl,
+              colorName: variant.colorName,
+              sizeName: variant.sizeName,
+              unitPrice,
+              stockQuantity: variant.stockQuantity,
+              quantity: item.quantity,
+              totalPrice: subtotal,
+              isAvailable: true,
+            },
+          ],
+          totalQuantity: item.quantity,
+          subtotal,
+          shippingFee:
+            subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE,
+          freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
+        };
+      }),
+    );
   }
 
   get discountAmount(): number {
     return this.appliedCoupon?.discountAmount || 0;
   }
 
-  get amountAfterDiscount(): number {
+  get shippingFee(): number {
+    return this.cart?.shippingFee ?? 0;
+  }
+
+  // Khớp công thức backend: subtotal - giảm giá + phí ship.
+  get totalAmount(): number {
     if (!this.cart) {
       return 0;
     }
 
-    return Math.max(0, this.cart.subtotal - this.discountAmount);
+    return (
+      Math.max(0, this.cart.subtotal - this.discountAmount) + this.shippingFee
+    );
+  }
+
+  get amountToFreeShipping(): number {
+    if (!this.cart) {
+      return 0;
+    }
+
+    return Math.max(0, this.cart.freeShippingThreshold - this.cart.subtotal);
   }
 
   get canCreateOrder(): boolean {
@@ -116,7 +221,7 @@ export class CheckoutComponent implements OnInit {
 
     this.applyingCoupon = true;
 
-    this.checkoutService.validateCoupon(code).subscribe({
+    this.checkoutService.validateCoupon(code, this.buyNowItem).subscribe({
       next: (response) => {
         this.appliedCoupon = response.data;
         this.applyingCoupon = false;
@@ -159,13 +264,14 @@ export class CheckoutComponent implements OnInit {
         paymentMethod: this.selectedPaymentMethod,
         couponCode: this.appliedCoupon?.couponCode || null,
         note: this.note.trim() || null,
+        buyNowItem: this.buyNowItem,
       })
       .subscribe({
         next: (response) => {
           this.createdOrder = response.data;
           this.creatingOrder = false;
 
-          // Backend đã chuyển Cart thành Order thành công.
+          // Đặt từ giỏ: backend đã chuyển Cart thành Order. Mua ngay: giỏ giữ nguyên.
           this.cartService.refreshCartCount();
 
           if (this.selectedPaymentMethod === 2) {

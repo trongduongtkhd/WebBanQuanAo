@@ -67,11 +67,45 @@
   font-weight: 700;
 }
 
-.quick-cart-btn {
+.quick-actions {
   position: absolute;
   right: 10px;
   bottom: 10px;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.product-card:hover .quick-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.buy-now-btn {
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 17px;
+  background: #c62828;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition: background-color 0.15s ease;
+}
+
+.buy-now-btn:hover {
+  background: #a31f1f;
+}
+
+.quick-cart-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -84,17 +118,7 @@
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 0.15s ease,
-    transform 0.15s ease,
-    background-color 0.15s ease;
-}
-
-.product-card:hover .quick-cart-btn {
-  opacity: 1;
-  transform: translateY(0);
+  transition: background-color 0.15s ease;
 }
 
 .quick-cart-btn:hover {
@@ -103,7 +127,7 @@
 
 @media (max-width: 767px) {
   // Trên di động không có hover, luôn hiện sẵn nút mua nhanh.
-  .quick-cart-btn {
+  .quick-actions {
     opacity: 1;
     transform: translateY(0);
   }
