@@ -2,7 +2,13 @@
   <div class="image-wrapper">
     <a [routerLink]="['/products', product.slug]" class="image-link">
       <img
-        [src]="(product.thumbnailUrl | imageUrl) || 'assets/images/placeholders/ao.jpg'"
+        [src]="((product.thumbnailUrl || 'assets/images/placeholders/ao.jpg') | imageUrl:640)"
+        [attr.srcset]="((product.thumbnailUrl || 'assets/images/placeholders/ao.jpg') | imageUrl:320) + ' 320w, ' + ((product.thumbnailUrl || 'assets/images/placeholders/ao.jpg') | imageUrl:640) + ' 640w'"
+        sizes="(max-width: 767px) 50vw, 320px"
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="768"
         [alt]="product.productName"
         class="product-image"
         (error)="onImageError($event)"
@@ -55,7 +61,9 @@
     <div class="product-brand-row">
       <img
         *ngIf="product.brandLogoUrl"
-        [src]="product.brandLogoUrl"
+        [src]="product.brandLogoUrl | imageUrl:160"
+        loading="lazy"
+        decoding="async"
         [alt]="product.brandName || ''"
         class="brand-logo"
         (error)="onBrandLogoError($event)"

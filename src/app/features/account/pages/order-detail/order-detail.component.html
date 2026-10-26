@@ -134,6 +134,16 @@
         <aside class="detail-card payment-summary">
           <h4>Thanh toán</h4>
 
+          <div *ngIf="isVnpay" class="mb-3">
+            <p *ngIf="vnpayStatus" class="payment-note">{{ vnpayStatus.message }}</p>
+            <button type="button" class="btn btn-outline-dark btn-sm me-2" [disabled]="checkingVnpay || payingVnpay" (click)="checkVnpay()">
+              {{ checkingVnpay ? 'Đang kiểm tra…' : 'Kiểm tra VNPAY' }}
+            </button>
+            <button *ngIf="vnpayStatus?.canPay" type="button" class="btn btn-dark btn-sm" [disabled]="payingVnpay || checkingVnpay" (click)="payVnpay()">
+              {{ payingVnpay ? 'Đang chuyển…' : 'Tiếp tục thanh toán' }}
+            </button>
+          </div>
+
           <div *ngFor="let payment of order.payments" class="payment-block">
             <div class="payment-row">
               <span>{{ getPaymentMethodText(payment.paymentMethod) }}</span>
@@ -149,7 +159,7 @@
               {{
                 isCodPayment(payment)
                   ? "Đã thanh toán tiền mặt khi nhận hàng"
-                  : "Đã thanh toán qua QR"
+                  : isVnpay ? "Đã thanh toán qua VNPAY" : "Đã thanh toán qua QR"
               }}
               <span *ngIf="payment.paidAt">
                 lúc {{ payment.paidAt | date: "dd/MM/yyyy HH:mm" }}
@@ -289,7 +299,7 @@
           </ng-container>
 
           <button
-            *ngIf="isPending"
+            *ngIf="isPending && (!isVnpay || vnpayStatus?.canCancel)"
             type="button"
             class="btn btn-outline-danger w-100 mt-4"
             [disabled]="cancelling"

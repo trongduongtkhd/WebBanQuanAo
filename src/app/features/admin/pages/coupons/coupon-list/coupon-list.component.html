@@ -49,7 +49,7 @@
           <td>
             <strong>{{ getDiscountText(coupon) }}</strong>
             <small
-              *ngIf="coupon.discountType === 1 && coupon.maxDiscountAmount"
+              *ngIf="isPercentageCoupon(coupon) && coupon.maxDiscountAmount"
               class="d-block text-muted"
             >
               Tối đa {{ coupon.maxDiscountAmount | number: "1.0-0" }} ₫

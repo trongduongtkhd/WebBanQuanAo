@@ -10,42 +10,11 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../../core/services/auth.service';
 import { TurnstileComponent } from '../../../../shared/components/turnstile/turnstile.component';
-
-const PASSWORD_MIN_LENGTH = 8;
-
-/** Kiểm tra từng điều kiện mật khẩu, mỗi điều kiện sai là một key lỗi riêng. */
-function strongPasswordValidator(
-  control: AbstractControl,
-): ValidationErrors | null {
-  const value: string = control.value ?? '';
-  if (!value) {
-    return null; // để Validators.required xử lý
-  }
-
-  const firstChar = value.charAt(0);
-  const errors: ValidationErrors = {};
-
-  if (value.length < PASSWORD_MIN_LENGTH) {
-    errors.minLength = true;
-  }
-  if (firstChar === firstChar.toLowerCase() || firstChar !== firstChar.toUpperCase()) {
-    errors.firstUppercase = true;
-  }
-  if (!/\d/.test(value)) {
-    errors.digit = true;
-  }
-  // Ký tự đặc biệt: không phải chữ (chữ có hoa/thường), không phải số, không phải khoảng trắng.
-  const hasSpecial = value
-    .split('')
-    .some(
-      (c) => c.toLowerCase() === c.toUpperCase() && !/[\d\s]/.test(c),
-    );
-  if (!hasSpecial) {
-    errors.special = true;
-  }
-
-  return Object.keys(errors).length ? errors : null;
-}
+import {
+  accountEmailValidator, FULL_NAME_MESSAGE, normalizeEmail, normalizeFullName,
+  normalizePhone, PASSWORD_RULES, personNameValidator, PHONE_MESSAGE,
+  strongPasswordValidator, vietnameseMobileValidator,
+} from '../../../../core/utils/account-validation.util';
 
 @Component({
   selector: 'app-register',
@@ -63,26 +32,15 @@ export class RegisterComponent {
 
   @ViewChild(TurnstileComponent) private turnstile?: TurnstileComponent;
 
-  readonly passwordRules = [
-    { key: 'minLength', label: `Ít nhất ${PASSWORD_MIN_LENGTH} ký tự` },
-    { key: 'firstUppercase', label: 'Ký tự đầu tiên viết hoa' },
-    { key: 'digit', label: 'Có ít nhất 1 chữ số' },
-    { key: 'special', label: 'Có ít nhất 1 ký tự đặc biệt (@, !, #, $...)' },
-  ];
+  readonly passwordRules = PASSWORD_RULES;
+  readonly fullNameMessage = FULL_NAME_MESSAGE;
+  readonly phoneMessage = PHONE_MESSAGE;
 
   readonly registerForm = this.formBuilder.group(
     {
-      fullName: ['', [Validators.required, Validators.maxLength(150)]],
-      // Validators.email chấp nhận cả "abc@gmail" (thiếu tên miền), nên bắt buộc thêm phần ".xx" ở cuối.
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern(/^\s*[^\s@]+@[^\s@]+\.[A-Za-z]{2,}\s*$/),
-        ],
-      ],
-      phoneNumber: ['', [Validators.maxLength(20)]],
+      fullName: ['', [Validators.required, personNameValidator]],
+      email: ['', [Validators.required, accountEmailValidator]],
+      phoneNumber: ['', [vietnameseMobileValidator]],
       password: ['', [Validators.required, strongPasswordValidator]],
       confirmPassword: ['', [Validators.required]],
     },
@@ -105,6 +63,10 @@ export class RegisterComponent {
     return this.registerForm.get('email');
   }
 
+  get phoneNumber() {
+    return this.registerForm.get('phoneNumber');
+  }
+
   get password() {
     return this.registerForm.get('password');
   }
@@ -114,6 +76,7 @@ export class RegisterComponent {
   }
 
   submit(): void {
+    if (this.isSubmitting) { return; }
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
@@ -131,9 +94,9 @@ export class RegisterComponent {
 
     this.authService
       .register({
-        fullName: value.fullName?.trim() ?? '',
-        email: value.email?.trim() ?? '',
-        phoneNumber: value.phoneNumber?.trim() || null,
+        fullName: normalizeFullName(value.fullName ?? ''),
+        email: normalizeEmail(value.email ?? ''),
+        phoneNumber: normalizePhone(value.phoneNumber),
         password: value.password ?? '',
         confirmPassword: value.confirmPassword ?? '',
         captchaToken: this.captchaToken,

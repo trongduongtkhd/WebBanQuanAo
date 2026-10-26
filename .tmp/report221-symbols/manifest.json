@@ -1,0 +1,574 @@
+[
+  {
+    "number": 1,
+    "part": 1,
+    "title": "1. Luồng xử lý chung của hệ thống",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-01-1.png",
+    "size": [
+      2400,
+      1001
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 2,
+    "part": 1,
+    "title": "2. Đăng ký tài khoản — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-02-1.png",
+    "size": [
+      2400,
+      1147
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 2,
+    "part": 2,
+    "title": "2. Đăng ký tài khoản — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-02-2.png",
+    "size": [
+      2400,
+      1138
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 3,
+    "part": 1,
+    "title": "3. Đăng nhập tài khoản — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-03-1.png",
+    "size": [
+      2400,
+      1181
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 3,
+    "part": 2,
+    "title": "3. Đăng nhập tài khoản — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-03-2.png",
+    "size": [
+      2400,
+      1086
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 4,
+    "part": 1,
+    "title": "4. Xác minh đăng nhập hai lớp — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-04-1.png",
+    "size": [
+      2400,
+      1435
+    ],
+    "width": 9.449477351916377
+  },
+  {
+    "number": 4,
+    "part": 2,
+    "title": "4. Xác minh đăng nhập hai lớp — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-04-2.png",
+    "size": [
+      2400,
+      1293
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 5,
+    "part": 1,
+    "title": "5. Quên mật khẩu — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-05-1.png",
+    "size": [
+      2400,
+      1034
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 5,
+    "part": 2,
+    "title": "5. Quên mật khẩu — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-05-2.png",
+    "size": [
+      2400,
+      933
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 6,
+    "part": 1,
+    "title": "6. Đặt lại mật khẩu — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-06-1.png",
+    "size": [
+      2400,
+      1126
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 6,
+    "part": 2,
+    "title": "6. Đặt lại mật khẩu — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-06-2.png",
+    "size": [
+      2400,
+      1138
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 7,
+    "part": 1,
+    "title": "7. Làm mới phiên và đăng xuất — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-07-1.png",
+    "size": [
+      2400,
+      1077
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 7,
+    "part": 2,
+    "title": "7. Làm mới phiên và đăng xuất — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-07-2.png",
+    "size": [
+      2400,
+      984
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 8,
+    "part": 1,
+    "title": "8. Xem và tìm kiếm sản phẩm — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-08-1.png",
+    "size": [
+      2400,
+      1154
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 8,
+    "part": 2,
+    "title": "8. Xem và tìm kiếm sản phẩm — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-08-2.png",
+    "size": [
+      2400,
+      1052
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 9,
+    "part": 1,
+    "title": "9. Quản lý giỏ hàng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-09-1.png",
+    "size": [
+      2400,
+      1107
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 9,
+    "part": 2,
+    "title": "9. Quản lý giỏ hàng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-09-2.png",
+    "size": [
+      2400,
+      1088
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 10,
+    "part": 1,
+    "title": "10. Quản lý danh sách yêu thích — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-10-1.png",
+    "size": [
+      2400,
+      1056
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 10,
+    "part": 2,
+    "title": "10. Quản lý danh sách yêu thích — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-10-2.png",
+    "size": [
+      2400,
+      950
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 11,
+    "part": 1,
+    "title": "11. Cập nhật hồ sơ và đổi mật khẩu — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-11-1.png",
+    "size": [
+      2400,
+      1280
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 11,
+    "part": 2,
+    "title": "11. Cập nhật hồ sơ và đổi mật khẩu — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-11-2.png",
+    "size": [
+      2400,
+      1178
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 12,
+    "part": 1,
+    "title": "12. Quản lý địa chỉ giao hàng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-12-1.png",
+    "size": [
+      2400,
+      1073
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 12,
+    "part": 2,
+    "title": "12. Quản lý địa chỉ giao hàng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-12-2.png",
+    "size": [
+      2400,
+      1026
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 13,
+    "part": 1,
+    "title": "13. Kiểm tra và áp dụng mã giảm giá — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-13-1.png",
+    "size": [
+      2400,
+      964
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 13,
+    "part": 2,
+    "title": "13. Kiểm tra và áp dụng mã giảm giá — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-13-2.png",
+    "size": [
+      2400,
+      875
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 14,
+    "part": 1,
+    "title": "14. Tạo đơn hàng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-14-1.png",
+    "size": [
+      2400,
+      1448
+    ],
+    "width": 9.3646408839779
+  },
+  {
+    "number": 14,
+    "part": 2,
+    "title": "14. Tạo đơn hàng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-14-2.png",
+    "size": [
+      2400,
+      1313
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 15,
+    "part": 1,
+    "title": "15. Thanh toán QR mô phỏng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-15-1.png",
+    "size": [
+      2400,
+      1043
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 15,
+    "part": 2,
+    "title": "15. Thanh toán QR mô phỏng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-15-2.png",
+    "size": [
+      2400,
+      1006
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 16,
+    "part": 1,
+    "title": "16. Theo dõi và hủy đơn hàng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-16-1.png",
+    "size": [
+      2400,
+      986
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 16,
+    "part": 2,
+    "title": "16. Theo dõi và hủy đơn hàng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-16-2.png",
+    "size": [
+      2400,
+      1006
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 17,
+    "part": 1,
+    "title": "17. Gửi và quản lý đánh giá của khách hàng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-17-1.png",
+    "size": [
+      2400,
+      1240
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 17,
+    "part": 2,
+    "title": "17. Gửi và quản lý đánh giá của khách hàng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-17-2.png",
+    "size": [
+      2400,
+      1146
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 18,
+    "part": 1,
+    "title": "18. Quản trị sản phẩm và biến thể — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-18-1.png",
+    "size": [
+      2400,
+      1247
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 18,
+    "part": 2,
+    "title": "18. Quản trị sản phẩm và biến thể — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-18-2.png",
+    "size": [
+      2400,
+      1209
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 19,
+    "part": 1,
+    "title": "19. Quản lý hình ảnh sản phẩm",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-19-1.png",
+    "size": [
+      2400,
+      1421
+    ],
+    "width": 9.542575650950035
+  },
+  {
+    "number": 20,
+    "part": 1,
+    "title": "20. Quản lý dữ liệu danh mục và nhà cung cấp — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-20-1.png",
+    "size": [
+      2400,
+      1020
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 20,
+    "part": 2,
+    "title": "20. Quản lý dữ liệu danh mục và nhà cung cấp — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-20-2.png",
+    "size": [
+      2400,
+      1041
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 21,
+    "part": 1,
+    "title": "21. Lập và điều chỉnh phiếu nhập kho — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-21-1.png",
+    "size": [
+      2400,
+      1212
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 21,
+    "part": 2,
+    "title": "21. Lập và điều chỉnh phiếu nhập kho — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-21-2.png",
+    "size": [
+      2400,
+      1012
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 22,
+    "part": 1,
+    "title": "22. Quản trị mã giảm giá — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-22-1.png",
+    "size": [
+      2400,
+      985
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 22,
+    "part": 2,
+    "title": "22. Quản trị mã giảm giá — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-22-2.png",
+    "size": [
+      2400,
+      1058
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 23,
+    "part": 1,
+    "title": "23. Quản trị trạng thái đơn hàng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-23-1.png",
+    "size": [
+      2400,
+      1062
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 23,
+    "part": 2,
+    "title": "23. Quản trị trạng thái đơn hàng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-23-2.png",
+    "size": [
+      2400,
+      999
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 24,
+    "part": 1,
+    "title": "24. Quản trị trạng thái thanh toán — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-24-1.png",
+    "size": [
+      2400,
+      999
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 24,
+    "part": 2,
+    "title": "24. Quản trị trạng thái thanh toán — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-24-2.png",
+    "size": [
+      2400,
+      1006
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 25,
+    "part": 1,
+    "title": "25. Kiểm duyệt đánh giá sản phẩm — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-25-1.png",
+    "size": [
+      2400,
+      1043
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 25,
+    "part": 2,
+    "title": "25. Kiểm duyệt đánh giá sản phẩm — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-25-2.png",
+    "size": [
+      2400,
+      943
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 26,
+    "part": 1,
+    "title": "26. Quản lý tài khoản người dùng — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-26-1.png",
+    "size": [
+      2400,
+      1078
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 26,
+    "part": 2,
+    "title": "26. Quản lý tài khoản người dùng — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-26-2.png",
+    "size": [
+      2400,
+      1064
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 27,
+    "part": 1,
+    "title": "27. Xem thống kê quản trị — phần 1/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-27-1.png",
+    "size": [
+      2400,
+      953
+    ],
+    "width": 9.6
+  },
+  {
+    "number": 27,
+    "part": 2,
+    "title": "27. Xem thống kê quản trị — phần 2/2",
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221-symbols\\uml-27-2.png",
+    "size": [
+      2400,
+      886
+    ],
+    "width": 9.6
+  }
+]

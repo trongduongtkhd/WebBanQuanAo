@@ -1,0 +1,28 @@
+.vnpay-result { max-width: 680px; margin: 64px auto; padding: 40px 24px; text-align: center; }
+.result-symbol { font-size: 52px; color: #a87645; }
+.result-symbol.success { color: #237b51; }
+.eyebrow { margin-top: 16px; font-size: 12px; letter-spacing: 3px; color: #78634d; }
+h1 { font-size: clamp(26px, 4vw, 36px); margin: 12px 0 20px; }
+.message { color: #625b54; }
+.summary { padding: 20px 24px; margin: 28px 0; background: #f7f5f2; border-radius: 12px; text-align: left; }
+.summary div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; flex-wrap: wrap; }
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 24px 0; }
+small { color: #777; }
+
+.actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  text-decoration: none;
+}
+.continue-shopping {
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.continue-shopping:hover {
+  background-color: #333;
+  border-color: #333;
+}

@@ -11,6 +11,13 @@
     </button>
   </div>
 
+  <div *ngIf="checkoutReturnUrl" class="alert alert-info d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <span>Lưu địa chỉ xong, bạn sẽ được quay lại đơn hàng đang thanh toán.</span>
+    <button type="button" class="btn btn-link p-0 text-dark" [disabled]="saving" (click)="returnToCheckout()">
+      <i class="bi bi-arrow-left me-1"></i>Quay lại thanh toán
+    </button>
+  </div>
+
   <div *ngIf="successMessage" class="alert alert-success">
     {{ successMessage }}
   </div>
@@ -99,6 +106,7 @@
       </div>
 
       <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">Tên người nhận *</label>
@@ -190,7 +198,7 @@
               class="spinner-border spinner-border-sm me-2"
             ></span>
 
-            {{ saving ? "Đang lưu..." : "Lưu địa chỉ" }}
+            {{ saving ? "Đang lưu..." : checkoutReturnUrl ? "Lưu và tiếp tục thanh toán" : "Lưu địa chỉ" }}
           </button>
         </div>
       </form>

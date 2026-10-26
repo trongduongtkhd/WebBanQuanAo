@@ -5,7 +5,10 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { UserProfileService } from '../../../../core/services/user-profile.service';
 import { UserProfile } from '../../../../core/models/profile.model';
 import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
-import { notBlank } from '../../../../core/utils/validators.util';
+import {
+  FULL_NAME_MESSAGE, normalizeFullName, normalizePhone, passwordErrorMessage,
+  personNameValidator, PHONE_MESSAGE, strongPasswordValidator, vietnameseMobileValidator,
+} from '../../../../core/utils/account-validation.util';
 
 // Giới hạn độ dài khớp [StringLength] ở UpdateProfileDto (backend).
 const PROFILE_FIELDS = {
@@ -38,17 +41,16 @@ export class ProfileComponent implements OnInit {
       '',
       [
         Validators.required,
-        notBlank,
-        Validators.maxLength(PROFILE_FIELDS.fullName.max),
+        personNameValidator,
       ],
     ],
-    phoneNumber: ['', Validators.maxLength(PROFILE_FIELDS.phoneNumber.max)],
+    phoneNumber: ['', vietnameseMobileValidator],
     avatarUrl: ['', Validators.maxLength(500)],
   });
 
   passwordForm = this.fb.group({
     currentPassword: ['', Validators.required],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]],
+    newPassword: ['', [Validators.required, strongPasswordValidator]],
     confirmNewPassword: ['', Validators.required],
   });
 
@@ -87,6 +89,7 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfile(): void {
+    if (this.savingProfile) { return; }
     this.profileSuccessMessage = '';
     this.profileErrorMessage = '';
 
@@ -101,8 +104,8 @@ export class ProfileComponent implements OnInit {
 
     this.userProfileService
       .updateProfile({
-        fullName: value.fullName!.trim(),
-        phoneNumber: value.phoneNumber?.trim() || null,
+        fullName: normalizeFullName(value.fullName ?? ''),
+        phoneNumber: normalizePhone(value.phoneNumber),
         avatarUrl: value.avatarUrl?.trim() || null,
       })
       .subscribe({
@@ -126,6 +129,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword(): void {
+    if (this.changingPassword) { return; }
     this.passwordSuccessMessage = '';
     this.passwordErrorMessage = '';
 
@@ -160,8 +164,7 @@ export class ProfileComponent implements OnInit {
         },
         error: (error) => {
           this.changingPassword = false;
-          this.passwordErrorMessage =
-            error?.error?.message || 'Không thể đổi mật khẩu.';
+          this.passwordErrorMessage = getApiErrorMessage(error, 'Không thể đổi mật khẩu.');
         },
       });
   }
@@ -204,7 +207,14 @@ export class ProfileComponent implements OnInit {
       return `${field.label} tối đa ${field.max} ký tự.`;
     }
 
+    if (errors?.['personName']) { return FULL_NAME_MESSAGE; }
+    if (errors?.['phoneNumber']) { return PHONE_MESSAGE; }
+
     return '';
+  }
+
+  getNewPasswordError(): string {
+    return passwordErrorMessage(this.passwordForm.get('newPassword'));
   }
 
   isInvalid(formName: 'profile' | 'password', controlName: string): boolean {

@@ -16,6 +16,7 @@ export interface CartItem {
 
   totalPrice: number;
   isAvailable: boolean;
+  isForSale: boolean;
 }
 
 export interface Cart {

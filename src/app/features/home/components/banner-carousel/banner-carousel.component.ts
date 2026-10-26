@@ -45,6 +45,8 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
   ];
 
   currentIndex = 0;
+  readonly loadedSlides = new Set([0]);
+  private preloadTimer?: ReturnType<typeof setTimeout>;
 
   private readonly intervalMs = 5000;
   private intervalId?: ReturnType<typeof setInterval>;
@@ -55,10 +57,22 @@ export class BannerCarouselComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopAutoplay();
+    if (this.preloadTimer) { clearTimeout(this.preloadTimer); }
   }
 
   goTo(index: number): void {
     this.currentIndex = (index + this.slides.length) % this.slides.length;
+    this.loadedSlides.add(this.currentIndex);
+    this.scheduleNextSlide();
+  }
+
+  onSlideLoaded(index: number): void {
+    if (index === this.currentIndex) { this.scheduleNextSlide(); }
+  }
+
+  private scheduleNextSlide(): void {
+    if (this.preloadTimer) { clearTimeout(this.preloadTimer); }
+    this.preloadTimer = setTimeout(() => this.loadedSlides.add((this.currentIndex + 1) % this.slides.length), 1500);
   }
 
   next(): void {

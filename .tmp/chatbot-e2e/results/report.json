@@ -1,0 +1,57 @@
+{
+  "cases": [
+    {
+      "message": "Tìm áo nam dưới 150 nghìn",
+      "milliseconds": 5631,
+      "products": [
+        "Áo Polo",
+        "Áo nỉ có mũ bé trai có hình in",
+        "Áo Cotton USA",
+        "Áo Thun Trắng",
+        "Áo thun Basic"
+      ],
+      "reply": "Mình tìm thấy 5 sản phẩm phù hợp. Bạn xem các sản phẩm bên dưới nhé. Giá hiển thị theo các biến thể đang được liệt kê."
+    },
+    {
+      "message": "Cái đầu tiên còn màu và size nào?",
+      "milliseconds": 461,
+      "products": [
+        "Áo Polo"
+      ],
+      "reply": "Áo Polo · ROUTINE\nGiá: 150.000đ.\nChất liệu: thun.\nMô tả: đẹp\nMàu / size: Be: M (còn 100); Xanh Dương: L (còn 210)."
+    },
+    {
+      "message": "So sánh Áo thun Basic với Áo Thun Trắng",
+      "milliseconds": 652,
+      "products": [
+        "Áo Thun Trắng",
+        "Áo thun Basic"
+      ],
+      "reply": "Thông tin so sánh từ dữ liệu hiện tại của shop:\n\nÁo Thun Trắng · ROUTINE\nGiá: 120.000đ.\nChất liệu: Cotton.\nMô tả: Áo rất mát\nMàu / size: Trắng: L (còn 20), M (còn 19), S (còn 18), XL (còn 20).\n\nÁo thun Basic · YODY\nGiá: 149.000đ.\nChất liệu: Cotton 100%.\nMô tả: Áo chất vải mỏng đem lại cảm giác dễ chịu\nMàu / size: Đen: M (còn 8)."
+    },
+    {
+      "message": "Chính sách trả hàng",
+      "milliseconds": 53,
+      "products": [],
+      "reply": "Shop tiếp nhận yêu cầu trả hàng trong 7 ngày kể từ khi đơn hàng hoàn thành. Đơn phải đã thanh toán và chưa có yêu cầu trả hàng trước đó. Bạn đăng nhập, mở “Đơn hàng của tôi”, chọn đơn rồi gửi yêu cầu; shop sẽ xem xét và phản hồi."
+    },
+    {
+      "message": "Current product context",
+      "product": "Áo Polo"
+    },
+    {
+      "message": "Mobile panel and composer fit viewport",
+      "panel": {
+        "x": 10,
+        "y": 20,
+        "width": 370,
+        "height": 744
+      }
+    },
+    {
+      "message": "Unavailable AI shows retry and catalog fallback"
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

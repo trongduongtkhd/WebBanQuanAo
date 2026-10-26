@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import {
   PagedResult,
@@ -15,7 +16,6 @@ interface FilterState {
   keyword: string;
   categoryId: number | null;
   brandId: number | null;
-  gender: '' | 'Male' | 'Female' | 'Unisex';
   minPrice: number | null;
   maxPrice: number | null;
   sort: 'newest' | 'priceAsc' | 'priceDesc' | 'bestSelling';
@@ -26,9 +26,53 @@ interface FilterState {
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   categories: PublicCategory[] = [];
   brands: PublicBrand[] = [];
+  private readonly destroyed$ = new Subject<void>();
+  private productRequest?: Subscription;
+  private readonly optionsByRoot = new Map<PublicCategory, { categoryId: number; label: string }[]>();
+
+  get selectedRootCategory(): PublicCategory | undefined {
+    return this.categories.find((category) =>
+      this.containsCategory(category, this.filters.categoryId),
+    );
+  }
+
+  get subcategoryOptions(): { categoryId: number; label: string }[] {
+    const root = this.selectedRootCategory;
+    if (!root) {
+      return [];
+    }
+    const cached = this.optionsByRoot.get(root);
+    if (cached) {
+      return cached;
+    }
+
+    const collect = (
+      categories: PublicCategory[],
+      parentPath = '',
+    ): { categoryId: number; label: string }[] =>
+      categories.reduce<{ categoryId: number; label: string }[]>((options, category) => {
+        const label = parentPath
+          ? `${parentPath} / ${category.categoryName}`
+          : category.categoryName;
+        return options.concat(
+          { categoryId: category.categoryId, label },
+          collect(category.children, label),
+        );
+      }, []);
+
+    const options = collect(root.children);
+    this.optionsByRoot.set(root, options);
+    return options;
+  }
+
+  get selectedSubcategoryId(): number | null {
+    return this.filters.categoryId === this.selectedRootCategory?.categoryId
+      ? null
+      : this.filters.categoryId;
+  }
 
   result: PagedResult<PublicProduct> = {
     items: [],
@@ -42,7 +86,6 @@ export class ProductListComponent implements OnInit {
     keyword: '',
     categoryId: null,
     brandId: null,
-    gender: '',
     minPrice: null,
     maxPrice: null,
     sort: 'newest',
@@ -60,21 +103,42 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.loadFilterOptions();
 
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.pipe(takeUntil(this.destroyed$)).subscribe((params) => {
       this.filters = {
         keyword: params.get('keyword') || '',
         categoryId: this.toNumber(params.get('categoryId')),
         brandId: this.toNumber(params.get('brandId')),
-        gender: (params.get('gender') as FilterState['gender']) || '',
         minPrice: this.toNumber(params.get('minPrice')),
         maxPrice: this.toNumber(params.get('maxPrice')),
         sort: (params.get('sort') as FilterState['sort']) || 'newest',
       };
 
       const page = this.toNumber(params.get('page')) || 1;
+      if (params.has('gender')) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { gender: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
 
       this.loadProducts(page);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+    this.productRequest?.unsubscribe();
+  }
+
+  onRootCategoryChange(categoryId: number | null): void {
+    this.filters.categoryId = categoryId;
+  }
+
+  onSubcategoryChange(categoryId: number | null): void {
+    this.filters.categoryId = categoryId ?? this.selectedRootCategory?.categoryId ?? null;
   }
 
   applyFilters(): void {
@@ -111,7 +175,7 @@ export class ProductListComponent implements OnInit {
     forkJoin({
       categories: this.catalogService.getCategories(),
       brands: this.catalogService.getBrands(),
-    }).subscribe({
+    }).pipe(takeUntil(this.destroyed$)).subscribe({
       next: (result) => {
         this.categories = result.categories.data;
         this.brands = result.brands.data;
@@ -120,21 +184,21 @@ export class ProductListComponent implements OnInit {
   }
 
   private loadProducts(page: number): void {
+    this.productRequest?.unsubscribe();
     this.isLoading = true;
     this.errorMessage = '';
 
     const query: ProductQuery = {
       ...this.filters,
-      gender: this.filters.gender || undefined,
       categoryId: this.filters.categoryId || undefined,
       brandId: this.filters.brandId || undefined,
-      minPrice: this.filters.minPrice || undefined,
-      maxPrice: this.filters.maxPrice || undefined,
+      minPrice: this.filters.minPrice ?? undefined,
+      maxPrice: this.filters.maxPrice ?? undefined,
       page,
       pageSize: 12,
     };
 
-    this.catalogService.getProducts(query).subscribe({
+    this.productRequest = this.catalogService.getProducts(query).subscribe({
       next: (response) => {
         this.result = response.data;
         this.isLoading = false;
@@ -146,6 +210,11 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  private containsCategory(category: PublicCategory, categoryId: number | null): boolean {
+    return category.categoryId === categoryId ||
+      category.children.some((child) => this.containsCategory(child, categoryId));
+  }
+
   private buildQueryParams(
     page: number,
   ): Record<string, string | number | null> {
@@ -153,7 +222,6 @@ export class ProductListComponent implements OnInit {
       keyword: this.filters.keyword || null,
       categoryId: this.filters.categoryId,
       brandId: this.filters.brandId,
-      gender: this.filters.gender || null,
       minPrice: this.filters.minPrice,
       maxPrice: this.filters.maxPrice,
       sort: this.filters.sort === 'newest' ? null : this.filters.sort,

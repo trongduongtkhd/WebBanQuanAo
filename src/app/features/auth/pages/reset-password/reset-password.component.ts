@@ -9,6 +9,8 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../../../../core/services/auth.service';
+import { passwordErrorMessage, strongPasswordValidator } from '../../../../core/utils/account-validation.util';
+import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,7 +27,7 @@ export class ResetPasswordComponent implements OnInit {
 
   readonly resetPasswordForm = this.formBuilder.group(
     {
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, strongPasswordValidator]],
       confirmPassword: ['', [Validators.required]],
     },
     {
@@ -53,7 +55,12 @@ export class ResetPasswordComponent implements OnInit {
     return this.resetPasswordForm.get('confirmPassword');
   }
 
+  get newPasswordError(): string {
+    return passwordErrorMessage(this.newPassword);
+  }
+
   submit(): void {
+    if (this.isSubmitting) { return; }
     if (this.tokenMissing || this.resetPasswordForm.invalid) {
       this.resetPasswordForm.markAllAsTouched();
       return;
@@ -78,9 +85,7 @@ export class ResetPasswordComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           this.isSubmitting = false;
-          this.errorMessage =
-            error.error?.message ||
-            'Đặt lại mật khẩu thất bại. Vui lòng thử lại.';
+          this.errorMessage = getApiErrorMessage(error, 'Đặt lại mật khẩu thất bại. Vui lòng thử lại.');
         },
       });
   }

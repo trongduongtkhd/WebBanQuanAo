@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Coupon } from '../../../../../core/models/coupon.model';
 import { AdminCouponService } from '../../../services/admin-coupon.service';
+import { formatCouponDiscount, normalizeCouponDiscountType } from '../../../../../core/utils/coupon-discount.util';
 
 @Component({
   selector: 'app-coupon-list',
@@ -41,11 +42,11 @@ export class CouponListComponent implements OnInit {
   }
 
   getDiscountText(coupon: Coupon): string {
-    if (coupon.discountType === 1) {
-      return `${coupon.discountValue}%`;
-    }
+    return formatCouponDiscount(coupon.discountValue, coupon.discountType);
+  }
 
-    return `${coupon.discountValue.toLocaleString('vi-VN')} ₫`;
+  isPercentageCoupon(coupon: Coupon): boolean {
+    return normalizeCouponDiscountType(coupon.discountType) === 1;
   }
 
   getCouponState(coupon: Coupon): string {

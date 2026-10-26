@@ -52,21 +52,27 @@
             </div>
             <small *ngIf="fullName?.touched && fullName?.invalid" class="field-error">
               <i class="bi bi-exclamation-circle"></i>
-              Vui lòng nhập họ tên.
+              {{ fullName?.hasError('required') ? 'Vui lòng nhập họ tên.' : fullNameMessage }}
             </small>
           </div>
 
           <div class="form-field">
-            <label class="form-label" for="phoneNumber">Số điện thoại</label>
-            <div class="input-with-icon">
+            <label class="form-label" for="phoneNumber">Số điện thoại (không bắt buộc)</label>
+            <div class="input-with-icon" [class.is-invalid]="phoneNumber?.touched && phoneNumber?.invalid">
               <i class="bi bi-telephone"></i>
               <input
                 id="phoneNumber"
+                type="tel"
+                inputmode="tel"
                 formControlName="phoneNumber"
                 placeholder="09xxxxxxxx"
                 autocomplete="tel"
               />
             </div>
+            <small *ngIf="phoneNumber?.touched && phoneNumber?.invalid" class="field-error">
+              <i class="bi bi-exclamation-circle"></i>
+              {{ phoneMessage }}
+            </small>
           </div>
         </div>
 
@@ -94,7 +100,7 @@
             class="field-error"
           >
             <i class="bi bi-exclamation-circle"></i>
-            Email không đúng định dạng.
+            Email không đúng định dạng hoặc vượt quá 254 ký tự.
           </small>
         </div>
 
@@ -171,7 +177,13 @@
             </button>
           </div>
           <small
-            *ngIf="confirmPassword?.touched && registerForm.errors?.passwordMismatch"
+            *ngIf="confirmPassword?.touched && confirmPassword?.hasError('required')"
+            class="field-error"
+          >
+            Vui lòng xác nhận mật khẩu.
+          </small>
+          <small
+            *ngIf="confirmPassword?.touched && !confirmPassword?.hasError('required') && registerForm.errors?.passwordMismatch"
             class="field-error"
           >
             <i class="bi bi-exclamation-circle"></i>

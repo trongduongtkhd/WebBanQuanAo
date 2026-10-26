@@ -7,6 +7,7 @@ import {
 } from '../../../../core/models/order.model';
 import { CustomerOrderService } from '../../../../core/services/customer-order.service';
 import { ReviewService } from '../../../../core/services/review.service';
+import { VnpayService, VnpayStatus } from '../../../../core/services/vnpay.service';
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
@@ -15,6 +16,9 @@ import { ReviewService } from '../../../../core/services/review.service';
 export class OrderDetailComponent implements OnInit {
   order: OrderDetail | null = null;
   mockQr: MockQr | null = null;
+  vnpayStatus: VnpayStatus | null = null;
+  checkingVnpay = false;
+  payingVnpay = false;
 
   loading = true;
   cancelling = false;
@@ -43,6 +47,7 @@ export class OrderDetailComponent implements OnInit {
     private router: Router,
     private customerOrderService: CustomerOrderService,
     private reviewService: ReviewService,
+    private vnpay: VnpayService,
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +70,13 @@ export class OrderDetailComponent implements OnInit {
         this.order = response.data;
         this.loading = false;
 
+        if (this.isVnpay) {
+          this.vnpay.status(orderId).subscribe({
+            next: result => this.vnpayStatus = result.data,
+            error: () => this.vnpayStatus = null,
+          });
+        }
+
         if (this.isMockQrUnpaid) {
           this.loadMockQr();
         }
@@ -79,6 +91,40 @@ export class OrderDetailComponent implements OnInit {
 
   get isPending(): boolean {
     return this.normalizeOrderStatus(this.order?.orderStatus) === 1;
+  }
+
+  get isVnpay(): boolean {
+    return !!this.order?.payments.some(payment => this.normalizePaymentMethod(payment.paymentMethod) === 3);
+  }
+
+  checkVnpay(): void {
+    if (!this.order || this.checkingVnpay) { return; }
+    this.checkingVnpay = true;
+    this.errorMessage = '';
+    this.vnpay.reconcile(this.order.orderId).subscribe({
+      next: result => {
+        this.vnpayStatus = result.data;
+        this.checkingVnpay = false;
+        this.loadOrder(result.data.orderId);
+      },
+      error: error => {
+        this.checkingVnpay = false;
+        this.errorMessage = error?.error?.message || 'Không thể kiểm tra thanh toán.';
+      },
+    });
+  }
+
+  payVnpay(): void {
+    if (!this.order || this.payingVnpay || !this.vnpayStatus?.canPay) { return; }
+    this.payingVnpay = true;
+    this.errorMessage = '';
+    this.vnpay.createPaymentUrl(this.order.orderId).subscribe({
+      next: result => this.vnpay.redirectToPayment(result.data.paymentUrl),
+      error: error => {
+        this.payingVnpay = false;
+        this.errorMessage = error?.error?.message || 'Chưa tạo được liên kết VNPAY.';
+      },
+    });
   }
 
   get isMockQrUnpaid(): boolean {
@@ -306,6 +352,8 @@ export class OrderDetailComponent implements OnInit {
     const map: { [key: string]: string } = {
       '1': 'Thanh toán khi nhận hàng (COD)',
       '2': 'Thanh toán QR mô phỏng',
+      '3': 'VNPAY Sandbox',
+      VnPay: 'VNPAY Sandbox',
 
       COD: 'Thanh toán khi nhận hàng (COD)',
       MockQR: 'Thanh toán QR mô phỏng',
@@ -362,6 +410,7 @@ export class OrderDetailComponent implements OnInit {
       COD: 1,
       MockQR: 2,
       MockQr: 2,
+      VnPay: 3,
     };
 
     return map[String(method)] || Number(method);

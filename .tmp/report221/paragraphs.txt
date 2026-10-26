@@ -1,0 +1,1358 @@
+0 [Normal] 
+1 [Heading 1] 1.Yêu cầu ( REQUIREMENTS)
+2 [Heading 2] 1.1. Đặt vấn đề ( Problem statement) 
+3 [Heading 3] 1.1.1 .Bối cảnh 
+4 [Normal] Xuất phát từ nhu cầu đó, dự án Shop Clothing UI được xây dựng nhằm phát triển giao diện website bán quần áo trực tuyến. Hệ thống hỗ trợ khách hàng xem sản phẩm, tìm kiếm và lựa chọn các mặt hàng thời trang, quản lý giỏ hàng, áp dụng mã giảm giá, lựa chọn địa chỉ giao hàng, đặt hàng và thực hiện thanh toán. Ngoài ra, hệ thống còn cung cấp khu vực quản trị dành cho người quản lý nhằm kiểm soát các hoạt động của cửa hàng.
+5 [Normal] 
+6 [Normal] Dự án được phát triển dưới dạng ứng dụng web một trang bằng framework Angular, kết hợp với Angular Material, Bootstrap và Bootstrap Icons để xây dựng giao diện trực quan, hiện đại và đáp ứng tốt trên nhiều thiết bị. Hệ thống được tổ chức theo các chức năng chính như trang chủ, sản phẩm, giỏ hàng, thanh toán, tài khoản người dùng, xác thực và quản trị. Việc phân quyền được thực hiện thông qua các vai trò người dùng và quản trị viên, giúp bảo vệ những chức năng yêu cầu quyền truy cập phù hợp.
+7 [Normal] 
+8 [Normal] Thông qua dự án, nhóm hướng đến việc xây dựng một nền tảng bán quần áo trực tuyến có quy trình mua hàng đầy đủ, giao diện dễ sử dụng và có khả năng mở rộng thêm các chức năng trong tương lai như quản lý kho, theo dõi đơn hàng, đánh giá sản phẩm và tích hợp các phương thức thanh toán thực tế
+9 [Normal] 
+10 [Heading 3] 1.1.2 Mục tiêu
+11 [Normal] a) Mục tiêu tổng quan 
+12 [Normal] 
+13 [Normal] Dự án nhằm xây dựng một hệ thống website bán quần áo trực tuyến, hỗ trợ đầy đủ quy trình mua sắm từ việc tìm kiếm sản phẩm, xem thông tin chi tiết, quản lý giỏ hàng, đặt hàng cho đến thanh toán. Hệ thống hướng đến việc mang lại trải nghiệm mua sắm thuận tiện cho khách hàng, đồng thời cung cấp các chức năng quản lý cần thiết cho quản trị viên.
+14 [Normal] Bên cạnh đó, dự án cũng hướng đến việc áp dụng các công nghệ phát triển web hiện đại để xây dựng một hệ thống có giao diện trực quan, hoạt động ổn định, bảo mật và có khả năng mở rộng trong tương lai
+15 [Normal] 
+16 [Normal] b) Mục tiêu cụ thể 
+17 [Normal]  Đối với Khách hàng (Customer – giao diện người dùng)
+18 [Normal]  Hệ thống cần đáp ứng các mục tiêu sau:
+19 [Normal] Cho phép khách hàng đăng ký, đăng nhập và đăng xuất tài khoản.
+20 [Normal] Hiển thị danh sách sản phẩm quần áo theo từng danh mục.
+21 [Normal] Hỗ trợ tìm kiếm, xem thông tin chi tiết và lựa chọn sản phẩm.
+22 [Normal] Cho phép khách hàng quản lý giỏ hàng, cập nhật số lượng hoặc xóa sản phẩm.
+23 [Normal] Cho phép quản lý thông tin cá nhân và địa chỉ giao hàng.
+24 [Normal] Hỗ trợ áp dụng mã giảm giá khi mua hàng.
+25 [Normal] Cho phép khách hàng tạo đơn hàng và lựa chọn phương thức thanh toán.
+26 [Normal] Hiển thị thông tin đơn hàng và trạng thái xử lý đơn hàng.
+27 [Normal] Hỗ trợ khách hàng đánh giá sản phẩm sau khi mua.
+28 [Normal] Cung cấp giao diện dễ sử dụng, rõ ràng và phù hợp với nhiều kích thước màn hình.
+29 [Normal] Đối với Quản trị viên (Admin – quản trị hệ thống)
+30 [Normal] Hệ thống cần hỗ trợ quản trị viên trong việc quản lý và vận hành cửa hàng, bao gồm:
+31 [Normal] Đăng nhập vào khu vực quản trị với quyền truy cập riêng.
+32 [Normal] Quản lý thông tin sản phẩm, danh mục, giá bán, hình ảnh và số lượng tồn kho.
+33 [Normal] Thêm, sửa, xóa và cập nhật trạng thái sản phẩm.
+34 [Normal] Quản lý đơn hàng và cập nhật trạng thái xử lý đơn hàng.
+35 [Normal] Theo dõi thông tin khách hàng và tài khoản người dùng.
+36 [Normal] Quản lý mã giảm giá và các chương trình khuyến mãi.
+37 [Normal] Theo dõi đánh giá, nhận xét của khách hàng.
+38 [Normal] Xem các thông tin tổng quan về hoạt động kinh doanh thông qua trang tổng quan quản trị.
+39 [Normal] Đảm bảo các chức năng quản trị chỉ được truy cập bởi người dùng có quyền phù hợp.
+40 [Normal] c) Mục tiêu kỹ thuật 
+41 [Normal] 
+42 [Normal] Kiến trúc hệ thống (Architecture): Xây dựng hệ thống theo kiến trúc đa tầng dựa trên mô hình MVC, đảm bảo tách biệt rõ ràng giữa giao diện, xử lý nghiệp vụ và dữ liệu, giúp hệ thống dễ bảo trì và mở rộng.
+43 [Normal] Frontend (Giao diện người dùng): 
+44 [Normal]  Xây dựng giao diện bằng Angular và TypeScript.
+45 [Normal] Sử dụng Angular Material, Bootstrap và Bootstrap Icons để hỗ trợ thiết kế giao diện.
+46 [Normal] Tạo các component có khả năng tái sử dụng nhằm giảm trùng lặp mã nguồn.
+47 [Normal] Cung cấp giao diện phù hợp cho cả khách hàng và quản trị viên.
+48 [Normal] Hỗ trợ hiển thị trạng thái tải dữ liệu, thông báo lỗi và thông báo kết quả thao tác.
+49 [Normal] Kết nối với backend thông qua các service và API.
+50 [Normal] Đảm bảo giao diện có khả năng đáp ứng trên máy tính, máy tính bảng và thiết bị di động.
+51 [Normal] Backend (Xử lý nghiệp vụ ): 
+52 [Normal] Cung cấp các API phục vụ việc đăng nhập, quản lý sản phẩm, giỏ hàng, đơn hàng, thanh toán, mã giảm giá và tài khoản người dùng.
+53 [Normal] Xử lý các nghiệp vụ liên quan đến đặt hàng, kiểm tra mã giảm giá và cập nhật trạng thái đơn hàng.
+54 [Normal] Kiểm tra dữ liệu đầu vào trước khi thực hiện các thao tác trên hệ thống.
+55 [Normal] Phân quyền truy cập giữa khách hàng và quản trị viên.
+56 [Normal] Trả về dữ liệu theo cấu trúc thống nhất để frontend dễ dàng xử lý và hiển thị.
+57 [Normal] Đảm bảo backend có thể phục vụ đồng thời nhiều chức năng của hệ thống.
+58 [Normal]  Cở sở dữ liệu  (Database ):
+59 [Normal] 
+60 [Normal]  Lưu trữ thông tin người dùng, sản phẩm, danh mục, giỏ hàng, địa chỉ, đơn hàng và mã giảm giá.
+61 [Normal] Quản lý mối quan hệ giữa khách hàng, sản phẩm và đơn hàng.
+62 [Normal] Đảm bảo dữ liệu được lưu trữ chính xác, nhất quán và hạn chế tình trạng trùng lặp.
+63 [Normal] Hỗ trợ truy xuất dữ liệu nhanh chóng cho các chức năng tìm kiếm, hiển thị sản phẩm và quản lý đơn hàng.
+64 [Normal] Có khả năng mở rộng khi số lượng sản phẩm, khách hàng và đơn hàng tăng lên.
+65 [Normal]    Bảo mật và xác thực  (Authentication & Authorization ):
+66 [Normal]   Xác thực người dùng thông qua tài khoản và mật khẩu.
+67 [Normal] Sử dụng token để duy trì trạng thái đăng nhập và xác định người dùng.
+68 [Normal] Phân quyền dựa trên vai trò giữa khách hàng và quản trị viên.
+69 [Normal] Sử dụng các guard để bảo vệ những trang yêu cầu đăng nhập hoặc quyền quản trị.
+70 [Normal] Sử dụng interceptor để tự động gửi thông tin xác thực trong các request đến backend.
+71 [Normal] Xử lý lỗi xác thực, lỗi phân quyền và điều hướng người dùng đến trang phù hợp.
+72 [Normal] Không cho phép người dùng chưa đăng nhập truy cập các chức năng yêu cầu tài khoản.
+73 [List Paragraph] Khả năng mở rộng và triển khai:
+74 [Normal]          Thiết kế hệ thống theo hướng module hóa để thuận tiện cho việc bảo trì và phát triển thêm chức năng.
+75 [Normal] Có thể bổ sung các phương thức thanh toán thực tế như ví điện tử, ngân hàng trực tuyến hoặc cổng thanh toán điện tử.
+76 [Normal] Có thể mở rộng thêm chức năng quản lý kho, vận chuyển, báo cáo doanh thu và chăm sóc khách hàng.
+77 [Normal] Cho phép thay đổi hoặc mở rộng backend mà không cần thay đổi lớn ở giao diện frontend.
+78 [Normal] Sử dụng biến môi trường để quản lý các thông tin cấu hình giữa môi trường phát triển và môi trường triển khai.
+79 [Normal] Có thể triển khai ứng dụng trên máy chủ hoặc các nền tảng lưu trữ web phù hợp.
+80 [Normal] Đảm bảo hệ thống có thể được kiểm thử, nâng cấp và bảo trì trong quá trình sử dụng.
+81 [Heading 3] 1.1.3. Người dùng mục tiêu
+82 [Normal] Hệ thống bán quần áo trực tuyến hướng tới hai nhóm người dùng chính, bao gồm Quản trị viên và Khách hàng. Mỗi nhóm người dùng có vai trò và nhu cầu sử dụng khác nhau trong hệ thống.
+83 [Normal] Admin (Quản trị viên ):
+84 [Normal] Là nhóm người dùng chịu trách nhiệm quản lý và vận hành toàn bộ hệ thống. Quản trị viên sử dụng hệ thống để thực hiện các chức năng quản lý sản phẩm, danh mục, hình ảnh, giá bán, tồn kho, mã giảm giá, tài khoản khách hàng và đơn hàng. Ngoài ra, quản trị viên có thể theo dõi trạng thái đơn hàng, quản lý đánh giá sản phẩm và xem các thông tin tổng quan về hoạt động kinh doanh. Nhóm người dùng này đóng vai trò trung tâm trong việc kiểm soát dữ liệu, duy trì hoạt động ổn định và đảm bảo tính chính xác của hệ thống
+85 [Normal] Khách hàng:
+86 [Normal] Là nhóm người dùng truy cập hệ thống với mục đích tìm kiếm và mua sắm các sản phẩm quần áo trực tuyến. Khách hàng có thể xem danh sách sản phẩm, tìm kiếm theo nhu cầu, xem thông tin chi tiết, lựa chọn sản phẩm, quản lý giỏ hàng và áp dụng mã giảm giá. Bên cạnh đó, khách hàng có thể cập nhật thông tin cá nhân, quản lý địa chỉ giao hàng, đặt hàng, lựa chọn phương thức thanh toán và theo dõi lịch sử mua hàng. Hệ thống được thiết kế nhằm mang lại trải nghiệm mua sắm thuận tiện, trực quan, giúp khách hàng tiết kiệm thời gian và dễ dàng tiếp cận các sản phẩm thời trang phù hợp
+87 [Heading 3] 1.1.4 Lợi ích khi sử dụng phần mềm
+88 [Normal] Đối với cửa hàng kinh doanh quần áo, hệ thống mang lại nhiều giá trị thiết thực trong công tác quản lý và vận hành. Việc quản lý sản phẩm, danh mục, giá bán và số lượng tồn kho trên cùng một hệ thống giúp hạn chế sai sót trong quá trình cập nhật dữ liệu. Thông tin đơn hàng, khách hàng và mã giảm giá được lưu trữ tập trung, hỗ trợ quản trị viên theo dõi hoạt động kinh doanh một cách nhanh chóng và chính xác.
+89 [Normal] 
+90 [Normal] Đối với khách hàng, hệ thống mang lại trải nghiệm mua sắm trực tuyến thuận tiện và hiện đại. Khách hàng có thể chủ động tìm kiếm sản phẩm, xem thông tin chi tiết, lựa chọn sản phẩm, quản lý giỏ hàng và đặt hàng mà không cần trực tiếp đến cửa hàng. Việc hỗ trợ quản lý địa chỉ giao hàng, mã giảm giá và nhiều phương thức thanh toán giúp tiết kiệm thời gian, đồng thời nâng cao sự hài lòng trong quá trình mua sắm.
+91 [Normal] Đối với quản trị viên, hệ thống giúp giảm bớt các công việc quản lý thủ công và hỗ trợ kiểm soát toàn bộ hoạt động của cửa hàng. Các chức năng quản lý sản phẩm, đơn hàng, khách hàng, mã giảm giá và đánh giá sản phẩm giúp dữ liệu được tổ chức rõ ràng, dễ tra cứu và cập nhật. Nhờ đó, quản trị viên có thể xử lý đơn hàng hiệu quả hơn và đưa ra các quyết định phù hợp dựa trên thông tin được lưu trữ trong hệ thống.
+92 [Normal] 
+93 [Normal] Xét trên góc độ kỹ thuật, hệ thống được xây dựng bằng Angular theo hướng module hóa và component hóa, giúp mã nguồn có cấu trúc rõ ràng, dễ bảo trì và thuận tiện cho việc phát triển thêm chức năng. Cơ chế xác thực, phân quyền và bảo vệ các tuyến truy cập giúp nâng cao mức độ an toàn của hệ thống. Đây là nền tảng quan trọng để hệ thống có thể mở rộng trong tương lai, đồng thời thể hiện khả năng áp dụng các kiến thức về phân tích, thiết kế và xây dựng hệ thống thông tin vào lĩnh vực kinh doanh thời trang trực tuyến.
+94 [Normal] 
+95 [Heading 3] 1.1.5 Phạm vi của dự án
+96 [Normal] Trong phạm vi của dự án, nhóm tập trung nghiên cứu, phân tích và xây dựng hệ thống bán quần áo trực tuyến dưới dạng ứng dụng web. Các nội dung chính bao gồm khảo sát yêu cầu, phân tích chức năng, thiết kế giao diện và xây dựng các module phục vụ khách hàng và quản trị viên.
+97 [Normal] 
+98 [Normal] Đối với khách hàng, hệ thống hỗ trợ đăng ký, đăng nhập, xem danh sách sản phẩm, tìm kiếm sản phẩm, xem thông tin chi tiết, quản lý giỏ hàng, cập nhật địa chỉ giao hàng, áp dụng mã giảm giá, đặt hàng và theo dõi thông tin đơn hàng. Ngoài ra, khách hàng có thể quản lý thông tin cá nhân, xem lịch sử mua hàng và thực hiện đánh giá sản phẩm.
+99 [Normal] Đối với quản trị viên, hệ thống tập trung vào các chức năng quản lý sản phẩm, danh mục, hình ảnh, giá bán, số lượng tồn kho, tài khoản khách hàng, đơn hàng, mã giảm giá và đánh giá sản phẩm. Hệ thống cũng cung cấp khu vực quản trị riêng, hỗ trợ quản trị viên theo dõi và kiểm soát hoạt động kinh doanh của cửa hàng.
+100 [Normal] 
+101 [Normal] Về mặt kỹ thuật, dự án tập trung xây dựng giao diện frontend bằng Angular, tổ chức hệ thống theo các module chức năng và kết nối với backend thông qua các API. Hệ thống có áp dụng cơ chế đăng nhập, xác thực token và phân quyền giữa khách hàng và quản trị viên. Dữ liệu chính được quản lý bao gồm người dùng, sản phẩm, danh mục, giỏ hàng, địa chỉ, mã giảm giá, đơn hàng và đánh giá sản phẩm.
+102 [Normal] 
+103 [Normal] Các nội dung nằm ngoài phạm vi của dự án bao gồm việc tích hợp các cổng thanh toán trực tuyến thực tế, kết nối với đơn vị vận chuyển, triển khai ứng dụng dành riêng cho thiết bị di động và xây dựng các tính năng marketing chuyên sâu như chương trình tích điểm, chăm sóc khách hàng tự động hoặc đề xuất sản phẩm bằng trí tuệ nhân tạo. Những nội dung này được xem là định hướng phát triển trong tương lai khi hệ thống được mở rộng và triển khai ở quy mô lớn hơn.
+104 [Heading 2] 1.2 Thuật ngữ (Glossary)
+105 [Normal] 
+106 [Heading 2] 1.3. Thông số kỹ thuật bổ sung
+107 [Normal] Các thông số kỹ thuật bổ sung, hay còn gọi là yêu cầu phi chức năng, được đưa ra nhằm đảm bảo hệ thống bán quần áo trực tuyến không chỉ đáp ứng các chức năng nghiệp vụ mà còn có hiệu năng tốt, hoạt động ổn định, bảo mật và thuận tiện trong quá trình sử dụng.
+108 [Heading 3] 1.3.1. Hiệu năng
+109 [Normal] ● Thời gian phản hồi:
+110 [Normal] Hệ thống cần phản hồi các yêu cầu thông thường của người dùng trong thời gian hợp lý, chẳng hạn như xem danh sách sản phẩm, tìm kiếm sản phẩm, xem chi tiết sản phẩm, xem giỏ hàng hoặc kiểm tra thông tin đơn hàng.
+111 [Normal] 
+112 [Normal] ● Xử lý dữ liệu lớn:
+113 [Normal] Hệ thống cần có khả năng quản lý và xử lý số lượng lớn dữ liệu về sản phẩm, danh mục, khách hàng, giỏ hàng, đơn hàng, mã giảm giá và đánh giá sản phẩm.
+114 [Normal] 
+115 [Normal] ● Xử lý đồng thời:
+116 [Normal] Hệ thống cần đảm bảo khả năng xử lý đồng thời nhiều yêu cầu từ khách hàng và quản trị viên mà không xảy ra lỗi hoặc mất dữ liệu. Đặc biệt, quá trình cập nhật giỏ hàng, tạo đơn hàng và thay đổi số lượng sản phẩm cần được xử lý chính xác.
+117 [Normal] 
+118 [Normal] ● Tối ưu tài nguyên hệ thống
+119 [Normal] Ứng dụng cần tối ưu việc sử dụng tài nguyên máy chủ và trình duyệt. Việc áp dụng lazy loading, tái sử dụng component và tổ chức module hợp lý giúp giảm thời gian tải ban đầu và nâng cao hiệu suất hệ thống.
+120 [Normal] 
+121 [Normal] ● Khả năng mở rộng hiệu năng:
+122 [Normal] Hệ thống cần duy trì hiệu suất ổn định khi số lượng người dùng, sản phẩm và đơn hàng tăng lên, đặc biệt trong các thời điểm có chương trình khuyến mãi hoặc nhu cầu mua sắm cao.
+123 [Normal] 
+124 [Heading 3] 1.3.2. Tốc độ
+125 [Normal] ● Tốc độ truy xuất dữ liệu:
+126 [Normal] Thời gian tải các trang như danh sách sản phẩm, chi tiết sản phẩm, giỏ hàng, danh sách đơn hàng và danh sách mã giảm giá cần được tối ưu trong điều kiện hoạt động bình thường.
+127 [Normal] 
+128 [Normal] ● Tốc độ xử lý giao dịch:
+129 [Normal] Các thao tác quan trọng như thêm sản phẩm vào giỏ hàng, cập nhật số lượng, áp dụng mã giảm giá và tạo đơn hàng cần được xử lý nhanh chóng, hạn chế thời gian chờ của khách hàng.
+130 [Normal] ● Tốc độ tải giao diện:
+131 [Normal] Giao diện cần hiển thị các thành phần chính trong thời gian ngắn. Các trạng thái đang tải dữ liệu, thông báo lỗi và kết quả thao tác cần được hiển thị rõ ràng để người dùng dễ theo dõi.
+132 [Heading 3] 1.3.3. Độ tin cậy
+133 [Normal] ● Tỷ lệ thời gian hoạt động:
+134 [Normal] Hệ thống cần đảm bảo hoạt động ổn định trong thời gian dài, đáp ứng nhu cầu truy cập của khách hàng và quản trị viên.
+135 [Normal] ● Khả năng phục hồi sau sự cố:
+136 [Normal] Hệ thống cần có khả năng xử lý và phục hồi sau các sự cố như lỗi kết nối API, lỗi máy chủ hoặc lỗi trong quá trình xử lý đơn hàng mà không làm mất các dữ liệu quan trọng.
+137 [Normal] 
+138 [Normal] ● Sao lưu dữ liệu:
+139 [Normal] Các dữ liệu quan trọng như tài khoản người dùng, sản phẩm, giỏ hàng, địa chỉ, mã giảm giá và đơn hàng cần được sao lưu định kỳ để giảm thiểu nguy cơ mất mát dữ liệu.
+140 [Normal] 
+141 [Normal] ● Đảm bảo toàn vẹn dữ liệu:
+142 [Normal] Hệ thống cần duy trì sự nhất quán giữa các dữ liệu liên quan như sản phẩm, giỏ hàng, đơn hàng, số lượng tồn kho và mã giảm giá. Khi đơn hàng được tạo thành công, thông tin giỏ hàng và trạng thái sản phẩm cần được cập nhật chính xác.
+143 [Normal] 
+144 [Normal] ● Ghi nhận và theo dõi lỗi:
+145 [Normal] Các lỗi phát sinh trong quá trình sử dụng cần được ghi nhận và thông báo phù hợp. Điều này giúp quản trị viên và đội ngũ phát triển thuận tiện trong việc kiểm tra, phân tích và khắc phục sự cố.
+146 [Normal] 
+147 [Heading 3] 1.3.4. Tính an toàn và bảo mật
+148 [Normal] ● Xác thực và phân quyền:
+149 [Normal] Hệ thống phải có cơ chế xác thực người dùng thông qua tài khoản đăng nhập. Quyền truy cập được phân chia rõ ràng giữa khách hàng và quản trị viên, đảm bảo chỉ người dùng có quyền mới được truy cập vào các chức năng quản trị.
+150 [Normal] 
+151 [Normal] ● Bảo mật thông tin đăng nhập:
+152 [Normal] Thông tin tài khoản và mật khẩu của người dùng cần được bảo vệ trong quá trình đăng nhập và trao đổi dữ liệu với backend. Token xác thực không được sử dụng tùy tiện và cần được kiểm tra trước khi truy cập các chức năng yêu cầu đăng nhập.
+153 [Normal] 
+154 [Normal] ● Bảo mật dữ liệu:
+155 [Normal] 
+156 [Normal] Thông tin cá nhân, địa chỉ giao hàng, thông tin đơn hàng và dữ liệu giao dịch của khách hàng cần được bảo vệ, hạn chế truy cập trái phép và không hiển thị cho những người dùng không có quyền.
+157 [Normal] 
+158 [Normal] ● Chống truy cập trái phép:
+159 [Normal] Hệ thống cần sử dụng các cơ chế như AuthGuard, AdminGuard và interceptor để kiểm tra trạng thái đăng nhập, quyền truy cập và token xác thực trước khi thực hiện các yêu cầu đến backend.
+160 [Normal] ● Chống các hình thức tấn công phổ biến:
+161 [Normal] Backend và cơ sở dữ liệu cần có biện pháp bảo vệ trước các nguy cơ phổ biến như SQL Injection, Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF) và giả mạo yêu cầu từ người dùng.
+162 [Normal] 
+163 [Heading 3] 1.3.5. Khả năng bảo trì
+164 [Normal] ● Dễ nâng cấp:
+165 [Normal] Hệ thống cần được thiết kế để có thể bổ sung chức năng mới hoặc điều chỉnh nghiệp vụ mà không ảnh hưởng lớn đến các chức năng đang hoạt động.
+166 [Normal] 
+167 [Normal] ● Kiến trúc mô-đun:
+168 [Normal] Ứng dụng được tổ chức thành các module và component riêng biệt như xác thực, sản phẩm, giỏ hàng, thanh toán, tài khoản và quản trị. Cách tổ chức này giúp việc kiểm tra, sửa lỗi và phát triển hệ thống thuận tiện hơn.
+169 [Normal] 
+170 [Normal] ● Tái sử dụng mã nguồn:
+171 [Normal] Các component, service, model, guard và interceptor dùng chung cần được thiết kế theo hướng có thể tái sử dụng, hạn chế việc viết lặp lại mã nguồn.
+172 [Normal] ● Tài liệu kỹ thuật rõ ràng:
+173 [Normal] 
+174 [Normal] Hệ thống cần có tài liệu mô tả cấu trúc module, các chức năng chính, mô hình dữ liệu, API và luồng xử lý nghiệp vụ nhằm hỗ trợ quá trình bảo trì và phát triển lâu dài.
+175 [Normal] 
+176 [Heading 3] 1.3.6. Khả năng sử dụng
+177 [Normal] ● Giao diện thân thiện:
+178 [Normal] Giao diện cần trực quan, dễ hiểu và phù hợp với cả khách hàng không chuyên về công nghệ và quản trị viên. Các chức năng như tìm kiếm sản phẩm, thêm vào giỏ hàng, đặt hàng và quản lý đơn hàng cần được bố trí rõ ràng.
+179 [Normal] ● Điều hướng thuận tiện:
+180 [Normal] Người dùng có thể dễ dàng chuyển đổi giữa các trang như trang chủ, sản phẩm, giỏ hàng, thanh toán và tài khoản cá nhân.
+181 [Normal] 
+182 [Normal] 
+183 [Normal] ● Thông báo rõ ràng:
+184 [Normal] Hệ thống cần hiển thị thông báo phù hợp khi thao tác thành công, dữ liệu đang được tải, thông tin nhập vào không hợp lệ hoặc xảy ra lỗi.
+185 [Normal] 
+186 [Normal] ● Khả năng tương thích:
+187 [Normal] Giao diện cần hiển thị phù hợp trên các thiết bị phổ biến như máy tính để bàn, máy tính xách tay, máy tính bảng và điện thoại di động.
+188 [Normal] 
+189 [Heading 3] 1.3.7. Khả năng mở rộng
+190 [Normal] ● Mở rộng số lượng người dùng:
+191 [Normal] Hệ thống cần đáp ứng được sự gia tăng số lượng khách hàng và quản trị viên mà không làm ảnh hưởng đáng kể đến hiệu suất chung.
+192 [Normal] 
+193 [Normal] ● Mở rộng dữ liệu:
+194 [Normal] Hệ thống cần hỗ trợ mở rộng dữ liệu khi số lượng sản phẩm, danh mục, khách hàng, đơn hàng và đánh giá tăng lên theo thời gian.
+195 [Normal] 
+196 [Normal] ● Mở rộng chức năng trong tương lai:
+197 [Normal] Hệ thống có thể được mở rộng thêm các chức năng như quản lý kho nâng cao, theo dõi vận chuyển, thanh toán trực tuyến thực tế, tích điểm thành viên, thông báo qua email và đề xuất sản phẩm.
+198 [Normal] 
+199 [Normal] ● Mở rộng phương thức thanh toán:
+200 [Normal] Kiến trúc hệ thống cần tạo điều kiện để tích hợp thêm các phương thức thanh toán như ví điện tử, chuyển khoản ngân hàng hoặc các cổng thanh toán trực tuyến.
+201 [Normal] 
+202 [Heading 3] 1.3.8. Tính khả dụng
+203 [Normal] ● Hoạt động liên tục:
+204 [Normal] Hệ thống cần đảm bảo khả năng hoạt động ổn định trong thời gian dài, cho phép khách hàng tra cứu sản phẩm và đặt hàng bất cứ lúc nào.
+205 [Normal] 
+206 [Normal] ● Khả năng sử dụng khi có lỗi kết nối:
+207 [Normal] Khi không thể kết nối đến backend hoặc API gặp sự cố, hệ thống cần hiển thị thông báo phù hợp để người dùng biết nguyên nhân và thực hiện lại thao tác khi dịch vụ hoạt động trở lại.
+208 [Normal] ● Cơ chế khôi phục dịch vụ:
+209 [Normal] Hệ thống cần có kế hoạch khôi phục dữ liệu và dịch vụ sau các sự cố nhằm giảm thời gian gián đoạn và hạn chế ảnh hưởng đến hoạt động mua bán.
+210 [Normal] 
+211 [Normal] ● Khả năng triển khai:
+212 [Normal] Ứng dụng frontend cần có khả năng được đóng gói và triển khai trên máy chủ web hoặc các nền tảng lưu trữ phù hợp. Các thông tin cấu hình giữa môi trường phát triển và môi trường triển khai cần được quản lý riêng biệt.
+213 [Normal] Những yêu cầu phi chức năng trên giúp hệ thống bán quần áo trực tuyến hoạt động ổn định, an toàn, dễ sử dụng và thuận tiện cho việc bảo trì, mở rộng trong tương lai.
+214 [Heading 2] 1.4 Mô hình hóa quy trình nghiệp vụ
+215 [Heading 3] 1.4.1. Quy trình quản lý sản phẩm
+216 [Normal] Quy trình quản lý sản phẩm cho phép quản trị viên thêm mới, cập nhật, ngừng kinh doanh và tra cứu sản phẩm trong hệ thống. Mỗi sản phẩm gồm thông tin chung (tên, danh mục, thương hiệu, giới tính, giá, mô tả, chất liệu), các biến thể và hình ảnh. Mỗi biến thể là một tổ hợp màu sắc và kích thước, có mã SKU, giá bán và số lượng tồn kho riêng. Tồn kho của biến thể không nhập trực tiếp trên form sản phẩm. Tồn kho chỉ tăng khi lập phiếu nhập hàng và chỉ giảm khi khách đặt hàng, nhờ đó số liệu kho luôn khớp với chứng từ 
+217 [Normal] a) Quy trình thêm mới sản phẩm
+218 [Normal] Mô tả: Quản trị viên tạo một sản phẩm mới, sau đó khai báo các biến thể và hình ảnh. Sản phẩm chỉ bán được khi có ít nhất một biến thể còn tồn kho.
+219 [Normal] Các bước thực hiện:
+220 [Normal] Quản trị viên đăng nhập và truy cập chức năng "Quản lý sản phẩm".
+221 [Normal] Chọn chức năng "Thêm sản phẩm".
+222 [Normal] Nhập thông tin chung gồm: tên sản phẩm, danh mục, thương hiệu, giới tính, giá gốc, giá khuyến mãi, mô tả ngắn, mô tả chi tiết, chất liệu, và chọn có phải sản phẩm nổi bật hay không.
+223 [Normal] Hệ thống kiểm tra dữ liệu:
+224 [Normal] Tên sản phẩm, danh mục, giới tính và mô tả chi tiết không được để trống.
+225 [Normal] Giá gốc phải lớn hơn 0. Giá khuyến mãi (nếu có) không được lớn hơn giá gốc.
+226 [Normal] Danh mục và thương hiệu phải tồn tại trong hệ thống.
+227 [Normal] Nếu dữ liệu không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu quản trị viên nhập lại.
+228 [Normal] Nếu dữ liệu hợp lệ, hệ thống lưu sản phẩm và tự sinh đường dẫn thân thiện (slug) từ tên sản phẩm. Nếu slug bị trùng, hệ thống tự thêm hậu tố số.
+229 [Normal] Quản trị viên thêm các biến thể cho sản phẩm bằng cách chọn màu sắc, kích thước, nhập mã SKU và giá bán. Tồn kho ban đầu của biến thể bằng 0.
+230 [Normal] Hệ thống kiểm tra mã SKU không trùng với biến thể khác và tổ hợp màu + kích thước chưa tồn tại trong sản phẩm. Nếu vi phạm, hệ thống báo lỗi và yêu cầu nhập lại.
+231 [Normal] Quản trị viên tải ảnh sản phẩm lên và chọn một ảnh làm ảnh đại diện.
+232 [Normal] Hệ thống thông báo thêm sản phẩm thành công.
+233 [Normal] 
+234 [Normal] b) Quy trình cập nhật sản phẩm
+235 [Normal] Mô tả: Quản trị viên chỉnh sửa thông tin chung, biến thể hoặc hình ảnh của một sản phẩm đã có.
+236 [Normal] Các bước thực hiện:
+237 [Normal] Quản trị viên truy cập chức năng "Quản lý sản phẩm" và chọn sản phẩm cần cập nhật.
+238 [Normal] Hệ thống hiển thị thông tin hiện tại của sản phẩm, danh sách biến thể và hình ảnh.
+239 [Normal] Quản trị viên chỉnh sửa thông tin cần thiết, có thể thêm, sửa hoặc ngừng bán từng biến thể, thêm hoặc xoá ảnh, hoặc đổi ảnh đại diện.
+240 [Normal] Hệ thống kiểm tra dữ liệu theo các ràng buộc giống như khi thêm mới. Ngoài ra, nếu quản trị viên mở bán lại một sản phẩm đang ngừng kinh doanh, hệ thống kiểm tra tổng tồn kho của các biến thể phải lớn hơn 0.
+241 [Normal] Nếu dữ liệu không hợp lệ, hệ thống giữ nguyên dữ liệu cũ, hiển thị thông báo lỗi và cho phép chỉnh sửa lại.
+242 [Normal] Nếu dữ liệu hợp lệ, hệ thống cập nhật sản phẩm và thông báo thành công.
+243 [Normal] 
+244 [Normal] c) Quy trình xoá (ngừng kinh doanh) sản phẩm
+245 [Normal] Mô tả: Sản phẩm có thể đã nằm trong đơn hàng hoặc đánh giá của khách hàng. Vì vậy hệ thống không xoá hẳn khỏi cơ sở dữ liệu mà áp dụng xoá mềm, tức là chuyển sản phẩm sang trạng thái ngừng kinh doanh.
+246 [Normal] Các bước thực hiện:
+247 [Normal] Quản trị viên chọn sản phẩm cần xoá trong danh sách.
+248 [Normal] Hệ thống hiển thị hộp thoại xác nhận.
+249 [Normal] Nếu quản trị viên huỷ, thao tác kết thúc và dữ liệu không thay đổi.
+250 [Normal] Nếu quản trị viên xác nhận, hệ thống chuyển sản phẩm và toàn bộ biến thể của nó sang trạng thái ngừng kinh doanh.
+251 [Normal] Sản phẩm bị ẩn khỏi trang cửa hàng. Thông tin trong các đơn hàng cũ được giữ nguyên.
+252 [Normal] Hệ thống thông báo xoá thành công.
+253 [Normal] 
+254 [Normal] d) Quy trình xem danh sách và chi tiết sản phẩm
+255 [Normal] Mô tả: Quản trị viên tra cứu sản phẩm để theo dõi và quản lý dữ liệu.
+256 [Normal] Các bước thực hiện:
+257 [Normal] Quản trị viên truy cập chức năng "Quản lý sản phẩm".
+258 [Normal] Hệ thống hiển thị danh sách sản phẩm có phân trang, kèm tổng tồn kho của từng sản phẩm.
+259 [Normal] Quản trị viên có thể tìm kiếm hoặc lọc sản phẩm.
+260 [Normal] Quản trị viên chọn một sản phẩm để xem chi tiết.
+261 [Normal] Hệ thống hiển thị thông tin chung, danh sách biến thể (màu, kích thước, SKU, giá, tồn kho) và hình ảnh của sản phẩm.
+262 [Normal] 
+263 [Normal] e) Các ràng buộc nghiệp vụ
+264 [Normal] 
+265 [Normal] Tên sản phẩm, danh mục, giới tính và mô tả chi tiết là bắt buộc. Sản phẩm phải thuộc một danh mục hợp lệ.
+266 [Normal] Giá bán phải lớn hơn 0. Giá khuyến mãi không được lớn hơn giá gốc.
+267 [Normal] Mã SKU là duy nhất trong toàn hệ thống. Trong cùng một sản phẩm, không có hai biến thể trùng cả màu sắc và kích thước.
+268 [Normal] Tồn kho không được sửa trực tiếp. Tồn kho chỉ tăng qua phiếu nhập hàng và chỉ giảm khi bán hàng.
+269 [Normal] Không được mở bán lại sản phẩm khi tổng tồn kho bằng 0.
+270 [Normal] Ảnh tải lên phải có định dạng JPG, JPEG, PNG hoặc WEBP và dung lượng không quá 5 MB. Mỗi sản phẩm chỉ có một ảnh đại diện.
+271 [Normal] Xoá sản phẩm là xoá mềm (ngừng kinh doanh), nhằm bảo toàn dữ liệu đơn hàng và đánh giá liên quan.
+272 [Normal] 
+273 [Normal] Sơ đồ quy trình hoạt động : Quy trình quản lý sản phẩm
+274 [Normal] 
+275 [Normal] 
+276 [Normal] 
+277 [Normal] 
+278 [Normal] Hình 1. Sơ đồ hoạt động quy trình quản lý sản phẩm
+279 [Heading 3] 1.4.2. Quy trình mua hàng và quản lý giỏ hàng
+280 [Normal] Quy trình này cho phép khách hàng chọn sản phẩm theo biến thể (màu sắc, kích thước), thêm vào giỏ hàng, điều chỉnh giỏ hàng và chuyển sang bước đặt hàng. Giỏ hàng được lưu trên máy chủ theo từng tài khoản, nên khách hàng phải đăng nhập để sử dụng. Nhờ vậy giỏ hàng được giữ nguyên khi khách đăng nhập lại hoặc chuyển sang thiết bị khác
+281 [Normal] 
+282 [Normal] a) Quy trình thêm sản phẩm vào giỏ hàng
+283 [Normal] Mô tả: Khách hàng thêm sản phẩm vào giỏ hàng sau khi xem chi tiết sản phẩm và chọn biến thể phù hợp.
+284 [Normal] Các bước thực hiện:
+285 [Normal] Khách hàng truy cập trang chi tiết sản phẩm.
+286 [Normal] Khách hàng chọn màu sắc, kích thước và số lượng. Hệ thống hiển thị giá bán và số lượng còn lại của biến thể tương ứng.
+287 [Normal] Khách hàng nhấn "Thêm vào giỏ hàng".
+288 [Normal] Nếu chưa chọn đủ màu sắc hoặc kích thước, hệ thống yêu cầu khách hàng chọn bổ sung.
+289 [Normal] Nếu khách hàng chưa đăng nhập, hệ thống chuyển đến trang đăng nhập. Sau khi đăng nhập thành công, khách hàng được đưa trở lại trang sản phẩm đang xem.
+290 [Normal] Hệ thống kiểm tra:
+291 [Normal] Biến thể và sản phẩm vẫn đang được kinh doanh.
+292 [Normal] Biến thể còn hàng trong kho.
+293 [Normal] Tổng số lượng muốn mua, cộng cả số lượng đã có trong giỏ, không vượt quá tồn kho.
+294 [Normal] Nếu không hợp lệ, hệ thống thông báo hết hàng hoặc vượt quá số lượng tồn kho.
+295 [Normal] Nếu hợp lệ:
+296 [Normal] biến thể đã có trong giỏ thì hệ thống cộng dồn số lượng;
+297 [Normal] biến thể chưa có trong giỏ thì hệ thống thêm một dòng mới.
+298 [Normal] Hệ thống cập nhật tổng số lượng, tạm tính của giỏ hàng và thông báo thêm thành công.
+299 [Normal] Khách hàng có thể tiếp tục mua sắm hoặc chuyển đến trang giỏ hàng.
+300 [Normal] b) Quy trình xem và cập nhật giỏ hàng
+301 [Normal] Mô tả: Khách hàng xem lại các sản phẩm đã chọn, điều chỉnh số lượng hoặc xoá sản phẩm trước khi đặt hàng.
+302 [Normal] Các bước thực hiện:
+303 [Normal] Khách hàng truy cập chức năng "Giỏ hàng".
+304 [Normal] Hệ thống hiển thị danh sách sản phẩm gồm hình ảnh, tên, màu sắc, kích thước, đơn giá, số lượng, thành tiền và tạm tính. Sản phẩm không còn kinh doanh hoặc không đủ hàng được đánh dấu cảnh báo.
+305 [Normal] Cập nhật số lượng: khách hàng tăng hoặc giảm số lượng. Hệ thống kiểm tra số lượng mới nằm trong khoảng từ 1 đến số lượng tồn kho. Nếu hợp lệ, hệ thống lưu lại và tính lại thành tiền, tạm tính. Nếu không hợp lệ, hệ thống thông báo lỗi và giữ số lượng cũ.
+306 [Normal] Xoá một sản phẩm: khách hàng chọn sản phẩm cần xoá và xác nhận. Hệ thống xoá sản phẩm khỏi giỏ và tính lại tạm tính.
+307 [Normal] Xoá toàn bộ giỏ hàng: khách hàng chọn "Xoá toàn bộ" và xác nhận. Hệ thống xoá tất cả sản phẩm và hiển thị giỏ hàng trống.
+308 [Normal] Tiến hành thanh toán: khách hàng nhấn "Thanh toán" để chuyển sang quy trình đặt hàng và thanh toán (mục 1.4.3).
+309 [Normal] c) Các ràng buộc nghiệp vụ giỏ hàng
+310 [Normal] Khách hàng phải đăng nhập mới được thêm và quản lý giỏ hàng. Mỗi khách hàng chỉ xem và thao tác được trên giỏ hàng của chính mình.
+311 [Normal] Chỉ được thêm các biến thể thuộc sản phẩm đang kinh doanh và còn hàng.
+312 [Normal] Số lượng mỗi dòng phải từ 1 đến 100 và không vượt quá tồn kho hiện tại của biến thể.
+313 [Normal] Mỗi biến thể chỉ xuất hiện một dòng trong giỏ. Khi thêm trùng, hệ thống cộng dồn số lượng.
+314 [Normal] Đơn giá lấy theo giá khuyến mãi của biến thể nếu có, nếu không thì lấy giá gốc. Thành tiền và tạm tính được tính lại sau mỗi thay đổi.
+315 [Normal] Thêm sản phẩm vào giỏ không trừ tồn kho. Tồn kho chỉ bị trừ khi đơn hàng được tạo thành công. Tại thời điểm đặt hàng, hệ thống kiểm tra lại tồn kho lần nữa.
+316 [Normal] Các thao tác xoá đều yêu cầu khách hàng xác nhận trước khi thực hiện.
+317 [Normal] 
+318 [Normal] Sơ đồ quy trình nghiệp vụ  Quy trình mua hàng và quản lý giỏ hàng
+319 [Normal] 
+320 [Normal] Hình 1.1 Sơ đồ hoạt động quy trình mua hàng và quản lý giỏ hàng
+321 [Heading 3] 1.4.3. Quy trình đặt hàng và thanh toán
+322 [Normal] Quy trình đặt hàng chuyển các sản phẩm trong giỏ hàng thành một đơn hàng chính thức. Khách hàng chọn địa chỉ giao hàng, có thể áp dụng mã giảm giá, và chọn phương thức thanh toán. Hệ thống hỗ trợ hai phương thức: thanh toán khi nhận hàng (COD) và thanh toán qua mã QR (mô phỏng). Toàn bộ bước tạo đơn được thực hiện trong một giao dịch cơ sở dữ liệu (transaction). Nhờ vậy việc tạo đơn, trừ tồn kho, ghi nhận mã giảm giá và xoá giỏ hàng hoặc cùng thành công, hoặc cùng bị huỷ, không bao giờ xảy ra tình trạng thực hiện dở dang
+323 [Normal] a) Quy trình áp dụng mã giảm giá
+324 [Normal] Mô tả: Tại trang thanh toán, khách hàng nhập mã giảm giá để được giảm trừ vào giá trị đơn hàng. Khách hàng cũng có thể chọn mã từ trang "Mã giảm giá của tôi", khi đó mã được tự điền sẵn vào trang thanh toán.
+325 [Normal] Các bước thực hiện:
+326 [Normal] Khách hàng nhập mã giảm giá và nhấn "Áp dụng".
+327 [Normal] Hệ thống kiểm tra lần lượt:
+328 [Normal] Mã tồn tại và đang ở trạng thái hoạt động.
+329 [Normal] Thời điểm hiện tại nằm trong thời gian hiệu lực của mã.
+330 [Normal] Mã còn lượt sử dụng, tính cả tổng số lượt của mã và số lượt tối đa cho mỗi khách hàng.
+331 [Normal] Giỏ hàng có sản phẩm thuộc danh mục hoặc sản phẩm được áp dụng (nếu mã có giới hạn phạm vi).
+332 [Normal] Giá trị các sản phẩm được áp dụng đạt mức đơn hàng tối thiểu.
+333 [Normal] Nếu mã không hợp lệ, hệ thống thông báo lý do cụ thể, ví dụ hết hạn, hết lượt, hoặc chưa đạt giá trị tối thiểu.
+334 [Normal] Nếu mã hợp lệ, hệ thống tính số tiền giảm và cập nhật tổng tiền:
+335 [Normal] mã giảm theo phần trăm: số tiền giảm bằng phần trăm nhân với giá trị sản phẩm được áp dụng, và không vượt quá mức giảm tối đa (nếu có);
+336 [Normal] mã giảm số tiền cố định: giảm đúng số tiền đó;
+337 [Normal] trong mọi trường hợp, số tiền giảm không vượt quá giá trị các sản phẩm được áp dụng.
+338 [Normal] Khách hàng có thể gỡ mã đã áp dụng để nhập mã khác.
+339 [Normal] b) Quy trình tạo đơn hàng
+340 [Normal] Mô tả: Khách hàng xác nhận thông tin và đặt hàng. Hệ thống kiểm tra lại toàn bộ dữ liệu rồi tạo đơn hàng.
+341 [Normal] Các bước thực hiện:
+342 [Normal] Khách hàng nhấn "Thanh toán" từ trang giỏ hàng.
+343 [Normal] Hệ thống hiển thị danh sách sản phẩm, tạm tính và sổ địa chỉ của khách hàng. Địa chỉ mặc định được chọn sẵn.
+344 [Normal] Khách hàng chọn địa chỉ giao hàng, áp dụng mã giảm giá (nếu có), chọn phương thức thanh toán, nhập ghi chú (nếu có) và nhấn "Đặt hàng".
+345 [Normal] Nếu chưa chọn địa chỉ hoặc giỏ hàng trống, hệ thống yêu cầu bổ sung thông tin.
+346 [Normal] Hệ thống thực hiện trong một giao dịch:
+347 [Normal] Kiểm tra lại từng sản phẩm còn được kinh doanh và đủ số lượng tồn kho. Kiểm tra lại mã giảm giá còn hợp lệ.
+348 [Normal] Tính phí vận chuyển: 30.000đ, miễn phí khi tạm tính từ 500.000đ trở lên.
+349 [Normal] Tính tổng tiền thanh toán theo công thức: tạm tính − số tiền giảm + phí vận chuyển.
+350 [Normal] Tạo đơn hàng với mã đơn duy nhất, trạng thái Chờ xác nhận và trạng thái thanh toán Chưa thanh toán. Hệ thống sao chép thông tin người nhận, địa chỉ, tên sản phẩm, màu sắc, kích thước, đơn giá và giá vốn tại thời điểm đặt hàng vào đơn.
+351 [Normal] Trừ số lượng tồn kho của từng biến thể.
+352 [Normal] Nếu có mã giảm giá: tăng số lượt đã dùng và ghi nhận lịch sử sử dụng mã của khách hàng.
+353 [Normal] Xoá các sản phẩm đã đặt khỏi giỏ hàng và ghi lịch sử trạng thái đơn hàng.
+354 [Normal] Nếu bất kỳ bước kiểm tra nào thất bại, hệ thống huỷ toàn bộ giao dịch (rollback) và thông báo lỗi. Dữ liệu tồn kho, mã giảm giá và giỏ hàng được giữ nguyên.
+355 [Normal] Nếu thành công, hệ thống thông báo đặt hàng thành công và hiển thị thông tin đơn hàng.
+356 [Normal] c) Quy trình thanh toán
+357 [Normal] Thanh toán khi nhận hàng (COD): đơn hàng được ghi nhận ở trạng thái Chờ xác nhận và Chưa thanh toán. Khách hàng thanh toán khi nhận hàng, sau đó quản trị viên cập nhật trạng thái thanh toán.
+358 [Normal] Thanh toán qua mã QR (mô phỏng):
+359 [Normal] Sau khi tạo đơn, hệ thống hiển thị thông tin chuyển khoản gồm mã QR, số tiền cần thanh toán và nội dung chuyển khoản là mã đơn hàng.
+360 [Normal] Khách hàng thực hiện chuyển khoản và nhấn "Xác nhận đã thanh toán".
+361 [Normal] Hệ thống kiểm tra đơn hàng chưa bị huỷ và chưa được thanh toán. Sau đó hệ thống cập nhật trạng thái thanh toán thành Đã thanh toán, ghi nhận thời điểm thanh toán và sinh mã giao dịch.
+362 [Normal] d) Các ràng buộc nghiệp vụ đặt hàng
+363 [Normal] Khách hàng phải đăng nhập. Giỏ hàng không được trống. Địa chỉ giao hàng phải thuộc sổ địa chỉ của chính khách hàng.
+364 [Normal] Tại thời điểm đặt hàng, mọi sản phẩm phải còn kinh doanh và đủ tồn kho. Hệ thống kiểm tra lại ngay cả khi đã kiểm tra lúc thêm vào giỏ.
+365 [Normal] Mã giảm giá phải thoả mãn đồng thời các điều kiện: đang hoạt động, còn hiệu lực, còn lượt dùng, đúng phạm vi áp dụng và đạt giá trị tối thiểu. Mỗi đơn hàng chỉ áp dụng một mã.
+366 [Normal] Tổng tiền đơn hàng do máy chủ tính. Giá trị hiển thị ở giao diện chỉ mang tính tham khảo.
+367 [Normal] Thông tin sản phẩm, giá bán và địa chỉ giao hàng được sao chép vào đơn hàng tại thời điểm đặt. Việc sửa sản phẩm hoặc địa chỉ về sau không làm thay đổi đơn hàng đã tạo.
+368 [Normal] Tạo đơn, trừ tồn kho, ghi nhận mã giảm giá và xoá giỏ hàng phải được thực hiện trọn vẹn trong một giao dịch.
+369 [Normal] Không thể thanh toán QR cho đơn hàng đã huỷ hoặc đã được thanh toán.
+370 [Normal] Sơ đồ quy trình thanh toán Quy trình đặt hàng và thanh toán 
+371 [Normal] 
+372 [Normal] 
+373 [Normal] Hình 1.2. Sơ đồ hoạt động quy trình đặt hàng và thanh toán
+374 [Heading 3] 1.4.4. Quy trình quản lý đơn hàng	
+375 [Normal] Quy trình quản lý đơn hàng cho phép quản trị viên tiếp nhận, xử lý và theo dõi đơn hàng từ lúc được tạo đến khi hoàn thành hoặc bị huỷ. Khách hàng có thể theo dõi tiến trình đơn hàng của mình và huỷ đơn trong giai đoạn đầu. Mỗi đơn hàng có hai loại trạng thái độc lập:
+376 [Normal] Trạng thái xử lý: Chờ xác nhận → Đã xác nhận → Đang giao → Hoàn thành, hoặc Đã huỷ.
+377 [Normal] Trạng thái thanh toán: Chưa thanh toán, Đã thanh toán, Thất bại, Hoàn tiền.
+378 [Normal] Mọi thay đổi trạng thái xử lý đều được ghi vào lịch sử trạng thái của đơn, gồm người thực hiện, thời gian và ghi chú. Nhờ đó có thể tra soát toàn bộ quá trình xử lý đơn
+379 [Normal] 
+380 [Normal] a) Quy trình xem danh sách và chi tiết đơn hàng (quản trị viên)
+381 [Normal] Các bước thực hiện:
+382 [Normal] Quản trị viên đăng nhập vào khu vực quản trị và truy cập chức năng "Quản lý đơn hàng".
+383 [Normal] Hệ thống hiển thị danh sách đơn hàng có phân trang, sắp xếp theo thời gian mới nhất. Mỗi đơn gồm mã đơn, khách hàng, người nhận, tổng tiền, trạng thái xử lý, trạng thái thanh toán và ngày đặt.
+384 [Normal] Quản trị viên có thể tìm kiếm theo mã đơn, tên người nhận hoặc email khách hàng, và lọc theo trạng thái xử lý hoặc trạng thái thanh toán.
+385 [Normal] Quản trị viên chọn một đơn hàng. Hệ thống hiển thị chi tiết gồm danh sách sản phẩm, thông tin người nhận, địa chỉ giao hàng, mã giảm giá, thông tin thanh toán và lịch sử trạng thái.
+386 [Normal] b) Quy trình cập nhật trạng thái xử lý đơn hàng
+387 [Normal] Mô tả: Quản trị viên chuyển đơn hàng sang bước xử lý tiếp theo.
+388 [Normal] Các bước thực hiện:
+389 [Normal] Tại trang chi tiết đơn, quản trị viên chọn trạng thái tiếp theo và có thể nhập ghi chú.
+390 [Normal] Hệ thống kiểm tra việc chuyển trạng thái có hợp lệ không. Chỉ các bước chuyển sau được chấp nhận:
+391 [Normal] Chờ xác nhận → Đã xác nhận
+392 [Normal] Đã xác nhận → Đang giao
+393 [Normal] Đang giao → Hoàn thành
+394 [Normal] Nếu không hợp lệ (ví dụ nhảy từ Chờ xác nhận sang Hoàn thành, hoặc thay đổi đơn đã hoàn thành), hệ thống báo lỗi và giữ nguyên trạng thái cũ.
+395 [Normal] Nếu hợp lệ, hệ thống cập nhật trạng thái, ghi lịch sử và thông báo thành công.
+396 [Normal] c) Quy trình huỷ đơn hàng
+397 [Normal] Mô tả: Đơn hàng có thể bị huỷ bởi khách hàng hoặc quản trị viên, tuỳ giai đoạn xử lý. Việc huỷ đơn được thực hiện trong một giao dịch (transaction) để đảm bảo tồn kho và mã giảm giá được hoàn lại chính xác.
+398 [Normal] Các bước thực hiện:
+399 [Normal] Khách hàng huỷ đơn:
+400 [Normal] Khách hàng mở "Đơn hàng của tôi", chọn đơn cần huỷ, nhấn "Huỷ đơn" và nhập lý do (không bắt buộc).
+401 [Normal] Hệ thống kiểm tra đơn đang ở trạng thái Chờ xác nhận và chưa thanh toán. Nếu không thoả mãn, hệ thống thông báo không thể huỷ.
+402 [Normal] Quản trị viên huỷ đơn:
+403 [Normal] Quản trị viên chọn "Huỷ đơn" tại trang chi tiết và nhập lý do.
+404 [Normal] Hệ thống chỉ cho phép huỷ khi đơn đang ở trạng thái Chờ xác nhận hoặc Đã xác nhận. Đơn đang giao hoặc đã hoàn thành không thể huỷ.
+405 [Normal] Khi huỷ hợp lệ, hệ thống thực hiện trong một giao dịch:
+406 [Normal] Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn.
+407 [Normal] Nếu đơn có dùng mã giảm giá: giảm số lượt đã dùng của mã và xoá bản ghi sử dụng mã, để khách hàng có thể dùng lại mã.
+408 [Normal] Chuyển trạng thái đơn sang Đã huỷ và ghi lịch sử kèm lý do huỷ.
+409 [Normal] Hệ thống thông báo huỷ đơn thành công.
+410 [Normal] d) Quy trình cập nhật trạng thái thanh toán
+411 [Normal] Mô tả: Quản trị viên cập nhật trạng thái thanh toán, chủ yếu dùng cho đơn COD sau khi đã thu tiền, hoặc trường hợp thanh toán thất bại hay hoàn tiền.
+412 [Normal] Các bước thực hiện:
+413 [Normal] Quản trị viên chọn trạng thái thanh toán mới: Chưa thanh toán, Đã thanh toán, Thất bại hoặc Hoàn tiền.
+414 [Normal] Hệ thống kiểm tra đơn hàng chưa bị huỷ. Nếu đơn đã huỷ, hệ thống từ chối cập nhật.
+415 [Normal] Hệ thống cập nhật trạng thái thanh toán. Nếu trạng thái là Đã thanh toán, hệ thống ghi nhận thời điểm thanh toán và sinh mã giao dịch (nếu chưa có).
+416 [Normal] Hệ thống thông báo cập nhật thành công.
+417 [Normal] e) Quy trình theo dõi đơn hàng (khách hàng)
+418 [Normal] Khách hàng mở "Đơn hàng của tôi". Hệ thống hiển thị danh sách đơn của chính khách hàng, có thể lọc theo trạng thái.
+419 [Normal] Khách hàng chọn một đơn để xem chi tiết sản phẩm, tổng tiền, phương thức và trạng thái thanh toán, cùng tiến trình xử lý được lấy từ lịch sử trạng thái.
+420 [Normal] f) Các ràng buộc nghiệp vụ đơn hàng
+421 [Normal] Mỗi đơn hàng thuộc về một khách hàng và có ít nhất một sản phẩm. Khách hàng chỉ xem và thao tác được trên đơn của mình.
+422 [Normal] Trạng thái xử lý chỉ được chuyển tuần tự theo sơ đồ trạng thái, không nhảy bước và không quay lại. Hoàn thành và Đã huỷ là trạng thái cuối, không thể thay đổi.
+423 [Normal] Khách hàng chỉ được huỷ đơn đang Chờ xác nhận và chưa thanh toán. Quản trị viên được huỷ đơn đang Chờ xác nhận hoặc Đã xác nhận.
+424 [Normal] Khi huỷ đơn, tồn kho và lượt dùng mã giảm giá phải được hoàn lại đầy đủ trong cùng một giao dịch.
+425 [Normal] Không được cập nhật trạng thái thanh toán cho đơn đã huỷ.
+426 [Normal] Thông tin sản phẩm, giá bán, tổng tiền và địa chỉ giao hàng được giữ nguyên như lúc đặt hàng, không bị ảnh hưởng khi sản phẩm hoặc địa chỉ gốc thay đổi.
+427 [Normal] Mọi thay đổi trạng		 thái xử lý đều phải được ghi vào lịch sử đơn hàng.
+428 [Normal] 
+429 [Heading 3] 1.4.5. Quy trình quản lý mã giảm giá
+430 [Normal] Quy trình quản lý mã giảm giá cho phép quản trị viên tạo và điều hành các chương trình khuyến mãi. Khách hàng có thể xem các mã đang có và sử dụng khi đặt hàng. Mỗi mã giảm giá gồm các thông tin sau:
+431 [Normal] Mã và tên chương trình: mã là duy nhất và được lưu dưới dạng chữ in hoa.
+432 [Normal] Loại giảm giá: giảm theo phần trăm (có thể kèm mức giảm tối đa) hoặc giảm số tiền cố định.
+433 [Normal] Điều kiện áp dụng: giá trị đơn hàng tối thiểu, thời gian bắt đầu và kết thúc.
+434 [Normal] Giới hạn sử dụng: tổng số lượt dùng của mã và số lượt tối đa mỗi khách hàng được dùng. Cả hai đều không bắt buộc; để trống nghĩa là không giới hạn.
+435 [Normal] Phạm vi áp dụng: có thể giới hạn theo danh mục hoặc sản phẩm cụ thể. Nếu để trống, mã áp dụng cho toàn bộ sản phẩm.
+436 [Normal] Trạng thái: đang hoạt động hoặc đã tắt
+437 [Normal] 
+438 [Normal] a) Quy trình tạo mã giảm giá
+439 [Normal] Các bước thực hiện:
+440 [Normal] Quản trị viên đăng nhập, truy cập chức năng "Quản lý mã giảm giá" và chọn "Thêm mã giảm giá".
+441 [Normal] Quản trị viên nhập các thông tin: mã, tên chương trình, mô tả, loại giảm giá, giá trị giảm, mức giảm tối đa, giá trị đơn hàng tối thiểu, thời gian hiệu lực, giới hạn lượt dùng, danh mục hoặc sản phẩm áp dụng, và trạng thái.
+442 [Normal] Hệ thống kiểm tra:
+443 [Normal] Mã và tên chương trình không được để trống. Giá trị giảm phải lớn hơn 0.
+444 [Normal] Thời gian kết thúc phải sau thời gian bắt đầu.
+445 [Normal] Mã giảm theo phần trăm không được vượt quá 100%. Mã giảm số tiền cố định không được khai báo mức giảm tối đa.
+446 [Normal] Các danh mục và sản phẩm được chọn phải tồn tại trong hệ thống.
+447 [Normal] Mã chưa tồn tại. Việc so sánh không phân biệt chữ hoa và chữ thường.
+448 [Normal] Nếu dữ liệu không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu nhập lại.
+449 [Normal] Nếu hợp lệ, hệ thống chuẩn hoá mã về chữ in hoa, lưu mã với số lượt đã dùng bằng 0, ghi nhận quản trị viên tạo mã, rồi thông báo thành công.
+450 [Normal] b) Quy trình cập nhật mã giảm giá
+451 [Normal] Các bước thực hiện:
+452 [Normal] Quản trị viên chọn mã cần sửa. Hệ thống hiển thị thông tin hiện tại.
+453 [Normal] Quản trị viên chỉnh sửa thông tin và phạm vi áp dụng.
+454 [Normal] Hệ thống kiểm tra dữ liệu như khi tạo mới. Mã sau khi sửa không được trùng với mã khác.
+455 [Normal] Nếu hợp lệ, hệ thống cập nhật mã, thay danh sách danh mục và sản phẩm áp dụng bằng danh sách mới, rồi thông báo thành công.
+456 [Normal] c) Quy trình bật / tắt mã giảm giá
+457 [Normal] Mô tả: Hệ thống không xoá mã giảm giá. Lý do là mã đã gắn với các đơn hàng và lịch sử sử dụng. Thay vào đó, quản trị viên tắt mã để ngừng chương trình khuyến mãi.
+458 [Normal] Các bước thực hiện:
+459 [Normal] Quản trị viên chọn mã và chọn "Bật" hoặc "Tắt".
+460 [Normal] Hệ thống cập nhật trạng thái hoạt động của mã. Mã bị tắt không thể áp dụng khi đặt hàng và không hiển thị trong danh sách mã của khách hàng. Các đơn hàng đã dùng mã trước đó không bị ảnh hưởng.
+461 [Normal] d) Quy trình xem lịch sử sử dụng mã
+462 [Normal] Quản trị viên chọn một mã và xem lịch sử sử dụng.
+463 [Normal] Hệ thống hiển thị danh sách các lượt dùng, có phân trang, gồm tên và email khách hàng, mã đơn hàng, số tiền được giảm và thời điểm sử dụng.
+464 [Normal] e) Quy trình khách hàng xem và sử dụng mã giảm giá
+465 [Normal] Các bước thực hiện:
+466 [Normal] Khách hàng mở trang "Mã giảm giá của tôi".
+467 [Normal] Hệ thống lấy các mã đang hoạt động và chưa hết hạn, rồi đối chiếu từng mã với giỏ hàng hiện tại của khách hàng.
+468 [Normal] Hệ thống hiển thị hai nhóm:
+469 [Normal] mã dùng được: kèm số tiền giảm dự kiến;
+470 [Normal] mã chưa dùng được: kèm lý do cụ thể, ví dụ chưa đến thời gian áp dụng, đã hết lượt, khách đã dùng hết số lần cho phép, không áp dụng cho sản phẩm trong giỏ, hoặc "cần mua thêm X đồng".
+471 [Normal] Khách hàng có thể sao chép mã, hoặc nhấn "Dùng ngay". Khi nhấn "Dùng ngay", hệ thống chuyển sang trang thanh toán với mã được điền sẵn, sau đó kiểm tra và áp dụng mã theo quy trình ở mục 1.4.3 a.
+472 [Normal] f) Các ràng buộc nghiệp vụ mã giảm giá
+473 [Normal] 
+474 [Normal] Mã giảm giá là duy nhất trong hệ thống và không phân biệt chữ hoa, chữ thường.
+475 [Normal] Thời gian kết thúc phải sau thời gian bắt đầu. Mã chỉ được sử dụng trong thời gian hiệu lực và khi đang ở trạng thái hoạt động.
+476 [Normal] Mã giảm theo phần trăm không vượt quá 100%. Mức giảm tối đa chỉ áp dụng cho mã giảm theo phần trăm.
+477 [Normal] Số tiền giảm không vượt quá giá trị của các sản phẩm được áp dụng.
+478 [Normal] Nếu mã giới hạn phạm vi, chỉ các sản phẩm thuộc danh mục hoặc sản phẩm được chọn mới được tính giảm và tính vào giá trị tối thiểu.
+479 [Normal] Tổng số lượt dùng và số lượt dùng mỗi khách hàng không vượt quá giới hạn đã khai báo. Lượt dùng chỉ được ghi nhận khi đơn hàng được tạo thành công, và được hoàn lại khi đơn hàng bị huỷ.
+480 [Normal] Mỗi đơn hàng chỉ áp dụng một mã giảm giá.
+481 [Normal] Mã giảm giá không bị xoá khỏi hệ thống, chỉ được tắt, nhằm bảo toàn lịch sử sử dụng và dữ liệu đơn hàng.
+482 [Normal] 
+483 [Normal] Hình 1.x. Sơ đồ hoạt động quy trình quản lý mã giảm giá
+484 [Heading 3] 1.4.6. Quy trình nhập hàng (phiếu nhập kho)
+485 [Normal] Quy trình nhập hàng là cách duy nhất để tăng tồn kho trong hệ thống. Mỗi lần nhập hàng từ nhà cung cấp, quản trị viên lập một phiếu nhập kho. Phiếu ghi nhận danh sách biến thể sản phẩm, số lượng và giá nhập. Khi phiếu được lưu, hệ thống tự động cộng tồn kho và tính lại giá vốn bình quân gia quyền của từng biến thể. Giá vốn này được chốt vào từng dòng đơn hàng khi khách mua, làm cơ sở tính lợi nhuận trên trang thống kê.
+486 [Normal] Nhờ quy trình này, mọi biến động tồn kho đều có chứng từ đi kèm (phiếu nhập hoặc đơn hàng). Quản trị viên không sửa số tồn kho một cách tuỳ ý.
+487 [Normal] a) Quy trình tạo phiếu nhập
+488 [Normal] Các bước thực hiện:
+489 [Normal] Quản trị viên đăng nhập, truy cập chức năng "Quản lý nhập hàng" và chọn "Tạo phiếu nhập".
+490 [Normal] Quản trị viên chọn nhà cung cấp và nhập ghi chú (không bắt buộc).
+491 [Normal] Quản trị viên thêm từng dòng hàng: chọn biến thể sản phẩm (theo SKU, màu, kích thước), nhập số lượng và giá nhập. Có thể thêm nhiều dòng trong cùng một phiếu.
+492 [Normal] Hệ thống kiểm tra:
+493 [Normal] Nhà cung cấp và các biến thể được chọn phải tồn tại.
+494 [Normal] Phiếu có ít nhất một dòng hàng.
+495 [Normal] Số lượng mỗi dòng lớn hơn 0. Giá nhập không âm.
+496 [Normal] Nếu dữ liệu không hợp lệ, hệ thống hiển thị thông báo lỗi để quản trị viên chỉnh sửa.
+497 [Normal] Nếu dữ liệu hợp lệ:
+498 [Normal] Hệ thống sinh mã phiếu duy nhất (dạng PN + thời gian), tính thành tiền từng dòng (số lượng × giá nhập) và tổng tiền phiếu.
+499 [Normal] Với mỗi dòng, hệ thống cộng số lượng vào tồn kho của biến thể và tính lại giá vốn bình quân theo công thức ở mục d.
+500 [Normal] Hệ thống lưu phiếu với trạng thái Hoàn thành, ghi nhận người lập phiếu, và thông báo thành công.
+501 [Normal] b) Quy trình sửa phiếu nhập
+502 [Normal] Mô tả: Dùng để điều chỉnh khi nhập sai số lượng, giá nhập hoặc nhà cung cấp.
+503 [Normal] Các bước thực hiện:
+504 [Normal] Quản trị viên chọn phiếu cần sửa, rồi chỉnh sửa nhà cung cấp, ghi chú hoặc các dòng hàng.
+505 [Normal] Hệ thống kiểm tra phiếu chưa bị huỷ. Với mỗi biến thể liên quan, hệ thống kiểm tra điều kiện: tồn kho hiện tại − số lượng trên phiếu cũ + số lượng trên phiếu mới ≥ 0. Điều kiện này ngăn việc giảm số lượng nhập khi hàng của phiếu đã được bán bớt.
+506 [Normal] Nếu không thoả mãn, hệ thống báo lỗi, nêu rõ SKU, tồn kho hiện tại và số lượng muốn giảm.
+507 [Normal] Nếu hợp lệ:
+508 [Normal] Hoàn tác phiếu cũ: trừ lại tồn kho và loại phần giá trị của lô hàng cũ ra khỏi giá vốn bình quân.
+509 [Normal] Nhập lại theo nội dung mới: cộng tồn kho và tính lại giá vốn bình quân.
+510 [Normal] Cập nhật tổng tiền phiếu, lưu và thông báo thành công.
+511 [Normal] c) Quy trình huỷ phiếu nhập
+512 [Normal] Các bước thực hiện:
+513 [Normal] Quản trị viên chọn phiếu cần huỷ và nhập lý do huỷ (bắt buộc).
+514 [Normal] Hệ thống kiểm tra phiếu chưa bị huỷ và tồn kho hiện tại của từng biến thể đủ để trừ lại toàn bộ số lượng đã nhập.
+515 [Normal] Nếu hàng đã được bán bớt khiến tồn kho không đủ, hệ thống từ chối huỷ và liệt kê các SKU bị thiếu (tồn hiện tại so với số lượng cần trừ).
+516 [Normal] Nếu hợp lệ, hệ thống trừ lại tồn kho từng biến thể, tính lại giá vốn bình quân, chuyển phiếu sang trạng thái Đã huỷ, lưu lý do và thời điểm huỷ.
+517 [Normal] Phiếu đã huỷ vẫn được lưu lại để tra cứu, nhưng không thể sửa hoặc huỷ thêm.
+518 [Normal] d) Cách tính giá vốn bình quân gia quyền
+519 [Normal] Khi nhập hàng: Giá vốn mới = (Tồn cũ × Giá vốn cũ + SL nhập × Giá nhập) / (Tồn cũ + SL nhập)
+520 [Normal] Ví dụ: biến thể đang tồn 10 cái, giá vốn 100.000đ. Nhập thêm 20 cái với giá 130.000đ. Giá vốn mới = (10 × 100.000 + 20 × 130.000) / 30 = 120.000đ.
+521 [Normal] Khi hoàn tác nhập (sửa hoặc huỷ phiếu): Giá vốn mới = (Tồn hiện tại × Giá vốn hiện tại − SL nhập × Giá nhập) / (Tồn hiện tại − SL nhập)
+522 [Normal] Nếu sau khi hoàn tác tồn kho về 0, hệ thống giữ nguyên giá vốn cũ. Lần nhập kế tiếp sẽ tính theo giá nhập mới.
+523 [Normal] e) Quy trình xem danh sách và chi tiết phiếu nhập
+524 [Normal] Hệ thống hiển thị danh sách phiếu nhập, có phân trang, sắp xếp theo thời gian mới nhất và lọc được theo nhà cung cấp. Mỗi phiếu gồm mã phiếu, nhà cung cấp, người lập, số dòng hàng, tổng số lượng, tổng tiền và trạng thái.
+525 [Normal] Khi chọn một phiếu, hệ thống hiển thị chi tiết từng dòng hàng (tên sản phẩm, SKU, màu, kích thước, số lượng, giá nhập, thành tiền), ghi chú và lý do huỷ (nếu có).
+526 [Normal] f) Các ràng buộc nghiệp vụ nhập hàng
+527 [Normal] Tồn kho chỉ tăng qua phiếu nhập. Form sản phẩm và biến thể không cho sửa tồn kho trực tiếp.
+528 [Normal] Phiếu nhập phải có nhà cung cấp hợp lệ và ít nhất một dòng hàng. Số lượng lớn hơn 0 và giá nhập không âm.
+529 [Normal] Mã phiếu nhập là duy nhất và do hệ thống tự sinh.
+530 [Normal] Thông tin sản phẩm (tên, SKU, màu, kích thước) được sao chép vào dòng phiếu tại thời điểm nhập, để phiếu không bị thay đổi khi sản phẩm được chỉnh sửa về sau.
+531 [Normal] Không được sửa hoặc huỷ phiếu nếu việc đó làm tồn kho bị âm (hàng của phiếu đã được bán).
+532 [Normal] Phiếu đã huỷ không thể sửa hoặc huỷ lại. Huỷ phiếu bắt buộc phải có lý do.
+533 [Normal] Mọi thay đổi tồn kho và giá vốn của một thao tác (tạo, sửa, huỷ phiếu) được lưu trong cùng một lần ghi xuống cơ sở dữ liệu, đảm bảo không bị cập nhật dở dang.
+534 [Normal] 
+535 [Normal] 
+536 [Normal] Hình 1.x. Sơ đồ hoạt động quy trình nhập hàng
+537 [Heading 3] 1.4.7. Quy trình đánh giá sản phẩm
+538 [Normal] Quy trình đánh giá cho phép khách hàng chấm điểm và nhận xét về sản phẩm đã mua. Nhờ đó những người mua sau có thêm thông tin để lựa chọn. Để đảm bảo đánh giá đáng tin cậy, hệ thống chỉ cho phép đánh giá những sản phẩm khách hàng thực sự đã mua và đã nhận hàng. Mỗi đánh giá gắn với một dòng sản phẩm cụ thể trong đơn hàng. Để đảm bảo nội dung phù hợp, mọi đánh giá phải được quản trị viên duyệt trước khi hiển thị công khai.
+539 [Normal] a) Quy trình viết đánh giá
+540 [Normal] Các bước thực hiện:
+541 [Normal] Khách hàng đăng nhập, mở "Đơn hàng của tôi" và chọn một đơn hàng ở trạng thái Hoàn thành.
+542 [Normal] Tại từng sản phẩm trong đơn, khách hàng nhấn "Đánh giá".
+543 [Normal] Khách hàng chọn số sao từ 1 đến 5 và nhập nhận xét (không bắt buộc, tối đa 1000 ký tự).
+544 [Normal] Hệ thống kiểm tra:
+545 [Normal] Sản phẩm thuộc đơn hàng của chính khách hàng.
+546 [Normal] Đơn hàng đã ở trạng thái Hoàn thành.
+547 [Normal] Sản phẩm này trong đơn hàng này chưa được đánh giá.
+548 [Normal] Nếu không hợp lệ, hệ thống thông báo lỗi và không lưu đánh giá.
+549 [Normal] Nếu hợp lệ, hệ thống lưu đánh giá ở trạng thái Chờ duyệt và thông báo đánh giá đã được gửi, đang chờ duyệt.
+550 [Normal] b) Quy trình sửa và xoá đánh giá
+551 [Normal] Sửa đánh giá:
+552 [Normal] Khách hàng mở trang "Đánh giá của tôi". Trang này liệt kê tất cả đánh giá của khách kèm trạng thái duyệt.
+553 [Normal] Khách hàng chọn đánh giá cần sửa, thay đổi số sao hoặc nhận xét.
+554 [Normal] Hệ thống kiểm tra đánh giá thuộc về khách hàng và dữ liệu hợp lệ.
+555 [Normal] Hệ thống cập nhật đánh giá và chuyển về trạng thái Chờ duyệt. Đánh giá tạm ẩn khỏi trang sản phẩm cho đến khi được duyệt lại.
+556 [Normal] Xoá đánh giá:
+557 [Normal] Khách hàng chọn đánh giá cần xoá và xác nhận.
+558 [Normal] Hệ thống xoá đánh giá khỏi hệ thống. Nếu không xác nhận, thao tác bị huỷ.
+559 [Normal] c) Quy trình duyệt đánh giá (quản trị viên)
+560 [Normal] Các bước thực hiện:
+561 [Normal] Quản trị viên đăng nhập và truy cập chức năng "Quản lý đánh giá".
+562 [Normal] Hệ thống hiển thị danh sách đánh giá, có phân trang và sắp xếp theo thời gian mới nhất. Mỗi đánh giá gồm sản phẩm, khách hàng, số sao, nhận xét và trạng thái. Quản trị viên có thể lọc theo trạng thái duyệt, và tìm kiếm theo tên sản phẩm, tên hoặc email khách hàng.
+563 [Normal] Quản trị viên chọn một đánh giá và đọc nội dung:
+564 [Normal] nếu nội dung phù hợp, chọn Duyệt: đánh giá chuyển sang trạng thái Đã duyệt và hiển thị trên trang chi tiết sản phẩm;
+565 [Normal] nếu nội dung không phù hợp (ngôn từ thiếu chuẩn mực, quảng cáo, spam…), chọn Từ chối: đánh giá chuyển về trạng thái chưa duyệt và bị ẩn khỏi trang sản phẩm.
+566 [Normal] Quản trị viên có thể tiếp tục xử lý các đánh giá khác.
+567 [Normal] d) Quy trình xem đánh giá sản phẩm
+568 [Normal] Tại trang chi tiết sản phẩm, mọi người dùng, kể cả khách chưa đăng nhập, đều xem được danh sách đánh giá của sản phẩm.
+569 [Normal] Danh sách chỉ gồm các đánh giá Đã duyệt, có phân trang và sắp xếp theo thời gian mới nhất. Mỗi đánh giá hiển thị tên người đánh giá, số sao, nhận xét và ngày đánh giá.
+570 [Normal] e) Các ràng buộc nghiệp vụ đánh giá
+571 [Normal] Khách hàng phải đăng nhập mới được viết, sửa hoặc xoá đánh giá. Khách hàng chỉ thao tác được trên đánh giá của chính mình.
+572 [Normal] Chỉ được đánh giá sản phẩm thuộc đơn hàng của mình và đơn hàng đó đã ở trạng thái Hoàn thành.
+573 [Normal] Mỗi sản phẩm trong một đơn hàng chỉ được đánh giá một lần. Nếu mua lại sản phẩm ở đơn khác, khách hàng được đánh giá thêm.
+574 [Normal] Số sao nằm trong khoảng 1 đến 5. Nhận xét không quá 1000 ký tự.
+575 [Normal] Đánh giá mới và đánh giá vừa sửa đều ở trạng thái Chờ duyệt, chỉ hiển thị công khai sau khi quản trị viên duyệt.
+576 [Normal] Trang sản phẩm chỉ hiển thị đánh giá đã duyệt của sản phẩm đang kinh doanh.
+577 [Normal] 
+578 [Normal] Hình 1.x. Sơ đồ hoạt động quy trình đánh giá sản phẩm
+579 [Heading 3] 1.4.8. Quy trình xác thực và quản lý tài khoản
+580 [Normal] Quy trình xác thực đảm bảo chỉ người dùng hợp lệ mới truy cập được các chức năng yêu cầu tài khoản, và mỗi người chỉ dùng được các chức năng đúng với vai trò của mình (Khách hàng hoặc Quản trị viên). Hệ thống xác thực bằng JSON Web Token (JWT):
+581 [Normal] Sau khi đăng nhập thành công, máy chủ cấp một token có hạn 120 phút, chứa mã người dùng, họ tên, email và vai trò.
+582 [Normal] Frontend lưu token và tự động gửi kèm trong mỗi yêu cầu.
+583 [Normal] Máy chủ kiểm tra chữ ký, thời hạn và vai trò trong token trước khi xử lý.
+584 [Normal] Mật khẩu không bao giờ được lưu dưới dạng gốc mà được băm bằng thuật toán BCrypt.
+585 [Normal] a) Quy trình đăng ký tài khoản
+586 [Normal] Các bước thực hiện:
+587 [Normal] Người dùng truy cập trang đăng ký, nhập họ tên, email, số điện thoại (không bắt buộc), mật khẩu và xác nhận mật khẩu.
+588 [Normal] Hệ thống kiểm tra:
+589 [Normal] Họ tên, email và mật khẩu không được để trống. Email đúng định dạng.
+590 [Normal] Mật khẩu có ít nhất 6 ký tự. Xác nhận mật khẩu khớp với mật khẩu.
+591 [Normal] Email chưa được sử dụng. Email được chuẩn hoá về chữ thường trước khi so sánh.
+592 [Normal] Nếu không hợp lệ, hệ thống hiển thị lỗi để người dùng nhập lại.
+593 [Normal] Nếu hợp lệ, hệ thống băm mật khẩu bằng BCrypt, tạo tài khoản với vai trò Khách hàng, cấp JWT để người dùng được đăng nhập ngay, và chuyển về trang chủ.
+594 [Normal] b) Quy trình đăng nhập
+595 [Normal] Các bước thực hiện:
+596 [Normal] Người dùng nhập email và mật khẩu.
+597 [Normal] Hệ thống tìm tài khoản theo email và kiểm tra lần lượt:
+598 [Normal] Tài khoản đang bị khoá tạm thời: từ chối đăng nhập và báo thời gian còn lại (ví dụ "Vui lòng thử lại sau 12 phút").
+599 [Normal] Email không tồn tại hoặc mật khẩu sai: hệ thống tăng số lần đăng nhập sai của tài khoản. Nếu sai 5 lần liên tiếp, tài khoản bị khoá tạm 15 phút và hệ thống ghi log cảnh báo. Thông báo trả về luôn là "Email hoặc mật khẩu không đúng", không nói rõ sai email hay sai mật khẩu.
+600 [Normal] Tài khoản đã bị quản trị viên vô hiệu hoá: từ chối đăng nhập.
+601 [Normal] Nếu hợp lệ, hệ thống đặt lại bộ đếm đăng nhập sai và cấp JWT.
+602 [Normal] Frontend lưu token và thông tin người dùng, sau đó chuyển người dùng đến trang đang truy cập dở (nếu bị chuyển sang trang đăng nhập giữa chừng) hoặc về trang chủ.
+603 [Normal] c) Quy trình quên và đặt lại mật khẩu
+604 [Normal] Các bước thực hiện:
+605 [Normal] Người dùng chọn "Quên mật khẩu" và nhập email.
+606 [Normal] Nếu email thuộc một tài khoản đang hoạt động, hệ thống:
+607 [Normal] sinh một mã (token) ngẫu nhiên an toàn dài 32 byte, có hiệu lực 30 phút, và lưu vào tài khoản;
+608 [Normal] gửi email chứa liên kết đặt lại mật khẩu kèm token.
+609 [Normal] Dù email có tồn tại hay không, hệ thống đều hiển thị cùng một thông báo: "Nếu email tồn tại trong hệ thống, chúng tôi đã gửi hướng dẫn đặt lại mật khẩu". Cách này ngăn kẻ xấu dò xem email nào đã đăng ký.
+610 [Normal] Người dùng mở email và bấm vào liên kết. Hệ thống hiển thị form nhập mật khẩu mới và xác nhận mật khẩu.
+611 [Normal] Hệ thống kiểm tra token đúng và chưa hết hạn, mật khẩu mới có ít nhất 6 ký tự và xác nhận khớp.
+612 [Normal] Nếu hợp lệ, hệ thống băm và lưu mật khẩu mới, xoá token để liên kết chỉ dùng được một lần, rồi chuyển người dùng đến trang đăng nhập.
+613 [Normal] Nếu token sai hoặc hết hạn, hệ thống thông báo và yêu cầu người dùng gửi lại yêu cầu quên mật khẩu.
+614 [Normal] d) Quy trình đổi mật khẩu
+615 [Normal] Người dùng đã đăng nhập mở "Hồ sơ cá nhân" và chọn "Đổi mật khẩu".
+616 [Normal] Người dùng nhập mật khẩu hiện tại, mật khẩu mới và xác nhận mật khẩu mới.
+617 [Normal] Hệ thống kiểm tra mật khẩu hiện tại đúng, mật khẩu mới có ít nhất 6 ký tự và khác mật khẩu hiện tại, xác nhận khớp.
+618 [Normal] Nếu hợp lệ, hệ thống băm và lưu mật khẩu mới, rồi thông báo thành công.
+619 [Normal] e) Quy trình đăng xuất
+620 [Normal] Người dùng nhấn "Đăng xuất".
+621 [Normal] Hệ thống xoá token và thông tin người dùng khỏi trình duyệt, rồi chuyển về trang chủ.
+622 [Normal] f) Kiểm soát truy cập và phân quyền
+623 [Normal] Phía giao diện (Angular):
+624 [Normal] AuthGuard chặn các trang yêu cầu đăng nhập như giỏ hàng, thanh toán, tài khoản. Nếu chưa đăng nhập, người dùng được chuyển đến trang đăng nhập, kèm địa chỉ trang đang truy cập để quay lại sau khi đăng nhập.
+625 [Normal] AdminGuard chỉ cho tài khoản có vai trò Admin vào khu vực quản trị. Người dùng khác bị chuyển đến trang 403.
+626 [Normal] GuestGuard không cho người đã đăng nhập vào lại trang đăng nhập và đăng ký.
+627 [Normal] Interceptor:
+628 [Normal] AuthInterceptor tự động gắn token vào mọi yêu cầu gửi lên máy chủ.
+629 [Normal] ErrorInterceptor xử lý lỗi trả về: gặp lỗi 401 (token hết hạn hoặc không hợp lệ) thì tự động đăng xuất và chuyển đến trang đăng nhập; gặp lỗi 403 thì chuyển đến trang báo không có quyền.
+630 [Normal] Phía máy chủ: mọi API được bảo vệ đều kiểm tra token. Các API quản trị còn kiểm tra vai trò Admin. Vì vậy người dùng không thể vượt qua phân quyền dù gọi API trực tiếp mà không qua giao diện.
+631 [Normal] g) Các ràng buộc nghiệp vụ xác thực
+632 [Normal] Email là duy nhất, không phân biệt chữ hoa và chữ thường. Mật khẩu có ít nhất 6 ký tự.
+633 [Normal] Mật khẩu chỉ được lưu dưới dạng băm BCrypt, không lưu và không hiển thị mật khẩu gốc.
+634 [Normal] Đăng nhập sai 5 lần liên tiếp thì tài khoản bị khoá tạm 15 phút. Đăng nhập thành công thì bộ đếm được đặt lại.
+635 [Normal] Tài khoản bị quản trị viên vô hiệu hoá không thể đăng nhập.
+636 [Normal] Token đăng nhập có hạn 120 phút. Hết hạn thì người dùng phải đăng nhập lại.
+637 [Normal] Liên kết đặt lại mật khẩu có hạn 30 phút và chỉ dùng được một lần.
+638 [Normal] Tài khoản đăng ký mới luôn có vai trò Khách hàng. Tài khoản quản trị được khởi tạo sẵn bởi hệ thống, không đăng ký qua giao diện.
+639 [Normal] 
+640 [Normal] Hình 1.x. Sơ đồ hoạt động quy trình xác thực và quản lý tài khoản
+641 [Normal] 
+642 [Heading 2] 1.5 Mô hình hóa chức năng
+643 [Heading 3] 1.5.1 Tổng hợp các yêu cầu hệ thống
+644 [Normal] Hệ thống bán quần áo trực tuyến hướng tới việc tự động hóa quy trình kinh doanh và quản lý cửa hàng, thay thế các phương thức thủ công như ghi chép thông tin sản phẩm, quản lý đơn hàng bằng sổ sách, cập nhật tồn kho thủ công và tiếp nhận đơn hàng trực tiếp tại cửa hàng.
+645 [Normal] Việc tự động hóa giúp giảm thiểu sai sót trong quá trình quản lý, tiết kiệm thời gian xử lý đơn hàng, hỗ trợ khách hàng mua sắm thuận tiện và nâng cao hiệu quả hoạt động của cửa hàng.
+646 [Normal] ❖ Nhóm chức năng trong hệ thống:
+647 [Normal] 
+648 [Normal] R1. Nhóm chức năng xác thực và phân quyền Hệ thống quản lý tài khoản, xác thực người dùng và phân quyền truy cập giữa khách hàng và quản trị viên.
+649 [Normal] 
+650 [Normal] R1.1. Đăng ký tài khoản. Người dùng chưa có tài khoản đăng ký bằng họ tên, email, số điện thoại (không bắt buộc) và mật khẩu. Hệ thống kiểm tra email đúng định dạng và chưa được sử dụng, mật khẩu có ít nhất 6 ký tự và xác nhận mật khẩu khớp. Tài khoản mới có vai trò Khách hàng và được đăng nhập ngay sau khi đăng ký.
+651 [Normal] 
+652 [Normal] R1.2. Đăng nhập. Khách hàng và quản trị viên đăng nhập bằng email và mật khẩu. Đăng nhập thành công thì hệ thống cấp token xác thực (JWT) có thời hạn và chuyển người dùng về trang đang truy cập dở hoặc trang chủ.
+653 [Normal] 
+654 [Normal] R1.3. Chống dò mật khẩu. Đăng nhập sai 5 lần liên tiếp thì tài khoản bị khoá tạm 15 phút. Tài khoản bị quản trị viên vô hiệu hoá không thể đăng nhập.
+655 [Normal] 
+656 [Normal] R1.4. Quên và đặt lại mật khẩu. Người dùng nhập email để nhận liên kết đặt lại mật khẩu. Liên kết có hiệu lực 30 phút và chỉ dùng được một lần.
+657 [Normal] 
+658 [Normal] R1.5. Đổi mật khẩu. Người dùng đã đăng nhập đổi mật khẩu sau khi xác nhận mật khẩu hiện tại.
+659 [Normal] 
+660 [Normal] R1.6. Đăng xuất. Người dùng kết thúc phiên làm việc. Token xác thực bị xoá khỏi trình duyệt.
+661 [Normal] 
+662 [Normal] R1.7. Phân quyền. Khách hàng chỉ dùng được các chức năng mua sắm và quản lý tài khoản cá nhân. Chỉ quản trị viên mới truy cập được khu vực quản trị. Việc phân quyền được kiểm tra ở cả giao diện và máy chủ.
+663 [Normal] 
+664 [Normal] R2. Nhóm chức năng quản lý sản phẩm
+665 [Normal] R2.1. Thêm sản phẩm. Quản trị viên thêm sản phẩm với các thông tin: tên, danh mục, thương hiệu, giới tính, giá gốc, giá khuyến mãi, mô tả, chất liệu và đánh dấu sản phẩm nổi bật. Hệ thống tự sinh đường dẫn (slug) từ tên sản phẩm.
+666 [Normal] 
+667 [Normal] R2.2. Quản lý biến thể. Mỗi sản phẩm có nhiều biến thể theo màu sắc và kích thước. Mỗi biến thể có mã SKU riêng (duy nhất), giá bán riêng và tồn kho riêng. Tồn kho không nhập trực tiếp mà chỉ thay đổi qua phiếu nhập kho và khi bán hàng.
+668 [Normal] 
+669 [Normal] R2.3. Quản lý hình ảnh. Quản trị viên tải ảnh lên (JPG, JPEG, PNG, WEBP, tối đa 5 MB), sắp xếp thứ tự và chọn một ảnh đại diện.
+670 [Normal] R2.4. Cập nhật sản phẩm. Quản trị viên chỉnh sửa thông tin sản phẩm, biến thể và hình ảnh. Không được mở bán lại sản phẩm khi tồn kho bằng 0.
+671 [Normal] 
+672 [Normal] R2.5. Ngừng kinh doanh sản phẩm. Xoá sản phẩm được thực hiện dưới dạng xoá mềm (ngừng kinh doanh), nhằm bảo toàn dữ liệu đơn hàng và đánh giá liên quan.
+673 [Normal] 
+674 [Normal] R2.6. Xem danh sách và chi tiết sản phẩm. Quản trị viên xem danh sách sản phẩm có phân trang, kèm tổng tồn kho, và xem chi tiết từng sản phẩm.
+675 [Normal] 
+676 [Normal] R3. Nhóm chức năng quản lý danh mục và thuộc tính sản phẩm
+677 [Normal] R3.1. Quản trị viên quản lý (xem, thêm, sửa, xoá) danh mục sản phẩm.
+678 [Normal] R3.2. Quản trị viên quản lý thương hiệu.
+679 [Normal] R3.3. Quản trị viên quản lý màu sắc (tên màu, mã màu).
+680 [Normal] R3.4. Quản trị viên quản lý kích thước (tên size, thứ tự hiển thị).
+681 [Normal] 
+682 [Normal] R4. Nhóm chức năng quản lý nhà cung cấp và nhập kho
+683 [Normal] 
+684 [Normal] R4.1. Quản lý nhà cung cấp. Quản trị viên xem, thêm, sửa, xoá thông tin nhà cung cấp.
+685 [Normal] R4.2. Tạo phiếu nhập kho. Quản trị viên lập phiếu nhập gồm nhà cung cấp và các dòng hàng (biến thể, số lượng, giá nhập). Khi lưu phiếu, hệ thống cộng tồn kho và tính lại giá vốn bình quân gia quyền của từng biến thể.
+686 [Normal] R4.3. Sửa và huỷ phiếu nhập. Quản trị viên sửa hoặc huỷ phiếu (huỷ phải có lý do). Hệ thống tự điều chỉnh lại tồn kho và giá vốn. Không cho phép sửa hoặc huỷ nếu hàng đã bán khiến tồn kho bị âm.
+687 [Normal] R4.4. Xem phiếu nhập. Quản trị viên xem danh sách phiếu nhập (lọc theo nhà cung cấp) và chi tiết từng phiếu.
+688 [Normal] 
+689 [Normal] R5. Nhóm chức năng hiển thị, tìm kiếm và lọc sản phẩm
+690 [Normal] R5.1. Trang chủ. Hiển thị banner, sản phẩm nổi bật và sản phẩm mới về.
+691 [Normal] R5.2. Tìm kiếm sản phẩm. Khách hàng tìm sản phẩm theo tên hoặc từ khoá.
+692 [Normal] R5.3. Lọc và sắp xếp. Khách hàng lọc sản phẩm theo danh mục, thương hiệu, giới tính và khoảng giá, sau đó sắp xếp theo sản phẩm mới nhất, giá tăng dần, giá giảm dần hoặc bán chạy. Kết quả có phân trang.
+693 [Normal] R5.4. Xem chi tiết sản phẩm. Hiển thị hình ảnh, tên, giá, mô tả, chất liệu, các biến thể màu và kích thước kèm số lượng còn lại, đánh giá đã được duyệt và sản phẩm liên quan. Chỉ hiển thị sản phẩm đang kinh doanh.
+694 [Normal] R6. Nhóm chức năng quản lý giỏ hàng
+695 [Normal] 
+696 [Normal] R6.1. Thêm vào giỏ hàng. Khách hàng đã đăng nhập chọn màu, kích thước, số lượng và thêm vào giỏ. Nếu biến thể đã có trong giỏ, hệ thống cộng dồn số lượng.
+697 [Normal] R6.2. Cập nhật số lượng. Số lượng mỗi dòng từ 1 đến 100 và không vượt quá tồn kho.
+698 [Normal] R6.3. Xoá sản phẩm hoặc xoá toàn bộ giỏ hàng, có yêu cầu xác nhận.
+699 [Normal] R6.4. Xem giỏ hàng. Hệ thống tự tính thành tiền từng dòng và tạm tính. Sản phẩm không còn bán hoặc không đủ hàng được đánh dấu cảnh báo.
+700 [Normal] R7. Nhóm chức năng danh sách yêu thích
+701 [Normal] R7.1. Khách hàng thêm sản phẩm vào danh sách yêu thích.
+702 [Normal] R7.2. Khách hàng xem và xoá sản phẩm khỏi danh sách yêu thích.
+703 [Normal] R8. Nhóm chức năng quản lý thông tin cá nhân và địa chỉ
+704 [Normal] R8.1. Cập nhật hồ sơ. Khách hàng cập nhật họ tên, số điện thoại và ảnh đại diện. Email là định danh tài khoản nên không thay đổi được.
+705 [Normal] R8.2. Quản lý sổ địa chỉ. Khách hàng thêm, sửa, xoá nhiều địa chỉ giao hàng. Mỗi địa chỉ gồm người nhận, số điện thoại, tỉnh/thành, quận/huyện, phường/xã và địa chỉ chi tiết.
+706 [Normal] R8.3. Địa chỉ mặc định. Khách hàng chọn một địa chỉ làm mặc định. Địa chỉ này được chọn sẵn khi thanh toán.
+707 [Normal] R9. Nhóm chức năng quản lý mã giảm giá
+708 [Normal] R9.1. Tạo và cập nhật mã giảm giá. Quản trị viên khai báo các thông tin:
+709 [Normal] mã, tên chương trình;
+710 [Normal] loại giảm (phần trăm hoặc số tiền cố định), giá trị giảm, mức giảm tối đa;
+711 [Normal] giá trị đơn hàng tối thiểu, thời gian hiệu lực;
+712 [Normal] tổng số lượt dùng và số lượt dùng mỗi khách hàng;
+713 [Normal] phạm vi áp dụng theo danh mục hoặc sản phẩm.
+714 [Normal] R9.2. Bật / tắt mã giảm giá. Mã không bị xoá mà chỉ được tắt, nhằm giữ lại lịch sử sử dụng.
+715 [Normal] R9.3. Xem lịch sử sử dụng mã. Gồm khách hàng, đơn hàng, số tiền được giảm và thời điểm dùng.
+716 [Normal] R9.4. Mã giảm giá của tôi. Khách hàng xem các mã đang có. Hệ thống cho biết mã nào dùng được với giỏ hàng hiện tại kèm số tiền giảm dự kiến, và lý do nếu mã chưa dùng được.
+717 [Normal] R9.5. Áp dụng và kiểm tra mã. Khi thanh toán, hệ thống kiểm tra mã đang hoạt động, còn hiệu lực, còn lượt, đúng phạm vi và đạt giá trị tối thiểu, rồi tính số tiền giảm.
+718 [Normal] R10. Nhóm chức năng đặt hàng và thanh toán
+719 [Normal] R10.1. Tạo đơn hàng. Khách hàng tạo đơn từ giỏ hàng sau khi chọn địa chỉ giao hàng, phương thức thanh toán, mã giảm giá (nếu có) và nhập ghi chú.
+720 [Normal] R10.2. Kiểm tra trước khi tạo đơn. Hệ thống kiểm tra lại tồn kho, trạng thái kinh doanh của sản phẩm và mã giảm giá. Hệ thống tính phí vận chuyển (30.000đ, miễn phí khi tạm tính từ 500.000đ) và tổng tiền.
+721 [Normal] R10.3. Đảm bảo toàn vẹn khi đặt hàng. Việc tạo đơn, trừ tồn kho, ghi nhận lượt dùng mã và xoá giỏ hàng được thực hiện trong một giao dịch: hoặc cùng thành công, hoặc cùng huỷ.
+722 [Normal] R10.4. Phương thức thanh toán. Hệ thống hỗ trợ thanh toán khi nhận hàng (COD) và thanh toán QR mô phỏng. Với QR, hệ thống hiển thị thông tin chuyển khoản và cho phép khách hàng xác nhận đã thanh toán.
+723 [Normal] R11. Nhóm chức năng quản lý đơn hàng
+724 [Normal] R11.1. Khách hàng theo dõi đơn hàng. Khách hàng xem danh sách đơn của mình (lọc theo trạng thái) và chi tiết đơn, gồm tiến trình xử lý.
+725 [Normal] R11.2. Khách hàng huỷ đơn. Khách hàng huỷ được đơn đang Chờ xác nhận và chưa thanh toán. Hệ thống hoàn lại tồn kho và lượt dùng mã giảm giá.
+726 [Normal] R11.3. Quản trị viên xem đơn hàng. Quản trị viên xem danh sách đơn, tìm theo mã đơn, tên người nhận hoặc email, lọc theo trạng thái xử lý và trạng thái thanh toán.
+727 [Normal] R11.4. Cập nhật trạng thái xử lý. Đơn chuyển tuần tự: Chờ xác nhận → Đã xác nhận → Đang giao → Hoàn thành. Quản trị viên được huỷ đơn ở hai trạng thái đầu.
+728 [Normal] R11.5. Cập nhật trạng thái thanh toán. Các trạng thái gồm Chưa thanh toán, Đã thanh toán, Thất bại, Hoàn tiền.
+729 [Normal] R11.6. Lưu vết đơn hàng. Mọi thay đổi trạng thái được ghi vào lịch sử, gồm người thực hiện, thời gian và ghi chú. Thông tin sản phẩm, giá và địa chỉ được sao chép vào đơn tại thời điểm đặt.
+730 [Normal] R12. Nhóm chức năng đánh giá sản phẩm
+731 [Normal] R12.1. Viết đánh giá. Khách hàng chấm từ 1 đến 5 sao và nhận xét về sản phẩm thuộc đơn hàng đã Hoàn thành của mình. Mỗi sản phẩm trong một đơn chỉ đánh giá một lần.
+732 [Normal] R12.2. Quản lý đánh giá của tôi. Khách hàng xem, sửa, xoá đánh giá của mình. Đánh giá sau khi sửa phải được duyệt lại.
+733 [Normal] R12.3. Duyệt đánh giá. Quản trị viên duyệt hoặc ẩn đánh giá. Chỉ đánh giá đã duyệt mới hiển thị trên trang sản phẩm.
+734 [Normal] R13. Nhóm chức năng quản lý người dùng
+735 [Normal] R13.1. Quản trị viên xem danh sách người dùng, tìm theo tên hoặc email, lọc theo vai trò và trạng thái.
+736 [Normal] R13.2. Quản trị viên xem chi tiết tài khoản người dùng.
+737 [Normal] R13.3. Quản trị viên khoá hoặc mở khoá tài khoản. Quản trị viên không được tự khoá tài khoản của chính mình.
+738 [Normal] R14. Nhóm chức năng thống kê
+739 [Normal] R14.1. Chỉ số tổng quan. Hệ thống hiển thị doanh thu, giá vốn hàng bán, lợi nhuận, tỷ suất lợi nhuận, tổng số đơn, số khách hàng, số đơn chờ xử lý và số sản phẩm sắp hết hàng.
+740 [Normal] R14.2. Danh sách phân tích. Hệ thống hiển thị top sản phẩm bán chạy, các biến thể sắp hết hàng và các đơn hàng gần đây.
+741 [Normal] R14.3. Lọc theo thời gian. Quản trị viên lọc số liệu thống kê theo khoảng thời gian.
+742 [Normal] R15. Nhóm chức năng kiểm tra dữ liệu và thông báo
+743 [Normal] R15.1. Sau mỗi thao tác, hệ thống hiển thị thông báo kết quả (thành công hoặc thất bại) và trạng thái đang tải dữ liệu.
+744 [Normal] R15.2. Khi có lỗi dữ liệu, lỗi kết nối, lỗi xác thực (401) hoặc lỗi phân quyền (403), hệ thống hiển thị thông báo rõ ràng hoặc chuyển đến trang phù hợp.
+745 [Normal] R15.3. Dữ liệu từ các biểu mẫu được kiểm tra ở cả giao diện và máy chủ trước khi lưu. Máy chủ trả lỗi theo một cấu trúc thống nhất.
+746 [Heading 3] 1.5.2 Sơ đồ Use-case
+747 [Normal] 
+748 [Normal] 
+749 [Normal] 
+750 [Normal] 
+751 [Heading 1] 2. PHÂN TÍCH TRƯỜNG HỢP SỬ DỤNG (USE-CASE ANALYSIS)
+752 [Heading 2] 2.1 Phân tích kiến trúc hệ thống  
+753 [Heading 3] 2.1.1 Kiến trúc mức cao của hệ thống
+754 [Normal] 
+755 [Normal] 
+756 [Normal] 
+757 [Normal] Đặc tả sơ đồ kiến trúc mức cao
+758 [Normal] Sơ đồ trên mô tả kiến trúc tổng thể của hệ thống bán quần áo trực tuyến theo mô hình ba tầng gồm Presentation Layer, Business Layer và Data Layer. Mô hình này giúp phân tách giao diện người dùng, xử lý nghiệp vụ và lưu trữ dữ liệu.
+759 [Normal] 
+760 [Normal] ● Presentation Layer là tầng giao diện, cung cấp hai khu vực chính là Admin Interface và User Interface. Admin có thể đăng nhập, quản lý sản phẩm và danh mục. Khách hàng có thể đăng ký, đăng nhập, xem và tìm kiếm sản phẩm. Tầng này tiếp nhận thao tác của người dùng và gửi yêu cầu đến tầng Business Layer.
+761 [Normal] 
+762 [Normal] ● Business Layer chịu trách nhiệm xử lý các nghiệp vụ chính của hệ thống. Các service bao gồm quản lý sản phẩm, quản lý danh mục, quản lý tồn kho, quản lý mã giảm giá, quản lý người dùng và xác thực, quản lý đánh giá và báo cáo, quản lý tài khoản cá nhân, quản lý giỏ hàng, tìm kiếm sản phẩm, đặt hàng và thanh toán. Tầng này đóng vai trò trung gian giữa giao diện và tầng dữ liệu, đồng thời thực hiện kiểm tra và xử lý các quy tắc nghiệp vụ.
+763 [Normal] 
+764 [Normal] ● Data Layer đảm nhiệm việc quản lý và truy xuất dữ liệu của hệ thống. Tầng này được tổ chức thành các nhóm dữ liệu chính gồm:
+765 [Normal] Authentication & Users: lưu thông tin người dùng, vai trò và quyền truy cập.
+766 [Normal] Product Catalog: lưu sản phẩm, biến thể sản phẩm, hình ảnh, danh mục, thương hiệu, màu sắc và kích thước.
+767 [Normal] Orders & Payments: lưu đơn hàng, chi tiết đơn hàng, thông tin thanh toán và lịch sử trạng thái đơn hàng.
+768 [Normal] Shopping: lưu địa chỉ giao hàng và thông tin giỏ hàng.
+769 [Normal] Coupons & Discounts: lưu mã giảm giá, điều kiện áp dụng và lịch sử sử dụng mã.
+770 [Normal] Reviews: lưu đánh giá và nhận xét của khách hàng.
+771 [Normal] 
+772 [Normal] Tầng dữ liệu sử dụng Entity Framework Core để ánh xạ các đối tượng trong hệ thống với cơ sở dữ liệu. AppDbContext đóng vai trò kết nối và quản lý các thực thể dữ liệu. Cơ chế EF Core Migrations được sử dụng để tạo mới, cập nhật và quản lý phiên bản cấu trúc cơ sở dữ liệu. Dữ liệu cuối cùng được lưu trữ trong SQL Server Database.
+773 [Normal] 
+774 [Normal] Luồng hoạt động của hệ thống được thực hiện theo hướng từ trên xuống. Người dùng thao tác trên giao diện thuộc Presentation Layer; yêu cầu được chuyển đến các service tương ứng trong Business Layer. Sau đó, Business Layer sử dụng AppDbContext và Entity Framework Core để truy xuất hoặc cập nhật dữ liệu trong SQL Server. Kết quả xử lý được trả ngược lại qua các tầng và hiển thị cho người dùng.
+775 [Normal] 
+776 [Normal] Việc phân chia hệ thống thành ba tầng giúp các thành phần được tổ chức rõ ràng, hạn chế sự phụ thuộc giữa giao diện, nghiệp vụ và cơ sở dữ liệu. Nhờ đó, hệ thống dễ bảo trì, thuận tiện kiểm thử, hỗ trợ mở rộng chức năng và có thể thay đổi một tầng mà ít ảnh hưởng đến các tầng còn lại.
+777 [Heading 3] 2.1.2 Các đối tượng trừu tượng hóa chính của hệ thống (Key abstractions)
+778 [Normal] 
+779 [Normal] Các đối tượng trừu tượng hóa chính được xác định dựa trên các thực thể nghiệp vụ và model dữ liệu của hệ thống bán quần áo trực tuyến. Mỗi đối tượng đại diện cho một nhóm dữ liệu hoặc chức năng quan trọng trong hệ thống.
+780 [Normal] 
+781 [Normal] 
+782 [Normal] 
+783 [Normal] 
+784 [Heading 2] 2.2 Thực thi trường hợp sử dụng ( Use-caserelization)
+785 [Heading 3] 2.2.1. Các biểu đồ tuần tự ( Squence diagrams) 
+786 [Normal] 
+787 [Normal] 
+788 [Normal] 
+789 [Normal] 
+790 [Normal] Hình .   Sơ đồ tuần tự chung
+791 [Normal] 
+792 [Normal] 
+793 [Normal] Biểu đồ sơ đồ tuần tự chức năng Đăng nhập / Đăng ký 
+794 [Normal] 
+795 [Normal] 
+796 [Normal] 
+797 [Normal] 
+798 [Normal] 
+799 [Normal] Hình . Sơ đồ tuần tự của chức năng Đăng nhập/ Đăng ký
+800 [Heading 3] 2.2.2 Góc nhìn của các lớp trong hệ thống (Views of participating classes)
+801 [Normal] 
+802 [Normal] 
+803 [Normal] Trong hệ thống Clothing Store API, các lớp được tổ chức theo mô hình ba nhóm chính:
+804 [Normal] Boundary Class: Các Controller tiếp nhận request từ Client và trả response.
+805 [Normal] Control Class: Các Service xử lý nghiệp vụ, kiểm tra dữ liệu và điều phối hoạt động giữa Controller với Database.
+806 [Normal] Entity Class: Các Model đại diện cho dữ liệu được lưu trữ trong cơ sở dữ liệu.
+807 [Heading 1] 3. THIẾT KẾ (USE-CASE DESGIN)
+808 [Heading 2] 3.1 Xác định các thành phần thiết kế (Identify design elements)
+809 [Heading 3] 3.1.1 Xác định các lớp (Identify classes)
+810 [Normal] Nhóm Controller
+811 [Normal] 
+812 [Normal] 
+813 [Normal] 
+814 [Normal] 
+815 [Normal] Nhóm Service
+816 [Normal] 
+817 [Normal] 
+818 [Normal] 
+819 [Normal] 
+820 [Normal] Nhóm Database, Middleware, Helper và Exception
+821 [Normal] 
+822 [Normal] 
+823 [Normal] 
+824 [Normal] 
+825 [Normal] 
+826 [Normal] 
+827 [Normal] 
+828 [Heading 3] 3.1.2 Xác định các hệ thống con và giao diện (Identify subsystems and interfaces)
+829 [Normal]  
+830 [Normal] 
+831 [Normal] 
+832 [Normal] 1. Authentication Subsystem
+833 [Normal] Vai trò:
+Authentication Subsystem chịu trách nhiệm xác thực người dùng và cấp quyền truy cập cho các chức năng trong hệ thống bán quần áo.
+834 [Normal] Interface cung cấp: IAuthService, ITokenService
+835 [Normal] Trách nhiệm chính:
+836 [Normal] Đăng ký tài khoản mới.
+837 [Normal] Đăng nhập bằng email và mật khẩu.
+838 [Normal] Kiểm tra email đã tồn tại.
+839 [Normal] Kiểm tra mật khẩu bằng BCrypt.
+840 [Normal] Kiểm tra trạng thái hoạt động của tài khoản.
+841 [Normal] Lấy thông tin người dùng hiện tại.
+842 [Normal] Tạo mã xác thực JWT.
+843 [Normal] Gắn vai trò Customer hoặc Admin vào JWT.
+844 [Normal] Quan hệ:
+845 [Normal] Cung cấp dịch vụ cho:
+846 [Normal] User Management Subsystem.
+847 [Normal] Order and Payment Subsystem.
+848 [Normal] Shopping Cart Subsystem.
+849 [Normal] Promotion Subsystem.
+850 [Normal] Review Subsystem.
+851 [Normal] Authentication Subsystem là nền tảng bảo mật của hệ thống. Những chức năng yêu cầu đăng nhập đều sử dụng JWT để xác định người dùng và kiểm tra quyền truy cập.
+852 [Normal] 
+853 [Normal] 2. User Management Subsystem
+854 [Normal] Vai trò:
+User Management Subsystem chịu trách nhiệm quản lý thông tin tài khoản và hồ sơ cá nhân của người dùng.
+855 [Normal] Interface cung cấp: IUserProfileService, IAdminUserService
+856 [Normal] Trách nhiệm chính:
+857 [Normal] Xem thông tin hồ sơ cá nhân.
+858 [Normal] Cập nhật họ tên, số điện thoại và ảnh đại diện.
+859 [Normal] Thay đổi mật khẩu.
+860 [Normal] Xem danh sách người dùng.
+861 [Normal] Xem chi tiết người dùng.
+862 [Normal] Cập nhật trạng thái hoạt động của tài khoản.
+863 [Normal] Quản lý vai trò Customer và Admin.
+864 [Normal] Quan hệ:
+865 [Normal] Yêu cầu:
+866 [Normal] IAuthService để xác thực người dùng.
+867 [Normal] AppDbContext để truy cập dữ liệu tài khoản.
+868 [Normal] Cung cấp dịch vụ cho:
+869 [Normal] Authentication Subsystem.
+870 [Normal] Shopping Cart Subsystem.
+871 [Normal] Order and Payment Subsystem.
+872 [Normal] Review Subsystem.
+873 [Normal] Subsystem này chỉ quản lý thông tin tài khoản và hồ sơ người dùng, không trực tiếp xử lý sản phẩm hoặc đơn hàng.
+874 [Normal] 
+875 [Normal] 3. Catalog Subsystem
+876 [Normal] Vai trò:
+Catalog Subsystem chịu trách nhiệm quản lý và cung cấp dữ liệu sản phẩm trong cửa hàng.
+877 [Normal] Interface cung cấp: IProductService, IStorefrontService
+878 [Normal] Trách nhiệm chính:
+879 [Normal] Thêm sản phẩm mới.
+880 [Normal] Cập nhật thông tin sản phẩm.
+881 [Normal] Ẩn sản phẩm.
+882 [Normal] Quản lý biến thể sản phẩm.
+883 [Normal] Quản lý hình ảnh sản phẩm.
+884 [Normal] Quản lý danh mục, thương hiệu, màu sắc và kích thước.
+885 [Normal] Hiển thị danh sách sản phẩm.
+886 [Normal] Tìm kiếm sản phẩm.
+887 [Normal] Hiển thị sản phẩm nổi bật.
+888 [Normal] Hiển thị sản phẩm mới.
+889 [Normal] Hiển thị sản phẩm liên quan.
+890 [Normal] Truy xuất sản phẩm theo slug.
+891 [Normal] Kiểm tra tồn kho của biến thể sản phẩm.
+892 [Normal] Quan hệ:
+893 [Normal] Cung cấp dịch vụ cho:
+894 [Normal] Shopping Cart Subsystem.
+895 [Normal] Order and Payment Subsystem.
+896 [Normal] Review Subsystem.
+897 [Normal] Dashboard Subsystem.
+898 [Normal] Yêu cầu dữ liệu từ:
+899 [Normal] Category.
+900 [Normal] Brand.
+901 [Normal] Color.
+902 [Normal] Size.
+903 [Normal] Product.
+904 [Normal] ProductVariant.
+905 [Normal] ProductImage.
+906 [Normal] Catalog Subsystem tập trung vào việc quản lý và cung cấp thông tin sản phẩm, không trực tiếp xử lý giỏ hàng hoặc thanh toán.
+907 [Normal] 
+908 [Normal] 4. Shopping Cart Subsystem
+909 [Normal] Vai trò:
+Shopping Cart Subsystem chịu trách nhiệm quản lý giỏ hàng của từng người dùng.
+910 [Normal] Interface cung cấp: ICartService
+911 [Normal] Trách nhiệm chính:
+912 [Normal] Xem giỏ hàng hiện tại.
+913 [Normal] Thêm sản phẩm vào giỏ hàng.
+914 [Normal] Cập nhật số lượng sản phẩm.
+915 [Normal] Xóa một sản phẩm khỏi giỏ hàng.
+916 [Normal] Xóa toàn bộ giỏ hàng.
+917 [Normal] Kiểm tra biến thể sản phẩm.
+918 [Normal] Kiểm tra số lượng tồn kho.
+919 [Normal] Tính tổng tiền tạm thời của giỏ hàng.
+920 [Normal] Quan hệ:
+921 [Normal] Yêu cầu:
+922 [Normal] Authentication Subsystem để xác định người dùng.
+923 [Normal] Catalog Subsystem để lấy thông tin sản phẩm và tồn kho.
+924 [Normal] Promotion Subsystem để kiểm tra mã giảm giá.
+925 [Normal] Cung cấp dữ liệu cho:
+926 [Normal] Order and Payment Subsystem.
+927 [Normal] Shopping Cart Subsystem lưu dữ liệu thông qua Entity CartItem. Mỗi người dùng có thể có nhiều sản phẩm và biến thể trong giỏ hàng.
+928 [Normal] 
+929 [Normal] 5. Order and Payment Subsystem
+930 [Normal] Vai trò:
+Order and Payment Subsystem chịu trách nhiệm xử lý quy trình đặt hàng, quản lý đơn hàng và cập nhật trạng thái thanh toán.
+931 [Normal] Interface cung cấp: IOrderService, IAdminOrderService
+932 [Normal] Trách nhiệm chính:
+933 [Normal] Tạo đơn hàng mới.
+934 [Normal] Lấy danh sách đơn hàng của người dùng.
+935 [Normal] Xem chi tiết đơn hàng.
+936 [Normal] Hủy đơn hàng.
+937 [Normal] Tạo mã đơn hàng.
+938 [Normal] Xây dựng địa chỉ giao hàng.
+939 [Normal] Kiểm tra sản phẩm trong giỏ hàng.
+940 [Normal] Cập nhật số lượng tồn kho.
+941 [Normal] Áp dụng mã giảm giá vào đơn hàng.
+942 [Normal] Tạo mã QR thanh toán mô phỏng.
+943 [Normal] Xác nhận thanh toán.
+944 [Normal] Quản lý trạng thái đơn hàng.
+945 [Normal] Quản lý trạng thái thanh toán.
+946 [Normal] Cho phép Admin xem và cập nhật đơn hàng.
+947 [Normal] Quan hệ:
+948 [Normal] Yêu cầu:
+949 [Normal] Authentication Subsystem để xác định người đặt hàng.
+950 [Normal] Shopping Cart Subsystem để lấy sản phẩm trong giỏ hàng.
+951 [Normal] Catalog Subsystem để kiểm tra giá và tồn kho.
+952 [Normal] Promotion Subsystem để áp dụng mã giảm giá.
+953 [Normal] Address Subsystem để lấy địa chỉ giao hàng.
+954 [Normal] Sử dụng các Entity:
+955 [Normal] Order.
+956 [Normal] OrderItem.
+957 [Normal] Payment.
+958 [Normal] OrderStatusHistory.
+959 [Normal] Đây là subsystem trung tâm của quy trình mua hàng, kết nối giỏ hàng, sản phẩm, địa chỉ, mã giảm giá và thanh toán.
+960 [Normal] 
+961 [Normal] 6. Promotion Subsystem
+962 [Normal] Vai trò:
+Promotion Subsystem chịu trách nhiệm quản lý và áp dụng các chương trình khuyến mãi, mã giảm giá trong hệ thống.
+963 [Normal] Interface cung cấp: ICouponService
+964 [Normal] Trách nhiệm chính:
+965 [Normal] Tạo mã giảm giá.
+966 [Normal] Cập nhật mã giảm giá.
+967 [Normal] Xem thông tin mã giảm giá.
+968 [Normal] Kích hoạt hoặc vô hiệu hóa mã giảm giá.
+969 [Normal] Hiển thị mã giảm giá khả dụng cho người dùng.
+970 [Normal] Kiểm tra mã giảm giá trong giỏ hàng.
+971 [Normal] Kiểm tra thời hạn sử dụng.
+972 [Normal] Kiểm tra số lần sử dụng.
+973 [Normal] Kiểm tra điều kiện áp dụng theo sản phẩm hoặc danh mục.
+974 [Normal] Lưu lịch sử sử dụng mã giảm giá.
+975 [Normal] Quan hệ:
+976 [Normal] Yêu cầu:
+977 [Normal] Authentication Subsystem để xác định người dùng.
+978 [Normal] Catalog Subsystem để kiểm tra sản phẩm và danh mục áp dụng.
+979 [Normal] Order and Payment Subsystem để ghi nhận mã giảm giá trong đơn hàng.
+980 [Normal] Sử dụng các Entity:
+981 [Normal] Coupon.
+982 [Normal] CouponCategory.
+983 [Normal] CouponProduct.
+984 [Normal] CouponUsage.
+985 [Normal] Promotion Subsystem chỉ xử lý chính sách giảm giá, không trực tiếp tạo hoặc cập nhật đơn hàng.
+986 [Normal] 
+987 [Normal] 7. Review Subsystem
+988 [Normal] Vai trò:
+Review Subsystem chịu trách nhiệm quản lý đánh giá và nhận xét của người dùng đối với sản phẩm.
+989 [Normal] Interface cung cấp: IReviewService
+990 [Normal] Trách nhiệm chính:
+991 [Normal] Xem danh sách đánh giá của sản phẩm.
+992 [Normal] Tạo đánh giá mới.
+993 [Normal] Cập nhật đánh giá.
+994 [Normal] Xóa đánh giá.
+995 [Normal] Xem các đánh giá của người dùng.
+996 [Normal] Quản lý danh sách đánh giá dành cho Admin.
+997 [Normal] Duyệt đánh giá.
+998 [Normal] Từ chối đánh giá.
+999 [Normal] Kiểm tra người dùng có quyền đánh giá hay không.
+1000 [Normal] Quan hệ:
+1001 [Normal] Yêu cầu:
+1002 [Normal] Authentication Subsystem để xác định người đánh giá.
+1003 [Normal] Catalog Subsystem để xác định sản phẩm được đánh giá.
+1004 [Normal] Order and Payment Subsystem để kiểm tra sản phẩm đã được mua.
+1005 [Normal] Sử dụng Entity:
+1006 [Normal] Review.
+1007 [Normal] Review Subsystem giúp xây dựng sự tin cậy cho sản phẩm thông qua nhận xét và số sao của khách hàng.
+1008 [Normal] 
+1009 [Normal] 8. Dashboard Subsystem
+1010 [Normal] Vai trò:
+Dashboard Subsystem chịu trách nhiệm tổng hợp và cung cấp số liệu thống kê cho Admin.
+1011 [Normal] Interface cung cấp: IAdminDashboardService
+1012 [Normal] Trách nhiệm chính:
+1013 [Normal] Thống kê tổng số người dùng.
+1014 [Normal] Thống kê tổng số sản phẩm.
+1015 [Normal] Thống kê số lượng đơn hàng.
+1016 [Normal] Tổng hợp doanh thu.
+1017 [Normal] Hiển thị các đơn hàng gần đây.
+1018 [Normal] Thống kê sản phẩm bán chạy.
+1019 [Normal] Thống kê biến thể sắp hết hàng.
+1020 [Normal] Lọc dữ liệu thống kê theo khoảng thời gian.
+1021 [Normal] Quan hệ:
+1022 [Normal] Yêu cầu dữ liệu từ:
+1023 [Normal] User Management Subsystem.
+1024 [Normal] Catalog Subsystem.
+1025 [Normal] Order and Payment Subsystem.
+1026 [Normal] Dashboard Subsystem chỉ tổng hợp và trình bày dữ liệu thống kê, không trực tiếp thay đổi thông tin tài khoản, sản phẩm hoặc đơn hàng.
+1027 [Normal] 
+1028 [Normal] 9. File Upload Subsystem
+1029 [Normal] Vai trò:
+File Upload Subsystem chịu trách nhiệm tiếp nhận và lưu trữ hình ảnh được tải lên hệ thống.
+1030 [Normal] Interface cung cấp:
+Chức năng upload hiện được cung cấp trực tiếp qua UploadsController; dự án chưa định nghĩa interface Service riêng cho subsystem này.
+1031 [Normal] Trách nhiệm chính:
+1032 [Normal] Tiếp nhận file hình ảnh từ Client.
+1033 [Normal] Kiểm tra file được tải lên.
+1034 [Normal] Lưu file vào thư mục wwwroot.
+1035 [Normal] Tạo đường dẫn truy cập hình ảnh.
+1036 [Normal] Trả đường dẫn hình ảnh cho Client.
+1037 [Normal] Quan hệ:
+1038 [Normal] Cung cấp dữ liệu cho:
+1039 [Normal] Catalog Subsystem.
+1040 [Normal] User Management Subsystem.
+1041 [Normal] Hình ảnh được sử dụng cho:
+1042 [Normal] Ảnh sản phẩm.
+1043 [Normal] Ảnh biến thể sản phẩm.
+1044 [Normal] Ảnh đại diện người dùng.
+1045 [Normal] 
+1046 [Normal] 10. Data Access Layer
+1047 [Normal] Vai trò:
+Data Access Layer chịu trách nhiệm kết nối các subsystem với cơ sở dữ liệu SQL Server.
+1048 [Normal] Thành phần chính: AppDbContext
+1049 [Normal] Trách nhiệm chính:
+1050 [Normal] Truy vấn dữ liệu bằng Entity Framework Core.
+1051 [Normal] Theo dõi các Entity.
+1052 [Normal] Thêm dữ liệu mới.
+1053 [Normal] Cập nhật dữ liệu.
+1054 [Normal] Xóa hoặc ẩn dữ liệu.
+1055 [Normal] Lưu thay đổi thông qua SaveChangesAsync().
+1056 [Normal] Quản lý quan hệ giữa các bảng dữ liệu.
+1057 [Normal] Các Entity chính:
+1058 [Normal] User, Role, UserRole.
+1059 [Normal] Product, ProductVariant, ProductImage.
+1060 [Normal] Category, Brand, Color, Size.
+1061 [Normal] CartItem.
+1062 [Normal] Order, OrderItem, Payment.
+1063 [Normal] Coupon, CouponUsage.
+1064 [Normal] Review.
+1065 [Normal] Address.
+1066 [Normal] Data Access Layer không xử lý nghiệp vụ riêng mà cung cấp cơ chế truy cập dữ liệu cho các Service.
+1067 [Heading 3] 3.1.3 Xác định các gói (Identify packages)
+1068 [Normal] 
+1069 [Normal] 
+1070 [Normal] 
+1071 [Normal] 
+1072 [Normal] 
+1073 [Normal] 
+1074 [Normal] 
+1075 [Normal] 
+1076 [Normal] 
+1077 [Normal] 
+1078 [Heading 2] 3.2 Thiết kế trường hợp sử dụng (Use-case design)
+1079 [Heading 3] 3.2.1 Thiết kế các biểu đồ tuần tự (Design sequence diagrams)
+1080 [Normal] ❖ Biều đồ tuần tự chức năng Đăng nhập/ Đăng ký
+1081 [Normal] 
+1082 [Normal] 
+1083 [Heading 3] 3.2.2 Thiết kế biểu đồ lớp (Class diagrams)
+1084 [Normal] 
+1085 [Normal] 
+1086 [Normal] Mô tả biểu đồ Class Diagram
+1087 [Normal] ➢ Class User là lớp trung tâm đại diện cho tài khoản người dùng trong hệ thống. Lớp lưu các thông tin như mã người dùng, họ tên, email, mật khẩu đã mã hóa, số điện thoại, ảnh đại diện và trạng thái hoạt động. Một User có thể có nhiều Address, CartItem, Order, Review và UserRole. Lớp này không kế thừa từ lớp nào khác.
+1088 [Normal] ➢ Class Role lưu thông tin về vai trò của người dùng trong hệ thống, bao gồm mã vai trò, tên vai trò và mô tả. Các vai trò chính có thể là Customer và Admin. Một Role có thể được gán cho nhiều người dùng thông qua lớp trung gian UserRole.
+1089 [Normal] ➢ Class UserRole là lớp trung gian thể hiện mối quan hệ giữa User và Role. Lớp chứa UserId và RoleId, giúp một người dùng có thể được gán một hoặc nhiều vai trò trong hệ thống.
+1090 [Normal] ➢ Class Address đại diện cho địa chỉ giao hàng của người dùng. Lớp lưu mã địa chỉ, mã người dùng, tên người nhận, số điện thoại, địa chỉ giao hàng và trạng thái địa chỉ mặc định. Một User có thể có nhiều Address, nhưng mỗi Address chỉ thuộc về một User.
+1091 [Normal] ➢ Class Product là lớp trung tâm của chức năng quản lý sản phẩm. Lớp lưu mã sản phẩm, tên sản phẩm, slug, mô tả, chất liệu, giới tính, giá gốc, giá khuyến mãi, trạng thái nổi bật và trạng thái hoạt động. Một Product thuộc về một Category, có thể thuộc về một Brand, đồng thời có nhiều ProductVariant, ProductImage và Review.
+1092 [Normal] ➢ Class Category đại diện cho danh mục sản phẩm. Lớp lưu mã danh mục, tên danh mục, slug, mô tả và trạng thái hoạt động. Một Category có thể chứa nhiều Product, còn mỗi Product thuộc về một danh mục.
+1093 [Normal] ➢ Class Brand đại diện cho thương hiệu sản phẩm. Lớp lưu mã thương hiệu, tên thương hiệu, mô tả, logo và trạng thái hoạt động. Một thương hiệu có thể được liên kết với nhiều sản phẩm.
+1094 [Normal] ➢ Class ProductVariant đại diện cho các biến thể của sản phẩm theo màu sắc, kích thước hoặc SKU. Lớp lưu mã biến thể, mã sản phẩm, mã màu, mã kích thước, SKU, giá bán, giá khuyến mãi, số lượng tồn kho và trạng thái hoạt động. Một Product có thể có nhiều ProductVariant, trong khi mỗi biến thể thuộc về một sản phẩm.
+1095 [Normal] ➢ Class ProductImage lưu hình ảnh của sản phẩm, bao gồm mã hình ảnh, mã sản phẩm, đường dẫn hình ảnh, thứ tự hiển thị và trạng thái ảnh đại diện. Một Product có thể có nhiều hình ảnh và mỗi hình ảnh thuộc về một sản phẩm.
+1096 [Normal] ➢ Class Color đại diện cho màu sắc của sản phẩm. Lớp lưu mã màu, tên màu và mã màu dạng HEX. Một Color có thể được sử dụng cho nhiều ProductVariant.
+1097 [Normal] ➢ Class Size đại diện cho kích thước sản phẩm. Lớp lưu mã kích thước và tên kích thước. Một Size có thể được sử dụng cho nhiều ProductVariant.
+1098 [Normal] ➢ Class CartItem đại diện cho một sản phẩm hoặc biến thể sản phẩm trong giỏ hàng. Lớp lưu mã dòng giỏ hàng, mã người dùng, mã biến thể, số lượng và thời gian tạo hoặc cập nhật. Một User có thể có nhiều CartItem, mỗi dòng giỏ hàng liên kết với một ProductVariant.
+1099 [Normal] ➢ Class Order đại diện cho đơn hàng của người dùng. Lớp lưu mã đơn hàng, mã người dùng, mã đơn hàng, thông tin người nhận, địa chỉ giao hàng, tổng tiền, phí vận chuyển, số tiền giảm giá, trạng thái đơn hàng và trạng thái thanh toán. Một User có thể tạo nhiều Order, trong khi mỗi đơn hàng thuộc về một người dùng.
+1100 [Normal] ➢ Class OrderItem đại diện cho một sản phẩm thuộc đơn hàng. Lớp lưu mã dòng đơn hàng, mã đơn hàng, mã biến thể, tên sản phẩm, SKU, màu sắc, kích thước, đơn giá và số lượng. Một Order có thể có nhiều OrderItem, mỗi dòng đơn hàng liên kết với một ProductVariant.
+1101 [Normal] ➢ Class Payment đại diện cho thông tin thanh toán của đơn hàng. Lớp lưu mã thanh toán, mã đơn hàng, phương thức thanh toán, trạng thái thanh toán, số tiền và mã giao dịch. Mỗi Payment thuộc về một Order; một đơn hàng có thể phát sinh thông tin thanh toán tương ứng.
+1102 [Normal] ➢ Class Coupon đại diện cho mã giảm giá trong hệ thống. Lớp lưu mã coupon, mã sử dụng, tên, loại giảm giá, giá trị giảm, số tiền đơn hàng tối thiểu, thời gian hiệu lực, giới hạn sử dụng và trạng thái hoạt động. Một Coupon có thể được sử dụng trong nhiều đơn hàng và có nhiều lịch sử CouponUsage.
+1103 [Normal] ➢ Class Review đại diện cho đánh giá của người dùng đối với sản phẩm. Lớp lưu mã đánh giá, mã sản phẩm, mã người dùng, số sao, nội dung nhận xét, trạng thái duyệt và thời gian tạo. Một Product có thể có nhiều Review, đồng thời một User có thể tạo nhiều đánh giá.
+1104 [Normal] ➢ Class CouponUsage lưu lịch sử sử dụng mã giảm giá. Lớp liên kết mã coupon, người dùng và đơn hàng đã sử dụng mã. Lớp giúp hệ thống kiểm soát số lần sử dụng mã giảm giá theo từng người dùng hoặc toàn hệ thống.
+1105 [Normal] ➢ Class CouponCategory là lớp liên kết giữa Coupon và Category. Lớp xác định mã giảm giá nào được áp dụng cho danh mục sản phẩm nào.
+1106 [Normal] ➢ Class CouponProduct là lớp liên kết giữa Coupon và Product. Lớp xác định mã giảm giá nào được áp dụng trực tiếp cho sản phẩm nào.
+1107 [Normal] ➢ Class OrderStatusHistory lưu lại lịch sử thay đổi trạng thái của đơn hàng. Lớp chứa mã đơn hàng, trạng thái cũ hoặc mới, ghi chú, người thực hiện thay đổi và thời gian thay đổi.
+1108 [Normal] ➢ Class AppDbContext là lớp truy cập dữ liệu của hệ thống, được xây dựng trên Entity Framework Core. Lớp khai báo các tập dữ liệu như Users, Products, Orders, Payments, Coupons, Reviews và thực hiện truy vấn hoặc lưu thay đổi vào SQL Server thông qua phương thức SaveChangesAsync().
+1109 [Normal] 
+1110 [Normal] 
+1111 [Normal] Quan hệ tổng quát giữa các lớp
+1112 [Normal] Các quan hệ chính trong biểu đồ gồm:
+1113 [Normal] User – Order: một người dùng có nhiều đơn hàng.
+1114 [Normal] User – CartItem: một người dùng có nhiều sản phẩm trong giỏ hàng.
+1115 [Normal] User – Review: một người dùng có thể tạo nhiều đánh giá.
+1116 [Normal] User – Address: một người dùng có nhiều địa chỉ giao hàng.
+1117 [Normal] User – Role: quan hệ nhiều-nhiều thông qua UserRole.
+1118 [Normal] Category – Product: một danh mục có nhiều sản phẩm.
+1119 [Normal] Product – ProductVariant: một sản phẩm có nhiều biến thể.
+1120 [Normal] Product – ProductImage: một sản phẩm có nhiều hình ảnh.
+1121 [Normal] Product – Review: một sản phẩm có nhiều đánh giá.
+1122 [Normal] ProductVariant – CartItem: một biến thể có thể xuất hiện trong nhiều giỏ hàng.
+1123 [Normal] Order – OrderItem: một đơn hàng có nhiều dòng sản phẩm.
+1124 [Normal] Order – Payment: đơn hàng liên kết với thông tin thanh toán.
+1125 [Normal] Coupon – CouponUsage: một mã giảm giá có nhiều lần sử dụng.
+1126 [Heading 2] 3.3 Thiết kế cơ sở dữ liệu (Database design)
+1127 [Heading 3] 3.3.1 Lược đồ cơ sở dữ liệu
+1128 [Normal] 
+1129 [Normal] 
+1130 [Heading 3] 3.3.2 Chi tiết các bảng
+1131 [Normal] 1. Users – Thông tin người dùng
+1132 [Normal] 
+1133 [Normal] 
+1134 [Normal] 2. Roles – Thông tin vai trò
+1135 [Normal] 
+1136 [Normal] 
+1137 [Normal] 3. UserRoles – Liên kết người dùng và vai trò
+1138 [Normal] 
+1139 [Normal] 
+1140 [Normal] Bảng UserRoles dùng để biểu diễn quan hệ nhiều-nhiều giữa người dùng và vai trò. Khóa chính của bảng gồm hai field UserId và RoleId.
+1141 [Normal] 
+1142 [Normal] 4. Categories – Danh mục sản phẩm
+1143 [Normal] 
+1144 [Normal] 
+1145 [Normal] Bảng hỗ trợ danh mục cha và danh mục con thông qua field ParentCategoryId.
+1146 [Normal] 
+1147 [Normal] 5. Brands – Thương hiệu sản phẩm
+1148 [Normal] 
+1149 [Normal] 
+1150 [Normal] 6. Colors – Màu sắc sản phẩm
+1151 [Normal] 
+1152 [Normal] 
+1153 [Normal] 7. Sizes – Kích thước sản phẩm
+1154 [Normal] 
+1155 [Normal] 
+1156 [Normal] 8. Products – Sản phẩm
+1157 [Normal] 
+1158 [Normal] Mỗi sản phẩm thuộc một danh mục, có thể thuộc một thương hiệu và có nhiều biến thể, hình ảnh hoặc đánh giá.
+1159 [Normal] 
+1160 [Normal] 9. ProductVariants – Biến thể sản phẩm
+1161 [Normal] 
+1162 [Normal] 
+1163 [Normal] Một sản phẩm có thể có nhiều biến thể khác nhau theo màu sắc và kích thước. Tổ hợp ProductId, ColorId, SizeId không được trùng.
+1164 [Normal] 
+1165 [Normal] 10. ProductImages – Hình ảnh sản phẩm
+1166 [Normal] 
+1167 [Normal] Một sản phẩm có thể có nhiều hình ảnh. Mỗi hình ảnh chỉ thuộc về một sản phẩm. 
+1168 [Normal] 
+1169 [Normal] 11. Addresses – Địa chỉ giao hàng
+1170 [Normal] 
+1171 [Normal] Một người dùng có thể có nhiều địa chỉ, nhưng tối đa một địa chỉ mặc định.
+1172 [Normal] 
+1173 [Normal] 12. CartItems – Sản phẩm trong giỏ hàng
+1174 [Normal] 
+1175 [Normal] 
+1176 [Normal] Tổ hợp UserId và VariantId là duy nhất, bảo đảm một người dùng không có nhiều dòng cho cùng một biến thể.
+1177 [Normal] 
+1178 [Normal] 13. Coupons – Mã giảm giá
+1179 [Normal] 
+1180 [Normal] 14. CouponCategories – Liên kết coupon và danh mục
+1181 [Normal] 
+1182 [Normal] 
+1183 [Normal] Bảng xác định các danh mục được áp dụng mã giảm giá.
+1184 [Normal] 
+1185 [Normal] 15. CouponProducts – Liên kết coupon và sản phẩm
+1186 [Normal] 
+1187 [Normal] 
+1188 [Normal] Bảng xác định các sản phẩm được áp dụng mã giảm giá.
+1189 [Normal] 
+1190 [Normal] 16. Orders – Đơn hàng
+1191 [Normal] 
+1192 [Normal] 
+1193 [Normal] 17. OrderItems – Chi tiết đơn hàng
+1194 [Normal] 
+1195 [Normal] 
+1196 [Normal] Các thông tin như tên sản phẩm, SKU, màu và kích thước được lưu dạng snapshot để bảo toàn dữ liệu lịch sử khi thông tin sản phẩm thay đổi.
+1197 [Normal] 
+1198 [Normal] 18. Payments – Thanh toán
+1199 [Normal] 
+1200 [Normal] 
+1201 [Normal] 19. OrderStatusHistories – Lịch sử trạng thái đơn hàng
+1202 [Normal] 
+1203 [Normal] 
+1204 [Normal] Bảng giúp lưu lại quá trình thay đổi trạng thái của một đơn hàng.
+1205 [Normal] 
+1206 [Normal] 20. CouponUsages – Lịch sử sử dụng mã giảm giá
+1207 [Normal] 
+1208 [Normal] Mỗi đơn hàng chỉ được sử dụng tối đa một coupon, được bảo đảm bằng chỉ mục duy nhất trên OrderId.
+1209 [Normal] 
+1210 [Normal] 21. Reviews – Đánh giá sản phẩm
+1211 [Normal] 
+1212 [Normal] 
+1213 [Normal] Quy ước kiểu dữ liệu
+1214 [Normal] Các kiểu dữ liệu trong Database được ánh xạ từ kiểu dữ liệu C# như sau:
+1215 [Normal] 
+1216 [Normal] 
+1217 [Heading 1] 4. CÀI ĐẶT (IMPLEMENTATION)
+1218 [Heading 2] 4.1 Lựa chọn công nghệ
+1219 [Normal] 
+1220 [Normal]  
+1221 [Normal] Hình Sơ đồ triển khai hệ thống
+1222 [Normal] 
+1223 [Normal] Mô tả sơ đồ
+1224 [Normal] Người dùng truy cập hệ thống thông qua Client Web hoặc các công cụ gọi API như Swagger UI. Khi người dùng thực hiện các thao tác như đăng nhập, xem sản phẩm, thêm sản phẩm vào giỏ hàng, đặt hàng hoặc quản lý dữ liệu, Client gửi request HTTP đến ClothingAPI Server.
+1225 [Normal] 
+1226 [Normal] ClothingAPI Server được xây dựng bằng ASP.NET Core Web API. Server tiếp nhận request thông qua các Controller, kiểm tra xác thực và phân quyền, sau đó chuyển yêu cầu đến các Service tương ứng. Các Service xử lý logic nghiệp vụ như quản lý sản phẩm, giỏ hàng, đơn hàng, tài khoản, mã giảm giá và đánh giá.
+1227 [Normal] Sau khi xử lý nghiệp vụ, ứng dụng sử dụng Entity Framework Core để truy vấn hoặc cập nhật dữ liệu trong SQL Server. Kết quả được trả về Server, sau đó Controller đóng gói thành response JSON và gửi lại cho Client.
+1228 [Normal] 
+1229 [Normal] Kiến trúc này giúp tách biệt rõ:
+1230 [Normal] Giao diện và nơi gửi request.
+1231 [Normal] Xử lý nghiệp vụ của hệ thống.
+1232 [Normal] Lưu trữ dữ liệu.
+1233 [Normal] Cơ chế xác thực và phân quyền.
+1234 [Normal] 
+1235 [Normal] Giới thiệu các công nghệ sử dụng
+1236 [Normal] Hệ thống Clothing Store API sử dụng các công nghệ Web hiện đại nhằm bảo đảm khả năng mở rộng, bảo mật và dễ bảo trì.
+1237 [Normal] Công nghệ xây dựng Web API: ASP.NET Core
+1238 [Normal] ASP.NET Core được sử dụng để xây dựng phần Backend của hệ thống. Đây là nền tảng phát triển Web của Microsoft, hỗ trợ xây dựng các ứng dụng Web API có hiệu năng cao và khả năng mở rộng tốt.
+1239 [Normal] Trong dự án, ASP.NET Core đảm nhiệm:
+1240 [Normal] Tiếp nhận và xử lý HTTP request.
+1241 [Normal] Định tuyến request đến Controller.
+1242 [Normal] Cấu hình Dependency Injection.
+1243 [Normal] Xử lý Middleware.
+1244 [Normal] Xác thực và phân quyền người dùng.
+1245 [Normal] Trả response dưới dạng JSON.
+1246 [Normal] Cung cấp các endpoint cho Client.
+1247 [Normal] 
+1248 [Normal] Ngôn ngữ lập trình: C#
+1249 [Normal] C# được sử dụng để phát triển toàn bộ mã nguồn Backend. C# hỗ trợ lập trình hướng đối tượng, kiểu dữ liệu an toàn, bất đồng bộ và tích hợp tốt với ASP.NET Core.
+1250 [Normal] Trong dự án, C# được sử dụng để xây dựng:
+1251 [Normal] Controller.
+1252 [Normal] Service.
+1253 [Normal] Entity Model.
+1254 [Normal] DTO.
+1255 [Normal] Middleware.
+1256 [Normal] Helper.
+1257 [Normal] Exception.
+1258 [Normal] Enum.
+1259 [Normal] Cấu hình Database.
+1260 [Normal] 
+1261 [Normal] Cơ sở dữ liệu: Microsoft SQL Server
+1262 [Normal] Microsoft SQL Server được sử dụng để lưu trữ dữ liệu của hệ thống. Trong môi trường phát triển, Database được cấu hình với tên: ClothingStoreDb
+1263 [Normal] 
+1264 [Normal] Chuỗi kết nối được khai báo trong appsettings.json:
+1265 [Normal] 
+1266 [Normal] 
+1267 [Normal] 
+1268 [Normal] Entity Framework Core
+1269 [Normal] Entity Framework Core được sử dụng làm công cụ Object-Relational Mapping giữa các lớp C# và các bảng trong SQL Server.
+1270 [Normal] 
+1271 [Normal] 
+1272 [Normal] 
+1273 [Heading 2] 4.2. Cấu trúc mã nguồn
+1274 [Normal] 
+1275 [Normal] Server
+1276 [Normal] \
+1277 [Normal] 
+1278 [Normal] 
+1279 [Normal] 
+1280 [Normal] 
+1281 [Normal] 
+1282 [Normal] 
+1283 [Normal] 
+1284 [Normal] Client Web
+1285 [Normal] 
+1286 [Normal] 
+1287 [Normal] 
+1288 [Normal] 
+1289 [Normal] 
+1290 [Heading 1] 5. KẾT LUẬN
+1291 [Heading 2] 5.1. Những việc đã làm được và kết quả đạt được
+1292 [Normal] Website bán quần áo trực tuyến đã được xây dựng và hoàn thiện các nhóm chức năng chính phục vụ cho khách hàng và quản trị viên như sau:
+1293 [Normal] Quản lý tài khoản và xác thực: cho phép người dùng đăng ký tài khoản, đăng nhập, đăng xuất và xác thực thông tin bằng tài khoản cá nhân. Hệ thống hỗ trợ phân quyền giữa khách hàng và quản trị viên.
+1294 [Normal] Quản lý thông tin cá nhân: cho phép người dùng cập nhật họ tên, số điện thoại, ảnh đại diện và thay đổi mật khẩu tài khoản.
+1295 [Normal] Quản lý địa chỉ giao hàng: cho phép khách hàng thêm, chỉnh sửa, xóa và thiết lập địa chỉ giao hàng mặc định. Thông tin địa chỉ bao gồm người nhận, số điện thoại, địa chỉ chi tiết, phường/xã, quận/huyện và tỉnh/thành phố.
+1296 [Normal] Hiển thị sản phẩm: cho phép khách hàng xem danh sách các sản phẩm thời trang cùng những thông tin cơ bản như tên sản phẩm, thương hiệu, danh mục, giá gốc, giá khuyến mãi và hình ảnh sản phẩm.
+1297 [Normal] Tìm kiếm và lọc sản phẩm: hỗ trợ tìm kiếm sản phẩm theo từ khóa, danh mục, thương hiệu, giới tính và khoảng giá. Người dùng có thể sắp xếp sản phẩm theo mới nhất, giá tăng dần, giá giảm dần hoặc sản phẩm bán chạy.
+1298 [Normal] Xem chi tiết sản phẩm: hiển thị thông tin chi tiết của sản phẩm như hình ảnh, mô tả, thương hiệu, danh mục, màu sắc, kích thước, giá bán và số lượng tồn kho.
+1299 [Normal] Quản lý danh mục và thương hiệu: hỗ trợ phân loại sản phẩm theo danh mục và thương hiệu, giúp khách hàng thuận tiện trong việc tìm kiếm và lựa chọn sản phẩm.
+1300 [Normal] Quản lý giỏ hàng: cho phép khách hàng thêm sản phẩm vào giỏ hàng, lựa chọn màu sắc và kích thước, cập nhật số lượng, xóa sản phẩm và theo dõi tổng tiền tạm tính.
+1301 [Normal] Đặt hàng: cho phép khách hàng lựa chọn địa chỉ giao hàng, kiểm tra lại danh sách sản phẩm, áp dụng mã giảm giá, nhập ghi chú và xác nhận đặt hàng.
+1302 [Normal] Thanh toán: hỗ trợ các phương thức thanh toán được tích hợp trong hệ thống, bao gồm thanh toán khi nhận hàng và thanh toán qua mã QR mô phỏng.
+1303 [Normal] Quản lý mã giảm giá: cho phép khách hàng xem và áp dụng các mã giảm giá phù hợp với điều kiện đơn hàng. Hệ thống kiểm tra thời hạn sử dụng, giá trị đơn hàng tối thiểu, giới hạn sử dụng và số tiền được giảm.
+1304 [Normal] Quản lý đơn hàng: cho phép khách hàng xem danh sách đơn hàng, theo dõi trạng thái đơn hàng, xem thông tin chi tiết, thông tin thanh toán và lịch sử thay đổi trạng thái đơn hàng.
+1305 [Normal] Hủy đơn hàng: cho phép khách hàng hủy đơn hàng trong trường hợp phù hợp và cung cấp lý do hủy đơn.
+1306 [Normal] Đánh giá sản phẩm: hỗ trợ khách hàng gửi đánh giá và nhận xét về sản phẩm sau khi mua hàng, góp phần cung cấp thêm thông tin tham khảo cho những khách hàng khác.
+1307 [Normal] Quản trị sản phẩm: cho phép quản trị viên thêm, cập nhật và quản lý thông tin sản phẩm, bao gồm tên sản phẩm, giá bán, hình ảnh, danh mục, thương hiệu, màu sắc, kích thước và số lượng tồn kho.
+1308 [Normal] Quản trị đơn hàng: cho phép quản trị viên xem danh sách đơn hàng, xem thông tin khách hàng, cập nhật trạng thái đơn hàng và trạng thái thanh toán.
+1309 [Normal] Quản trị mã giảm giá: cho phép quản trị viên tạo, chỉnh sửa, kích hoạt hoặc vô hiệu hóa mã giảm giá; đồng thời thiết lập thời gian áp dụng, giá trị giảm, số tiền tối thiểu và giới hạn sử dụng.
+1310 [Normal] Quản lý người dùng: hỗ trợ quản trị viên theo dõi thông tin người dùng, trạng thái hoạt động và vai trò của từng tài khoản trong hệ thống.
+1311 [Normal] Dashboard quản trị: cung cấp các thông tin tổng quan phục vụ công tác quản lý như tình hình đơn hàng, doanh thu, sản phẩm và hoạt động kinh doanh.
+1312 [Normal] Phân quyền và bảo mật: hệ thống sử dụng cơ chế bảo vệ route để giới hạn quyền truy cập. Các chức năng quản trị chỉ được phép truy cập bởi tài khoản có quyền quản trị viên, trong khi các chức năng yêu cầu đăng nhập được bảo vệ đối với người dùng chưa xác thực.
+1313 [Heading 2] 5.2. Những điều chưa làm được
+1314 [Normal] Thanh toán trực tuyến thực tế: hệ thống hiện mới hỗ trợ thanh toán khi nhận hàng và thanh toán qua mã QR mô phỏng. Chưa tích hợp với các cổng thanh toán thực tế như VNPay, MoMo, ZaloPay hoặc các ngân hàng điện tử.
+1315 [Normal]    Quản lý tồn kho nâng cao: hệ thống chưa xử lý đầy đủ các trường hợp nhiều người dùng cùng mua một sản phẩm trong thời gian ngắn. Việc đồng bộ số lượng tồn kho theo thời gian thực và tránh bán vượt số lượng cần được cải thiện thêm.
+1316 [Normal] So sánh sản phẩm: hệ thống chưa hỗ trợ so sánh nhiều sản phẩm dựa trên giá bán, thương hiệu, kích thước, màu sắc và các thuộc tính khác.
+1317 [Normal] Tìm kiếm nâng cao: chức năng tìm kiếm hiện chưa hỗ trợ gợi ý từ khóa, tìm kiếm gần đúng hoặc tự động đề xuất sản phẩm khi người dùng nhập nội dung tìm kiếm.
+1318 [Normal] Báo cáo thống kê chuyên sâu: khu vực quản trị mới cung cấp các thông tin tổng quan. Chưa xây dựng đầy đủ các báo cáo về doanh thu theo thời gian, sản phẩm bán chạy, tỷ lệ hủy đơn, hiệu quả mã giảm giá và hành vi mua hàng của khách hàng.
+1319 [Normal] Bảo mật nâng cao: hệ thống chưa triển khai đầy đủ các cơ chế như xác thực hai lớp, giới hạn số lần đăng nhập sai, khóa tài khoản tạm thời và cảnh báo hoạt động đăng nhập bất thường.
+1320 [Normal] 
+1321 [Normal] 
+1322 [Normal] 
+1323 [Normal] 
+1324 [Normal] 
+1325 [Normal] 
+1326 [Normal] 
+1327 [Normal] 
+1328 [Normal] 
+1329 [Normal] 
+1330 [Normal] 
+1331 [Normal] 
+1332 [Normal] 
+1333 [Normal] 
+1334 [Normal] 
+1335 [Normal] 
+1336 [Normal] 
+1337 [Normal] 
+1338 [Normal] 
+1339 [Normal] 
+1340 [Normal] 
+1341 [Normal] 
+1342 [Normal] 
+1343 [Normal] 
+1344 [Normal] 
+1345 [Normal] 
+1346 [Normal] 

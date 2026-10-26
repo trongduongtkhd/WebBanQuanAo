@@ -5,6 +5,7 @@ import { ApiResponse } from '../../../../../core/models/api-response.model';
 import { OrderDetail } from '../../../../../core/models/order.model';
 import { AdminOrderService } from '../../../services/admin-order.service';
 import { getApiErrorMessage } from '../../../../../core/utils/api-error.util';
+import { VnpayService, VnpayStatus } from '../../../../../core/services/vnpay.service';
 
 @Component({
   selector: 'app-admin-order-detail',
@@ -13,6 +14,8 @@ import { getApiErrorMessage } from '../../../../../core/utils/api-error.util';
 })
 export class AdminOrderDetailComponent implements OnInit {
   order: OrderDetail | null = null;
+  vnpayStatus: VnpayStatus | null = null;
+  checkingVnpay = false;
 
   loading = true;
   updatingOrderStatus = false;
@@ -26,6 +29,7 @@ export class AdminOrderDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private adminOrderService: AdminOrderService,
+    private vnpay: VnpayService,
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +51,12 @@ export class AdminOrderDetailComponent implements OnInit {
       next: (response) => {
         this.order = response.data;
         this.loading = false;
+        if (this.isVnpay) {
+          this.vnpay.status(orderId, true).subscribe({
+            next: result => this.vnpayStatus = result.data,
+            error: () => this.vnpayStatus = null,
+          });
+        }
       },
       error: (error) => {
         this.loading = false;
@@ -57,6 +67,7 @@ export class AdminOrderDetailComponent implements OnInit {
   }
 
   get nextOrderStatus(): number | null {
+    if (this.isVnpay && this.normalizePaymentStatus(this.order?.paymentStatus) !== 2) { return null; }
     const current = this.normalizeOrderStatus(this.order?.orderStatus);
 
     const nextMap: { [key: number]: number } = {
@@ -80,6 +91,26 @@ export class AdminOrderDetailComponent implements OnInit {
     );
   }
 
+  get isVnpay(): boolean {
+    return !!this.order?.payments.some(payment => this.normalizePaymentMethod(payment.paymentMethod) === 3);
+  }
+
+  checkVnpay(): void {
+    if (!this.order || this.checkingVnpay) { return; }
+    this.checkingVnpay = true;
+    this.vnpay.reconcile(this.order.orderId, true).subscribe({
+      next: response => {
+        this.checkingVnpay = false;
+        this.successMessage = response.data.message;
+        this.loadOrder(response.data.orderId);
+      },
+      error: error => {
+        this.checkingVnpay = false;
+        this.errorMessage = error?.error?.message || 'Không thể kiểm tra giao dịch.';
+      },
+    });
+  }
+
   get isUnpaid(): boolean {
     return this.normalizePaymentStatus(this.order?.paymentStatus) === 1;
   }
@@ -91,6 +122,7 @@ export class AdminOrderDetailComponent implements OnInit {
 
   // Chỉ còn bước Chưa thanh toán -> Đã thanh toán. Hoàn tiền đi qua duyệt yêu cầu trả hàng hoặc hủy đơn.
   get nextPaymentStatus(): number | null {
+    if (this.isVnpay) { return null; }
     const current = this.normalizePaymentStatus(this.order?.paymentStatus);
     const orderStatus = this.normalizeOrderStatus(this.order?.orderStatus);
 
@@ -223,6 +255,7 @@ export class AdminOrderDetailComponent implements OnInit {
 
   // Chỉ đơn Chờ xử lý / Đã xác nhận mới hủy được (khớp IsValidStatusTransition ở backend).
   get canCancelOrder(): boolean {
+    if (this.isVnpay && !this.vnpayStatus?.canCancel) { return false; }
     const current = this.normalizeOrderStatus(this.order?.orderStatus);
 
     return current === 1 || current === 2;
@@ -402,6 +435,8 @@ export class AdminOrderDetailComponent implements OnInit {
 
   getPaymentMethodText(method: number | string): string {
     const map: { [key: string]: string } = {
+      '3': 'VNPAY Sandbox',
+      VnPay: 'VNPAY Sandbox',
       '1': 'COD',
       '2': 'QR mô phỏng',
       COD: 'COD',
@@ -427,6 +462,7 @@ export class AdminOrderDetailComponent implements OnInit {
 
   private normalizePaymentMethod(method: number | string | undefined): number {
     const map: { [key: string]: number } = {
+      VnPay: 3,
       COD: 1,
       MockQR: 2,
       MockQr: 2,

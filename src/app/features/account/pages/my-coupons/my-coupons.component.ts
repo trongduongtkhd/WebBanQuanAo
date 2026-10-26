@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AvailableCoupon } from '../../../../core/models/coupon.model';
 import { CustomerCouponService } from '../../../../core/services/customer-coupon.service';
+import { formatCouponDiscount } from '../../../../core/utils/coupon-discount.util';
 
 @Component({
   selector: 'app-my-coupons',
@@ -42,11 +43,7 @@ export class MyCouponsComponent implements OnInit {
   }
 
   getDiscountText(coupon: AvailableCoupon): string {
-    if (coupon.discountType === 1 || coupon.discountType === 'Percentage') {
-      return `Giảm ${coupon.discountValue}%`;
-    }
-
-    return `Giảm ${coupon.discountValue.toLocaleString('vi-VN')} ₫`;
+    return `Giảm ${formatCouponDiscount(coupon.discountValue, coupon.discountType)}`;
   }
 
   copyCode(code: string): void {

@@ -1,0 +1,30 @@
+<main class="vnpay-result">
+  <div class="result-symbol" [class.success]="paid">
+    <i class="bi" [class.bi-check-circle]="paid" [class.bi-credit-card]="!paid"></i>
+  </div>
+  <p class="eyebrow">VNPAY SANDBOX</p>
+  <h1>{{ heading }}</h1>
+  <p *ngIf="!status && !error">Đang kiểm tra giao dịch của bạn…</p>
+  <p *ngIf="status" class="message" aria-live="polite">{{ status.message }}</p>
+  <div *ngIf="error" class="alert alert-danger" role="alert">{{ error }}</div>
+
+  <section *ngIf="status" class="summary">
+    <div><span>Đơn hàng</span><strong>{{ status.orderCode }}</strong></div>
+    <div><span>Số tiền</span><strong>{{ status.amount | number:'1.0-0' }} ₫</strong></div>
+    <div *ngIf="status.transactionCode"><span>Mã giao dịch</span><strong>{{ status.transactionCode }}</strong></div>
+    <div *ngIf="status.paidAt"><span>Thanh toán lúc</span><strong>{{ status.paidAt | date:'dd/MM/yyyy HH:mm' }}</strong></div>
+  </section>
+
+  <div class="actions">
+    <button *ngIf="orderId && !paid" class="btn btn-outline-dark" [disabled]="checking || paying" (click)="check()">
+      {{ checking ? 'Đang kiểm tra…' : 'Kiểm tra kết quả' }}
+    </button>
+    <button *ngIf="status?.canPay" class="btn btn-dark" [disabled]="paying || checking" (click)="pay()">
+      {{ paying ? 'Đang chuyển đến VNPAY…' : 'Tiếp tục thanh toán' }}
+    </button>
+    <a *ngIf="status" class="btn btn-outline-dark" [routerLink]="['/account/orders', orderId]">Xem đơn hàng</a>
+    <a *ngIf="!status" class="btn btn-outline-dark" routerLink="/account/orders">Đơn hàng của tôi</a>
+    <a class="btn btn-dark continue-shopping" routerLink="/products">Tiếp tục mua sắm</a>
+  </div>
+  <small>Đây là môi trường thử nghiệm, không phát sinh thanh toán tiền thật.</small>
+</main>

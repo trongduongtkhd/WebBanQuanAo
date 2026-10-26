@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Address,
   UpsertAddressRequest,
 } from '../../../../core/models/address.model';
 import { AddressService } from '../../../../core/services/address.service';
 import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
+import { CheckoutDraft, getCheckoutReturnUrl, takeCheckoutDraft } from '../../../../core/utils/checkout-navigation.util';
 
 // Giới hạn độ dài khớp [StringLength] ở UpsertAddressDto (backend).
 const ADDRESS_FIELDS = {
@@ -37,6 +39,9 @@ export class AddressesComponent implements OnInit {
 
   errorMessage = '';
   successMessage = '';
+  checkoutReturnUrl: string | null = null;
+  private checkoutDraft: CheckoutDraft | null = null;
+  private openCreateOnLoad = false;
 
   addressForm = this.fb.group({
     receiverName: [
@@ -65,9 +70,15 @@ export class AddressesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private addressService: AddressService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+    this.checkoutReturnUrl = getCheckoutReturnUrl(this.route.snapshot.queryParamMap.get('returnUrl'));
+    const state = this.router.getCurrentNavigation()?.extras.state || window.history.state;
+    this.checkoutDraft = takeCheckoutDraft(state?.checkoutDraft);
+    this.openCreateOnLoad = !!this.checkoutReturnUrl && this.route.snapshot.queryParamMap.get('create') === '1';
     this.loadAddresses();
   }
 
@@ -79,6 +90,10 @@ export class AddressesComponent implements OnInit {
       next: (response) => {
         this.addresses = response.data || [];
         this.loading = false;
+        if (this.openCreateOnLoad) {
+          this.openCreateOnLoad = false;
+          this.openCreateForm();
+        }
       },
       error: (error) => {
         this.loading = false;
@@ -136,6 +151,7 @@ export class AddressesComponent implements OnInit {
   }
 
   saveAddress(): void {
+    if (this.saving) return;
     this.errorMessage = '';
     this.successMessage = '';
 
@@ -170,6 +186,10 @@ export class AddressesComponent implements OnInit {
         this.showForm = false;
 
         this.successMessage = response.message;
+        if (this.checkoutReturnUrl) {
+          this.returnToCheckout(response.data.addressId);
+          return;
+        }
         this.loadAddresses();
       },
       error: (error) => {
@@ -177,6 +197,13 @@ export class AddressesComponent implements OnInit {
         this.errorMessage = getApiErrorMessage(error, 'Không thể lưu địa chỉ.');
       },
     });
+  }
+
+  returnToCheckout(addressId?: number): void {
+    if (!this.checkoutReturnUrl || this.saving) return;
+    const url = this.router.parseUrl(this.checkoutReturnUrl);
+    if (addressId) url.queryParams = { ...url.queryParams, addressId };
+    this.router.navigateByUrl(url, { state: { checkoutDraft: this.checkoutDraft } });
   }
 
   setDefault(address: Address): void {

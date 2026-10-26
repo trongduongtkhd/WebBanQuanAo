@@ -14,6 +14,7 @@ import {
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
+  readonly maxCartQuantity = MAX_CART_QUANTITY;
   cart: Cart | null = null;
 
   loading = true;
@@ -50,23 +51,26 @@ export class CartComponent implements OnInit {
   }
 
   decreaseQuantity(item: CartItem): void {
-    if (item.quantity > 1) {
-      this.updateQuantity(item, item.quantity - 1);
+    if (item.isForSale && item.stockQuantity > 0 && item.quantity > 1) {
+      this.updateQuantity(
+        item,
+        Math.min(item.quantity - 1, item.stockQuantity, MAX_CART_QUANTITY),
+      );
     }
   }
 
   increaseQuantity(item: CartItem): void {
-    if (item.quantity < item.stockQuantity) {
+    if (item.isForSale && item.quantity < Math.min(item.stockQuantity, MAX_CART_QUANTITY)) {
       this.updateQuantity(item, item.quantity + 1);
     }
   }
 
   updateQuantity(item: CartItem, quantity: number): void {
-    if (quantity < 1 || quantity > item.stockQuantity) {
+    if (!item.isForSale || this.updatingItemId !== null || quantity > item.stockQuantity) {
       return;
     }
 
-    if (quantity > MAX_CART_QUANTITY) {
+    if (!Number.isInteger(quantity) || quantity < 1 || quantity > MAX_CART_QUANTITY) {
       this.errorMessage = CART_QUANTITY_RANGE_MESSAGE;
       return;
     }
@@ -80,11 +84,24 @@ export class CartComponent implements OnInit {
         this.updatingItemId = null;
       },
       error: (error) => {
-        this.updatingItemId = null;
         this.errorMessage = getApiErrorMessage(
           error,
           'Không thể cập nhật số lượng.',
         );
+        // Stock or sale status may have changed since the cart was loaded.
+        if (error?.status === 400) {
+          this.cartService.getCart().subscribe({
+            next: (response) => {
+              this.cart = response.data;
+              this.updatingItemId = null;
+            },
+            error: () => {
+              this.updatingItemId = null;
+            },
+          });
+        } else {
+          this.updatingItemId = null;
+        }
       },
     });
   }

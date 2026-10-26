@@ -18,6 +18,7 @@ import { AdminProductService } from '../../../services/admin-product.service';
 import { AdminCouponService } from '../../../services/admin-coupon.service';
 import { getApiErrorMessage } from '../../../../../core/utils/api-error.util';
 import { notBlank } from '../../../../../core/utils/validators.util';
+import { normalizeCouponDiscountType } from '../../../../../core/utils/coupon-discount.util';
 
 // Giới hạn độ dài khớp [StringLength] ở UpsertCouponDto (backend).
 const COUPON_FIELDS = {
@@ -124,6 +125,12 @@ export class CouponFormComponent implements OnInit {
   }
 
   fillForm(coupon: Coupon): void {
+    const discountType = normalizeCouponDiscountType(coupon.discountType);
+    if (discountType === null) {
+      this.couponForm.get('discountType')?.setValue(null);
+      this.errorMessage = 'Kiểu giảm giá không hợp lệ. Vui lòng tải lại dữ liệu.';
+      return;
+    }
     this.selectedCategoryIds = coupon.categoryIds || [];
     this.selectedProductIds = coupon.productIds || [];
 
@@ -132,7 +139,7 @@ export class CouponFormComponent implements OnInit {
       name: coupon.name,
       description: coupon.description || '',
 
-      discountType: coupon.discountType,
+      discountType,
       discountValue: coupon.discountValue,
       maxDiscountAmount: coupon.maxDiscountAmount,
       minOrderAmount: coupon.minOrderAmount,
@@ -147,7 +154,7 @@ export class CouponFormComponent implements OnInit {
   }
 
   get isPercentage(): boolean {
-    return Number(this.couponForm.get('discountType')?.value) === 1;
+    return normalizeCouponDiscountType(this.couponForm.get('discountType')?.value) === 1;
   }
 
   toggleCategory(categoryId: number): void {
@@ -178,6 +185,11 @@ export class CouponFormComponent implements OnInit {
     }
 
     const formValue = this.couponForm.value;
+    const discountType = normalizeCouponDiscountType(formValue.discountType);
+    if (discountType === null) {
+      this.errorMessage = 'Vui lòng chọn kiểu giảm giá hợp lệ.';
+      return;
+    }
 
     if (new Date(formValue.endDate!) <= new Date(formValue.startDate!)) {
       this.errorMessage = 'Ngày kết thúc phải sau ngày bắt đầu.';
@@ -189,7 +201,7 @@ export class CouponFormComponent implements OnInit {
       name: formValue.name!.trim(),
       description: formValue.description?.trim() || null,
 
-      discountType: Number(formValue.discountType),
+      discountType,
       discountValue: Number(formValue.discountValue),
       maxDiscountAmount: formValue.maxDiscountAmount
         ? Number(formValue.maxDiscountAmount)

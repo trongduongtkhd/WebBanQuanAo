@@ -18,6 +18,8 @@ import { ForbiddenComponent } from './features/forbidden/forbidden.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './core/services/auth.service';
+import { preserveCheckoutDraftFactory } from './core/utils/checkout-navigation.util';
+import { ShoppingChatComponent } from './layouts/storefront-layout/components/shopping-chat/shopping-chat.component';
 
 // Access token chỉ nằm trong bộ nhớ nên F5 sẽ mất: gọi /auth/refresh (cookie HttpOnly) để khôi phục phiên.
 // Angular chờ Promise này xong mới bootstrap, nên router và các guard chạy SAU khi đã có access token.
@@ -37,9 +39,11 @@ export function restoreSessionFactory(authService: AuthService): () => Promise<v
     AdminHeaderComponent,
     ForbiddenComponent,
     NotFoundComponent,
+    ShoppingChatComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, SharedModule],
   providers: [
+    { provide: APP_INITIALIZER, useFactory: preserveCheckoutDraftFactory, multi: true },
     {
       provide: APP_INITIALIZER,
       useFactory: restoreSessionFactory,

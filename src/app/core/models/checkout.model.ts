@@ -30,7 +30,7 @@ export interface CreateOrderRequest {
   addressId: number;
 
   // PaymentMethod enum backend:
-  // COD = 1, MockQR = 2
+  // COD = 1, MockQR = 2, VnPay = 3
   paymentMethod: number;
 
   couponCode?: string | null;

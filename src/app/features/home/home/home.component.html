@@ -29,7 +29,9 @@
             class="category-card"
           >
             <img
-              [src]="(category.imageUrl | imageUrl) || 'assets/images/placeholders/ao.jpg'"
+              [src]="((category.imageUrl || 'assets/images/placeholders/ao.jpg') | imageUrl:640)"
+              loading="lazy"
+              decoding="async"
               [alt]="category.categoryName"
             />
 

@@ -13,7 +13,9 @@ import { CartService } from '../../../../core/services/cart.service';
 import { CatalogService } from '../../../../core/services/catalog.service';
 import { CheckoutService } from '../../../../core/services/checkout.service';
 import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { VnpayService } from '../../../../core/services/vnpay.service';
+import { CheckoutDraft, takeCheckoutDraft } from '../../../../core/utils/checkout-navigation.util';
 
 // Khớp ShippingHelper ở backend.
 const STANDARD_SHIPPING_FEE = 30000;
@@ -37,8 +39,11 @@ export class CheckoutComponent implements OnInit {
   couponCode = '';
   appliedCoupon: CouponValidation | null = null;
 
-  // COD = 1, MockQR = 2
+  // COD = 1, MockQR = 2, VnPay = 3
   selectedPaymentMethod = 1;
+  createdPaymentMethod: number | null = null;
+  vnpayEnabled = false;
+  redirectingToVnpay = false;
 
   note = '';
 
@@ -60,12 +65,30 @@ export class CheckoutComponent implements OnInit {
     private catalogService: CatalogService,
     private checkoutService: CheckoutService,
     private route: ActivatedRoute,
+    private vnpay: VnpayService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+    const navigationState = this.router.getCurrentNavigation()?.extras.state || window.history.state;
+    const draft = takeCheckoutDraft(navigationState?.checkoutDraft);
+    if (draft) {
+      this.note = draft.note;
+      this.selectedPaymentMethod = draft.paymentMethod;
+    }
+    this.vnpay.configuration().subscribe({
+      next: config => {
+        this.vnpayEnabled = config.enabled;
+        if (!config.enabled && this.selectedPaymentMethod === 3) this.selectedPaymentMethod = 1;
+      },
+      error: () => {
+        this.vnpayEnabled = false;
+        if (this.selectedPaymentMethod === 3) this.selectedPaymentMethod = 1;
+      },
+    });
     const params = this.route.snapshot.queryParamMap;
 
-    this.couponCode = params.get('coupon') || '';
+    this.couponCode = draft?.couponCode ?? params.get('coupon') ?? '';
 
     const variantId = Number(params.get('buyNow'));
     const quantity = Number(params.get('qty')) || 1;
@@ -80,6 +103,18 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.loadCheckoutData();
+  }
+
+  get addressReturnUrl(): string {
+    const params = this.route.snapshot.queryParamMap;
+    const queryParams: Record<string, string | string[] | null> = {};
+    params.keys.forEach(key => queryParams[key] = params.getAll(key));
+    queryParams.coupon = this.couponCode.trim() || null;
+    return this.router.serializeUrl(this.router.createUrlTree(['/checkout'], { queryParams }));
+  }
+
+  get checkoutDraft(): CheckoutDraft {
+    return { couponCode: this.couponCode, note: this.note, paymentMethod: this.selectedPaymentMethod };
   }
 
   loadCheckoutData(): void {
@@ -98,9 +133,11 @@ export class CheckoutComponent implements OnInit {
         this.addresses = addressResponse.data || [];
 
         const defaultAddress = this.addresses.find((x) => x.isDefault);
+        const returnedAddressId = Number(this.route.snapshot.queryParamMap.get('addressId'));
+        const returnedAddress = this.addresses.find(x => x.addressId === returnedAddressId);
 
         this.selectedAddressId =
-          defaultAddress?.addressId || this.addresses[0]?.addressId || null;
+          returnedAddress?.addressId || defaultAddress?.addressId || this.addresses[0]?.addressId || null;
 
         this.loading = false;
 
@@ -160,6 +197,7 @@ export class CheckoutComponent implements OnInit {
               quantity: item.quantity,
               totalPrice: subtotal,
               isAvailable: true,
+              isForSale: true,
             },
           ],
           totalQuantity: item.quantity,
@@ -244,6 +282,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   createOrder(): void {
+    if (this.creatingOrder || this.createdOrder) { return; }
     this.errorMessage = '';
 
     if (!this.selectedAddressId) {
@@ -257,11 +296,12 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.creatingOrder = true;
+    const paymentMethod = this.selectedPaymentMethod;
 
     this.checkoutService
       .createOrder({
         addressId: this.selectedAddressId,
-        paymentMethod: this.selectedPaymentMethod,
+        paymentMethod,
         couponCode: this.appliedCoupon?.couponCode || null,
         note: this.note.trim() || null,
         buyNowItem: this.buyNowItem,
@@ -269,13 +309,16 @@ export class CheckoutComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.createdOrder = response.data;
+          this.createdPaymentMethod = paymentMethod;
           this.creatingOrder = false;
 
           // Đặt từ giỏ: backend đã chuyển Cart thành Order. Mua ngay: giỏ giữ nguyên.
           this.cartService.refreshCartCount();
 
-          if (this.selectedPaymentMethod === 2) {
+          if (paymentMethod === 2) {
             this.loadMockQr();
+          } else if (paymentMethod === 3) {
+            this.continueVnpay();
           }
         },
         error: (error) => {
@@ -284,6 +327,19 @@ export class CheckoutComponent implements OnInit {
             error?.error?.message || 'Không thể tạo đơn hàng.';
         },
       });
+  }
+
+  continueVnpay(): void {
+    if (!this.createdOrder || this.redirectingToVnpay) { return; }
+    this.redirectingToVnpay = true;
+    this.errorMessage = '';
+    this.vnpay.createPaymentUrl(this.createdOrder.orderId).subscribe({
+      next: response => this.vnpay.redirectToPayment(response.data.paymentUrl),
+      error: error => {
+        this.redirectingToVnpay = false;
+        this.errorMessage = error?.error?.message || 'Đơn đã được tạo. Bạn có thể tiếp tục thanh toán trong chi tiết đơn hàng.';
+      },
+    });
   }
 
   loadMockQr(): void {

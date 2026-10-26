@@ -12,7 +12,11 @@
     <div class="col-lg-6">
       <div class="main-image-wrapper">
         <img
-          [src]="selectedImage"
+          [src]="selectedImage | imageUrl:1280"
+          [attr.srcset]="(selectedImage | imageUrl:640) + ' 640w, ' + (selectedImage | imageUrl:1280) + ' 1280w'"
+          sizes="(max-width: 991px) 100vw, 640px"
+          fetchpriority="high"
+          decoding="async"
           [alt]="product.productName"
           class="main-image"
           (error)="onImageError($event)"
@@ -28,7 +32,9 @@
           (click)="selectImage(image)"
         >
           <img
-            [src]="image.imageUrl | imageUrl"
+            [src]="image.imageUrl | imageUrl:160"
+            loading="lazy"
+            decoding="async"
             [alt]="product.productName"
             (error)="onImageError($event)"
           />
@@ -254,7 +260,7 @@
 
         <div class="policy-item">
           <i class="bi bi-arrow-repeat"></i>
-          <span>Đổi trả dễ dàng trong 30 ngày</span>
+          <span>Đổi trả trong 7 ngày kể từ khi đơn hàng hoàn thành</span>
         </div>
 
         <div class="policy-item">

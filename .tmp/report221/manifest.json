@@ -1,0 +1,272 @@
+[
+  {
+    "index": 1,
+    "title": "Luồng xử lý chung của hệ thống",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-01.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1293
+    ]
+  },
+  {
+    "index": 2,
+    "title": "Đăng ký tài khoản",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-02.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1427
+    ]
+  },
+  {
+    "index": 3,
+    "title": "Đăng nhập tài khoản",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-03.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1438
+    ]
+  },
+  {
+    "index": 4,
+    "title": "Xác minh đăng nhập hai lớp",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-04.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1517
+    ]
+  },
+  {
+    "index": 5,
+    "title": "Quên mật khẩu",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-05.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1268
+    ]
+  },
+  {
+    "index": 6,
+    "title": "Đặt lại mật khẩu",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-06.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1353
+    ]
+  },
+  {
+    "index": 7,
+    "title": "Làm mới phiên và đăng xuất",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-07.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1367
+    ]
+  },
+  {
+    "index": 8,
+    "title": "Xem và tìm kiếm sản phẩm",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-08.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1443
+    ]
+  },
+  {
+    "index": 9,
+    "title": "Quản lý giỏ hàng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-09.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1513
+    ]
+  },
+  {
+    "index": 10,
+    "title": "Quản lý danh sách yêu thích",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-10.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1218
+    ]
+  },
+  {
+    "index": 11,
+    "title": "Cập nhật hồ sơ và đổi mật khẩu",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-11.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1517
+    ]
+  },
+  {
+    "index": 12,
+    "title": "Quản lý địa chỉ giao hàng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-12.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1350
+    ]
+  },
+  {
+    "index": 13,
+    "title": "Kiểm tra và áp dụng mã giảm giá",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-13.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1245
+    ]
+  },
+  {
+    "index": 14,
+    "title": "Tạo đơn hàng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-14.png",
+    "width": 6.330362826225334,
+    "size": [
+      1700,
+      1571
+    ]
+  },
+  {
+    "index": 15,
+    "title": "Thanh toán QR mô phỏng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-15.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1429
+    ]
+  },
+  {
+    "index": 16,
+    "title": "Theo dõi và hủy đơn hàng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-16.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1306
+    ]
+  },
+  {
+    "index": 17,
+    "title": "Gửi và quản lý đánh giá của khách hàng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-17.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1448
+    ]
+  },
+  {
+    "index": 18,
+    "title": "Quản trị sản phẩm và biến thể",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-18.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1434
+    ]
+  },
+  {
+    "index": 19,
+    "title": "Quản lý hình ảnh sản phẩm",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-19.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1353
+    ]
+  },
+  {
+    "index": 20,
+    "title": "Quản lý dữ liệu danh mục và nhà cung cấp",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-20.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1307
+    ]
+  },
+  {
+    "index": 21,
+    "title": "Lập và điều chỉnh phiếu nhập kho",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-21.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1393
+    ]
+  },
+  {
+    "index": 22,
+    "title": "Quản trị mã giảm giá",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-22.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1406
+    ]
+  },
+  {
+    "index": 23,
+    "title": "Quản trị trạng thái đơn hàng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-23.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1353
+    ]
+  },
+  {
+    "index": 24,
+    "title": "Quản trị trạng thái thanh toán",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-24.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1279
+    ]
+  },
+  {
+    "index": 25,
+    "title": "Kiểm duyệt đánh giá sản phẩm",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-25.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1299
+    ]
+  },
+  {
+    "index": 26,
+    "title": "Quản lý tài khoản người dùng",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-26.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1441
+    ]
+  },
+  {
+    "index": 27,
+    "title": "Xem thống kê quản trị",
+    "image": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\report221\\diagram-27.png",
+    "width": 6.5,
+    "size": [
+      1700,
+      1259
+    ]
+  }
+]

@@ -57,22 +57,29 @@
               Màu: {{ item.colorName }} · Size: {{ item.sizeName }}
             </p>
 
-            <p *ngIf="!item.isAvailable" class="text-danger small mt-2 mb-0">
-              Biến thể sản phẩm hiện không còn khả dụng.
+            <p *ngIf="!item.isForSale" class="text-danger small mt-2 mb-0">
+              Biến thể sản phẩm hiện không còn được bán.
             </p>
 
             <p
-              *ngIf="item.isAvailable && item.stockQuantity <= 0"
+              *ngIf="item.isForSale && item.stockQuantity <= 0"
               class="text-danger small mt-2 mb-0"
             >
               Sản phẩm hiện đã hết hàng.
             </p>
 
             <p
-              *ngIf="item.stockQuantity <= 0"
+              *ngIf="item.isForSale && item.stockQuantity > 0 && item.quantity > item.stockQuantity"
               class="text-danger small mt-2 mb-0"
             >
-              Sản phẩm hiện đã hết hàng.
+              Chỉ còn {{ item.stockQuantity }} sản phẩm. Nhấn − để giảm về số lượng có thể mua.
+            </p>
+
+            <p
+              *ngIf="item.isForSale && item.quantity > maxCartQuantity"
+              class="text-danger small mt-2 mb-0"
+            >
+              Mỗi biến thể được mua tối đa {{ maxCartQuantity }} sản phẩm. Nhấn − để điều chỉnh.
             </p>
           </div>
 
@@ -84,9 +91,10 @@
               class="quantity-button"
               aria-label="Giảm số lượng"
               [disabled]="
-                !item.isAvailable ||
+                !item.isForSale ||
+                item.stockQuantity <= 0 ||
                 item.quantity <= 1 ||
-                updatingItemId === item.cartItemId
+                updatingItemId !== null
               "
               (click)="decreaseQuantity(item)"
             >
@@ -102,9 +110,10 @@
               class="quantity-button"
               aria-label="Tăng số lượng"
               [disabled]="
-                !item.isAvailable ||
+                !item.isForSale ||
                 item.quantity >= item.stockQuantity ||
-                updatingItemId === item.cartItemId
+                item.quantity >= maxCartQuantity ||
+                updatingItemId !== null
               "
               (click)="increaseQuantity(item)"
             >

@@ -25,14 +25,34 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Danh mục</label>
-          <select class="form-select" [(ngModel)]="filters.categoryId">
+          <label class="form-label" for="category-filter">Danh mục</label>
+          <select
+            id="category-filter"
+            class="form-select"
+            [ngModel]="selectedRootCategory?.categoryId || null"
+            (ngModelChange)="onRootCategoryChange($event)"
+          >
             <option [ngValue]="null">Tất cả danh mục</option>
             <option
               *ngFor="let category of categories"
               [ngValue]="category.categoryId"
             >
               {{ category.categoryName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3" *ngIf="subcategoryOptions.length">
+          <label class="form-label" for="subcategory-filter">Danh mục con</label>
+          <select
+            id="subcategory-filter"
+            class="form-select"
+            [ngModel]="selectedSubcategoryId"
+            (ngModelChange)="onSubcategoryChange($event)"
+          >
+            <option [ngValue]="null">Tất cả trong {{ selectedRootCategory?.categoryName }}</option>
+            <option *ngFor="let category of subcategoryOptions" [ngValue]="category.categoryId">
+              {{ category.label }}
             </option>
           </select>
         </div>
@@ -60,23 +80,15 @@
             >
               <img
                 *ngIf="brand.logoUrl"
-                [src]="brand.logoUrl"
+                [src]="brand.logoUrl | imageUrl:160"
+                loading="lazy"
+                decoding="async"
                 [alt]="brand.brandName"
                 (error)="onBrandLogoError($event)"
               />
               <span>{{ brand.brandName }}</span>
             </button>
           </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Giới tính</label>
-          <select class="form-select" [(ngModel)]="filters.gender">
-            <option value="">Tất cả</option>
-            <option value="Male">Nam</option>
-            <option value="Female">Nữ</option>
-            <option value="Unisex">Unisex</option>
-          </select>
         </div>
 
         <div class="row g-2 mb-4">

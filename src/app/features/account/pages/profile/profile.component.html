@@ -90,8 +90,10 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Số điện thoại</label>
+              <label class="form-label">Số điện thoại (không bắt buộc)</label>
               <input
+                type="tel"
+                inputmode="tel"
                 class="form-control"
                 [class.is-invalid]="isInvalid('profile', 'phoneNumber')"
                 formControlName="phoneNumber"
@@ -168,7 +170,7 @@
               *ngIf="isInvalid('password', 'newPassword')"
               class="text-danger"
             >
-              Mật khẩu mới phải có ít nhất 6 ký tự.
+              {{ getNewPasswordError() }}
             </small>
           </div>
 

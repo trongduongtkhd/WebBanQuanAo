@@ -1,0 +1,4049 @@
+PAGE 1
+  
+                 ĐẠI HỌC PHENIKAA 
+       TRƯỜNG CÔNG NGHỆ THÔNG TIN PHENIKAA 
+ 
+ 
+   ĐỒ ÁN CƠ SỞ CÔNG NGHỆ THÔNG TIN 
+   TÊN ĐỀ TÀI: PHÁT TRIỂN HỆ THỐNG WEBSITE BÁN QUẦN ÁO 
+  
+Giảng viên hướng dẫn: TS. Mai Thúy Nga  
+Sinh viên thực hiện: Nguyễn Trọng Dương ( 23010227) 
+Khoá: K17 – 2023 – 2027  
+Lớp tín chỉ: Đồ án cơ sở Công nghệ thông tin -1-3-25(N01)  
+Chương trình đào tạo: Đại học chính quy  
+ 
+ 
+ 
+ 
+ 
+
+PAGE 2
+Mục Lục 
+1.Yêu cầu ( REQUIREMENTS) ................................................................................... 4 
+1.1. Đặt vấn đề ( Problem statement) ....................................................................... 4 
+1.1.2.Mục tiêu ............................................................................................................. 4 
+1.1.3. Người dùng mục tiêu ....................................................................................... 7 
+ 
+1.1.4 Lợi ích khi sử dụng phần mềm ........................................................................ 7 
+1.1.5 Phạm vi của dự án ............................................................................................ 8 
+1.2 Thuật ngữ (Glossary)........................................................................................... 9 
+1.3. Thông số kỹ thuật bổ sung ............................................................................... 11 
+1.3.1. Hiệu năng ........................................................................................................ 11 
+1.3.3. Độ tin cậy ........................................................................................................ 12 
+1.3.4. Tính an toàn và bảo mật ............................................................................... 12 
+1.3.5. Khả năng bảo trì ............................................................................................ 13 
+1.3.7. Khả năng mở rộng ......................................................................................... 14 
+1.3.8. Tính khả dụng ................................................................................................ 14 
+1.4 Mô hình hóa quy trình nghiệp vụ ......................................................................... 15 
+1.5 Mô hình hóa chức năng ......................................................................................... 38 
+1.5.1 Tổng hợp các yêu cầu hệ thống ..................................................................... 38 
+1.5.2 Sơ đồ Use-case ................................................................................................. 39 
+2. PHÂN TÍCH TRƯỜNG HỢP SỬ DỤNG (USE-CASE ANALYSIS) ..................... 45 
+2.1 Phân tích kiến trúc hệ thống ................................................................................. 45 
+2.1.1 Kiến trúc mức cao của hệ thống .................................................................... 45 
+2.1.2 Các đối tượng trừu tượng hóa chính của hệ thống (Key abstractions) ..... 47 
+2.2.2 Góc nhìn của các lớp trong hệ thống (Views of participating classes) ....... 79 
+3. THIẾT KẾ (USE-CASE DESGIN ............................................................................. 84 
+3.1.1 Xác định các lớp (Identify classes) ................................................................ 84 
+3.1.3 Xác định các gói (Identify packages) ............................................................ 97 
+3.2 Thiết kế trường hợp sử dụng (Use-case design) ............................................ 100 
+3.2.1 Thiết kế các biểu đồ tuần tự (Design sequence diagrams) ........................ 100 
+3.2.2 Thiết kế biểu đồ lớp (Class diagrams) ........................................................ 102 
+PAGE 3
+3.3 Thiết kế cơ sở dữ liệu (Database design) ........................................................... 105 
+3.3.1 Lược đồ cơ sở dữ liệu ................................................................................... 105 
+ 
+ 
+PAGE 4
+1.Yêu cầu ( REQUIREMENTS) 
+1.1. Đặt vấn đề ( Problem statement)  
+1.1.1 .Bối cảnh  
+Xuất phát từ nhu cầu đó, dự án Shop Clothing UI được xây dựng nhằm phát triển giao 
+diện website bán quần áo trực tuyến. Hệ thống hỗ trợ khách hàng xem sản phẩm, tìm 
+kiếm và lựa chọn các mặt hàng thời trang, quản lý giỏ hàng, áp dụng mã giảm giá, lựa 
+chọn địa chỉ giao hàng, đặt hàng và thực hiện thanh toán. Ngoài ra, hệ thống còn cung 
+cấp khu vực quản trị dành cho người quản lý nhằm kiểm soát các hoạt động của cửa 
+hàng. 
+ 
+Dự án được phát triển dưới dạng ứng dụng web một trang bằng framework Angular, kết 
+hợp với Angular Material, Bootstrap và Bootstrap Icons để xây dựng giao diện trực quan, 
+hiện đại và đáp ứng tốt trên nhiều thiết bị. Hệ thống được tổ chức theo các chức năng 
+chính như trang chủ, sản phẩm, giỏ hàng, thanh toán, tài khoản người dùng, xác thực và 
+quản trị. Việc phân quyền được thực hiện thông qua các vai trò người dùng và quản trị 
+viên, giúp bảo vệ những chức năng yêu cầu quyền truy cập phù hợp. 
+ 
+Thông qua dự án, nhóm hướng đến việc xây dựng một nền tảng bán quần áo trực tuyến 
+có quy trình mua hàng đầy đủ, giao diện dễ sử dụng và có khả năng mở rộng thêm các 
+chức năng trong tương lai như quản lý kho, theo dõi đơn hàng, đánh giá sản phẩm và tích 
+hợp các phương thức thanh toán thực tế 
+ 
+1.1.2 Mục tiêu 
+a) Mục tiêu tổng quan  
+ 
+Dự án nhằm xây dựng một hệ thống website bán quần áo trực tuyến, hỗ trợ đầy đủ quy 
+trình mua sắm từ việc tìm kiếm sản phẩm, xem thông tin chi tiết, quản lý giỏ hàng, đặt 
+hàng cho đến thanh toán. Hệ thống hướng đến việc mang lại trải nghiệm mua sắm thuận 
+tiện cho khách hàng, đồng thời cung cấp các chức năng quản lý cần thiết cho quản trị 
+viên. 
+Bên cạnh đó, dự án cũng hướng đến việc áp dụng các công nghệ phát triển web hiện đại 
+để xây dựng một hệ thống có giao diện trực quan, hoạt động ổn định, bảo mật và có khả 
+năng mở rộng trong tương lai 
+ 
+b) Mục tiêu cụ thể  
+ Đối với Khách hàng (Customer – giao diện người dùng) 
+ Hệ thống cần đáp ứng các mục tiêu sau: 
+• Cho phép khách hàng đăng ký, đăng nhập và đăng xuất tài khoản. 
+PAGE 5
+• Hiển thị danh sách sản phẩm quần áo theo từng danh mục. 
+• Hỗ trợ tìm kiếm, xem thông tin chi tiết và lựa chọn sản phẩm. 
+• Cho phép khách hàng quản lý giỏ hàng, cập nhật số lượng hoặc xóa sản phẩm. 
+• Cho phép quản lý thông tin cá nhân và địa chỉ giao hàng. 
+• Hỗ trợ áp dụng mã giảm giá khi mua hàng. 
+• Cho phép khách hàng tạo đơn hàng và lựa chọn phương thức thanh toán. 
+• Hiển thị thông tin đơn hàng và trạng thái xử lý đơn hàng. 
+• Hỗ trợ khách hàng đánh giá sản phẩm sau khi mua. 
+• Cung cấp giao diện dễ sử dụng, rõ ràng và phù hợp với nhiều kích thước màn 
+hình. 
+Đối với Quản trị viên (Admin – quản trị hệ thống) 
+Hệ thống cần hỗ trợ quản trị viên trong việc quản lý và vận hành cửa hàng, bao 
+gồm: 
+• Đăng nhập vào khu vực quản trị với quyền truy cập riêng. 
+• Quản lý thông tin sản phẩm, danh mục, giá bán, hình ảnh và số lượng tồn kho. 
+• Thêm, sửa, xóa và cập nhật trạng thái sản phẩm. 
+• Quản lý đơn hàng và cập nhật trạng thái xử lý đơn hàng. 
+• Theo dõi thông tin khách hàng và tài khoản người dùng. 
+• Quản lý mã giảm giá và các chương trình khuyến mãi. 
+• Theo dõi đánh giá, nhận xét của khách hàng. 
+• Xem các thông tin tổng quan về hoạt động kinh doanh thông qua trang tổng quan 
+quản trị. 
+• Đảm bảo các chức năng quản trị chỉ được truy cập bởi người dùng có quyền phù 
+hợp. 
+c) Mục tiêu kỹ thuật  
+ 
+● Kiến trúc hệ thống (Architecture): Xây dựng hệ thống theo kiến trúc đa 
+tầng dựa trên mô hình MVC, đảm bảo tách biệt rõ ràng giữa giao diện, xử lý 
+nghiệp vụ và dữ liệu, giúp hệ thống dễ bảo trì và mở rộng. 
+● Frontend (Giao diện người dùng):  
++  Xây dựng giao diện bằng Angular và TypeScript. 
++ Sử dụng Angular Material, Bootstrap và Bootstrap Icons để hỗ trợ thiết kế 
+giao diện. 
++ Tạo các component có khả năng tái sử dụng nhằm giảm trùng lặp mã 
+nguồn. 
++ Cung cấp giao diện phù hợp cho cả khách hàng và quản trị viên. 
++ Hỗ trợ hiển thị trạng thái tải dữ liệu, thông báo lỗi và thông báo kết quả 
+thao tác. 
++ Kết nối với backend thông qua các service và API. 
+PAGE 6
++ Đảm bảo giao diện có khả năng đáp ứng trên máy tính, máy tính bảng và 
+thiết bị di động. 
+● Backend (Xử lý nghiệp vụ ):  
++ Cung cấp các API phục vụ việc đăng nhập, quản lý sản phẩm, giỏ hàng, 
+đơn hàng, thanh toán, mã giảm giá và tài khoản người dùng. 
++ Xử lý các nghiệp vụ liên quan đến đặt hàng, kiểm tra mã giảm giá và cập 
+nhật trạng thái đơn hàng. 
++ Kiểm tra dữ liệu đầu vào trước khi thực hiện các thao tác trên hệ thống. 
++ Phân quyền truy cập giữa khách hàng và quản trị viên. 
++ Trả về dữ liệu theo cấu trúc thống nhất để frontend dễ dàng xử lý và hiển 
+thị. 
++ Đảm bảo backend có thể phục vụ đồng thời nhiều chức năng của hệ thống. 
+●  Cở sở dữ liệu  (Database ): 
+ 
++  Lưu trữ thông tin người dùng, sản phẩm, danh mục, giỏ hàng, địa chỉ, 
+đơn hàng và mã giảm giá. 
++ Quản lý mối quan hệ giữa khách hàng, sản phẩm và đơn hàng. 
++ Đảm bảo dữ liệu được lưu trữ chính xác, nhất quán và hạn chế tình 
+trạng trùng lặp. 
++ Hỗ trợ truy xuất dữ liệu nhanh chóng cho các chức năng tìm kiếm, hiển 
+thị sản phẩm và quản lý đơn hàng. 
++ Có khả năng mở rộng khi số lượng sản phẩm, khách hàng và đơn hàng 
+tăng lên. 
+●    Bảo mật và xác thực  (Authentication & Authorization ): 
++   Xác thực người dùng thông qua tài khoản và mật khẩu. 
++ Sử dụng token để duy trì trạng thái đăng nhập và xác định người dùng. 
++ Phân quyền dựa trên vai trò giữa khách hàng và quản trị viên. 
++ Sử dụng các guard để bảo vệ những trang yêu cầu đăng nhập hoặc quyền 
+quản trị. 
++ Sử dụng interceptor để tự động gửi thông tin xác thực trong các request 
+đến backend. 
++ Xử lý lỗi xác thực, lỗi phân quyền và điều hướng người dùng đến trang 
+phù hợp. 
++ Không cho phép người dùng chưa đăng nhập truy cập các chức năng 
+yêu cầu tài khoản. 
+• Khả năng mở rộng và triển khai: 
++          Thiết kế hệ thống theo hướng module hóa để thuận tiện cho việc bảo 
+trì và phát triển thêm chức năng. 
++ Có thể bổ sung các phương thức thanh toán thực tế như ví điện tử, ngân 
+hàng trực tuyến hoặc cổng thanh toán điện tử. 
+PAGE 7
++ Có thể mở rộng thêm chức năng quản lý kho, vận chuyển, báo cáo doanh 
+thu và chăm sóc khách hàng. 
++ Cho phép thay đổi hoặc mở rộng backend mà không cần thay đổi lớn ở 
+giao diện frontend. 
++ Sử dụng biến môi trường để quản lý các thông tin cấu hình giữa môi 
+trường phát triển và môi trường triển khai. 
++ Có thể triển khai ứng dụng trên máy chủ hoặc các nền tảng lưu trữ web 
+phù hợp. 
++ Đảm bảo hệ thống có thể được kiểm thử, nâng cấp và bảo trì trong quá 
+trình sử dụng. 
+1.1.3. Người dùng mục tiêu 
+Hệ thống bán quần áo trực tuyến hướng tới hai nhóm người dùng chính, bao gồm Quản 
+trị viên và Khách hàng. Mỗi nhóm người dùng có vai trò và nhu cầu sử dụng khác nhau 
+trong hệ thống. 
+● Admin (Quản trị viên ): 
+Là nhóm người dùng chịu trách nhiệm quản lý và vận hành toàn bộ hệ thống. 
+Quản trị viên sử dụng hệ thống để thực hiện các chức năng quản lý sản phẩm, 
+danh mục, hình ảnh, giá bán, tồn kho, mã giảm giá, tài khoản khách hàng và đơn 
+hàng. Ngoài ra, quản trị viên có thể theo dõi trạng thái đơn hàng, quản lý đánh giá 
+sản phẩm và xem các thông tin tổng quan về hoạt động kinh doanh. Nhóm người 
+dùng này đóng vai trò trung tâm trong việc kiểm soát dữ liệu, duy trì hoạt động ổn 
+định và đảm bảo tính chính xác của hệ thống 
+● Khách hàng: 
+Là nhóm người dùng truy cập hệ thống với mục đích tìm kiếm và mua sắm các 
+sản phẩm quần áo trực tuyến. Khách hàng có thể xem danh sách sản phẩm, tìm 
+kiếm theo nhu cầu, xem thông tin chi tiết, lựa chọn sản phẩm, quản lý giỏ hàng và 
+áp dụng mã giảm giá. Bên cạnh đó, khách hàng có thể cập nhật thông tin cá nhân, 
+quản lý địa chỉ giao hàng, đặt hàng, lựa chọn phương thức thanh toán và theo dõi 
+lịch sử mua hàng. Hệ thống được thiết kế nhằm mang lại trải nghiệm mua sắm 
+thuận tiện, trực quan, giúp khách hàng tiết kiệm thời gian và dễ dàng tiếp cận các 
+sản phẩm thời trang phù hợp 
+1.1.4 Lợi ích khi sử dụng phần mềm 
+Đối với cửa hàng kinh doanh quần áo, hệ thống mang lại nhiều giá trị thiết thực trong 
+công tác quản lý và vận hành. Việc quản lý sản phẩm, danh mục, giá bán và số lượng tồn 
+kho trên cùng một hệ thống giúp hạn chế sai sót trong quá trình cập nhật dữ liệu. Thông 
+tin đơn hàng, khách hàng và mã giảm giá được lưu trữ tập trung, hỗ trợ quản trị viên theo 
+dõi hoạt động kinh doanh một cách nhanh chóng và chính xác. 
+ 
+PAGE 8
+Đối với khách hàng, hệ thống mang lại trải nghiệm mua sắm trực tuyến thuận tiện và 
+hiện đại. Khách hàng có thể chủ động tìm kiếm sản phẩm, xem thông tin chi tiết, lựa 
+chọn sản phẩm, quản lý giỏ hàng và đặt hàng mà không cần trực tiếp đến cửa hàng. Việc 
+hỗ trợ quản lý địa chỉ giao hàng, mã giảm giá và nhiều phương thức thanh toán giúp tiết 
+kiệm thời gian, đồng thời nâng cao sự hài lòng trong quá trình mua sắm. 
+Đối với quản trị viên, hệ thống giúp giảm bớt các công việc quản lý thủ công và hỗ trợ 
+kiểm soát toàn bộ hoạt động của cửa hàng. Các chức năng quản lý sản phẩm, đơn hàng, 
+khách hàng, mã giảm giá và đánh giá sản phẩm giúp dữ liệu được tổ chức rõ ràng, dễ tra 
+cứu và cập nhật. Nhờ đó, quản trị viên có thể xử lý đơn hàng hiệu quả hơn và đưa ra các 
+quyết định phù hợp dựa trên thông tin được lưu trữ trong hệ thống. 
+ 
+Xét trên góc độ kỹ thuật, hệ thống được xây dựng bằng Angular theo hướng module hóa 
+và component hóa, giúp mã nguồn có cấu trúc rõ ràng, dễ bảo trì và thuận tiện cho việc 
+phát triển thêm chức năng. Cơ chế xác thực, phân quyền và bảo vệ các tuyến truy cập 
+giúp nâng cao mức độ an toàn của hệ thống. Đây là nền tảng quan trọng để hệ thống có 
+thể mở rộng trong tương lai, đồng thời thể hiện khả năng áp dụng các kiến thức về phân 
+tích, thiết kế và xây dựng hệ thống thông tin vào lĩnh vực kinh doanh thời trang trực 
+tuyến. 
+ 
+1.1.5 Phạm vi của dự án 
+Trong phạm vi của dự án, nhóm tập trung nghiên cứu, phân tích và xây dựng hệ thống 
+bán quần áo trực tuyến dưới dạng ứng dụng web. Các nội dung chính bao gồm khảo sát 
+yêu cầu, phân tích chức năng, thiết kế giao diện và xây dựng các module phục vụ khách 
+hàng và quản trị viên. 
+ 
+Đối với khách hàng, hệ thống hỗ trợ đăng ký, đăng nhập, xem danh sách sản phẩm, tìm 
+kiếm sản phẩm, xem thông tin chi tiết, quản lý giỏ hàng, cập nhật địa chỉ giao hàng, áp 
+dụng mã giảm giá, đặt hàng và theo dõi thông tin đơn hàng. Ngoài ra, khách hàng có thể 
+quản lý thông tin cá nhân, xem lịch sử mua hàng và thực hiện đánh giá sản phẩm. 
+Đối với quản trị viên, hệ thống tập trung vào các chức năng quản lý sản phẩm, danh 
+mục, hình ảnh, giá bán, số lượng tồn kho, tài khoản khách hàng, đơn hàng, mã giảm giá 
+và đánh giá sản phẩm. Hệ thống cũng cung cấp khu vực quản trị riêng, hỗ trợ quản trị 
+viên theo dõi và kiểm soát hoạt động kinh doanh của cửa hàng. 
+ 
+Về mặt kỹ thuật, dự án tập trung xây dựng giao diện frontend bằng Angular, tổ chức hệ 
+thống theo các module chức năng và kết nối với backend thông qua các API. Hệ thống 
+có áp dụng cơ chế đăng nhập, xác thực token và phân quyền giữa khách hàng và quản trị 
+viên. Dữ liệu chính được quản lý bao gồm người dùng, sản phẩm, danh mục, giỏ hàng, 
+địa chỉ, mã giảm giá, đơn hàng và đánh giá sản phẩm. 
+ 
+PAGE 9
+Các nội dung nằm ngoài phạm vi của dự án bao gồm việc tích hợp các cổng thanh toán 
+trực tuyến thực tế, kết nối với đơn vị vận chuyển, triển khai ứng dụng dành riêng cho 
+thiết bị di động và xây dựng các tính năng marketing chuyên sâu như chương trình tích 
+điểm, chăm sóc khách hàng tự động hoặc đề xuất sản phẩm bằng trí tuệ nhân tạo. Những 
+nội dung này được xem là định hướng phát triển trong tương lai khi hệ thống được mở 
+rộng và triển khai ở quy mô lớn hơn. 
+1.2 Thuật ngữ (Glossary) 
+STT Thuật ngữ  Mô tả  
+1 Sản phẩm Là đối tượng kinh doanh trung tâm của hệ thống. 
+Sản phẩm lưu trữ các thông tin như mã sản phẩm, 
+tên sản phẩm, hình ảnh, giá bán, mô tả, kích 
+thước, màu sắc và số lượng tồn kho. 
+2 Danh mục sản 
+phẩm 
+Là nhóm dùng để phân loại các sản phẩm theo 
+từng loại hoặc nhóm thời trang. Danh mục giúp 
+khách hàng dễ dàng tìm kiếm và lựa chọn sản 
+phẩm phù hợp 
+3 Khách hàng 
+(Customer) 
+Là người sử dụng hệ thống để xem sản phẩm, 
+quản lý giỏ hàng, đặt hàng, sử dụng mã giảm giá, 
+theo dõi đơn hàng và đánh giá sản phẩm. 
+4 Quản trị viên 
+(Admin) 
+Là người có quyền quản lý và vận hành hệ thống. 
+Admin có thể quản lý sản phẩm, danh mục, khách 
+hàng, đơn hàng, mã giảm giá và các nội dung liên 
+quan đến cửa hàng. 
+5 Tài khoản người 
+dùng 
+Là tập hợp thông tin dùng để định danh và xác 
+thực người sử dụng hệ thống, bao gồm tên đăng 
+nhập, mật khẩu, họ tên, email, số điện thoại và vai 
+trò. 
+6 Giỏ hàng (Cart) Là nơi lưu trữ tạm thời các sản phẩm mà khách 
+hàng muốn mua. Khách hàng có thể thêm, xóa sản 
+phẩm hoặc thay đổi số lượng trước khi tiến hành 
+đặt hàng. 
+7 Đơn hàng (Order) Là thông tin ghi nhận giao dịch mua hàng của 
+khách hàng. Đơn hàng bao gồm sản phẩm, số 
+lượng, tổng tiền, địa chỉ giao hàng, phương thức 
+thanh toán và trạng thái xử lý. 
+8 Địa chỉ giao hàng Là thông tin địa điểm nhận hàng của khách hàng, 
+bao gồm họ tên người nhận, số điện thoại, địa chỉ 
+cụ thể và trạng thái địa chỉ mặc định. 
+9 Mã giảm giá 
+(Coupon) 
+Là mã khuyến mãi được sử dụng để giảm một 
+phần giá trị đơn hàng khi khách hàng thanh toán. 
+PAGE 10
+Mã giảm giá có thể có điều kiện sử dụng và thời 
+hạn nhất định. 
+10 Thanh toán Là quá trình khách hàng hoàn tất việc mua hàng 
+bằng phương thức được lựa chọn. Hệ thống hỗ trợ 
+phương thức thanh toán khi nhận hàng và thanh 
+toán QR mô phỏng 
+11 Trạng thái đơn hàng Là thông tin thể hiện tiến trình xử lý của đơn 
+hàng, chẳng hạn như chờ xác nhận, đã xác nhận, 
+đang giao, đã giao hoặc đã hủy. 
+12 Đánh giá sản phẩm 
+(Review) 
+Là nhận xét và mức điểm do khách hàng cung cấp 
+sau khi mua sản phẩm. Đánh giá giúp phản ánh 
+chất lượng sản phẩm và hỗ trợ những khách hàng 
+khác trong quá trình lựa chọn 
+13 Frontend Là phần giao diện của hệ thống mà người dùng 
+trực tiếp tương tác. Trong dự án, frontend được 
+xây dựng bằng Angular, TypeScript, Bootstrap và 
+Angular Material. 
+14 Backend Là phần xử lý phía máy chủ, chịu trách nhiệm 
+thực hiện nghiệp vụ, xử lý yêu cầu từ frontend, 
+kiểm tra dữ liệu và kết nối với cơ sở dữ liệu. 
+15 API Là giao diện lập trình cho phép frontend trao đổi 
+dữ liệu với backend thông qua các yêu cầu như 
+lấy dữ liệu, thêm, sửa hoặc xóa dữ liệu 
+16 Token xác thực Là chuỗi dữ liệu được cấp sau khi người dùng 
+đăng nhập thành công. Token được sử dụng để 
+xác định danh tính và quyền truy cập của người 
+dùng trong các lần gửi yêu cầu tiếp theo. 
+17 Phân quyền Là cơ chế giới hạn chức năng mà mỗi nhóm người 
+dùng được phép truy cập. Trong hệ thống, khách 
+hàng và quản trị viên có các quyền sử dụng khác 
+nhau. 
+18 Guard Là cơ chế bảo vệ các tuyến đường trong ứng dụng 
+Angular. Guard kiểm tra trạng thái đăng nhập và 
+quyền của người dùng trước khi cho phép truy cập 
+một chức năng hoặc trang cụ thể. 
+19  
+Intercopter 
+Là thành phần trung gian dùng để can thiệp vào 
+các request hoặc response HTTP. Trong hệ thống, 
+interceptor hỗ trợ gửi token xác thực và xử lý lỗi 
+từ máy chủ 
+PAGE 11
+20 Angular Là framework phát triển ứng dụng web được sử 
+dụng để xây dựng giao diện và tổ chức các 
+module, component, service तथा routing của hệ 
+thống 
+ 
+1.3. Thông số kỹ thuật bổ sung 
+Các thông số kỹ thuật bổ sung, hay còn gọi là yêu cầu phi chức năng, được đưa ra nhằm 
+đảm bảo hệ thống bán quần áo trực tuyến không chỉ đáp ứng các chức năng nghiệp vụ mà 
+còn có hiệu năng tốt, hoạt động ổn định, bảo mật và thuận tiện trong quá trình sử dụng. 
+1.3.1. Hiệu năng 
+● Thời gian phản hồi: 
+Hệ thống cần phản hồi các yêu cầu thông thường của người dùng trong thời gian hợp lý, 
+chẳng hạn như xem danh sách sản phẩm, tìm kiếm sản phẩm, xem chi tiết sản phẩm, xem 
+giỏ hàng hoặc kiểm tra thông tin đơn hàng. 
+ 
+● Xử lý dữ liệu lớn: 
+Hệ thống cần có khả năng quản lý và xử lý số lượng lớn dữ liệu về sản phẩm, danh mục, 
+khách hàng, giỏ hàng, đơn hàng, mã giảm giá và đánh giá sản phẩm. 
+ 
+● Xử lý đồng thời: 
+Hệ thống cần đảm bảo khả năng xử lý đồng thời nhiều yêu cầu từ khách hàng và quản trị 
+viên mà không xảy ra lỗi hoặc mất dữ liệu. Đặc biệt, quá trình cập nhật giỏ hàng, tạo đơn 
+hàng và thay đổi số lượng sản phẩm cần được xử lý chính xác. 
+ 
+● Tối ưu tài nguyên hệ thống 
+Ứng dụng cần tối ưu việc sử dụng tài nguyên máy chủ và trình duyệt. Việc áp dụng lazy 
+loading, tái sử dụng component và tổ chức module hợp lý giúp giảm thời gian tải ban đầu 
+và nâng cao hiệu suất hệ thống. 
+ 
+● Khả năng mở rộng hiệu năng: 
+Hệ thống cần duy trì hiệu suất ổn định khi số lượng người dùng, sản phẩm và đơn hàng 
+tăng lên, đặc biệt trong các thời điểm có chương trình khuyến mãi hoặc nhu cầu mua sắm 
+cao. 
+ 
+1.3.2. Tốc độ 
+● Tốc độ truy xuất dữ liệu: 
+PAGE 12
+Thời gian tải các trang như danh sách sản phẩm, chi tiết sản phẩm, giỏ hàng, danh sách 
+đơn hàng và danh sách mã giảm giá cần được tối ưu trong điều kiện hoạt động bình 
+thường. 
+ 
+● Tốc độ xử lý giao dịch: 
+Các thao tác quan trọng như thêm sản phẩm vào giỏ hàng, cập nhật số lượng, áp dụng mã 
+giảm giá và tạo đơn hàng cần được xử lý nhanh chóng, hạn chế thời gian chờ của khách 
+hàng. 
+● Tốc độ tải giao diện: 
+Giao diện cần hiển thị các thành phần chính trong thời gian ngắn. Các trạng thái đang tải 
+dữ liệu, thông báo lỗi và kết quả thao tác cần được hiển thị rõ ràng để người dùng dễ theo 
+dõi. 
+1.3.3. Độ tin cậy 
+● Tỷ lệ thời gian hoạt động: 
+Hệ thống cần đảm bảo hoạt động ổn định trong thời gian dài, đáp ứng nhu cầu truy cập 
+của khách hàng và quản trị viên. 
+● Khả năng phục hồi sau sự cố: 
+Hệ thống cần có khả năng xử lý và phục hồi sau các sự cố như lỗi kết nối API, lỗi máy 
+chủ hoặc lỗi trong quá trình xử lý đơn hàng mà không làm mất các dữ liệu quan trọng. 
+ 
+● Sao lưu dữ liệu: 
+Các dữ liệu quan trọng như tài khoản người dùng, sản phẩm, giỏ hàng, địa chỉ, mã giảm 
+giá và đơn hàng cần được sao lưu định kỳ để giảm thiểu nguy cơ mất mát dữ liệu. 
+ 
+● Đảm bảo toàn vẹn dữ liệu: 
+Hệ thống cần duy trì sự nhất quán giữa các dữ liệu liên quan như sản phẩm, giỏ hàng, đơn 
+hàng, số lượng tồn kho và mã giảm giá. Khi đơn hàng được tạo thành công, thông tin giỏ 
+hàng và trạng thái sản phẩm cần được cập nhật chính xác. 
+ 
+● Ghi nhận và theo dõi lỗi: 
+Các lỗi phát sinh trong quá trình sử dụng cần được ghi nhận và thông báo phù hợp. Điều 
+này giúp quản trị viên và đội ngũ phát triển thuận tiện trong việc kiểm tra, phân tích và 
+khắc phục sự cố. 
+ 
+1.3.4. Tính an toàn và bảo mật 
+● Xác thực và phân quyền: 
+Hệ thống phải có cơ chế xác thực người dùng thông qua tài khoản đăng nhập. Quyền truy 
+cập được phân chia rõ ràng giữa khách hàng và quản trị viên, đảm bảo chỉ người dùng có 
+quyền mới được truy cập vào các chức năng quản trị. 
+PAGE 13
+ 
+● Bảo mật thông tin đăng nhập: 
+Thông tin tài khoản và mật khẩu của người dùng cần được bảo vệ trong quá trình đăng 
+nhập và trao đổi dữ liệu với backend. Token xác thực không được sử dụng tùy tiện và cần 
+được kiểm tra trước khi truy cập các chức năng yêu cầu đăng nhập. 
+ 
+● Bảo mật dữ liệu: 
+ 
+Thông tin cá nhân, địa chỉ giao hàng, thông tin đơn hàng và dữ liệu giao dịch của khách 
+hàng cần được bảo vệ, hạn chế truy cập trái phép và không hiển thị cho những người 
+dùng không có quyền. 
+ 
+● Chống truy cập trái phép: 
+Hệ thống cần sử dụng các cơ chế như AuthGuard, AdminGuard và interceptor để kiểm tra 
+trạng thái đăng nhập, quyền truy cập và token xác thực trước khi thực hiện các yêu cầu 
+đến backend. 
+● Chống các hình thức tấn công phổ biến: 
+Backend và cơ sở dữ liệu cần có biện pháp bảo vệ trước các nguy cơ phổ biến như SQL 
+Injection, Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF) và giả mạo 
+yêu cầu từ người dùng. 
+ 
+1.3.5. Khả năng bảo trì 
+● Dễ nâng cấp: 
+Hệ thống cần được thiết kế để có thể bổ sung chức năng mới hoặc điều chỉnh nghiệp vụ 
+mà không ảnh hưởng lớn đến các chức năng đang hoạt động. 
+ 
+● Kiến trúc mô-đun: 
+Ứng dụng được tổ chức thành các module và component riêng biệt như xác thực, sản 
+phẩm, giỏ hàng, thanh toán, tài khoản và quản trị. Cách tổ chức này giúp việc kiểm tra, 
+sửa lỗi và phát triển hệ thống thuận tiện hơn. 
+ 
+● Tái sử dụng mã nguồn: 
+Các component, service, model, guard và interceptor dùng chung cần được thiết kế theo 
+hướng có thể tái sử dụng, hạn chế việc viết lặp lại mã nguồn. 
+● Tài liệu kỹ thuật rõ ràng: 
+ 
+Hệ thống cần có tài liệu mô tả cấu trúc module, các chức năng chính, mô hình dữ liệu, 
+API và luồng xử lý nghiệp vụ nhằm hỗ trợ quá trình bảo trì và phát triển lâu dài. 
+ 
+PAGE 14
+1.3.6. Khả năng sử dụng 
+● Giao diện thân thiện: 
+Giao diện cần trực quan, dễ hiểu và phù hợp với cả khách hàng không chuyên về công 
+nghệ và quản trị viên. Các chức năng như tìm kiếm sản phẩm, thêm vào giỏ hàng, đặt 
+hàng và quản lý đơn hàng cần được bố trí rõ ràng. 
+● Điều hướng thuận tiện: 
+Người dùng có thể dễ dàng chuyển đổi giữa các trang như trang chủ, sản phẩm, giỏ hàng, 
+thanh toán và tài khoản cá nhân. 
+ 
+ 
+● Thông báo rõ ràng: 
+Hệ thống cần hiển thị thông báo phù hợp khi thao tác thành công, dữ liệu đang được tải, 
+thông tin nhập vào không hợp lệ hoặc xảy ra lỗi. 
+ 
+● Khả năng tương thích: 
+Giao diện cần hiển thị phù hợp trên các thiết bị phổ biến như máy tính để bàn, máy tính 
+xách tay, máy tính bảng và điện thoại di động. 
+ 
+1.3.7. Khả năng mở rộng 
+● Mở rộng số lượng người dùng: 
+Hệ thống cần đáp ứng được sự gia tăng số lượng khách hàng và quản trị viên mà không 
+làm ảnh hưởng đáng kể đến hiệu suất chung. 
+ 
+● Mở rộng dữ liệu: 
+Hệ thống cần hỗ trợ mở rộng dữ liệu khi số lượng sản phẩm, danh mục, khách hàng, đơn 
+hàng và đánh giá tăng lên theo thời gian. 
+ 
+● Mở rộng chức năng trong tương lai: 
+Hệ thống có thể được mở rộng thêm các chức năng như quản lý kho nâng cao, theo dõi 
+vận chuyển, thanh toán trực tuyến thực tế, tích điểm thành viên, thông báo qua email và 
+đề xuất sản phẩm. 
+ 
+● Mở rộng phương thức thanh toán: 
+Kiến trúc hệ thống cần tạo điều kiện để tích hợp thêm các phương thức thanh toán như ví 
+điện tử, chuyển khoản ngân hàng hoặc các cổng thanh toán trực tuyến. 
+ 
+1.3.8. Tính khả dụng 
+● Hoạt động liên tục: 
+PAGE 15
+Hệ thống cần đảm bảo khả năng hoạt động ổn định trong thời gian dài, cho phép khách 
+hàng tra cứu sản phẩm và đặt hàng bất cứ lúc nào. 
+ 
+● Khả năng sử dụng khi có lỗi kết nối: 
+Khi không thể kết nối đến backend hoặc API gặp sự cố, hệ thống cần hiển thị thông báo 
+phù hợp để người dùng biết nguyên nhân và thực hiện lại thao tác khi dịch vụ hoạt động 
+trở lại. 
+● Cơ chế khôi phục dịch vụ: 
+Hệ thống cần có kế hoạch khôi phục dữ liệu và dịch vụ sau các sự cố nhằm giảm thời 
+gian gián đoạn và hạn chế ảnh hưởng đến hoạt động mua bán. 
+ 
+● Khả năng triển khai: 
+Ứng dụng frontend cần có khả năng được đóng gói và triển khai trên máy chủ web hoặc 
+các nền tảng lưu trữ phù hợp. Các thông tin cấu hình giữa môi trường phát triển và môi 
+trường triển khai cần được quản lý riêng biệt. 
+Những yêu cầu phi chức năng trên giúp hệ thống bán quần áo trực tuyến hoạt động ổn 
+định, an toàn, dễ sử dụng và thuận tiện cho việc bảo trì, mở rộng trong tương lai. 
+1.4 Mô hình hóa quy trình nghiệp vụ 
+1.4.1. Quy trình quản lý sản phẩm 
+Quy trình quản lý sản phẩm cho phép quản trị viên thêm mới, cập nhật, ngừng kinh 
+doanh và tra cứu sản phẩm trong hệ thống. Mỗi sản phẩm gồm thông tin chung (tên, 
+danh mục, thương hiệu, giới tính, giá, mô tả, chất liệu), các biến thể và hình ảnh. Mỗi 
+biến thể là một tổ hợp màu sắc và kích thước, có mã SKU, giá bán và số lượng tồn kho 
+riêng. Tồn kho của biến thể không nhập trực tiếp trên form sản phẩm. Tồn kho chỉ tăng 
+khi lập phiếu nhập hàng và chỉ giảm khi khách đặt hàng, nhờ đó số liệu kho luôn khớp 
+với chứng từ  
+a) Quy trình thêm mới sản phẩm 
+Mô tả: Quản trị viên tạo một sản phẩm mới, sau đó khai báo các biến thể và hình ảnh. 
+Sản phẩm chỉ bán được khi có ít nhất một biến thể còn tồn kho. 
+Các bước thực hiện: 
+• Quản trị viên đăng nhập và truy cập chức năng "Quản lý sản phẩm". 
+• Chọn chức năng "Thêm sản phẩm". 
+• Nhập thông tin chung gồm: tên sản phẩm, danh mục, thương hiệu, giới tính, giá 
+gốc, giá khuyến mãi, mô tả ngắn, mô tả chi tiết, chất liệu, và chọn có phải sản 
+phẩm nổi bật hay không. 
+• Hệ thống kiểm tra dữ liệu: 
+o Tên sản phẩm, danh mục, giới tính và mô tả chi tiết không được để trống. 
+o Giá gốc phải lớn hơn 0. Giá khuyến mãi (nếu có) không được lớn hơn giá 
+gốc. 
+PAGE 16
+o Danh mục và thương hiệu phải tồn tại trong hệ thống. 
+• Nếu dữ liệu không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu quản trị viên 
+nhập lại. 
+• Nếu dữ liệu hợp lệ, hệ thống lưu sản phẩm và tự sinh đường dẫn thân thiện (slug) 
+từ tên sản phẩm. Nếu slug bị trùng, hệ thống tự thêm hậu tố số. 
+• Quản trị viên thêm các biến thể cho sản phẩm bằng cách chọn màu sắc, kích 
+thước, nhập mã SKU và giá bán. Tồn kho ban đầu của biến thể bằng 0. 
+• Hệ thống kiểm tra mã SKU không trùng với biến thể khác và tổ hợp màu + kích 
+thước chưa tồn tại trong sản phẩm. Nếu vi phạm, hệ thống báo lỗi và yêu cầu nhập 
+lại. 
+• Quản trị viên tải ảnh sản phẩm lên và chọn một ảnh làm ảnh đại diện. 
+• Hệ thống thông báo thêm sản phẩm thành công. 
+ 
+b) Quy trình cập nhật sản phẩm 
+Mô tả: Quản trị viên chỉnh sửa thông tin chung, biến thể hoặc hình ảnh của một sản phẩm 
+đã có. 
+Các bước thực hiện: 
+• Quản trị viên truy cập chức năng "Quản lý sản phẩm" và chọn sản phẩm cần cập 
+nhật. 
+• Hệ thống hiển thị thông tin hiện tại của sản phẩm, danh sách biến thể và hình ảnh. 
+• Quản trị viên chỉnh sửa thông tin cần thiết, có thể thêm, sửa hoặc ngừng bán từng 
+biến thể, thêm hoặc xoá ảnh, hoặc đổi ảnh đại diện. 
+• Hệ thống kiểm tra dữ liệu theo các ràng buộc giống như khi thêm mới. Ngoài ra, 
+nếu quản trị viên mở bán lại một sản phẩm đang ngừng kinh doanh, hệ thống kiểm 
+tra tổng tồn kho của các biến thể phải lớn hơn 0. 
+• Nếu dữ liệu không hợp lệ, hệ thống giữ nguyên dữ liệu cũ, hiển thị thông báo lỗi 
+và cho phép chỉnh sửa lại. 
+• Nếu dữ liệu hợp lệ, hệ thống cập nhật sản phẩm và thông báo thành công. 
+ 
+c) Quy trình xoá (ngừng kinh doanh) sản phẩm 
+Mô tả: Sản phẩm có thể đã nằm trong đơn hàng hoặc đánh giá của khách hàng. Vì vậy hệ 
+thống không xoá hẳn khỏi cơ sở dữ liệu mà áp dụng xoá mềm, tức là chuyển sản phẩm 
+sang trạng thái ngừng kinh doanh. 
+Các bước thực hiện: 
+• Quản trị viên chọn sản phẩm cần xoá trong danh sách. 
+• Hệ thống hiển thị hộp thoại xác nhận. 
+• Nếu quản trị viên huỷ, thao tác kết thúc và dữ liệu không thay đổi. 
+• Nếu quản trị viên xác nhận, hệ thống chuyển sản phẩm và toàn bộ biến thể của nó 
+sang trạng thái ngừng kinh doanh. 
+• Sản phẩm bị ẩn khỏi trang cửa hàng. Thông tin trong các đơn hàng cũ được giữ 
+nguyên. 
+PAGE 17
+• Hệ thống thông báo xoá thành công. 
+ 
+d) Quy trình xem danh sách và chi tiết sản phẩm 
+Mô tả: Quản trị viên tra cứu sản phẩm để theo dõi và quản lý dữ liệu. 
+Các bước thực hiện: 
+• Quản trị viên truy cập chức năng "Quản lý sản phẩm". 
+• Hệ thống hiển thị danh sách sản phẩm có phân trang, kèm tổng tồn kho của từng 
+sản phẩm. 
+• Quản trị viên có thể tìm kiếm hoặc lọc sản phẩm. 
+• Quản trị viên chọn một sản phẩm để xem chi tiết. 
+• Hệ thống hiển thị thông tin chung, danh sách biến thể (màu, kích thước, SKU, giá, 
+tồn kho) và hình ảnh của sản phẩm. 
+ 
+e) Các ràng buộc nghiệp vụ 
+ 
+• Tên sản phẩm, danh mục, giới tính và mô tả chi tiết là bắt buộc. Sản phẩm phải 
+thuộc một danh mục hợp lệ. 
+• Giá bán phải lớn hơn 0. Giá khuyến mãi không được lớn hơn giá gốc. 
+• Mã SKU là duy nhất trong toàn hệ thống. Trong cùng một sản phẩm, không có hai 
+biến thể trùng cả màu sắc và kích thước. 
+• Tồn kho không được sửa trực tiếp. Tồn kho chỉ tăng qua phiếu nhập hàng và chỉ 
+giảm khi bán hàng. 
+• Không được mở bán lại sản phẩm khi tổng tồn kho bằng 0. 
+• Ảnh tải lên phải có định dạng JPG, JPEG, PNG hoặc WEBP và dung lượng không 
+quá 5 MB. Mỗi sản phẩm chỉ có một ảnh đại diện. 
+• Xoá sản phẩm là xoá mềm (ngừng kinh doanh), nhằm bảo toàn dữ liệu đơn hàng 
+và đánh giá liên quan. 
+ 
+Sơ đồ quy trình hoạt động : Quy trình quản lý sản phẩm 
+ 
+ 
+PAGE 18
+ 
+ 
+Hình 1. Sơ đồ hoạt động quy trình quản lý sản phẩm 
+1.4.2. Quy trình mua hàng và quản lý giỏ hàng 
+Quy trình này cho phép khách hàng chọn sản phẩm theo biến thể (màu sắc, kích thước), 
+thêm vào giỏ hàng, điều chỉnh giỏ hàng và chuyển sang bước đặt hàng. Giỏ hàng được 
+lưu trên máy chủ theo từng tài khoản, nên khách hàng phải đăng nhập để sử dụng. Nhờ 
+vậy giỏ hàng được giữ nguyên khi khách đăng nhập lại hoặc chuyển sang thiết bị khác 
+ 
+a) Quy trình thêm sản phẩm vào giỏ hàng 
+Mô tả: Khách hàng thêm sản phẩm vào giỏ hàng sau khi xem chi tiết sản phẩm và chọn 
+biến thể phù hợp. 
+Các bước thực hiện: 
+• Khách hàng truy cập trang chi tiết sản phẩm. 
+• Khách hàng chọn màu sắc, kích thước và số lượng. Hệ thống hiển thị giá bán và số 
+lượng còn lại của biến thể tương ứng. 
+• Khách hàng nhấn "Thêm vào giỏ hàng". 
+• Nếu chưa chọn đủ màu sắc hoặc kích thước, hệ thống yêu cầu khách hàng chọn bổ 
+sung. 
+• Nếu khách hàng chưa đăng nhập, hệ thống chuyển đến trang đăng nhập. Sau khi 
+đăng nhập thành công, khách hàng được đưa trở lại trang sản phẩm đang xem. 
+
+PAGE 19
+• Hệ thống kiểm tra: 
+o Biến thể và sản phẩm vẫn đang được kinh doanh. 
+o Biến thể còn hàng trong kho. 
+o Tổng số lượng muốn mua, cộng cả số lượng đã có trong giỏ, không vượt 
+quá tồn kho. 
+• Nếu không hợp lệ, hệ thống thông báo hết hàng hoặc vượt quá số lượng tồn kho. 
+• Nếu hợp lệ: 
+o biến thể đã có trong giỏ thì hệ thống cộng dồn số lượng; 
+o biến thể chưa có trong giỏ thì hệ thống thêm một dòng mới. 
+• Hệ thống cập nhật tổng số lượng, tạm tính của giỏ hàng và thông báo thêm thành 
+công. 
+• Khách hàng có thể tiếp tục mua sắm hoặc chuyển đến trang giỏ hàng. 
+b) Quy trình xem và cập nhật giỏ hàng 
+Mô tả: Khách hàng xem lại các sản phẩm đã chọn, điều chỉnh số lượng hoặc xoá sản 
+phẩm trước khi đặt hàng. 
+Các bước thực hiện: 
+• Khách hàng truy cập chức năng "Giỏ hàng". 
+• Hệ thống hiển thị danh sách sản phẩm gồm hình ảnh, tên, màu sắc, kích thước, 
+đơn giá, số lượng, thành tiền và tạm tính. Sản phẩm không còn kinh doanh hoặc 
+không đủ hàng được đánh dấu cảnh báo. 
+• Cập nhật số lượng: khách hàng tăng hoặc giảm số lượng. Hệ thống kiểm tra số 
+lượng mới nằm trong khoảng từ 1 đến số lượng tồn kho. Nếu hợp lệ, hệ thống lưu 
+lại và tính lại thành tiền, tạm tính. Nếu không hợp lệ, hệ thống thông báo lỗi và giữ 
+số lượng cũ. 
+• Xoá một sản phẩm: khách hàng chọn sản phẩm cần xoá và xác nhận. Hệ thống xoá 
+sản phẩm khỏi giỏ và tính lại tạm tính. 
+• Xoá toàn bộ giỏ hàng: khách hàng chọn "Xoá toàn bộ" và xác nhận. Hệ thống xoá 
+tất cả sản phẩm và hiển thị giỏ hàng trống. 
+• Tiến hành thanh toán: khách hàng nhấn "Thanh toán" để chuyển sang quy trình đặt 
+hàng và thanh toán (mục 1.4.3). 
+c) Các ràng buộc nghiệp vụ giỏ hàng 
+• Khách hàng phải đăng nhập mới được thêm và quản lý giỏ hàng. Mỗi khách hàng 
+chỉ xem và thao tác được trên giỏ hàng của chính mình. 
+• Chỉ được thêm các biến thể thuộc sản phẩm đang kinh doanh và còn hàng. 
+• Số lượng mỗi dòng phải từ 1 đến 100 và không vượt quá tồn kho hiện tại của biến 
+thể. 
+• Mỗi biến thể chỉ xuất hiện một dòng trong giỏ. Khi thêm trùng, hệ thống cộng dồn 
+số lượng. 
+• Đơn giá lấy theo giá khuyến mãi của biến thể nếu có, nếu không thì lấy giá gốc. 
+Thành tiền và tạm tính được tính lại sau mỗi thay đổi. 
+PAGE 20
+• Thêm sản phẩm vào giỏ không trừ tồn kho. Tồn kho chỉ bị trừ khi đơn hàng được 
+tạo thành công. Tại thời điểm đặt hàng, hệ thống kiểm tra lại tồn kho lần nữa. 
+• Các thao tác xoá đều yêu cầu khách hàng xác nhận trước khi thực hiện. 
+ 
+Sơ đồ quy trình nghiệp vụ  Quy trình mua hàng và quản lý giỏ hàng 
+ 
+Hình 1.1 Sơ đồ hoạt động quy trình mua hàng và quản lý giỏ hàng 
+1.4.3. Quy trình đặt hàng và thanh toán 
+Quy trình đặt hàng chuyển các sản phẩm trong giỏ hàng thành một đơn hàng chính thức. 
+Khách hàng chọn địa chỉ giao hàng, có thể áp dụng mã giảm giá, và chọn phương thức 
+thanh toán. Hệ thống hỗ trợ hai phương thức: thanh toán khi nhận hàng (COD) và thanh 
+toán qua mã QR (mô phỏng). Toàn bộ bước tạo đơn được thực hiện trong một giao dịch 
+cơ sở dữ liệu (transaction). Nhờ vậy việc tạo đơn, trừ tồn kho, ghi nhận mã giảm giá và 
+xoá giỏ hàng hoặc cùng thành công, hoặc cùng bị huỷ, không bao giờ xảy ra tình trạng 
+thực hiện dở dang 
+a) Quy trình áp dụng mã giảm giá 
+Mô tả: Tại trang thanh toán, khách hàng nhập mã giảm giá để được giảm trừ vào 
+giá trị đơn hàng. Khách hàng cũng có thể chọn mã từ trang "Mã giảm giá của tôi", 
+khi đó mã được tự điền sẵn vào trang thanh toán. 
+                            
+                      
+                           
+                     
+                        
+           
+                     
+     
+                  
+                 
+  
+                          
+                 
+                  
+                                                        
+                                       
+                 
+                
+     
+            
+  
+                 
+                     
+            
+                          
+                  
+             
+     
+                          
+                   
+                     
+     
+  
+  
+                           
+PAGE 21
+Các bước thực hiện: 
+• Khách hàng nhập mã giảm giá và nhấn "Áp dụng". 
+• Hệ thống kiểm tra lần lượt: 
+o Mã tồn tại và đang ở trạng thái hoạt động. 
+o Thời điểm hiện tại nằm trong thời gian hiệu lực của mã. 
+o Mã còn lượt sử dụng, tính cả tổng số lượt của mã và số lượt tối đa cho 
+mỗi khách hàng. 
+o Giỏ hàng có sản phẩm thuộc danh mục hoặc sản phẩm được áp dụng 
+(nếu mã có giới hạn phạm vi). 
+o Giá trị các sản phẩm được áp dụng đạt mức đơn hàng tối thiểu. 
+• Nếu mã không hợp lệ, hệ thống thông báo lý do cụ thể, ví dụ hết hạn, hết lượt, 
+hoặc chưa đạt giá trị tối thiểu. 
+• Nếu mã hợp lệ, hệ thống tính số tiền giảm và cập nhật tổng tiền: 
+o mã giảm theo phần trăm: số tiền giảm bằng phần trăm nhân với giá trị 
+sản phẩm được áp dụng, và không vượt quá mức giảm tối đa (nếu có); 
+o mã giảm số tiền cố định: giảm đúng số tiền đó; 
+o trong mọi trường hợp, số tiền giảm không vượt quá giá trị các sản 
+phẩm được áp dụng. 
+• Khách hàng có thể gỡ mã đã áp dụng để nhập mã khác. 
+b) Quy trình tạo đơn hàng 
+Mô tả: Khách hàng xác nhận thông tin và đặt hàng. Hệ thống kiểm tra lại toàn bộ dữ liệu 
+rồi tạo đơn hàng. 
+Các bước thực hiện: 
+• Khách hàng nhấn "Thanh toán" từ trang giỏ hàng. 
+• Hệ thống hiển thị danh sách sản phẩm, tạm tính và sổ địa chỉ của khách hàng. Địa 
+chỉ mặc định được chọn sẵn. 
+• Khách hàng chọn địa chỉ giao hàng, áp dụng mã giảm giá (nếu có), chọn phương 
+thức thanh toán, nhập ghi chú (nếu có) và nhấn "Đặt hàng". 
+• Nếu chưa chọn địa chỉ hoặc giỏ hàng trống, hệ thống yêu cầu bổ sung thông tin. 
+• Hệ thống thực hiện trong một giao dịch: 
+o Kiểm tra lại từng sản phẩm còn được kinh doanh và đủ số lượng tồn kho. 
+Kiểm tra lại mã giảm giá còn hợp lệ. 
+o Tính phí vận chuyển: 30.000đ, miễn phí khi tạm tính từ 500.000đ trở lên. 
+o Tính tổng tiền thanh toán theo công thức: tạm tính − số tiền giảm + phí vận 
+chuyển. 
+o Tạo đơn hàng với mã đơn duy nhất, trạng thái Chờ xác nhận và trạng thái 
+thanh toán Chưa thanh toán. Hệ thống sao chép thông tin người nhận, địa 
+chỉ, tên sản phẩm, màu sắc, kích thước, đơn giá và giá vốn tại thời điểm đặt 
+hàng vào đơn. 
+o Trừ số lượng tồn kho của từng biến thể. 
+PAGE 22
+o Nếu có mã giảm giá: tăng số lượt đã dùng và ghi nhận lịch sử sử dụng mã 
+của khách hàng. 
+o Xoá các sản phẩm đã đặt khỏi giỏ hàng và ghi lịch sử trạng thái đơn hàng. 
+• Nếu bất kỳ bước kiểm tra nào thất bại, hệ thống huỷ toàn bộ giao dịch (rollback) 
+và thông báo lỗi. Dữ liệu tồn kho, mã giảm giá và giỏ hàng được giữ nguyên. 
+• Nếu thành công, hệ thống thông báo đặt hàng thành công và hiển thị thông tin đơn 
+hàng. 
+c) Quy trình thanh toán 
+• Thanh toán khi nhận hàng (COD): đơn hàng được ghi nhận ở trạng thái Chờ xác 
+nhận và Chưa thanh toán. Khách hàng thanh toán khi nhận hàng, sau đó quản trị 
+viên cập nhật trạng thái thanh toán. 
+• Thanh toán qua mã QR (mô phỏng): 
+o Sau khi tạo đơn, hệ thống hiển thị thông tin chuyển khoản gồm mã QR, số 
+tiền cần thanh toán và nội dung chuyển khoản là mã đơn hàng. 
+o Khách hàng thực hiện chuyển khoản và nhấn "Xác nhận đã thanh toán". 
+o Hệ thống kiểm tra đơn hàng chưa bị huỷ và chưa được thanh toán. Sau đó 
+hệ thống cập nhật trạng thái thanh toán thành Đã thanh toán, ghi nhận thời 
+điểm thanh toán và sinh mã giao dịch. 
+d) Các ràng buộc nghiệp vụ đặt hàng 
+• Khách hàng phải đăng nhập. Giỏ hàng không được trống. Địa chỉ giao hàng phải 
+thuộc sổ địa chỉ của chính khách hàng. 
+• Tại thời điểm đặt hàng, mọi sản phẩm phải còn kinh doanh và đủ tồn kho. Hệ 
+thống kiểm tra lại ngay cả khi đã kiểm tra lúc thêm vào giỏ. 
+• Mã giảm giá phải thoả mãn đồng thời các điều kiện: đang hoạt động, còn hiệu lực, 
+còn lượt dùng, đúng phạm vi áp dụng và đạt giá trị tối thiểu. Mỗi đơn hàng chỉ áp 
+dụng một mã. 
+• Tổng tiền đơn hàng do máy chủ tính. Giá trị hiển thị ở giao diện chỉ mang tính 
+tham khảo. 
+• Thông tin sản phẩm, giá bán và địa chỉ giao hàng được sao chép vào đơn hàng tại 
+thời điểm đặt. Việc sửa sản phẩm hoặc địa chỉ về sau không làm thay đổi đơn hàng 
+đã tạo. 
+• Tạo đơn, trừ tồn kho, ghi nhận mã giảm giá và xoá giỏ hàng phải được thực hiện 
+trọn vẹn trong một giao dịch. 
+• Không thể thanh toán QR cho đơn hàng đã huỷ hoặc đã được thanh toán. 
+Sơ đồ quy trình thanh toán Quy trình đặt hàng và thanh toán  
+ 
+PAGE 23
+ 
+Hình 1.2. Sơ đồ hoạt động quy trình đặt hàng và thanh toán 
+1.4.4. Quy trình quản lý đơn hàng  
+Quy trình quản lý đơn hàng cho phép quản trị viên tiếp nhận, xử lý và theo dõi đơn hàng 
+từ lúc được tạo đến khi hoàn thành hoặc bị huỷ. Khách hàng có thể theo dõi tiến trình đơn 
+                                    
+                           
+                                
+               
+     
+                             
+  
+                       
+                   
+                          
+            
+                         
+  
+                   
+                           
+                      
+                                              
+                            
+               
+     
+                          
+  
+            
+                                      
+                       
+                            
+     
+                     
+                           
+          
+  
+                    
+                              
+                      
+     
+                             
+              
+  
+     
+  
+                                 
+                           
+PAGE 24
+hàng của mình và huỷ đơn trong giai đoạn đầu. Mỗi đơn hàng có hai loại trạng thái độc 
+lập: 
+• Trạng thái xử lý: Chờ xác nhận → Đã xác nhận → Đang giao → Hoàn thành, 
+hoặc Đã huỷ. 
+• Trạng thái thanh toán: Chưa thanh toán, Đã thanh toán, Thất bại, Hoàn tiền. 
+Mọi thay đổi trạng thái xử lý đều được ghi vào lịch sử trạng thái của đơn, gồm người 
+thực hiện, thời gian và ghi chú. Nhờ đó có thể tra soát toàn bộ quá trình xử lý đơn 
+ 
+a) Quy trình xem danh sách và chi tiết đơn hàng (quản trị viên) 
+Các bước thực hiện: 
+• Quản trị viên đăng nhập vào khu vực quản trị và truy cập chức năng "Quản lý đơn 
+hàng". 
+• Hệ thống hiển thị danh sách đơn hàng có phân trang, sắp xếp theo thời gian mới 
+nhất. Mỗi đơn gồm mã đơn, khách hàng, người nhận, tổng tiền, trạng thái xử lý, 
+trạng thái thanh toán và ngày đặt. 
+• Quản trị viên có thể tìm kiếm theo mã đơn, tên người nhận hoặc email khách hàng, 
+và lọc theo trạng thái xử lý hoặc trạng thái thanh toán. 
+• Quản trị viên chọn một đơn hàng. Hệ thống hiển thị chi tiết gồm danh sách sản 
+phẩm, thông tin người nhận, địa chỉ giao hàng, mã giảm giá, thông tin thanh toán 
+và lịch sử trạng thái. 
+b) Quy trình cập nhật trạng thái xử lý đơn hàng 
+Mô tả: Quản trị viên chuyển đơn hàng sang bước xử lý tiếp theo. 
+Các bước thực hiện: 
+• Tại trang chi tiết đơn, quản trị viên chọn trạng thái tiếp theo và có thể nhập ghi 
+chú. 
+• Hệ thống kiểm tra việc chuyển trạng thái có hợp lệ không. Chỉ các bước chuyển 
+sau được chấp nhận: 
+o Chờ xác nhận → Đã xác nhận 
+o Đã xác nhận → Đang giao 
+o Đang giao → Hoàn thành 
+• Nếu không hợp lệ (ví dụ nhảy từ Chờ xác nhận sang Hoàn thành, hoặc thay đổi 
+đơn đã hoàn thành), hệ thống báo lỗi và giữ nguyên trạng thái cũ. 
+• Nếu hợp lệ, hệ thống cập nhật trạng thái, ghi lịch sử và thông báo thành công. 
+c) Quy trình huỷ đơn hàng 
+Mô tả: Đơn hàng có thể bị huỷ bởi khách hàng hoặc quản trị viên, tuỳ giai đoạn xử lý. 
+Việc huỷ đơn được thực hiện trong một giao dịch (transaction) để đảm bảo tồn kho và mã 
+giảm giá được hoàn lại chính xác. 
+Các bước thực hiện: 
+• Khách hàng huỷ đơn: 
+o Khách hàng mở "Đơn hàng của tôi", chọn đơn cần huỷ, nhấn "Huỷ đơn" và 
+nhập lý do (không bắt buộc). 
+PAGE 25
+o Hệ thống kiểm tra đơn đang ở trạng thái Chờ xác nhận và chưa thanh toán. 
+Nếu không thoả mãn, hệ thống thông báo không thể huỷ. 
+• Quản trị viên huỷ đơn: 
+o Quản trị viên chọn "Huỷ đơn" tại trang chi tiết và nhập lý do. 
+o Hệ thống chỉ cho phép huỷ khi đơn đang ở trạng thái Chờ xác 
+nhận hoặc Đã xác nhận. Đơn đang giao hoặc đã hoàn thành không thể huỷ. 
+• Khi huỷ hợp lệ, hệ thống thực hiện trong một giao dịch: 
+o Hoàn lại số lượng tồn kho cho từng sản phẩm trong đơn. 
+o Nếu đơn có dùng mã giảm giá: giảm số lượt đã dùng của mã và xoá bản ghi 
+sử dụng mã, để khách hàng có thể dùng lại mã. 
+o Chuyển trạng thái đơn sang Đã huỷ và ghi lịch sử kèm lý do huỷ. 
+• Hệ thống thông báo huỷ đơn thành công. 
+d) Quy trình cập nhật trạng thái thanh toán 
+Mô tả: Quản trị viên cập nhật trạng thái thanh toán, chủ yếu dùng cho đơn COD sau khi 
+đã thu tiền, hoặc trường hợp thanh toán thất bại hay hoàn tiền. 
+Các bước thực hiện: 
+• Quản trị viên chọn trạng thái thanh toán mới: Chưa thanh toán, Đã thanh toán, 
+Thất bại hoặc Hoàn tiền. 
+• Hệ thống kiểm tra đơn hàng chưa bị huỷ. Nếu đơn đã huỷ, hệ thống từ chối cập 
+nhật. 
+• Hệ thống cập nhật trạng thái thanh toán. Nếu trạng thái là Đã thanh toán, hệ thống 
+ghi nhận thời điểm thanh toán và sinh mã giao dịch (nếu chưa có). 
+• Hệ thống thông báo cập nhật thành công. 
+e) Quy trình theo dõi đơn hàng (khách hàng) 
+• Khách hàng mở "Đơn hàng của tôi". Hệ thống hiển thị danh sách đơn của chính 
+khách hàng, có thể lọc theo trạng thái. 
+• Khách hàng chọn một đơn để xem chi tiết sản phẩm, tổng tiền, phương thức và 
+trạng thái thanh toán, cùng tiến trình xử lý được lấy từ lịch sử trạng thái. 
+f) Các ràng buộc nghiệp vụ đơn hàng 
+• Mỗi đơn hàng thuộc về một khách hàng và có ít nhất một sản phẩm. Khách hàng 
+chỉ xem và thao tác được trên đơn của mình. 
+• Trạng thái xử lý chỉ được chuyển tuần tự theo sơ đồ trạng thái, không nhảy bước 
+và không quay lại. Hoàn thành và Đã huỷ là trạng thái cuối, không thể thay đổi. 
+• Khách hàng chỉ được huỷ đơn đang Chờ xác nhận và chưa thanh toán. Quản trị 
+viên được huỷ đơn đang Chờ xác nhận hoặc Đã xác nhận. 
+• Khi huỷ đơn, tồn kho và lượt dùng mã giảm giá phải được hoàn lại đầy đủ trong 
+cùng một giao dịch. 
+• Không được cập nhật trạng thái thanh toán cho đơn đã huỷ. 
+• Thông tin sản phẩm, giá bán, tổng tiền và địa chỉ giao hàng được giữ nguyên như 
+lúc đặt hàng, không bị ảnh hưởng khi sản phẩm hoặc địa chỉ gốc thay đổi. 
+• Mọi thay đổi trạng   thái xử lý đều phải được ghi vào lịch sử đơn hàng. 
+PAGE 26
+ 
+1.4.5. Quy trình quản lý mã giảm giá 
+Quy trình quản lý mã giảm giá cho phép quản trị viên tạo và điều hành các chương trình 
+khuyến mãi. Khách hàng có thể xem các mã đang có và sử dụng khi đặt hàng. Mỗi mã 
+giảm giá gồm các thông tin sau: 
+• Mã và tên chương trình: mã là duy nhất và được lưu dưới dạng chữ in hoa. 
+• Loại giảm giá: giảm theo phần trăm (có thể kèm mức giảm tối đa) hoặc giảm số 
+tiền cố định. 
+• Điều kiện áp dụng: giá trị đơn hàng tối thiểu, thời gian bắt đầu và kết thúc. 
+
+PAGE 27
+• Giới hạn sử dụng: tổng số lượt dùng của mã và số lượt tối đa mỗi khách hàng 
+được dùng. Cả hai đều không bắt buộc; để trống nghĩa là không giới hạn. 
+• Phạm vi áp dụng: có thể giới hạn theo danh mục hoặc sản phẩm cụ thể. Nếu để 
+trống, mã áp dụng cho toàn bộ sản phẩm. 
+• Trạng thái: đang hoạt động hoặc đã tắt 
+•  
+a) Quy trình tạo mã giảm giá 
+Các bước thực hiện: 
+• Quản trị viên đăng nhập, truy cập chức năng "Quản lý mã giảm giá" và chọn 
+"Thêm mã giảm giá". 
+• Quản trị viên nhập các thông tin: mã, tên chương trình, mô tả, loại giảm giá, giá trị 
+giảm, mức giảm tối đa, giá trị đơn hàng tối thiểu, thời gian hiệu lực, giới hạn lượt 
+dùng, danh mục hoặc sản phẩm áp dụng, và trạng thái. 
+• Hệ thống kiểm tra: 
+o Mã và tên chương trình không được để trống. Giá trị giảm phải lớn hơn 0. 
+o Thời gian kết thúc phải sau thời gian bắt đầu. 
+o Mã giảm theo phần trăm không được vượt quá 100%. Mã giảm số tiền cố 
+định không được khai báo mức giảm tối đa. 
+o Các danh mục và sản phẩm được chọn phải tồn tại trong hệ thống. 
+o Mã chưa tồn tại. Việc so sánh không phân biệt chữ hoa và chữ thường. 
+• Nếu dữ liệu không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu nhập lại. 
+• Nếu hợp lệ, hệ thống chuẩn hoá mã về chữ in hoa, lưu mã với số lượt đã dùng 
+bằng 0, ghi nhận quản trị viên tạo mã, rồi thông báo thành công. 
+b) Quy trình cập nhật mã giảm giá 
+Các bước thực hiện: 
+• Quản trị viên chọn mã cần sửa. Hệ thống hiển thị thông tin hiện tại. 
+• Quản trị viên chỉnh sửa thông tin và phạm vi áp dụng. 
+• Hệ thống kiểm tra dữ liệu như khi tạo mới. Mã sau khi sửa không được trùng với 
+mã khác. 
+• Nếu hợp lệ, hệ thống cập nhật mã, thay danh sách danh mục và sản phẩm áp dụng 
+bằng danh sách mới, rồi thông báo thành công. 
+c) Quy trình bật / tắt mã giảm giá 
+Mô tả: Hệ thống không xoá mã giảm giá. Lý do là mã đã gắn với các đơn hàng và lịch sử 
+sử dụng. Thay vào đó, quản trị viên tắt mã để ngừng chương trình khuyến mãi. 
+Các bước thực hiện: 
+• Quản trị viên chọn mã và chọn "Bật" hoặc "Tắt". 
+• Hệ thống cập nhật trạng thái hoạt động của mã. Mã bị tắt không thể áp dụng khi 
+đặt hàng và không hiển thị trong danh sách mã của khách hàng. Các đơn hàng đã 
+dùng mã trước đó không bị ảnh hưởng. 
+d) Quy trình xem lịch sử sử dụng mã 
+• Quản trị viên chọn một mã và xem lịch sử sử dụng. 
+PAGE 28
+• Hệ thống hiển thị danh sách các lượt dùng, có phân trang, gồm tên và email khách 
+hàng, mã đơn hàng, số tiền được giảm và thời điểm sử dụng. 
+e) Quy trình khách hàng xem và sử dụng mã giảm giá 
+Các bước thực hiện: 
+• Khách hàng mở trang "Mã giảm giá của tôi". 
+• Hệ thống lấy các mã đang hoạt động và chưa hết hạn, rồi đối chiếu từng mã với 
+giỏ hàng hiện tại của khách hàng. 
+• Hệ thống hiển thị hai nhóm: 
+o mã dùng được: kèm số tiền giảm dự kiến; 
+o mã chưa dùng được: kèm lý do cụ thể, ví dụ chưa đến thời gian áp dụng, đã 
+hết lượt, khách đã dùng hết số lần cho phép, không áp dụng cho sản phẩm 
+trong giỏ, hoặc "cần mua thêm X đồng". 
+• Khách hàng có thể sao chép mã, hoặc nhấn "Dùng ngay". Khi nhấn "Dùng ngay", 
+hệ thống chuyển sang trang thanh toán với mã được điền sẵn, sau đó kiểm tra và 
+áp dụng mã theo quy trình ở mục 1.4.3 a. 
+f) Các ràng buộc nghiệp vụ mã giảm giá 
+ 
+• Mã giảm giá là duy nhất trong hệ thống và không phân biệt chữ hoa, chữ thường. 
+• Thời gian kết thúc phải sau thời gian bắt đầu. Mã chỉ được sử dụng trong thời gian 
+hiệu lực và khi đang ở trạng thái hoạt động. 
+• Mã giảm theo phần trăm không vượt quá 100%. Mức giảm tối đa chỉ áp dụng cho 
+mã giảm theo phần trăm. 
+• Số tiền giảm không vượt quá giá trị của các sản phẩm được áp dụng. 
+• Nếu mã giới hạn phạm vi, chỉ các sản phẩm thuộc danh mục hoặc sản phẩm được 
+chọn mới được tính giảm và tính vào giá trị tối thiểu. 
+• Tổng số lượt dùng và số lượt dùng mỗi khách hàng không vượt quá giới hạn đã 
+khai báo. Lượt dùng chỉ được ghi nhận khi đơn hàng được tạo thành công, và được 
+hoàn lại khi đơn hàng bị huỷ. 
+• Mỗi đơn hàng chỉ áp dụng một mã giảm giá. 
+• Mã giảm giá không bị xoá khỏi hệ thống, chỉ được tắt, nhằm bảo toàn lịch sử sử 
+dụng và dữ liệu đơn hàng. 
+PAGE 29
+ 
+Hình 1.x. Sơ đồ hoạt động quy trình quản lý mã giảm giá 
+1.4.6. Quy trình nhập hàng (phiếu nhập kho) 
+Quy trình nhập hàng là cách duy nhất để tăng tồn kho trong hệ thống. Mỗi lần nhập 
+hàng từ nhà cung cấp, quản trị viên lập một phiếu nhập kho. Phiếu ghi nhận danh sách 
+biến thể sản phẩm, số lượng và giá nhập. Khi phiếu được lưu, hệ thống tự động cộng tồn 
+kho và tính lại giá vốn bình quân gia quyền của từng biến thể. Giá vốn này được chốt 
+vào từng dòng đơn hàng khi khách mua, làm cơ sở tính lợi nhuận trên trang thống kê. 
+Nhờ quy trình này, mọi biến động tồn kho đều có chứng từ đi kèm (phiếu nhập hoặc đơn 
+hàng). Quản trị viên không sửa số tồn kho một cách tuỳ ý. 
+a) Quy trình tạo phiếu nhập 
+Các bước thực hiện: 
+• Quản trị viên đăng nhập, truy cập chức năng "Quản lý nhập hàng" và chọn "Tạo 
+phiếu nhập". 
+• Quản trị viên chọn nhà cung cấp và nhập ghi chú (không bắt buộc). 
+
+PAGE 30
+• Quản trị viên thêm từng dòng hàng: chọn biến thể sản phẩm (theo SKU, màu, kích 
+thước), nhập số lượng và giá nhập. Có thể thêm nhiều dòng trong cùng một phiếu. 
+• Hệ thống kiểm tra: 
+o Nhà cung cấp và các biến thể được chọn phải tồn tại. 
+o Phiếu có ít nhất một dòng hàng. 
+o Số lượng mỗi dòng lớn hơn 0. Giá nhập không âm. 
+• Nếu dữ liệu không hợp lệ, hệ thống hiển thị thông báo lỗi để quản trị viên chỉnh 
+sửa. 
+• Nếu dữ liệu hợp lệ: 
+o Hệ thống sinh mã phiếu duy nhất (dạng PN + thời gian), tính thành tiền 
+từng dòng (số lượng × giá nhập) và tổng tiền phiếu. 
+o Với mỗi dòng, hệ thống cộng số lượng vào tồn kho của biến thể và tính lại 
+giá vốn bình quân theo công thức ở mục d. 
+o Hệ thống lưu phiếu với trạng thái Hoàn thành, ghi nhận người lập phiếu, 
+và thông báo thành công. 
+b) Quy trình sửa phiếu nhập 
+Mô tả: Dùng để điều chỉnh khi nhập sai số lượng, giá nhập hoặc nhà cung cấp. 
+Các bước thực hiện: 
+• Quản trị viên chọn phiếu cần sửa, rồi chỉnh sửa nhà cung cấp, ghi chú hoặc các 
+dòng hàng. 
+• Hệ thống kiểm tra phiếu chưa bị huỷ. Với mỗi biến thể liên quan, hệ thống kiểm 
+tra điều kiện: tồn kho hiện tại − số lượng trên phiếu cũ + số lượng trên phiếu mới 
+≥ 0. Điều kiện này ngăn việc giảm số lượng nhập khi hàng của phiếu đã được bán 
+bớt. 
+• Nếu không thoả mãn, hệ thống báo lỗi, nêu rõ SKU, tồn kho hiện tại và số lượng 
+muốn giảm. 
+• Nếu hợp lệ: 
+o Hoàn tác phiếu cũ: trừ lại tồn kho và loại phần giá trị của lô hàng cũ ra 
+khỏi giá vốn bình quân. 
+o Nhập lại theo nội dung mới: cộng tồn kho và tính lại giá vốn bình quân. 
+o Cập nhật tổng tiền phiếu, lưu và thông báo thành công. 
+c) Quy trình huỷ phiếu nhập 
+Các bước thực hiện: 
+• Quản trị viên chọn phiếu cần huỷ và nhập lý do huỷ (bắt buộc). 
+• Hệ thống kiểm tra phiếu chưa bị huỷ và tồn kho hiện tại của từng biến thể đủ để 
+trừ lại toàn bộ số lượng đã nhập. 
+• Nếu hàng đã được bán bớt khiến tồn kho không đủ, hệ thống từ chối huỷ và liệt kê 
+các SKU bị thiếu (tồn hiện tại so với số lượng cần trừ). 
+• Nếu hợp lệ, hệ thống trừ lại tồn kho từng biến thể, tính lại giá vốn bình quân, 
+chuyển phiếu sang trạng thái Đã huỷ, lưu lý do và thời điểm huỷ. 
+• Phiếu đã huỷ vẫn được lưu lại để tra cứu, nhưng không thể sửa hoặc huỷ thêm. 
+PAGE 31
+d) Cách tính giá vốn bình quân gia quyền 
+• Khi nhập hàng: Giá vốn mới = (Tồn cũ × Giá vốn cũ + SL nhập × Giá nhập) / 
+(Tồn cũ + SL nhập) 
+Ví dụ: biến thể đang tồn 10 cái, giá vốn 100.000đ. Nhập thêm 20 cái với giá 130.000đ. 
+Giá vốn mới = (10 × 100.000 + 20 × 130.000) / 30 = 120.000đ. 
+• Khi hoàn tác nhập (sửa hoặc huỷ phiếu): Giá vốn mới = (Tồn hiện tại × Giá vốn 
+hiện tại − SL nhập × Giá nhập) / (Tồn hiện tại − SL nhập) 
+• Nếu sau khi hoàn tác tồn kho về 0, hệ thống giữ nguyên giá vốn cũ. Lần nhập kế 
+tiếp sẽ tính theo giá nhập mới. 
+e) Quy trình xem danh sách và chi tiết phiếu nhập 
+• Hệ thống hiển thị danh sách phiếu nhập, có phân trang, sắp xếp theo thời gian mới 
+nhất và lọc được theo nhà cung cấp. Mỗi phiếu gồm mã phiếu, nhà cung cấp, 
+người lập, số dòng hàng, tổng số lượng, tổng tiền và trạng thái. 
+• Khi chọn một phiếu, hệ thống hiển thị chi tiết từng dòng hàng (tên sản phẩm, 
+SKU, màu, kích thước, số lượng, giá nhập, thành tiền), ghi chú và lý do huỷ (nếu 
+có). 
+f) Các ràng buộc nghiệp vụ nhập hàng 
+• Tồn kho chỉ tăng qua phiếu nhập. Form sản phẩm và biến thể không cho sửa tồn 
+kho trực tiếp. 
+• Phiếu nhập phải có nhà cung cấp hợp lệ và ít nhất một dòng hàng. Số lượng lớn 
+hơn 0 và giá nhập không âm. 
+• Mã phiếu nhập là duy nhất và do hệ thống tự sinh. 
+• Thông tin sản phẩm (tên, SKU, màu, kích thước) được sao chép vào dòng phiếu 
+tại thời điểm nhập, để phiếu không bị thay đổi khi sản phẩm được chỉnh sửa về 
+sau. 
+• Không được sửa hoặc huỷ phiếu nếu việc đó làm tồn kho bị âm (hàng của phiếu đã 
+được bán). 
+• Phiếu đã huỷ không thể sửa hoặc huỷ lại. Huỷ phiếu bắt buộc phải có lý do. 
+• Mọi thay đổi tồn kho và giá vốn của một thao tác (tạo, sửa, huỷ phiếu) được lưu 
+trong cùng một lần ghi xuống cơ sở dữ liệu, đảm bảo không bị cập nhật dở dang. 
+ 
+PAGE 32
+ 
+Hình 1.x. Sơ đồ hoạt động quy trình nhập hàng 
+1.4.7. Quy trình đánh giá sản phẩm 
+Quy trình đánh giá cho phép khách hàng chấm điểm và nhận xét về sản phẩm đã mua. 
+Nhờ đó những người mua sau có thêm thông tin để lựa chọn. Để đảm bảo đánh giá đáng 
+tin cậy, hệ thống chỉ cho phép đánh giá những sản phẩm khách hàng thực sự đã mua và 
+đã nhận hàng. Mỗi đánh giá gắn với một dòng sản phẩm cụ thể trong đơn hàng. Để đảm 
+bảo nội dung phù hợp, mọi đánh giá phải được quản trị viên duyệt trước khi hiển thị 
+công khai. 
+a) Quy trình viết đánh giá 
+Các bước thực hiện: 
+
+PAGE 33
+• Khách hàng đăng nhập, mở "Đơn hàng của tôi" và chọn một đơn hàng ở trạng 
+thái Hoàn thành. 
+• Tại từng sản phẩm trong đơn, khách hàng nhấn "Đánh giá". 
+• Khách hàng chọn số sao từ 1 đến 5 và nhập nhận xét (không bắt buộc, tối đa 1000 
+ký tự). 
+• Hệ thống kiểm tra: 
+o Sản phẩm thuộc đơn hàng của chính khách hàng. 
+o Đơn hàng đã ở trạng thái Hoàn thành. 
+o Sản phẩm này trong đơn hàng này chưa được đánh giá. 
+• Nếu không hợp lệ, hệ thống thông báo lỗi và không lưu đánh giá. 
+• Nếu hợp lệ, hệ thống lưu đánh giá ở trạng thái Chờ duyệt và thông báo đánh giá 
+đã được gửi, đang chờ duyệt. 
+b) Quy trình sửa và xoá đánh giá 
+• Sửa đánh giá: 
+o Khách hàng mở trang "Đánh giá của tôi". Trang này liệt kê tất cả đánh giá 
+của khách kèm trạng thái duyệt. 
+o Khách hàng chọn đánh giá cần sửa, thay đổi số sao hoặc nhận xét. 
+o Hệ thống kiểm tra đánh giá thuộc về khách hàng và dữ liệu hợp lệ. 
+o Hệ thống cập nhật đánh giá và chuyển về trạng thái Chờ duyệt. Đánh giá 
+tạm ẩn khỏi trang sản phẩm cho đến khi được duyệt lại. 
+• Xoá đánh giá: 
+o Khách hàng chọn đánh giá cần xoá và xác nhận. 
+o Hệ thống xoá đánh giá khỏi hệ thống. Nếu không xác nhận, thao tác bị huỷ. 
+c) Quy trình duyệt đánh giá (quản trị viên) 
+Các bước thực hiện: 
+• Quản trị viên đăng nhập và truy cập chức năng "Quản lý đánh giá". 
+• Hệ thống hiển thị danh sách đánh giá, có phân trang và sắp xếp theo thời gian mới 
+nhất. Mỗi đánh giá gồm sản phẩm, khách hàng, số sao, nhận xét và trạng thái. 
+Quản trị viên có thể lọc theo trạng thái duyệt, và tìm kiếm theo tên sản phẩm, tên 
+hoặc email khách hàng. 
+• Quản trị viên chọn một đánh giá và đọc nội dung: 
+o nếu nội dung phù hợp, chọn Duyệt: đánh giá chuyển sang trạng thái Đã 
+duyệt và hiển thị trên trang chi tiết sản phẩm; 
+o nếu nội dung không phù hợp (ngôn từ thiếu chuẩn mực, quảng cáo, 
+spam…), chọn Từ chối: đánh giá chuyển về trạng thái chưa duyệt và bị ẩn 
+khỏi trang sản phẩm. 
+• Quản trị viên có thể tiếp tục xử lý các đánh giá khác. 
+d) Quy trình xem đánh giá sản phẩm 
+• Tại trang chi tiết sản phẩm, mọi người dùng, kể cả khách chưa đăng nhập, đều 
+xem được danh sách đánh giá của sản phẩm. 
+PAGE 34
+• Danh sách chỉ gồm các đánh giá Đã duyệt, có phân trang và sắp xếp theo thời 
+gian mới nhất. Mỗi đánh giá hiển thị tên người đánh giá, số sao, nhận xét và ngày 
+đánh giá. 
+e) Các ràng buộc nghiệp vụ đánh giá 
+• Khách hàng phải đăng nhập mới được viết, sửa hoặc xoá đánh giá. Khách hàng chỉ 
+thao tác được trên đánh giá của chính mình. 
+• Chỉ được đánh giá sản phẩm thuộc đơn hàng của mình và đơn hàng đó đã ở trạng 
+thái Hoàn thành. 
+• Mỗi sản phẩm trong một đơn hàng chỉ được đánh giá một lần. Nếu mua lại sản 
+phẩm ở đơn khác, khách hàng được đánh giá thêm. 
+• Số sao nằm trong khoảng 1 đến 5. Nhận xét không quá 1000 ký tự. 
+• Đánh giá mới và đánh giá vừa sửa đều ở trạng thái Chờ duyệt, chỉ hiển thị công 
+khai sau khi quản trị viên duyệt. 
+• Trang sản phẩm chỉ hiển thị đánh giá đã duyệt của sản phẩm đang kinh doanh. 
+ 
+Hình 1.x. Sơ đồ hoạt động quy trình đánh giá sản phẩm 
+
+PAGE 35
+1.4.8. Quy trình xác thực và quản lý tài khoản 
+Quy trình xác thực đảm bảo chỉ người dùng hợp lệ mới truy cập được các chức năng yêu 
+cầu tài khoản, và mỗi người chỉ dùng được các chức năng đúng với vai trò của mình 
+(Khách hàng hoặc Quản trị viên). Hệ thống xác thực bằng JSON Web Token (JWT): 
+• Sau khi đăng nhập thành công, máy chủ cấp một token có hạn 120 phút, chứa mã 
+người dùng, họ tên, email và vai trò. 
+• Frontend lưu token và tự động gửi kèm trong mỗi yêu cầu. 
+• Máy chủ kiểm tra chữ ký, thời hạn và vai trò trong token trước khi xử lý. 
+Mật khẩu không bao giờ được lưu dưới dạng gốc mà được băm bằng thuật toán 
+BCrypt. 
+a) Quy trình đăng ký tài khoản 
+Các bước thực hiện: 
+• Người dùng truy cập trang đăng ký, nhập họ tên, email, số điện thoại (không bắt 
+buộc), mật khẩu và xác nhận mật khẩu. 
+• Hệ thống kiểm tra: 
+o Họ tên, email và mật khẩu không được để trống. Email đúng định dạng. 
+o Mật khẩu có ít nhất 6 ký tự. Xác nhận mật khẩu khớp với mật khẩu. 
+o Email chưa được sử dụng. Email được chuẩn hoá về chữ thường trước khi 
+so sánh. 
+• Nếu không hợp lệ, hệ thống hiển thị lỗi để người dùng nhập lại. 
+• Nếu hợp lệ, hệ thống băm mật khẩu bằng BCrypt, tạo tài khoản với vai trò Khách 
+hàng, cấp JWT để người dùng được đăng nhập ngay, và chuyển về trang chủ. 
+b) Quy trình đăng nhập 
+Các bước thực hiện: 
+• Người dùng nhập email và mật khẩu. 
+• Hệ thống tìm tài khoản theo email và kiểm tra lần lượt: 
+o Tài khoản đang bị khoá tạm thời: từ chối đăng nhập và báo thời gian còn 
+lại (ví dụ "Vui lòng thử lại sau 12 phút"). 
+o Email không tồn tại hoặc mật khẩu sai: hệ thống tăng số lần đăng nhập 
+sai của tài khoản. Nếu sai 5 lần liên tiếp, tài khoản bị khoá tạm 15 phút và 
+hệ thống ghi log cảnh báo. Thông báo trả về luôn là "Email hoặc mật khẩu 
+không đúng", không nói rõ sai email hay sai mật khẩu. 
+o Tài khoản đã bị quản trị viên vô hiệu hoá: từ chối đăng nhập. 
+• Nếu hợp lệ, hệ thống đặt lại bộ đếm đăng nhập sai và cấp JWT. 
+• Frontend lưu token và thông tin người dùng, sau đó chuyển người dùng đến trang 
+đang truy cập dở (nếu bị chuyển sang trang đăng nhập giữa chừng) hoặc về trang 
+chủ. 
+c) Quy trình quên và đặt lại mật khẩu 
+Các bước thực hiện: 
+• Người dùng chọn "Quên mật khẩu" và nhập email. 
+PAGE 36
+• Nếu email thuộc một tài khoản đang hoạt động, hệ thống: 
+o sinh một mã (token) ngẫu nhiên an toàn dài 32 byte, có hiệu lực 30 phút, 
+và lưu vào tài khoản; 
+o gửi email chứa liên kết đặt lại mật khẩu kèm token. 
+• Dù email có tồn tại hay không, hệ thống đều hiển thị cùng một thông báo: "Nếu 
+email tồn tại trong hệ thống, chúng tôi đã gửi hướng dẫn đặt lại mật khẩu". Cách 
+này ngăn kẻ xấu dò xem email nào đã đăng ký. 
+• Người dùng mở email và bấm vào liên kết. Hệ thống hiển thị form nhập mật khẩu 
+mới và xác nhận mật khẩu. 
+• Hệ thống kiểm tra token đúng và chưa hết hạn, mật khẩu mới có ít nhất 6 ký tự và 
+xác nhận khớp. 
+• Nếu hợp lệ, hệ thống băm và lưu mật khẩu mới, xoá token để liên kết chỉ dùng 
+được một lần, rồi chuyển người dùng đến trang đăng nhập. 
+• Nếu token sai hoặc hết hạn, hệ thống thông báo và yêu cầu người dùng gửi lại yêu 
+cầu quên mật khẩu. 
+d) Quy trình đổi mật khẩu 
+• Người dùng đã đăng nhập mở "Hồ sơ cá nhân" và chọn "Đổi mật khẩu". 
+• Người dùng nhập mật khẩu hiện tại, mật khẩu mới và xác nhận mật khẩu mới. 
+• Hệ thống kiểm tra mật khẩu hiện tại đúng, mật khẩu mới có ít nhất 6 ký tự và khác 
+mật khẩu hiện tại, xác nhận khớp. 
+• Nếu hợp lệ, hệ thống băm và lưu mật khẩu mới, rồi thông báo thành công. 
+e) Quy trình đăng xuất 
+• Người dùng nhấn "Đăng xuất". 
+• Hệ thống xoá token và thông tin người dùng khỏi trình duyệt, rồi chuyển về trang 
+chủ. 
+f) Kiểm soát truy cập và phân quyền 
+• Phía giao diện (Angular): 
+o AuthGuard chặn các trang yêu cầu đăng nhập như giỏ hàng, thanh toán, tài 
+khoản. Nếu chưa đăng nhập, người dùng được chuyển đến trang đăng nhập, 
+kèm địa chỉ trang đang truy cập để quay lại sau khi đăng nhập. 
+o AdminGuard chỉ cho tài khoản có vai trò Admin vào khu vực quản trị. 
+Người dùng khác bị chuyển đến trang 403. 
+o GuestGuard không cho người đã đăng nhập vào lại trang đăng nhập và 
+đăng ký. 
+• Interceptor: 
+o AuthInterceptor tự động gắn token vào mọi yêu cầu gửi lên máy chủ. 
+o ErrorInterceptor xử lý lỗi trả về: gặp lỗi 401 (token hết hạn hoặc không hợp 
+lệ) thì tự động đăng xuất và chuyển đến trang đăng nhập; gặp lỗi 403 thì 
+chuyển đến trang báo không có quyền. 
+PAGE 37
+• Phía máy chủ: mọi API được bảo vệ đều kiểm tra token. Các API quản trị còn 
+kiểm tra vai trò Admin. Vì vậy người dùng không thể vượt qua phân quyền dù gọi 
+API trực tiếp mà không qua giao diện. 
+g) Các ràng buộc nghiệp vụ xác thực 
+• Email là duy nhất, không phân biệt chữ hoa và chữ thường. Mật khẩu có ít nhất 6 
+ký tự. 
+• Mật khẩu chỉ được lưu dưới dạng băm BCrypt, không lưu và không hiển thị mật 
+khẩu gốc. 
+• Đăng nhập sai 5 lần liên tiếp thì tài khoản bị khoá tạm 15 phút. Đăng nhập thành 
+công thì bộ đếm được đặt lại. 
+• Tài khoản bị quản trị viên vô hiệu hoá không thể đăng nhập. 
+• Token đăng nhập có hạn 120 phút. Hết hạn thì người dùng phải đăng nhập lại. 
+• Liên kết đặt lại mật khẩu có hạn 30 phút và chỉ dùng được một lần. 
+• Tài khoản đăng ký mới luôn có vai trò Khách hàng. Tài khoản quản trị được khởi 
+tạo sẵn bởi hệ thống, không đăng ký qua giao diện. 
+PAGE 38
+ 
+Hình 1.x. Sơ đồ hoạt động quy trình xác thực và quản lý tài khoản 
+ 
+1.5 Mô hình hóa chức năng 
+1.5.1 Tổng hợp các yêu cầu hệ thống 
+Hệ thống bán quần áo trực tuyến hướng tới việc tự động hóa quy trình kinh doanh và 
+quản lý cửa hàng, thay thế các phương thức thủ công như ghi chép thông tin sản phẩm, 
+quản lý đơn hàng bằng sổ sách, cập nhật tồn kho thủ công và tiếp nhận đơn hàng trực tiếp 
+tại cửa hàng. 
+Việc tự động hóa giúp giảm thiểu sai sót trong quá trình quản lý, tiết kiệm thời gian xử lý 
+đơn hàng, hỗ trợ khách hàng mua sắm thuận tiện và nâng cao hiệu quả hoạt động của cửa 
+hàng. 
+❖ Nhóm chức năng trong hệ thống: 
+
+PAGE 39
+ 
+R1. Nhóm chức năng xác thực và phân quyền Hệ thống quản lý tài khoản, xác thực 
+người dùng và phân quyền truy cập giữa khách hàng và quản trị viên. 
+ 
+R1.1. Đăng ký tài khoản. Người dùng chưa có tài khoản đăng ký bằng họ tên, email, số 
+điện thoại (không bắt buộc) và mật khẩu. Hệ thống kiểm tra email đúng định dạng và 
+chưa được sử dụng, mật khẩu có ít nhất 6 ký tự và xác nhận mật khẩu khớp. Tài khoản 
+mới có vai trò Khách hàng và được đăng nhập ngay sau khi đăng ký. 
+ 
+R1.2. Đăng nhập. Khách hàng và quản trị viên đăng nhập bằng email và mật khẩu. Đăng 
+nhập thành công thì hệ thống cấp token xác thực (JWT) có thời hạn và chuyển người 
+dùng về trang đang truy cập dở hoặc trang chủ. 
+ 
+R1.3. Chống dò mật khẩu. Đăng nhập sai 5 lần liên tiếp thì tài khoản bị khoá tạm 15 phút. 
+Tài khoản bị quản trị viên vô hiệu hoá không thể đăng nhập. 
+ 
+R1.4. Quên và đặt lại mật khẩu. Người dùng nhập email để nhận liên kết đặt lại mật khẩu. 
+Liên kết có hiệu lực 30 phút và chỉ dùng được một lần. 
+ 
+R1.5. Đổi mật khẩu. Người dùng đã đăng nhập đổi mật khẩu sau khi xác nhận mật khẩu 
+hiện tại. 
+ 
+R1.6. Đăng xuất. Người dùng kết thúc phiên làm việc. Token xác thực bị xoá khỏi trình 
+duyệt. 
+ 
+R1.7. Phân quyền. Khách hàng chỉ dùng được các chức năng mua sắm và quản lý tài 
+khoản cá nhân. Chỉ quản trị viên mới truy cập được khu vực quản trị. Việc phân quyền 
+được kiểm tra ở cả giao diện và máy chủ. 
+ 
+R2. Nhóm chức năng quản lý sản phẩm 
+PAGE 40
+R2.1. Thêm sản phẩm. Quản trị viên thêm sản phẩm với các thông tin: tên, danh mục, 
+thương hiệu, giới tính, giá gốc, giá khuyến mãi, mô tả, chất liệu và đánh dấu sản phẩm 
+nổi bật. Hệ thống tự sinh đường dẫn (slug) từ tên sản phẩm. 
+ 
+R2.2. Quản lý biến thể. Mỗi sản phẩm có nhiều biến thể theo màu sắc và kích thước. Mỗi 
+biến thể có mã SKU riêng (duy nhất), giá bán riêng và tồn kho riêng. Tồn kho không 
+nhập trực tiếp mà chỉ thay đổi qua phiếu nhập kho và khi bán hàng. 
+ 
+R2.3. Quản lý hình ảnh. Quản trị viên tải ảnh lên (JPG, JPEG, PNG, WEBP, tối đa 5 
+MB), sắp xếp thứ tự và chọn một ảnh đại diện. 
+R2.4. Cập nhật sản phẩm. Quản trị viên chỉnh sửa thông tin sản phẩm, biến thể và hình 
+ảnh. Không được mở bán lại sản phẩm khi tồn kho bằng 0. 
+ 
+R2.5. Ngừng kinh doanh sản phẩm. Xoá sản phẩm được thực hiện dưới dạng xoá mềm 
+(ngừng kinh doanh), nhằm bảo toàn dữ liệu đơn hàng và đánh giá liên quan. 
+ 
+R2.6. Xem danh sách và chi tiết sản phẩm. Quản trị viên xem danh sách sản phẩm có 
+phân trang, kèm tổng tồn kho, và xem chi tiết từng sản phẩm. 
+ 
+R3. Nhóm chức năng quản lý danh mục và thuộc tính sản phẩm 
+R3.1. Quản trị viên quản lý (xem, thêm, sửa, xoá) danh mục sản phẩm. 
+R3.2. Quản trị viên quản lý thương hiệu. 
+R3.3. Quản trị viên quản lý màu sắc (tên màu, mã màu). 
+R3.4. Quản trị viên quản lý kích thước (tên size, thứ tự hiển thị). 
+ 
+R4. Nhóm chức năng quản lý nhà cung cấp và nhập kho 
+ 
+R4.1. Quản lý nhà cung cấp. Quản trị viên xem, thêm, sửa, xoá thông tin nhà cung cấp. 
+R4.2. Tạo phiếu nhập kho. Quản trị viên lập phiếu nhập gồm nhà cung cấp và các dòng 
+hàng (biến thể, số lượng, giá nhập). Khi lưu phiếu, hệ thống cộng tồn kho và tính lại giá 
+vốn bình quân gia quyền của từng biến thể. 
+PAGE 41
+R4.3. Sửa và huỷ phiếu nhập. Quản trị viên sửa hoặc huỷ phiếu (huỷ phải có lý do). Hệ 
+thống tự điều chỉnh lại tồn kho và giá vốn. Không cho phép sửa hoặc huỷ nếu hàng đã 
+bán khiến tồn kho bị âm. 
+R4.4. Xem phiếu nhập. Quản trị viên xem danh sách phiếu nhập (lọc theo nhà cung cấp) 
+và chi tiết từng phiếu. 
+ 
+R5. Nhóm chức năng hiển thị, tìm kiếm và lọc sản phẩm 
+R5.1. Trang chủ. Hiển thị banner, sản phẩm nổi bật và sản phẩm mới về. 
+R5.2. Tìm kiếm sản phẩm. Khách hàng tìm sản phẩm theo tên hoặc từ khoá. 
+R5.3. Lọc và sắp xếp. Khách hàng lọc sản phẩm theo danh mục, thương hiệu, giới tính và 
+khoảng giá, sau đó sắp xếp theo sản phẩm mới nhất, giá tăng dần, giá giảm dần hoặc bán 
+chạy. Kết quả có phân trang. 
+R5.4. Xem chi tiết sản phẩm. Hiển thị hình ảnh, tên, giá, mô tả, chất liệu, các biến thể 
+màu và kích thước kèm số lượng còn lại, đánh giá đã được duyệt và sản phẩm liên quan. 
+Chỉ hiển thị sản phẩm đang kinh doanh. 
+R6. Nhóm chức năng quản lý giỏ hàng 
+ 
+R6.1. Thêm vào giỏ hàng. Khách hàng đã đăng nhập chọn màu, kích thước, số lượng và 
+thêm vào giỏ. Nếu biến thể đã có trong giỏ, hệ thống cộng dồn số lượng. 
+R6.2. Cập nhật số lượng. Số lượng mỗi dòng từ 1 đến 100 và không vượt quá tồn kho. 
+R6.3. Xoá sản phẩm hoặc xoá toàn bộ giỏ hàng, có yêu cầu xác nhận. 
+R6.4. Xem giỏ hàng. Hệ thống tự tính thành tiền từng dòng và tạm tính. Sản phẩm không 
+còn bán hoặc không đủ hàng được đánh dấu cảnh báo. 
+R7. Nhóm chức năng danh sách yêu thích 
+R7.1. Khách hàng thêm sản phẩm vào danh sách yêu thích. 
+R7.2. Khách hàng xem và xoá sản phẩm khỏi danh sách yêu thích. 
+R8. Nhóm chức năng quản lý thông tin cá nhân và địa chỉ 
+R8.1. Cập nhật hồ sơ. Khách hàng cập nhật họ tên, số điện thoại và ảnh đại diện. Email là 
+định danh tài khoản nên không thay đổi được. 
+R8.2. Quản lý sổ địa chỉ. Khách hàng thêm, sửa, xoá nhiều địa chỉ giao hàng. Mỗi địa chỉ 
+gồm người nhận, số điện thoại, tỉnh/thành, quận/huyện, phường/xã và địa chỉ chi tiết. 
+PAGE 42
+R8.3. Địa chỉ mặc định. Khách hàng chọn một địa chỉ làm mặc định. Địa chỉ này được 
+chọn sẵn khi thanh toán. 
+R9. Nhóm chức năng quản lý mã giảm giá 
+R9.1. Tạo và cập nhật mã giảm giá. Quản trị viên khai báo các thông tin: 
+mã, tên chương trình; 
+loại giảm (phần trăm hoặc số tiền cố định), giá trị giảm, mức giảm tối đa; 
+giá trị đơn hàng tối thiểu, thời gian hiệu lực; 
+tổng số lượt dùng và số lượt dùng mỗi khách hàng; 
+phạm vi áp dụng theo danh mục hoặc sản phẩm. 
+R9.2. Bật / tắt mã giảm giá. Mã không bị xoá mà chỉ được tắt, nhằm giữ lại lịch sử sử 
+dụng. 
+R9.3. Xem lịch sử sử dụng mã. Gồm khách hàng, đơn hàng, số tiền được giảm và thời 
+điểm dùng. 
+R9.4. Mã giảm giá của tôi. Khách hàng xem các mã đang có. Hệ thống cho biết mã nào 
+dùng được với giỏ hàng hiện tại kèm số tiền giảm dự kiến, và lý do nếu mã chưa dùng 
+được. 
+R9.5. Áp dụng và kiểm tra mã. Khi thanh toán, hệ thống kiểm tra mã đang hoạt động, còn 
+hiệu lực, còn lượt, đúng phạm vi và đạt giá trị tối thiểu, rồi tính số tiền giảm. 
+R10. Nhóm chức năng đặt hàng và thanh toán 
+R10.1. Tạo đơn hàng. Khách hàng tạo đơn từ giỏ hàng sau khi chọn địa chỉ giao hàng, 
+phương thức thanh toán, mã giảm giá (nếu có) và nhập ghi chú. 
+R10.2. Kiểm tra trước khi tạo đơn. Hệ thống kiểm tra lại tồn kho, trạng thái kinh doanh 
+của sản phẩm và mã giảm giá. Hệ thống tính phí vận chuyển (30.000đ, miễn phí khi tạm 
+tính từ 500.000đ) và tổng tiền. 
+R10.3. Đảm bảo toàn vẹn khi đặt hàng. Việc tạo đơn, trừ tồn kho, ghi nhận lượt dùng mã 
+và xoá giỏ hàng được thực hiện trong một giao dịch: hoặc cùng thành công, hoặc cùng 
+huỷ. 
+PAGE 43
+R10.4. Phương thức thanh toán. Hệ thống hỗ trợ thanh toán khi nhận hàng (COD) và 
+thanh toán QR mô phỏng. Với QR, hệ thống hiển thị thông tin chuyển khoản và cho phép 
+khách hàng xác nhận đã thanh toán. 
+R11. Nhóm chức năng quản lý đơn hàng 
+R11.1. Khách hàng theo dõi đơn hàng. Khách hàng xem danh sách đơn của mình (lọc 
+theo trạng thái) và chi tiết đơn, gồm tiến trình xử lý. 
+R11.2. Khách hàng huỷ đơn. Khách hàng huỷ được đơn đang Chờ xác nhận và chưa 
+thanh toán. Hệ thống hoàn lại tồn kho và lượt dùng mã giảm giá. 
+R11.3. Quản trị viên xem đơn hàng. Quản trị viên xem danh sách đơn, tìm theo mã đơn, 
+tên người nhận hoặc email, lọc theo trạng thái xử lý và trạng thái thanh toán. 
+R11.4. Cập nhật trạng thái xử lý. Đơn chuyển tuần tự: Chờ xác nhận → Đã xác nhận → 
+Đang giao → Hoàn thành. Quản trị viên được huỷ đơn ở hai trạng thái đầu. 
+R11.5. Cập nhật trạng thái thanh toán. Các trạng thái gồm Chưa thanh toán, Đã thanh 
+toán, Thất bại, Hoàn tiền. 
+R11.6. Lưu vết đơn hàng. Mọi thay đổi trạng thái được ghi vào lịch sử, gồm người thực 
+hiện, thời gian và ghi chú. Thông tin sản phẩm, giá và địa chỉ được sao chép vào đơn tại 
+thời điểm đặt. 
+R12. Nhóm chức năng đánh giá sản phẩm 
+R12.1. Viết đánh giá. Khách hàng chấm từ 1 đến 5 sao và nhận xét về sản phẩm thuộc 
+đơn hàng đã Hoàn thành của mình. Mỗi sản phẩm trong một đơn chỉ đánh giá một lần. 
+R12.2. Quản lý đánh giá của tôi. Khách hàng xem, sửa, xoá đánh giá của mình. Đánh giá 
+sau khi sửa phải được duyệt lại. 
+R12.3. Duyệt đánh giá. Quản trị viên duyệt hoặc ẩn đánh giá. Chỉ đánh giá đã duyệt mới 
+hiển thị trên trang sản phẩm. 
+R13. Nhóm chức năng quản lý người dùng 
+R13.1. Quản trị viên xem danh sách người dùng, tìm theo tên hoặc email, lọc theo vai trò 
+và trạng thái. 
+R13.2. Quản trị viên xem chi tiết tài khoản người dùng. 
+PAGE 44
+R13.3. Quản trị viên khoá hoặc mở khoá tài khoản. Quản trị viên không được tự khoá tài 
+khoản của chính mình. 
+R14. Nhóm chức năng thống kê 
+R14.1. Chỉ số tổng quan. Hệ thống hiển thị doanh thu, giá vốn hàng bán, lợi nhuận, tỷ 
+suất lợi nhuận, tổng số đơn, số khách hàng, số đơn chờ xử lý và số sản phẩm sắp hết 
+hàng. 
+R14.2. Danh sách phân tích. Hệ thống hiển thị top sản phẩm bán chạy, các biến thể sắp 
+hết hàng và các đơn hàng gần đây. 
+R14.3. Lọc theo thời gian. Quản trị viên lọc số liệu thống kê theo khoảng thời gian. 
+R15. Nhóm chức năng kiểm tra dữ liệu và thông báo 
+R15.1. Sau mỗi thao tác, hệ thống hiển thị thông báo kết quả (thành công hoặc thất bại) 
+và trạng thái đang tải dữ liệu. 
+R15.2. Khi có lỗi dữ liệu, lỗi kết nối, lỗi xác thực (401) hoặc lỗi phân quyền (403), hệ 
+thống hiển thị thông báo rõ ràng hoặc chuyển đến trang phù hợp. 
+R15.3. Dữ liệu từ các biểu mẫu được kiểm tra ở cả giao diện và máy chủ trước khi lưu. 
+Máy chủ trả lỗi theo một cấu trúc thống nhất. 
+PAGE 45
+1.5.2 Sơ đồ Use-case 
+ 
+ 
+ 
+ 
+2. PHÂN TÍCH TRƯỜNG HỢP SỬ DỤNG (USE-CASE 
+ANALYSIS) 
+2.1 Phân tích kiến trúc hệ thống   
+2.1.1 Kiến trúc mức cao của hệ thống 
+ 
+
+PAGE 46
+ 
+ 
+Đặc tả sơ đồ kiến trúc mức cao 
+Sơ đồ trên mô tả kiến trúc tổng thể của hệ thống bán quần áo trực tuyến theo mô hình ba 
+tầng gồm Presentation Layer, Business Layer và Data Layer. Mô hình này giúp phân 
+tách giao diện người dùng, xử lý nghiệp vụ và lưu trữ dữ liệu. 
+ 
+● Presentation Layer là tầng giao diện, cung cấp hai khu vực chính là Admin 
+Interface và User Interface. Admin có thể đăng nhập, quản lý sản phẩm và danh mục. 
+Khách hàng có thể đăng ký, đăng nhập, xem và tìm kiếm sản phẩm. Tầng này tiếp nhận 
+thao tác của người dùng và gửi yêu cầu đến tầng Business Layer. 
+ 
+
+PAGE 47
+● Business Layer chịu trách nhiệm xử lý các nghiệp vụ chính của hệ thống. Các service 
+bao gồm quản lý sản phẩm, quản lý danh mục, quản lý tồn kho, quản lý mã giảm giá, 
+quản lý người dùng và xác thực, quản lý đánh giá và báo cáo, quản lý tài khoản cá nhân, 
+quản lý giỏ hàng, tìm kiếm sản phẩm, đặt hàng và thanh toán. Tầng này đóng vai trò 
+trung gian giữa giao diện và tầng dữ liệu, đồng thời thực hiện kiểm tra và xử lý các quy 
+tắc nghiệp vụ. 
+ 
+● Data Layer đảm nhiệm việc quản lý và truy xuất dữ liệu của hệ thống. Tầng này được 
+tổ chức thành các nhóm dữ liệu chính gồm: 
+• Authentication & Users: lưu thông tin người dùng, vai trò và quyền truy cập. 
+• Product Catalog: lưu sản phẩm, biến thể sản phẩm, hình ảnh, danh mục, thương 
+hiệu, màu sắc và kích thước. 
+• Orders & Payments: lưu đơn hàng, chi tiết đơn hàng, thông tin thanh toán và lịch 
+sử trạng thái đơn hàng. 
+• Shopping: lưu địa chỉ giao hàng và thông tin giỏ hàng. 
+• Coupons & Discounts: lưu mã giảm giá, điều kiện áp dụng và lịch sử sử dụng 
+mã. 
+• Reviews: lưu đánh giá và nhận xét của khách hàng. 
+ 
+Tầng dữ liệu sử dụng Entity Framework Core để ánh xạ các đối tượng trong hệ thống 
+với cơ sở dữ liệu. AppDbContext đóng vai trò kết nối và quản lý các thực thể dữ liệu. Cơ 
+chế EF Core Migrations được sử dụng để tạo mới, cập nhật và quản lý phiên bản cấu 
+trúc cơ sở dữ liệu. Dữ liệu cuối cùng được lưu trữ trong SQL Server Database. 
+ 
+Luồng hoạt động của hệ thống được thực hiện theo hướng từ trên xuống. Người dùng 
+thao tác trên giao diện thuộc Presentation Layer; yêu cầu được chuyển đến các service 
+tương ứng trong Business Layer. Sau đó, Business Layer sử dụng AppDbContext và 
+Entity Framework Core để truy xuất hoặc cập nhật dữ liệu trong SQL Server. Kết quả xử 
+lý được trả ngược lại qua các tầng và hiển thị cho người dùng. 
+ 
+Việc phân chia hệ thống thành ba tầng giúp các thành phần được tổ chức rõ ràng, hạn chế 
+sự phụ thuộc giữa giao diện, nghiệp vụ và cơ sở dữ liệu. Nhờ đó, hệ thống dễ bảo trì, 
+thuận tiện kiểm thử, hỗ trợ mở rộng chức năng và có thể thay đổi một tầng mà ít ảnh 
+hưởng đến các tầng còn lại. 
+2.1.2 Các đối tượng trừu tượng hóa chính của hệ thống (Key abstractions) 
+ 
+Các đối tượng trừu tượng hóa chính được xác định dựa trên các thực thể nghiệp vụ và 
+model dữ liệu của hệ thống bán quần áo trực tuyến. Mỗi đối tượng đại diện cho một 
+nhóm dữ liệu hoặc chức năng quan trọng trong hệ thống. 
+ 
+PAGE 48
+STT Tên đối 
+tượng 
+Vai trò Thuộc tính chính  Phương thức chính 
+1 User Đại diện 
+cho người 
+sử dụng hệ 
+thống, bao 
+gồm khách 
+hàng và 
+quản trị 
+viên. 
+userId, fullName, email, phoneNumber, 
+avatarUrl, roles 
+ 
+Đăng ký, đăng nhập, đăng xuất, 
+cập nhật thông tin cá nhân, phân 
+quyền người dùng 
+2 Category Phân loại 
+các sản 
+phẩm theo 
+từng nhóm 
+thời trang 
+categoryId, categoryName, slug, 
+description, imageUrl, children 
+ 
+Thêm, sửa, xóa, xem danh mục, 
+phân loại sản phẩm 
+3 Brand Đại diện 
+cho thương 
+hiệu của 
+sản phẩm. 
+brandId, brandName, logoUrl 
+ 
+Thêm, sửa, xóa, xem thông tin 
+thương hiệu 
+4 Product Đối tượng 
+kinh doanh 
+trung tâm 
+của hệ 
+thống 
+productId, productName, slug, 
+categoryName, brandName, basePrice, 
+salePrice, thumbnailUrl, isFeatured 
+ 
+Thêm, sửa, xóa, xem chi tiết, tìm 
+kiếm và lọc sản phẩm 
+5 Product 
+Variant 
+Đại diện 
+cho từng 
+phiên bản 
+cụ thể của 
+sản phẩm 
+theo màu 
+sắc, kích 
+thước và số 
+lượng tồn 
+kho. 
+variantId, productId, sku, colorName, 
+sizeName, price, stockQuantity 
+ 
+Quản lý biến thể, cập nhật giá, 
+cập nhật số lượng tồn kho 
+6 Cart Lưu trữ các 
+sản phẩm 
+khách hàng 
+đã chọn 
+trước khi 
+đặt hàng. 
+items, totalQuantity, subtotal 
+ 
+Thêm sản phẩm, cập nhật số 
+lượng, xóa sản phẩm, tính tổng 
+tiền 
+7 CartItem Đại diện 
+cho một 
+sản phẩm 
+cụ thể 
+cartItemId, variantId, productId, 
+productName, colorName, sizeName, 
+unitPrice, quantity, totalPrice, 
+isAvailable 
+Thêm vào giỏ hàng, thay đổi số 
+lượng, kiểm tra tình trạng sản 
+phẩm 
+PAGE 49
+trong giỏ 
+hàng 
+ 
+8 Address Lưu thông 
+tin địa chỉ 
+giao hàng 
+của khách 
+hàng 
+addressId, receiverName, 
+receiverPhone, addressDetail, ward, 
+district, province, isDefault, createdAt 
+ 
+Thêm, sửa, xóa địa chỉ, chọn địa 
+chỉ mặc định 
+9 Coupon Đại diện 
+cho mã 
+giảm giá và 
+các điều 
+kiện áp 
+dụng trong 
+đơn hàng 
+couponId, code, name, description, 
+discountType, discountValue, 
+maxDiscountAmount, 
+minOrderAmount, startDate, endDate, 
+usageLimit, isActive 
+ 
+Tạo, cập nhật, xóa, kích hoạt mã 
+giảm giá, kiểm tra điều kiện sử 
+dụng 
+10 Order Đại diện 
+cho giao 
+dịch mua 
+hàng được 
+tạo bởi 
+khách 
+hàng. 
+orderId, orderCode, receiverName, 
+receiverPhone, shippingAddress, 
+subtotal, shippingFee, discountAmount, 
+totalAmount, couponCode, orderStatus, 
+paymentStatus, createdAt 
+ 
+Tạo đơn hàng, xem chi tiết, hủy 
+đơn hàng, cập nhật trạng thái 
+11 Order Đại diện 
+cho giao 
+dịch mua 
+hàng được 
+tạo bởi 
+khách hàng 
+orderId, orderCode, receiverName, 
+receiverPhone, shippingAddress, 
+subtotal, shippingFee, discountAmount, 
+totalAmount, couponCode, orderStatus, 
+paymentStatus, createdAt 
+ 
+Tạo đơn hàng, xem chi tiết, hủy 
+đơn hàng, cập nhật trạng thái 
+12 Order 
+Item 
+Đại diện 
+cho từng 
+sản phẩm 
+thuộc một 
+đơn hàng. 
+orderItemId, variantId, productName, 
+sku, colorName, sizeName, unitPrice, 
+quantity, totalPrice 
+ 
+Lưu sản phẩm trong đơn hàng, 
+tính thành tiền, kiểm tra số lượng 
+13 Payment Lưu thông 
+tin thanh 
+toán của 
+đơn hàng 
+paymentId, paymentMethod, amount, 
+paymentStatus, transactionCode, paidAt, 
+createdAt 
+ 
+Tạo thanh toán, xác nhận thanh 
+toán, cập nhật trạng thái thanh 
+toán 
+14 Mock QR 
+Payment 
+Đại diện 
+cho thông 
+tin thanh 
+toán QR 
+mô phỏng 
+trong quá 
+trình thanh 
+toán 
+orderCode, amount, bankName, 
+accountNumber, transferContent, 
+message 
+ 
+Tạo mã QR, hiển thị thông tin 
+chuyển khoản, xác nhận thanh 
+toán QR 
+PAGE 50
+15 Order 
+Status 
+History 
+Lưu lại lịch 
+sử thay đổi 
+trạng thái 
+của đơn 
+hàng. 
+orderStatusHistoryId, status, note, 
+changedByName, createdAt 
+ 
+Ghi nhận trạng thái, cập nhật lịch 
+sử, theo dõi quá trình xử lý đơn 
+hàng 
+16 Review Đại diện 
+cho đánh 
+giá và nhận 
+xét của 
+khách hàng 
+về sản 
+phẩm. 
+reviewId, productId, userId, rating, 
+comment, createdAt 
+ 
+Thêm đánh giá, xem đánh giá, 
+cập nhật hoặc quản lý đánh giá 
+17 Dashboar
+d 
+Cung cấp 
+thông tin 
+tổng quan 
+về hoạt 
+động của 
+hệ thống 
+cho Admin. 
+totalProducts, totalUsers, totalOrders, to
+talRevenue, orderStatistics 
+Xem tổng quan, thống kê sản 
+phẩm, thống kê đơn hàng và 
+doanh thu 
+18 ApiRespo
+nse 
+Chuẩn hóa 
+cấu trúc dữ 
+liệu trả về 
+giữa 
+backend và 
+frontend. 
+success, message, data, errors 
+ 
+Trả kết quả thành công, trả thông 
+báo lỗi, truyền dữ liệu qua API 
+ 
+ 
+ 
+2.2 Thực thi trường hợp sử dụng ( Use-caserelization) 
+PAGE 51
+2.2.1 Các biểu đồ tuần tự (Sequence diagrams) 
+Các biểu đồ dưới đây mô tả thứ tự tương tác giữa tác nhân, giao diện, bộ phận xử lý 
+nghiệp vụ và dữ liệu trong các trường hợp sử dụng của hệ thống bán quần áo. Phạm vi 
+gồm các nhóm yêu cầu R1 đến R15 tại mục 1.5.1; các luồng xác thực được bổ sung theo 
+chức năng đang triển khai. 
+Quy ước đọc biểu đồ 
+Thời gian đi từ trên xuống. Mũi tên nét liền biểu diễn yêu cầu; nét đứt biểu diễn kết quả 
+trả về. Khung alt phân tách các nhánh thay thế, opt là nhánh tùy chọn, loop là lặp và ref 
+tham chiếu một tương tác được mô tả riêng. Điều kiện đặt trong dấu ngoặc vuông. 
+Các biểu đồ chức năng sử dụng mức trừu tượng phân tích: một đường sống xử lý có thể 
+đại diện cho Controller và Service tương ứng; đường sống dữ liệu gộp AppDbContext, 
+EF Core và SQL Server. Đây không phải lời gọi trực tiếp từ giao diện đến cơ sở dữ liệu. 
+Sơ đồ chung thể hiện các thành phần trung gian; những sơ đồ sau lược bỏ phần trung gian 
+lặp lại để tập trung vào nghiệp vụ. 
+Các chức năng của khách hàng đã đăng nhập sử dụng userId lấy từ phiên xác thực. Các 
+chức năng quản trị yêu cầu quyền Admin trên máy chủ. Lỗi dữ liệu, lỗi quyền truy cập và 
+ngoại lệ được trả theo cơ chế chung; nếu nhánh lỗi kết thúc yêu cầu thì các bước thành 
+công không được thực hiện. 
+Danh mục các biểu đồ 
+Luồng chung và xác thực: Hình 2.2.1-01 đến Hình 2.2.1-07. 
+Mua sắm và tài khoản khách hàng: Hình 2.2.1-08 đến Hình 2.2.1-17. 
+Quản trị cửa hàng: Hình 2.2.1-18 đến Hình 2.2.1-27. 
+Tài liệu ký pháp: OMG Unified Modeling Language 2.5.1, Chương 17 Interactions 
+(https://www.omg.org/spec/UML/2.5.1/PDF). 
+PAGE 52
+1. Luồng xử lý chung của hệ thống 
+Yêu cầu liên quan: R1.7, R15. Điều kiện: Người dùng truy cập một chức năng của hệ thống. 
+ 
+Hình 2.2.1-01. Sơ đồ tuần tự luồng xử lý chung của hệ thống 
+Giao diện gửi yêu cầu đến API. Pipeline kiểm tra xác thực và quyền đối với endpoint được bảo 
+vệ; endpoint công khai không bắt buộc JWT. Controller tiếp nhận dữ liệu, Service thực hiện 
+nghiệp vụ và truy cập dữ liệu qua AppDbContext. Controller tạo ApiResponse khi thành công; 
+ExceptionMiddleware xử lý ngoại lệ. Lỗi xác thực hoặc phân quyền có thể kết thúc yêu cầu ngay 
+trong pipeline. 
+
+PAGE 53
+2. Đăng ký tài khoản 
+Yêu cầu liên quan: R1.1. Điều kiện: Người dùng chưa có tài khoản và mở biểu mẫu đăng ký. 
+ 
+Hình 2.2.1-02. Sơ đồ tuần tự đăng ký tài khoản 
+Sau khi kiểm tra dữ liệu và CAPTCHA, AuthService chuẩn hóa email, kiểm tra trùng và lấy vai 
+trò Customer. Mật khẩu được băm bằng BCrypt trước khi lưu User và UserRole. Hệ thống tạo 
+JWT, cấp refresh token qua cookie HttpOnly và trả HTTP 201; giao diện thiết lập phiên đăng 
+nhập ngay. CAPTCHA không hợp lệ hoặc dịch vụ xác minh không khả dụng sẽ chặn đăng ký. 
+
+PAGE 54
+3. Đăng nhập tài khoản 
+Yêu cầu liên quan: R1.2, R1.3. Điều kiện: Người dùng đã có tài khoản. 
+ 
+Hình 2.2.1-03. Sơ đồ tuần tự đăng nhập tài khoản 
+AuthService tìm người dùng kèm vai trò, kiểm tra khóa tạm, xác minh mật khẩu BCrypt và trạng 
+thái hoạt động. Khi sai mật khẩu, bộ đếm thất bại được cập nhật; đủ ngưỡng thì khóa tạm. Tài 
+khoản bật xác thực hai lớp phải hoàn tất bước xác minh trước khi được cấp token. TokenService 
+chỉ tạo JWT và thời hạn; AuthService ghép thông tin người dùng vào AuthResponseDto. 
+
+PAGE 55
+4. Xác minh đăng nhập hai lớp 
+Yêu cầu liên quan: Mở rộng R1.2. Điều kiện: Mật khẩu đúng và tài khoản đã bật xác thực hai 
+lớp. 
+ 
+Hình 2.2.1-04. Sơ đồ tuần tự xác minh đăng nhập hai lớp 
+Hệ thống trả challenge thay vì JWT. Người dùng nhập mã TOTP hoặc mã khôi phục dùng một 
+lần. TwoFactorService kiểm tra challenge, trạng thái khóa và mã xác minh. Chỉ khi hợp lệ, hệ 
+thống mới tạo phiên đăng nhập đầy đủ. Challenge hết hạn hoặc tài khoản bị khóa yêu cầu quay 
+lại bước đăng nhập. 
+
+PAGE 56
+5. Quên mật khẩu 
+Yêu cầu liên quan: R1.4. Điều kiện: Người dùng mở chức năng quên mật khẩu. 
+ 
+Hình 2.2.1-05. Sơ đồ tuần tự quên mật khẩu 
+Người dùng gửi email. Với tài khoản đang hoạt động, hệ thống tạo token đặt lại mật khẩu có hạn 
+30 phút, lưu token và gửi liên kết qua EmailService. Phản hồi không tiết lộ email có tồn tại hay 
+không. Việc đặt lại mật khẩu được trình bày ở sơ đồ kế tiếp. 
+
+PAGE 57
+6. Đặt lại mật khẩu 
+Yêu cầu liên quan: R1.4. Điều kiện: Người dùng mở liên kết đặt lại mật khẩu và nhập mật khẩu 
+mới. 
+ 
+Hình 2.2.1-06. Sơ đồ tuần tự đặt lại mật khẩu 
+AuthService kiểm tra token và thời hạn. Nếu hợp lệ, hệ thống băm mật khẩu mới, xóa token đặt 
+lại và thu hồi toàn bộ refresh token trong cùng giao dịch. Token đặt lại chỉ dùng được một lần. 
+Người dùng đăng nhập lại bằng mật khẩu mới. 
+
+PAGE 58
+7. Làm mới phiên và đăng xuất 
+Yêu cầu liên quan: R1.6 và duy trì phiên. Điều kiện: Trình duyệt có hoặc đã có refresh cookie. 
+ 
+Hình 2.2.1-07. Sơ đồ tuần tự làm mới phiên và đăng xuất 
+Access token được giữ trong bộ nhớ giao diện; refresh token nằm trong cookie HttpOnly. Khi 
+làm mới phiên, máy chủ kiểm tra và xoay vòng refresh token rồi cấp JWT mới. Khi đăng xuất, 
+máy chủ thu hồi họ refresh token của phiên và xóa cookie; giao diện xóa trạng thái đăng nhập. 
+Hai thao tác là hai lựa chọn độc lập. 
+
+PAGE 59
+8. Xem và tìm kiếm sản phẩm 
+Yêu cầu liên quan: R5. Điều kiện: Khách truy cập trang sản phẩm; không bắt buộc đăng nhập. 
+ 
+Hình 2.2.1-08. Sơ đồ tuần tự xem và tìm kiếm sản phẩm 
+Giao diện gửi từ khóa, bộ lọc, thứ tự sắp xếp và thông tin phân trang. StorefrontService truy vấn 
+các sản phẩm đang kinh doanh. Khi xem chi tiết, hệ thống tải thông tin sản phẩm, biến thể, hình 
+ảnh và đánh giá đã duyệt. Không có kết quả tìm kiếm là danh sách rỗng; sản phẩm không tồn tại 
+hoặc bị ẩn thì trả lỗi phù hợp. 
+
+PAGE 60
+9. Quản lý giỏ hàng 
+Yêu cầu liên quan: R6. Điều kiện: Khách hàng đã đăng nhập. 
+ 
+Hình 2.2.1-09. Sơ đồ tuần tự quản lý giỏ hàng 
+Mỗi dòng giỏ hàng gắn với một biến thể theo màu và kích thước. Khi thêm hoặc cập nhật, 
+CartService kiểm tra trạng thái kinh doanh và số lượng; biến thể đã có thì cộng dồn. Xóa một 
+dòng hoặc toàn bộ giỏ cần xác nhận trên giao diện. Xem giỏ trả số lượng, giá, tổng tiền và cảnh 
+báo tồn kho. 
+
+PAGE 61
+10. Quản lý danh sách yêu thích 
+Yêu cầu liên quan: R7. Điều kiện: Khách hàng đã đăng nhập. 
+ 
+Hình 2.2.1-10. Sơ đồ tuần tự quản lý danh sách yêu thích 
+WishlistService xác định người dùng từ phiên đăng nhập. Khách hàng có thể xem, thêm hoặc bỏ 
+sản phẩm yêu thích. Hệ thống kiểm tra sản phẩm khi thêm và chỉ thao tác trên danh sách thuộc 
+người dùng hiện tại. 
+
+PAGE 62
+11. Cập nhật hồ sơ và đổi mật khẩu 
+Yêu cầu liên quan: R8.1, R1.5. Điều kiện: Người dùng đã đăng nhập. 
+ 
+Hình 2.2.1-11. Sơ đồ tuần tự cập nhật hồ sơ và đổi mật khẩu 
+Người dùng được cập nhật họ tên, số điện thoại, ảnh đại diện; email không thay đổi qua chức 
+năng này. Đổi mật khẩu yêu cầu xác minh mật khẩu hiện tại trước khi băm mật khẩu mới. Các 
+phiên refresh được thu hồi theo luồng đổi mật khẩu của máy chủ; giao diện yêu cầu đăng nhập 
+lại. 
+
+PAGE 63
+12. Quản lý địa chỉ giao hàng 
+Yêu cầu liên quan: R8.2, R8.3. Điều kiện: Khách hàng đã đăng nhập. 
+ 
+Hình 2.2.1-12. Sơ đồ tuần tự quản lý địa chỉ giao hàng 
+Địa chỉ phải thuộc tài khoản hiện tại. Khi thêm, sửa hoặc chọn mặc định, hệ thống kiểm tra 
+người nhận, số điện thoại và các trường địa chỉ. Nếu đặt một địa chỉ làm mặc định, các địa chỉ 
+khác của cùng người dùng được bỏ trạng thái mặc định. Dữ liệu địa chỉ được dùng khi tạo đơn 
+hàng. 
+
+PAGE 64
+13. Kiểm tra và áp dụng mã giảm giá 
+Yêu cầu liên quan: R9.4, R9.5. Điều kiện: Khách hàng đã đăng nhập, có sản phẩm cần mua. 
+ 
+Hình 2.2.1-13. Sơ đồ tuần tự kiểm tra và áp dụng mã giảm giá 
+CouponService đọc mã, lịch sử sử dụng và các mặt hàng cần mua để kiểm tra thời gian, trạng 
+thái, lượt dùng, phạm vi và giá trị tối thiểu. Hệ thống trả số tiền giảm hoặc lý do không áp dụng 
+được. Kiểm tra mã chỉ cho kết quả dự kiến; lượt sử dụng chỉ được ghi khi tạo đơn thành công và 
+mã phải được kiểm tra lại tại thời điểm đó. 
+
+PAGE 65
+14. Tạo đơn hàng 
+Yêu cầu liên quan: R10.1–R10.3. Điều kiện: Khách hàng đăng nhập, có địa chỉ hợp lệ và hàng 
+cần mua. 
+ 
+Hình 2.2.1-14. Sơ đồ tuần tự tạo đơn hàng 
+OrderService mở giao dịch, kiểm tra địa chỉ thuộc khách hàng và lấy giỏ hàng hoặc mặt hàng 
+mua ngay. Máy chủ kiểm tra tồn kho, giá và mã giảm giá, sau đó tự tính tổng tiền. Đơn, chi tiết, 
+thanh toán ban đầu, lịch sử, tồn kho và lượt dùng mã được lưu cùng giao dịch. Mua từ giỏ sẽ xóa 
+các dòng giỏ; mua ngay giữ nguyên giỏ. Lỗi trước commit làm giao dịch bị hủy. 
+
+PAGE 66
+15. Thanh toán QR mô phỏng 
+Yêu cầu liên quan: R10.4. Điều kiện: Đơn thuộc khách hàng và sử dụng phương thức MockQR. 
+ 
+Hình 2.2.1-15. Sơ đồ tuần tự thanh toán qr mô phỏng 
+Hệ thống trả mã đơn, số tiền và nội dung chuyển khoản để giao diện hiển thị QR mô phỏng. Khi 
+khách hàng xác nhận, máy chủ kiểm tra quyền sở hữu, phương thức thanh toán và trạng thái đơn 
+rồi cập nhật Payment cùng Order sang Paid. Đây là xác nhận trong mô phỏng, không phải 
+callback xác thực của ngân hàng. COD được ghi nhận khi quản trị viên hoàn thành giao hàng. 
+
+PAGE 67
+16. Theo dõi và hủy đơn hàng 
+Yêu cầu liên quan: R11.1, R11.2. Điều kiện: Khách hàng đã đăng nhập và chỉ thao tác trên đơn 
+của mình. 
+ 
+Hình 2.2.1-16. Sơ đồ tuần tự theo dõi và hủy đơn hàng 
+Khi xem đơn, hệ thống trả danh sách hoặc chi tiết kèm lịch sử trạng thái. Khi hủy, OrderService 
+chỉ cho phép đơn Pending và chưa Paid. Hệ thống hoàn tồn kho, hoàn lượt dùng mã nếu có, 
+chuyển trạng thái Cancelled và ghi lịch sử trong cùng giao dịch. Không tìm thấy hoặc không sở 
+hữu đơn thì không cho truy cập. 
+
+PAGE 68
+17. Gửi và quản lý đánh giá của khách hàng 
+Yêu cầu liên quan: R12.1, R12.2. Điều kiện: Khách hàng đã đăng nhập; đánh giá mới gắn với 
+dòng đơn đã hoàn thành. 
+ 
+Hình 2.2.1-17. Sơ đồ tuần tự gửi và quản lý đánh giá của khách hàng 
+ReviewService kiểm tra dòng đơn thuộc người dùng, đơn Completed và chưa có đánh giá cho 
+OrderItemId đó. Đánh giá mới có IsApproved = false; đánh giá sửa cũng phải duyệt lại. Khách 
+hàng được xem, sửa hoặc xóa đánh giá của mình; điểm đánh giá từ 1 đến 5. 
+
+PAGE 69
+18. Quản trị sản phẩm và biến thể 
+Yêu cầu liên quan: R2. Điều kiện: Quản trị viên đã đăng nhập và có quyền Admin. 
+ 
+Hình 2.2.1-18. Sơ đồ tuần tự quản trị sản phẩm và biến thể 
+ProductService kiểm tra danh mục, thương hiệu, dữ liệu giá và slug. Với biến thể, hệ thống kiểm 
+tra màu, kích thước, SKU và tổ hợp biến thể không trùng. Tồn kho được quản lý qua nhập kho 
+và bán hàng. Thao tác xóa sản phẩm hoặc biến thể được thực hiện bằng cách ngừng hoạt động để 
+giữ liên kết dữ liệu. 
+
+PAGE 70
+19. Quản lý hình ảnh sản phẩm 
+Yêu cầu liên quan: R2.3. Điều kiện: Quản trị viên có quyền Admin và sản phẩm đã tồn tại. 
+ 
+Hình 2.2.1-19. Sơ đồ tuần tự quản lý hình ảnh sản phẩm 
+Tệp ảnh được kiểm tra định dạng và kích thước trước khi lưu qua chức năng upload. Sau đó 
+ProductService lưu đường dẫn ảnh, thứ tự và trạng thái ảnh chính. Sửa, xóa ảnh hoặc đổi ảnh đại 
+diện cập nhật các bản ghi ProductImage tương ứng. Lưu tệp và lưu liên kết ảnh là hai thao tác 
+riêng. 
+
+PAGE 71
+20. Quản lý dữ liệu danh mục và nhà cung cấp 
+Yêu cầu liên quan: R3, R4.1. Điều kiện: Quản trị viên có quyền Admin. 
+ 
+Hình 2.2.1-20. Sơ đồ tuần tự quản lý dữ liệu danh mục và nhà cung cấp 
+Các chức năng danh mục, thương hiệu, màu, kích thước và nhà cung cấp có luồng chung: nhận 
+dữ liệu, kiểm tra ràng buộc, truy vấn hoặc lưu và trả kết quả. Service tương ứng kiểm tra các liên 
+kết trước thao tác xóa; tùy loại dữ liệu, hệ thống từ chối xóa hoặc chuyển sang trạng thái ngừng 
+hoạt động. Không xóa tùy ý dữ liệu đã được sử dụng. 
+
+PAGE 72
+21. Lập và điều chỉnh phiếu nhập kho 
+Yêu cầu liên quan: R4.2–R4.4. Điều kiện: Quản trị viên có quyền Admin; nhà cung cấp và biến 
+thể đã tồn tại. 
+ 
+Hình 2.2.1-21. Sơ đồ tuần tự lập và điều chỉnh phiếu nhập kho 
+Khi lập phiếu, hệ thống cộng tồn và tính giá vốn bình quân gia quyền. Sửa phiếu hoàn tác phần 
+nhập cũ rồi áp dụng nội dung mới; hủy phiếu cần lý do và hoàn tác lượng nhập. Hệ thống từ chối 
+nếu tồn sau điều chỉnh âm hoặc phiếu đã hủy. Các thay đổi của mỗi thao tác được lưu bằng một 
+lần SaveChangesAsync. 
+
+PAGE 73
+22. Quản trị mã giảm giá 
+Yêu cầu liên quan: R9.1–R9.3. Điều kiện: Quản trị viên có quyền Admin. 
+ 
+Hình 2.2.1-22. Sơ đồ tuần tự quản trị mã giảm giá 
+Quản trị viên khai báo điều kiện áp dụng, thời gian, giới hạn lượt và phạm vi sản phẩm hoặc 
+danh mục. CouponService kiểm tra dữ liệu, lưu coupon cùng các liên kết phạm vi. Mã giảm giá 
+được bật hoặc tắt thay vì xóa để giữ lịch sử. Xem lịch sử truy vấn CouponUsage và các thông tin 
+liên quan. 
+
+PAGE 74
+23. Quản trị trạng thái đơn hàng 
+Yêu cầu liên quan: R11.3, R11.4, R11.6. Điều kiện: Quản trị viên có quyền Admin và chọn một 
+đơn hàng. 
+ 
+Hình 2.2.1-23. Sơ đồ tuần tự quản trị trạng thái đơn hàng 
+Luồng xử lý chính là Pending → Confirmed → Shipping → Completed. Hủy được ở Pending 
+hoặc Confirmed; khi hủy phải hoàn kho và lượt coupon, đồng thời ghi nhận hoàn tiền nếu đã 
+Paid. Khi Completed, COD tự được ghi Paid; đơn QR phải thanh toán trước. Cập nhật trạng thái 
+và lịch sử được thực hiện trong giao dịch. 
+
+PAGE 75
+24. Quản trị trạng thái thanh toán 
+Yêu cầu liên quan: R11.5. Điều kiện: Quản trị viên có quyền Admin và chọn đơn có bản ghi 
+thanh toán. 
+ 
+Hình 2.2.1-24. Sơ đồ tuần tự quản trị trạng thái thanh toán 
+Máy chủ kiểm tra trạng thái đơn và phương thức thanh toán trước khi thay đổi Payment. Đơn đã 
+hủy hoặc đã trả không được cập nhật qua luồng này; không đặt Refunded trực tiếp. COD chỉ 
+được ghi Paid khi đơn Completed. Thông tin Payment và PaymentStatus trên Order được cập 
+nhật đồng bộ. 
+
+PAGE 76
+25. Kiểm duyệt đánh giá sản phẩm 
+Yêu cầu liên quan: R12.3. Điều kiện: Quản trị viên có quyền Admin. 
+ 
+Hình 2.2.1-25. Sơ đồ tuần tự kiểm duyệt đánh giá sản phẩm 
+Quản trị viên xem danh sách đánh giá và chọn duyệt hoặc ẩn. ReviewService kiểm tra đánh giá 
+tồn tại rồi cập nhật IsApproved. Trang sản phẩm chỉ truy vấn các đánh giá đã duyệt, nên đánh giá 
+bị ẩn không xuất hiện công khai. 
+
+PAGE 77
+26. Quản lý tài khoản người dùng 
+Yêu cầu liên quan: R13. Điều kiện: Quản trị viên có quyền Admin. 
+ 
+Hình 2.2.1-26. Sơ đồ tuần tự quản lý tài khoản người dùng 
+Quản trị viên tìm kiếm, lọc và xem chi tiết tài khoản. Khi thay đổi trạng thái, AdminUserService 
+kiểm tra tài khoản tồn tại và ngăn quản trị viên tự khóa chính mình. Tài khoản bị vô hiệu hóa 
+không thể đăng nhập; các refresh token của tài khoản bị khóa được thu hồi theo xử lý của 
+Service. 
+
+PAGE 78
+27. Xem thống kê quản trị 
+Yêu cầu liên quan: R14. Điều kiện: Quản trị viên có quyền Admin. 
+ 
+Hình 2.2.1-27. Sơ đồ tuần tự xem thống kê quản trị 
+AdminDashboardService kiểm tra khoảng ngày, chuyển mốc ngày Việt Nam sang UTC để lọc 
+thời điểm tạo đơn. Doanh thu và giá vốn được tính từ đơn Completed; lợi nhuận bằng doanh thu 
+trừ giá vốn. Dashboard còn trả tổng đơn, đơn chờ, khách hàng, hàng sắp hết và sản phẩm bán 
+chạy. Tổng khách hàng và danh sách tồn thấp phản ánh dữ liệu hiện tại, không cùng phạm vi 
+ngày với mọi chỉ số đơn hàng. 
+
+PAGE 79
+2.2.2 Góc nhìn của các lớp trong hệ thống (Views of participating classes) 
+ST
+T 
+Chức 
+năng 
+Tên lớp Loại lớp  Vai trò  
+1 Đăng 
+nhập / 
+Đăng ký 
+AuthController Control 
+Class 
+Tiếp nhận các request 
+đăng nhập, đăng ký từ 
+Client thông qua các 
+endpoint /api/auth/login 
+và /api/auth/register. Sau 
+đó chuyển yêu cầu đến 
+AuthService và trả kết 
+quả cho người dùng. 
+ 
+  AuthService Control 
+Class 
+Xử lý nghiệp vụ xác thực 
+người dùng, kiểm tra 
+email, mật khẩu, trạng thái 
+tài khoản và phân quyền. 
+Service cũng thực hiện tạo 
+tài khoản mới và gọi 
+TokenService để cấp 
+JWT. 
+ 
+  TokenService Control 
+Class 
+Tạo mã xác thực JWT dựa 
+trên thông tin người dùng 
+và danh sách quyền. Token 
+chứa các claim như mã 
+người dùng, họ tên, email 
+và role. 
+  AppDbContext Control 
+Class 
+Cung cấp cơ chế truy cập 
+cơ sở dữ liệu thông qua 
+Entity Framework Core. 
+Lớp này thực hiện truy 
+vấn bảng Users, Roles, 
+UserRoles và lưu dữ liệu 
+bằng 
+SaveChangesAsync(). 
+ 
+  User Entity 
+Class 
+Lưu trữ thông tin tài khoản 
+người dùng như mã người 
+dùng, họ tên, email, mật 
+khẩu đã mã hóa, số điện 
+PAGE 80
+thoại và trạng thái hoạt 
+động. 
+  UserRole Entity 
+Class 
+Lưu mối quan hệ giữa 
+người dùng và vai trò 
+được cấp, chẳng 
+hạn Customer hoặc Admin
+. 
+  Role Entity 
+Class 
+Lưu thông tin quyền của 
+người dùng trong hệ 
+thống. 
+  ExceptionMiddleware Control 
+Class 
+Bắt và xử lý các lỗi phát 
+sinh trong quá trình đăng 
+nhập hoặc đăng ký. Lớp 
+chuyển exception thành 
+response JSON với mã 
+HTTP phù hợp 
+2 Quản lý 
+người 
+dùng 
+UsersController Control 
+Class 
+Tiếp nhận các request xem 
+và cập nhật thông tin cá 
+nhân của người dùng. 
+Controller gọi 
+UserProfileService để xử 
+lý nghiệp vụ. 
+ 
+  AdminUsersController Control 
+Class 
+Tiếp nhận các yêu cầu 
+quản trị người dùng từ 
+Admin như xem danh 
+sách, xem chi tiết, cập 
+nhật hoặc khóa tài khoản. 
+  UserProfileService Control 
+Class 
+Xử lý thông tin hồ sơ cá 
+nhân của người dùng, bao 
+gồm họ tên, số điện thoại 
+và ảnh đại diện. 
+  AdminUserService Control 
+Class 
+Xử lý các nghiệp vụ quản 
+trị tài khoản người dùng 
+và cập nhật trạng thái hoạt 
+động của tài khoản. 
+  User Entity 
+Class 
+Đại diện cho tài khoản 
+người dùng được lưu trữ 
+trong cơ sở dữ liệu 
+3 Quản lý 
+sản phẩm 
+ProductsController Boundar
+y Class 
+Cung cấp các chức năng 
+công khai cho khách hàng 
+như xem danh sách, sản 
+PAGE 81
+phẩm nổi bật, sản phẩm 
+mới, sản phẩm liên quan 
+và đánh giá sản phẩm 
+  AdminProductsController Boundar
+y Class 
+Cung cấp chức năng quản 
+lý sản phẩm cho Admin 
+như thêm, xem, sửa, ẩn 
+sản phẩm, quản lý biến thể 
+và hình ảnh sản phẩm. 
+  Product Service Control 
+Class 
+Xử lý nghiệp vụ sản phẩm, 
+bao gồm kiểm tra giá, tạo 
+slug, kiểm tra danh mục, 
+thương hiệu, SKU, biến 
+thể và hình ảnh. 
+  Product Entity 
+Class 
+Lưu thông tin sản phẩm 
+như tên sản phẩm, giá, mô 
+tả, giới tính, thương hiệu, 
+danh mục và trạng thái 
+hoạt động. 
+  ProductVariant Entity 
+Class 
+Lưu các biến thể của sản 
+phẩm theo màu sắc, kích 
+thước, SKU, giá bán và số 
+lượng tồn kho. 
+  ProductImage Entity 
+Class 
+Lưu đường dẫn hình ảnh, 
+thứ tự hiển thị và trạng 
+thái ảnh đại diện của sản 
+phẩm. 
+  Category Entity 
+Class 
+Lưu thông tin danh mục 
+sản phẩm. 
+  Brand Entity 
+Class 
+Lưu thông tin thương hiệu 
+sản phẩm 
+4 Quản lý 
+danh mục, 
+thương 
+hiệu, màu 
+sắc và 
+kích thước 
+AdminCategoriesControlle
+r 
+Boundar
+y Class 
+Tiếp nhận request quản lý 
+danh mục sản phẩm từ 
+Admin. 
+  AdminBrandsController Boundar
+y Class 
+Tiếp nhận request quản lý 
+thương hiệu sản phẩm từ 
+Admin. 
+  AdminColorsController Boundar
+y Class 
+Tiếp nhận request quản lý 
+màu sắc sản phẩm từ 
+Admin. 
+PAGE 82
+  AdminSizesController Boundar
+y Class 
+Tiếp nhận request quản lý 
+kích thước sản phẩm từ 
+Admin. 
+  CategoryService Control 
+Class 
+Thực hiện thêm, sửa, xóa 
+hoặc lấy danh sách danh 
+mục. 
+  BrandService Control 
+Class 
+Thực hiện nghiệp vụ quản 
+lý thương hiệu. 
+  ColorService Control 
+Class 
+Thực hiện nghiệp vụ quản 
+lý màu sắc. 
+  SizeService Control 
+Class 
+Thực hiện nghiệp vụ quản 
+lý kích thước. 
+  Category , Brand , Color , 
+Size 
+Entity 
+Class 
+Đại diện cho các thông tin 
+phân loại sản phẩm được 
+lưu trong Database. 
+5 Quản lý 
+giỏ hàng 
+CartController Boundar
+y Class 
+Tiếp nhận request xem giỏ 
+hàng, thêm sản phẩm, cập 
+nhật số lượng và xóa sản 
+phẩm khỏi giỏ hàng. 
+  CartService Control 
+Class 
+Kiểm tra sản phẩm, biến 
+thể, số lượng tồn kho và 
+xử lý các thao tác trên giỏ 
+hàng. 
+  CartItem Entity 
+Class 
+Lưu sản phẩm, biến thể và 
+số lượng sản phẩm trong 
+giỏ hàng của người dùng 
+  ProductVariant Entity 
+Class 
+Cung cấp thông tin giá bán 
+và số lượng tồn kho của 
+sản phẩm trong giỏ hàng. 
+6. Quản lý 
+đơn hàng  
+OrdersController Boundar
+y Class 
+Tiếp nhận request tạo đơn 
+hàng, xem danh sách đơn 
+hàng và xem chi tiết đơn 
+hàng của người dùng. 
+  AdminOrdersController Boundar
+y Class 
+Cung cấp chức năng cho 
+Admin xem và cập nhật 
+trạng thái đơn hàng. 
+  OrderService Control 
+Class 
+Xử lý việc tạo đơn hàng, 
+kiểm tra giỏ hàng, tính 
+tổng tiền, áp dụng mã 
+giảm giá và cập nhật tồn 
+kho. 
+PAGE 83
+  AdminOrderService Control 
+Class 
+Xử lý nghiệp vụ quản lý 
+đơn hàng dành cho Admin. 
+  Order Entity 
+Class 
+Lưu thông tin đơn hàng, 
+người đặt hàng, địa chỉ, 
+tổng tiền và trạng thái đơn 
+hàng. 
+  OrderItem Entity 
+Class 
+Lưu danh sách sản phẩm 
+và số lượng thuộc một đơn 
+hàng. 
+  Payment Entity 
+Class 
+Lưu thông tin phương thức 
+và trạng thái thanh toán 
+của đơn hàng. 
+7 Quản lý 
+mã giảm 
+giá 
+CouponsController Boundar
+y Class 
+Cho phép người dùng 
+kiểm tra và sử dụng mã 
+giảm giá. 
+  AdminCouponsController Boundar
+y Class 
+Cho phép Admin thêm, 
+sửa, xem và vô hiệu hóa 
+mã giảm giá. 
+  CouponService Control 
+Class 
+Kiểm tra mã giảm giá, thời 
+hạn sử dụng, số lần dùng 
+và điều kiện áp dụng. 
+  Coupon  Entity 
+Class 
+Lưu mã giảm giá, loại 
+giảm giá, giá trị giảm, thời 
+gian hiệu lực và trạng thái 
+hoạt động 
+  CouponUsage Entity 
+Class 
+Lưu lịch sử người dùng đã 
+sử dụng mã giảm giá. 
+8 Quản lý 
+địa chỉ 
+AddressesController Boundar
+y Class 
+Tiếp nhận request thêm, 
+sửa, xóa và xem danh sách 
+địa chỉ của người dùng. 
+  AddressesService Control 
+Class 
+Xử lý thông tin địa chỉ 
+giao hàng và thiết lập địa 
+chỉ mặc định. 
+  Address Entity 
+Class 
+Lưu họ tên người nhận, số 
+điện thoại, địa chỉ giao 
+hàng và trạng thái mặc 
+định. 
+9 Quản lý 
+đánh giá 
+ReviewsController Boundar
+y Class 
+Cho phép người dùng tạo, 
+cập nhật và xóa đánh giá 
+sản phẩm. 
+PAGE 84
+  AdminReviewsController Boundar
+y Class 
+Cho phép Admin xem và 
+quản lý các đánh giá của 
+người dùng. 
+  ReviewService Control 
+Class 
+Kiểm tra quyền đánh giá, 
+nội dung đánh giá và xử lý 
+dữ liệu đánh giá sản phẩm. 
+  Review Entity 
+Class 
+Lưu số sao, nội dung đánh 
+giá, người đánh giá và sản 
+phẩm được đánh giá 
+10 Thống kế 
+và 
+Dashboar
+d 
+AdminDashboardControlle
+r 
+Boundar
+y Class 
+Tiếp nhận request xem các 
+số liệu tổng quan dành cho 
+Admin. 
+  AdminDashboardService Control 
+Class 
+Tổng hợp dữ liệu doanh 
+thu, đơn hàng, người dùng 
+và sản phẩm để hiển thị 
+trên Dashboard. 
+  Order, User, Product Entity 
+Clas 
+Cung cấp dữ liệu nguồn 
+cho chức năng thống kê và 
+báo cáo. 
+ 
+ 
+Trong hệ thống Clothing Store API, các lớp được tổ chức theo mô hình ba nhóm chính: 
+• Boundary Class: Các Controller tiếp nhận request từ Client và trả response. 
+• Control Class: Các Service xử lý nghiệp vụ, kiểm tra dữ liệu và điều phối hoạt 
+động giữa Controller với Database. 
+• Entity Class: Các Model đại diện cho dữ liệu được lưu trữ trong cơ sở dữ liệu. 
+3. THIẾT KẾ (USE-CASE DESGIN) 
+3.1 Xác định các thành phần thiết kế (Identify design elements) 
+3.1.1 Xác định các lớp (Identify classes) 
+Nhóm Controller 
+ 
+ Tên lớp Phương thức 
+1 AuthController + Register(registerDto)-+ Login(loginDto)-+ 
+GetCurrentUser() 
+2 UsersController + GetProfile()-+ UpdateProfile(dto)-+ 
+ChangePassword(dto) 
+PAGE 85
+ Tên lớp Phương thức 
+3 AdminUsersController + GetAll(query)-+ GetById(userId)-+ 
+UpdateStatus(userId, dto) 
+4 ProductsController 
++ GetAll(query)-+ GetFeatured(limit)-+ 
+GetNewArrivals(limit)-+ GetBySlug(slug)-+ 
+GetRelated(productId, limit)-+ GetReviews(productId, 
+page, pageSize) 
+5 AdminProductsController 
++ GetAll(query)-+ GetById(productId)-+ Create(dto)-+ 
+Update(productId, dto)-+ Delete(productId)-+ 
+CreateVariant(productId, dto)-+ 
+UpdateVariant(productId, variantId, dto)-+ 
+DeleteVariant(productId, variantId)-+ 
+CreateImage(productId, dto)-+ UpdateImage(productId, 
+imageId, dto)-+ DeleteImage(productId, imageId) 
+6 CategoriesController + GetAll()-+ GetBySlug(slug) 
+7 AdminCategoriesController + GetAll()-+ GetById(categoryId)-+ Create(dto)-+ 
+Update(categoryId, dto)-+ Delete(categoryId) 
+8 BrandsController + GetAll() 
+9 AdminBrandsController + GetAll()-+ GetById(brandId)-+ Create(dto)-+ 
+Update(brandId, dto)-+ Delete(brandId) 
+10 ColorsController + GetAll() 
+11 AdminColorsController + GetAll()-+ GetById(colorId)-+ Create(dto)-+ 
+Update(colorId, dto)-+ Delete(colorId) 
+12 SizesController + GetAll() 
+13 AdminSizesController + GetAll()-+ GetById(sizeId)-+ Create(dto)-+ 
+Update(sizeId, dto)-+ Delete(sizeId) 
+14 CartController 
++ GetMyCart()-+ AddItem(dto)-+ 
+UpdateItem(cartItemId, dto)-+ DeleteItem(cartItemId)-+ 
+ClearCart() 
+15 AddressesController + GetMyAddresses()-+ Create(dto)-+ Update(addressId, 
+dto)-+ SetDefault(addressId)-+ Delete(addressId) 
+16 OrdersController 
++ Create(dto)-+ GetMyOrders(query)-+ 
+GetById(orderId)-+ Cancel(orderId, dto)-+ 
+GetMockQr(orderId)-+ ConfirmMockQr(orderId) 
+PAGE 86
+ Tên lớp Phương thức 
+17 AdminOrdersController 
++ GetAll(query)-+ GetById(orderId)-+ 
+UpdateStatus(orderId, dto)-+ 
+UpdatePaymentStatus(orderId, dto) 
+18 CouponsController + GetAvailableCoupons()-+ Validate(dto) 
+19 AdminCouponsController 
++ GetAll()-+ GetById(couponId)-+ Create(dto)-+ 
+Update(couponId, dto)-+ UpdateStatus(couponId, dto)-
++ GetUsages(couponId, page, pageSize) 
+20 ReviewsController + GetMyReviews(query)-+ Create(dto)-+ 
+Update(reviewId, dto)-+ Delete(reviewId) 
+21 AdminReviewsController + GetAll(query)-+ Approve(reviewId)-+ 
+Reject(reviewId) 
+22 AdminDashboardController + Get(query) 
+23 UploadsController + UploadImage(request) 
+ 
+ 
+ 
+Nhóm Service 
+ 
+STT Tên lớp Phương thức 
+24 AuthService 
++ RegisterAsync(registerDto)-+ LoginAsync(loginDto)-
++ GetCurrentUserAsync(userId)-- 
+CreateAuthResponse(user, roles) 
+25 TokenService + CreateToken(user, roles) 
+26 UserProfileService 
++ GetProfileAsync(userId)-+ 
+UpdateProfileAsync(userId, dto)-+ 
+ChangePasswordAsync(userId, dto) 
+27 AdminUserService 
++ GetAllAsync(query)-+ GetByIdAsync(userId)-+ 
+UpdateStatusAsync(currentAdminUserId, targetUserId, 
+isActive) 
+28 ProductService 
++ GetAllAsync(query)-+ GetByIdAsync(productId)-+ 
+CreateAsync(dto)-+ UpdateAsync(productId, dto)-+ 
+DeleteAsync(productId)-+ 
+CreateVariantAsync(productId, dto)-+ 
+UpdateVariantAsync(productId, variantId, dto)-+ 
+DeleteVariantAsync(productId, variantId)-+ 
+CreateImageAsync(productId, dto)-+ 
+PAGE 87
+STT Tên lớp Phương thức 
+UpdateImageAsync(productId, imageId, dto)-+ 
+DeleteImageAsync(productId, imageId) 
+29 StorefrontService 
++ GetCategoriesAsync()-+ GetBrandsAsync()-+ 
+GetProductsAsync(query)-+ 
+GetFeaturedProductsAsync(limit)-+ 
+GetNewArrivalProductsAsync(limit)-+ 
+GetProductBySlugAsync(slug)-+ 
+GetRelatedProductsAsync(productId, limit)-+ 
+GetCategoryBySlugAsync(slug)-+ GetColorsAsync()-+ 
+GetSizesAsync() 
+30 CategoryService 
++ GetAllAsync()-+ GetByIdAsync(categoryId)-+ 
+CreateAsync(dto)-+ UpdateAsync(categoryId, dto)-+ 
+DeleteAsync(categoryId) 
+31 BrandService 
++ GetAllAsync()-+ GetByIdAsync(brandId)-+ 
+CreateAsync(dto)-+ UpdateAsync(brandId, dto)-+ 
+DeleteAsync(brandId) 
+32 ColorService 
++ GetAllAsync()-+ GetByIdAsync(colorId)-+ 
+CreateAsync(dto)-+ UpdateAsync(colorId, dto)-+ 
+DeleteAsync(colorId) 
+33 SizeService 
++ GetAllAsync()-+ GetByIdAsync(sizeId)-+ 
+CreateAsync(dto)-+ UpdateAsync(sizeId, dto)-+ 
+DeleteAsync(sizeId) 
+34 CartService 
++ GetMyCartAsync(userId)-+ AddItemAsync(userId, 
+dto)-+ UpdateItemAsync(userId, cartItemId, dto)-+ 
+DeleteItemAsync(userId, cartItemId)-+ 
+ClearCartAsync(userId)-- BuildCartAsync(userId) 
+35 AddressService 
++ GetMyAddressesAsync(userId)-+ CreateAsync(userId, 
+dto)-+ UpdateAsync(userId, addressId, dto)-+ 
+SetDefaultAsync(userId, addressId)-+ 
+DeleteAsync(userId, addressId) 
+36 OrderService 
++ CreateAsync(userId, dto)-+ 
+GetMyOrdersAsync(userId, query)-+ 
+GetMyOrderByIdAsync(userId, orderId)-+ 
+CancelAsync(userId, orderId, dto)-+ 
+GetMockQrAsync(userId, orderId)-+ 
+ConfirmMockQrAsync(userId, orderId) 
+PAGE 88
+STT Tên lớp Phương thức 
+37 AdminOrderService 
++ GetAllAsync(query)-+ GetByIdAsync(orderId)-+ 
+UpdateOrderStatusAsync(adminUserId, orderId, dto)-+ 
+UpdatePaymentStatusAsync(adminUserId, orderId, dto) 
+38 CouponService 
++ GetAllAsync()-+ GetByIdAsync(couponId)-+ 
+CreateAsync(adminUserId, dto)-+ 
+UpdateAsync(couponId, dto)-+ 
+UpdateStatusAsync(couponId, isActive)-+ 
+ValidateForCartAsync(userId, dto)-+ 
+GetUsagesAsync(couponId, page, pageSize)-+ 
+GetAvailableForUserAsync(userId) 
+39 ReviewService 
++ GetProductReviewsAsync(productId, page, pageSize)-
++ CreateAsync(userId, dto)-+ UpdateAsync(userId, 
+reviewId, dto)-+ DeleteAsync(userId, reviewId)-+ 
+GetMyReviewsAsync(userId, query)-+ 
+GetAllForAdminAsync(query)-+ 
+SetApprovalAsync(reviewId, isApproved) 
+40 AdminDashboardService + GetAsync(query) 
+ 
+ 
+ 
+Nhóm Database, Middleware, Helper và Exception 
+ 
+STT Tên lớp Phương thức 
+41 AppDbContext + OnModelCreating(modelBuilder)-+ 
+SaveChangesAsync() 
+42 ExceptionMiddleware + InvokeAsync(context) 
+43 ApiResponse<T> + ApiResponse(success, message, data) 
+44 PagedResult<T> Không có phương thức; chứa thông tin phân trang và 
+danh sách kết quả 
+45 ClaimsPrincipalExtensions + GetUserId(user) 
+46 SlugHelper + GenerateSlug(text) 
+47 JwtSettings Không có phương thức; chứa các thuộc tính cấu hình 
+JWT 
+48 BadRequestException + BadRequestException(message) 
+49 NotFoundException + NotFoundException(message) 
+PAGE 89
+STT Tên lớp Phương thức 
+50 UnauthorizedException + UnauthorizedException(message) 
+ 
+ 
+ 
+ 
+ 
+ 
+3.1.2 Xác định các hệ thống con và giao diện (Identify subsystems and 
+interfaces) 
+  
+PAGE 90
+ 
+ 
+1. Authentication Subsystem 
+Vai trò: 
+Authentication Subsystem chịu trách nhiệm xác thực người dùng và cấp quyền truy cập 
+cho các chức năng trong hệ thống bán quần áo. 
+Interface cung cấp: IAuthService, ITokenService 
+Trách nhiệm chính: 
+• Đăng ký tài khoản mới. 
+• Đăng nhập bằng email và mật khẩu. 
+• Kiểm tra email đã tồn tại. 
+• Kiểm tra mật khẩu bằng BCrypt. 
+
+PAGE 91
+• Kiểm tra trạng thái hoạt động của tài khoản. 
+• Lấy thông tin người dùng hiện tại. 
+• Tạo mã xác thực JWT. 
+• Gắn vai trò Customer hoặc Admin vào JWT. 
+Quan hệ: 
+Cung cấp dịch vụ cho: 
+• User Management Subsystem. 
+• Order and Payment Subsystem. 
+• Shopping Cart Subsystem. 
+• Promotion Subsystem. 
+• Review Subsystem. 
+Authentication Subsystem là nền tảng bảo mật của hệ thống. Những chức năng yêu cầu 
+đăng nhập đều sử dụng JWT để xác định người dùng và kiểm tra quyền truy cập. 
+ 
+2. User Management Subsystem 
+Vai trò: 
+User Management Subsystem chịu trách nhiệm quản lý thông tin tài khoản và hồ sơ cá 
+nhân của người dùng. 
+Interface cung cấp: IUserProfileService, IAdminUserService 
+Trách nhiệm chính: 
+• Xem thông tin hồ sơ cá nhân. 
+• Cập nhật họ tên, số điện thoại và ảnh đại diện. 
+• Thay đổi mật khẩu. 
+• Xem danh sách người dùng. 
+• Xem chi tiết người dùng. 
+• Cập nhật trạng thái hoạt động của tài khoản. 
+• Quản lý vai trò Customer và Admin. 
+Quan hệ: 
+Yêu cầu: 
+• IAuthService để xác thực người dùng. 
+• AppDbContext để truy cập dữ liệu tài khoản. 
+Cung cấp dịch vụ cho: 
+• Authentication Subsystem. 
+• Shopping Cart Subsystem. 
+• Order and Payment Subsystem. 
+• Review Subsystem. 
+Subsystem này chỉ quản lý thông tin tài khoản và hồ sơ người dùng, không trực tiếp xử lý 
+sản phẩm hoặc đơn hàng. 
+ 
+3. Catalog Subsystem 
+PAGE 92
+Vai trò: 
+Catalog Subsystem chịu trách nhiệm quản lý và cung cấp dữ liệu sản phẩm trong cửa 
+hàng. 
+Interface cung cấp: IProductService, IStorefrontService 
+Trách nhiệm chính: 
+• Thêm sản phẩm mới. 
+• Cập nhật thông tin sản phẩm. 
+• Ẩn sản phẩm. 
+• Quản lý biến thể sản phẩm. 
+• Quản lý hình ảnh sản phẩm. 
+• Quản lý danh mục, thương hiệu, màu sắc và kích thước. 
+• Hiển thị danh sách sản phẩm. 
+• Tìm kiếm sản phẩm. 
+• Hiển thị sản phẩm nổi bật. 
+• Hiển thị sản phẩm mới. 
+• Hiển thị sản phẩm liên quan. 
+• Truy xuất sản phẩm theo slug. 
+• Kiểm tra tồn kho của biến thể sản phẩm. 
+Quan hệ: 
+Cung cấp dịch vụ cho: 
+• Shopping Cart Subsystem. 
+• Order and Payment Subsystem. 
+• Review Subsystem. 
+• Dashboard Subsystem. 
+Yêu cầu dữ liệu từ: 
+• Category. 
+• Brand. 
+• Color. 
+• Size. 
+• Product. 
+• ProductVariant. 
+• ProductImage. 
+Catalog Subsystem tập trung vào việc quản lý và cung cấp thông tin sản phẩm, không 
+trực tiếp xử lý giỏ hàng hoặc thanh toán. 
+ 
+4. Shopping Cart Subsystem 
+Vai trò: 
+Shopping Cart Subsystem chịu trách nhiệm quản lý giỏ hàng của từng người dùng. 
+Interface cung cấp: ICartService 
+Trách nhiệm chính: 
+PAGE 93
+• Xem giỏ hàng hiện tại. 
+• Thêm sản phẩm vào giỏ hàng. 
+• Cập nhật số lượng sản phẩm. 
+• Xóa một sản phẩm khỏi giỏ hàng. 
+• Xóa toàn bộ giỏ hàng. 
+• Kiểm tra biến thể sản phẩm. 
+• Kiểm tra số lượng tồn kho. 
+• Tính tổng tiền tạm thời của giỏ hàng. 
+Quan hệ: 
+Yêu cầu: 
+• Authentication Subsystem để xác định người dùng. 
+• Catalog Subsystem để lấy thông tin sản phẩm và tồn kho. 
+• Promotion Subsystem để kiểm tra mã giảm giá. 
+Cung cấp dữ liệu cho: 
+• Order and Payment Subsystem. 
+Shopping Cart Subsystem lưu dữ liệu thông qua Entity CartItem. Mỗi người dùng có thể 
+có nhiều sản phẩm và biến thể trong giỏ hàng. 
+ 
+5. Order and Payment Subsystem 
+Vai trò: 
+Order and Payment Subsystem chịu trách nhiệm xử lý quy trình đặt hàng, quản lý đơn 
+hàng và cập nhật trạng thái thanh toán. 
+Interface cung cấp: IOrderService, IAdminOrderService 
+Trách nhiệm chính: 
+• Tạo đơn hàng mới. 
+• Lấy danh sách đơn hàng của người dùng. 
+• Xem chi tiết đơn hàng. 
+• Hủy đơn hàng. 
+• Tạo mã đơn hàng. 
+• Xây dựng địa chỉ giao hàng. 
+• Kiểm tra sản phẩm trong giỏ hàng. 
+• Cập nhật số lượng tồn kho. 
+• Áp dụng mã giảm giá vào đơn hàng. 
+• Tạo mã QR thanh toán mô phỏng. 
+• Xác nhận thanh toán. 
+• Quản lý trạng thái đơn hàng. 
+• Quản lý trạng thái thanh toán. 
+• Cho phép Admin xem và cập nhật đơn hàng. 
+Quan hệ: 
+Yêu cầu: 
+PAGE 94
+• Authentication Subsystem để xác định người đặt hàng. 
+• Shopping Cart Subsystem để lấy sản phẩm trong giỏ hàng. 
+• Catalog Subsystem để kiểm tra giá và tồn kho. 
+• Promotion Subsystem để áp dụng mã giảm giá. 
+• Address Subsystem để lấy địa chỉ giao hàng. 
+Sử dụng các Entity: 
+• Order. 
+• OrderItem. 
+• Payment. 
+• OrderStatusHistory. 
+Đây là subsystem trung tâm của quy trình mua hàng, kết nối giỏ hàng, sản phẩm, địa chỉ, 
+mã giảm giá và thanh toán. 
+ 
+6. Promotion Subsystem 
+Vai trò: 
+Promotion Subsystem chịu trách nhiệm quản lý và áp dụng các chương trình khuyến mãi, 
+mã giảm giá trong hệ thống. 
+Interface cung cấp: ICouponService 
+Trách nhiệm chính: 
+• Tạo mã giảm giá. 
+• Cập nhật mã giảm giá. 
+• Xem thông tin mã giảm giá. 
+• Kích hoạt hoặc vô hiệu hóa mã giảm giá. 
+• Hiển thị mã giảm giá khả dụng cho người dùng. 
+• Kiểm tra mã giảm giá trong giỏ hàng. 
+• Kiểm tra thời hạn sử dụng. 
+• Kiểm tra số lần sử dụng. 
+• Kiểm tra điều kiện áp dụng theo sản phẩm hoặc danh mục. 
+• Lưu lịch sử sử dụng mã giảm giá. 
+Quan hệ: 
+Yêu cầu: 
+• Authentication Subsystem để xác định người dùng. 
+• Catalog Subsystem để kiểm tra sản phẩm và danh mục áp dụng. 
+• Order and Payment Subsystem để ghi nhận mã giảm giá trong đơn hàng. 
+Sử dụng các Entity: 
+• Coupon. 
+• CouponCategory. 
+• CouponProduct. 
+• CouponUsage. 
+PAGE 95
+Promotion Subsystem chỉ xử lý chính sách giảm giá, không trực tiếp tạo hoặc cập nhật 
+đơn hàng. 
+ 
+7. Review Subsystem 
+Vai trò: 
+Review Subsystem chịu trách nhiệm quản lý đánh giá và nhận xét của người dùng đối với 
+sản phẩm. 
+Interface cung cấp: IReviewService 
+Trách nhiệm chính: 
+• Xem danh sách đánh giá của sản phẩm. 
+• Tạo đánh giá mới. 
+• Cập nhật đánh giá. 
+• Xóa đánh giá. 
+• Xem các đánh giá của người dùng. 
+• Quản lý danh sách đánh giá dành cho Admin. 
+• Duyệt đánh giá. 
+• Từ chối đánh giá. 
+• Kiểm tra người dùng có quyền đánh giá hay không. 
+Quan hệ: 
+Yêu cầu: 
+• Authentication Subsystem để xác định người đánh giá. 
+• Catalog Subsystem để xác định sản phẩm được đánh giá. 
+• Order and Payment Subsystem để kiểm tra sản phẩm đã được mua. 
+Sử dụng Entity: 
+• Review. 
+Review Subsystem giúp xây dựng sự tin cậy cho sản phẩm thông qua nhận xét và số sao 
+của khách hàng. 
+ 
+8. Dashboard Subsystem 
+Vai trò: 
+Dashboard Subsystem chịu trách nhiệm tổng hợp và cung cấp số liệu thống kê cho 
+Admin. 
+Interface cung cấp: IAdminDashboardService 
+Trách nhiệm chính: 
+• Thống kê tổng số người dùng. 
+• Thống kê tổng số sản phẩm. 
+• Thống kê số lượng đơn hàng. 
+• Tổng hợp doanh thu. 
+• Hiển thị các đơn hàng gần đây. 
+• Thống kê sản phẩm bán chạy. 
+PAGE 96
+• Thống kê biến thể sắp hết hàng. 
+• Lọc dữ liệu thống kê theo khoảng thời gian. 
+Quan hệ: 
+Yêu cầu dữ liệu từ: 
+• User Management Subsystem. 
+• Catalog Subsystem. 
+• Order and Payment Subsystem. 
+Dashboard Subsystem chỉ tổng hợp và trình bày dữ liệu thống kê, không trực tiếp thay 
+đổi thông tin tài khoản, sản phẩm hoặc đơn hàng. 
+ 
+9. File Upload Subsystem 
+Vai trò: 
+File Upload Subsystem chịu trách nhiệm tiếp nhận và lưu trữ hình ảnh được tải lên hệ 
+thống. 
+Interface cung cấp: 
+Chức năng upload hiện được cung cấp trực tiếp qua UploadsController; dự án chưa định 
+nghĩa interface Service riêng cho subsystem này. 
+Trách nhiệm chính: 
+• Tiếp nhận file hình ảnh từ Client. 
+• Kiểm tra file được tải lên. 
+• Lưu file vào thư mục wwwroot. 
+• Tạo đường dẫn truy cập hình ảnh. 
+• Trả đường dẫn hình ảnh cho Client. 
+Quan hệ: 
+Cung cấp dữ liệu cho: 
+• Catalog Subsystem. 
+• User Management Subsystem. 
+Hình ảnh được sử dụng cho: 
+• Ảnh sản phẩm. 
+• Ảnh biến thể sản phẩm. 
+• Ảnh đại diện người dùng. 
+ 
+10. Data Access Layer 
+Vai trò: 
+Data Access Layer chịu trách nhiệm kết nối các subsystem với cơ sở dữ liệu SQL Server. 
+Thành phần chính: AppDbContext 
+Trách nhiệm chính: 
+• Truy vấn dữ liệu bằng Entity Framework Core. 
+• Theo dõi các Entity. 
+• Thêm dữ liệu mới. 
+PAGE 97
+• Cập nhật dữ liệu. 
+• Xóa hoặc ẩn dữ liệu. 
+• Lưu thay đổi thông qua SaveChangesAsync(). 
+• Quản lý quan hệ giữa các bảng dữ liệu. 
+Các Entity chính: 
+• User, Role, UserRole. 
+• Product, ProductVariant, ProductImage. 
+• Category, Brand, Color, Size. 
+• CartItem. 
+• Order, OrderItem, Payment. 
+• Coupon, CouponUsage. 
+• Review. 
+• Address. 
+Data Access Layer không xử lý nghiệp vụ riêng mà cung cấp cơ chế truy cập dữ liệu cho 
+các Service. 
+3.1.3 Xác định các gói (Identify packages) 
+ 
+STT Tên gói Thành phần 
+ API Layer  
+1 Controllers 
+- AuthController- UsersController- AddressesController- 
+ProductsController- CategoriesController-- BrandsController—
+ColorsController-- SizesController-- CartController-- 
+OrdersController-- CouponsController-- ReviewsController-- 
+UploadsController 
+2 Admin 
+Controllers 
+- AdminUsersController-- AdminProductsController-- 
+AdminCategoriesController-- AdminBrandsController-- 
+AdminColorsController-- AdminSizesController-- 
+AdminOrdersController-- AdminCouponsController-- 
+AdminReviewsController-- AdminDashboardController 
+ Business Logic 
+Layer 
+ 
+3 Service Interfaces 
+- IAuthService-- ITokenService-- IUserProfileService-- 
+IAdminUserService-- IProductService-- IStorefrontService-- 
+ICategoryService-- IBrandService-- IColorService-- 
+ISizeService-- ICartService-- IAddressService-- IOrderService-
+- IAdminOrderService-- ICouponService-- IReviewService-- 
+IAdminDashboardService 
+PAGE 98
+STT Tên gói Thành phần 
+4 Service 
+Implementations 
+- AuthService-- TokenService-- UserProfileService-- 
+AdminUserService-- ProductService-- StorefrontService-- 
+CategoryService-- BrandService-- ColorService-- SizeService-- 
+CartService-- AddressService-- OrderService-- 
+AdminOrderService-- CouponService-- ReviewService-- 
+AdminDashboardService 
+ Data Access 
+Layer 
+ 
+5 Data 
+- AppDbContext-- Cấu hình Entity Framework Core-- Cấu hình 
+quan hệ giữa các bảng-- Cấu hình khóa chính và khóa ngoại-- 
+Khởi tạo dữ liệu role mặc định-- Kết nối SQL Server 
+6 Models 
+- User-- Role-- UserRole-- Address-- Category-- Brand-- Color-
+- Size-- Product-- ProductVariant-- ProductImage-- CartItem-- 
+Order-- OrderItem-- Payment-- OrderStatusHistory-- Coupon-- 
+CouponCategory-- CouponProduct-- CouponUsage-- Review 
+7 Migrations 
+- InitialAuthSchema-- AddBaseCatalogTables-- 
+AddProductTables-- AddAddressesAndUserProfile-- 
+AddCartItems-- AddCoupons-- 
+AddOrdersPaymentsAndCouponUsages-- AddReviews-- 
+AppDbContextModelSnapshot 
+ Data Transfer 
+Layer 
+ 
+8 DTOs.Auth - LoginDto-- RegisterDto-- AuthResponseDto-- 
+CurrentUserDto 
+9 DTOs.Users - AdminUserDto-- AdminUserQueryDto-- UpdateProfileDto-- 
+ChangePasswordDto-- UpdateUserStatusDto 
+10 DTOs.Products 
+- ProductListDto-- ProductDetailDto-- ProductQueryDto-- 
+UpsertProductDto-- ProductVariantDto-- 
+UpsertProductVariantDto-- ProductImageDto-- 
+UpsertProductImageDto 
+11 DTOs.Storefront - PublicProductListDto-- PublicProductDetailDto-- 
+PublicProductQueryDto-- PublicCategoryDto-- PublicBrandDto 
+12 DTOs.Catalog 
+- CategoryDto-- UpsertCategoryDto-- BrandDto-- 
+UpsertBrandDto-- ColorDto-- UpsertColorDto-- SizeDto-- 
+UpsertSizeDto 
+PAGE 99
+STT Tên gói Thành phần 
+13 DTOs.Cart - CartDto-- CartItemDto-- AddCartItemDto-- 
+UpdateCartItemDto 
+14 DTOs.Addresses - AddressDto-- UpsertAddressDto 
+15 DTOs.Orders 
+- CreateOrderDto-- OrderDetailDto-- OrderSummaryDto-- 
+OrderItemDto-- OrderQueryDto-- AdminOrderQueryDto-- 
+AdminOrderSummaryDto-- UpdateOrderStatusDto-- 
+UpdatePaymentStatusDto-- CancelOrderDto-- PaymentDto-- 
+MockQrDto-- OrderStatusHistoryDto 
+16 DTOs.Coupons 
+- CouponDto-- UpsertCouponDto-- AvailableCouponDto-- 
+CouponValidationDto-- ValidateCouponDto-- 
+CouponUsageDto-- UpdateCouponStatusDto 
+17 DTOs.Reviews 
+- CreateReviewDto-- UpdateReviewDto-- PublicReviewDto-- 
+PublicReviewQueryDto-- MyReviewDto-- 
+MyReviewQueryDto-- AdminReviewDto-- 
+AdminReviewQueryDto 
+18 DTOs.Dashboard 
+- DashboardDto-- DashboardQueryDto-- 
+BestSellingProductDto-- LowStockVariantDto-- 
+RecentOrderDto 
+19 DTOs.Uploads - UploadImageDto-- UploadImageRequestDto 
+ Cross-Cutting 
+Layer 
+ 
+20 Middleware - ExceptionMiddleware 
+21 Helpers - ApiResponse<T>-- PagedResult<T>-- 
+ClaimsPrincipalExtensions-- JwtSettings-- SlugHelper 
+22 Exceptions - BadRequestException-- NotFoundException-- 
+UnauthorizedException 
+23 Enums - DiscountType-- Gender-- OrderStatus-- PaymentMethod-- 
+PaymentStatus 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+PAGE 100
+ 
+3.2 Thiết kế trường hợp sử dụng (Use-case design) 
+3.2.1 Thiết kế các biểu đồ tuần tự (Design sequence diagrams) 
+❖ Biều đồ tuần tự chức năng Đăng nhập/ Đăng ký 
+PAGE 101
+ 
+ 
+
+PAGE 102
+3.2.2 Thiết kế biểu đồ lớp (Class diagrams) 
+ 
+ 
+Mô tả biểu đồ Class Diagram 
+➢ Class User là lớp trung tâm đại diện cho tài khoản người dùng trong hệ thống. Lớp 
+lưu các thông tin như mã người dùng, họ tên, email, mật khẩu đã mã hóa, số điện thoại, 
+ảnh đại diện và trạng thái hoạt động. Một User có thể có nhiều Address, CartItem, Order, 
+Review và UserRole. Lớp này không kế thừa từ lớp nào khác. 
+➢ Class Role lưu thông tin về vai trò của người dùng trong hệ thống, bao gồm mã vai 
+trò, tên vai trò và mô tả. Các vai trò chính có thể là Customer và Admin. Một Role có thể 
+được gán cho nhiều người dùng thông qua lớp trung gian UserRole. 
+➢ Class UserRole là lớp trung gian thể hiện mối quan hệ giữa User và Role. Lớp chứa 
+UserId và RoleId, giúp một người dùng có thể được gán một hoặc nhiều vai trò trong hệ 
+thống. 
+
+PAGE 103
+➢ Class Address đại diện cho địa chỉ giao hàng của người dùng. Lớp lưu mã địa chỉ, mã 
+người dùng, tên người nhận, số điện thoại, địa chỉ giao hàng và trạng thái địa chỉ mặc 
+định. Một User có thể có nhiều Address, nhưng mỗi Address chỉ thuộc về một User. 
+➢ Class Product là lớp trung tâm của chức năng quản lý sản phẩm. Lớp lưu mã sản 
+phẩm, tên sản phẩm, slug, mô tả, chất liệu, giới tính, giá gốc, giá khuyến mãi, trạng thái 
+nổi bật và trạng thái hoạt động. Một Product thuộc về một Category, có thể thuộc về một 
+Brand, đồng thời có nhiều ProductVariant, ProductImage và Review. 
+➢ Class Category đại diện cho danh mục sản phẩm. Lớp lưu mã danh mục, tên danh 
+mục, slug, mô tả và trạng thái hoạt động. Một Category có thể chứa nhiều Product, còn 
+mỗi Product thuộc về một danh mục. 
+➢ Class Brand đại diện cho thương hiệu sản phẩm. Lớp lưu mã thương hiệu, tên thương 
+hiệu, mô tả, logo và trạng thái hoạt động. Một thương hiệu có thể được liên kết với nhiều 
+sản phẩm. 
+➢ Class ProductVariant đại diện cho các biến thể của sản phẩm theo màu sắc, kích 
+thước hoặc SKU. Lớp lưu mã biến thể, mã sản phẩm, mã màu, mã kích thước, SKU, giá 
+bán, giá khuyến mãi, số lượng tồn kho và trạng thái hoạt động. Một Product có thể có 
+nhiều ProductVariant, trong khi mỗi biến thể thuộc về một sản phẩm. 
+➢ Class ProductImage lưu hình ảnh của sản phẩm, bao gồm mã hình ảnh, mã sản 
+phẩm, đường dẫn hình ảnh, thứ tự hiển thị và trạng thái ảnh đại diện. Một Product có thể 
+có nhiều hình ảnh và mỗi hình ảnh thuộc về một sản phẩm. 
+➢ Class Color đại diện cho màu sắc của sản phẩm. Lớp lưu mã màu, tên màu và mã màu 
+dạng HEX. Một Color có thể được sử dụng cho nhiều ProductVariant. 
+➢ Class Size đại diện cho kích thước sản phẩm. Lớp lưu mã kích thước và tên kích 
+thước. Một Size có thể được sử dụng cho nhiều ProductVariant. 
+➢ Class CartItem đại diện cho một sản phẩm hoặc biến thể sản phẩm trong giỏ hàng. 
+Lớp lưu mã dòng giỏ hàng, mã người dùng, mã biến thể, số lượng và thời gian tạo hoặc 
+cập nhật. Một User có thể có nhiều CartItem, mỗi dòng giỏ hàng liên kết với một 
+ProductVariant. 
+➢ Class Order đại diện cho đơn hàng của người dùng. Lớp lưu mã đơn hàng, mã người 
+dùng, mã đơn hàng, thông tin người nhận, địa chỉ giao hàng, tổng tiền, phí vận chuyển, số 
+tiền giảm giá, trạng thái đơn hàng và trạng thái thanh toán. Một User có thể tạo nhiều 
+Order, trong khi mỗi đơn hàng thuộc về một người dùng. 
+➢ Class OrderItem đại diện cho một sản phẩm thuộc đơn hàng. Lớp lưu mã dòng đơn 
+hàng, mã đơn hàng, mã biến thể, tên sản phẩm, SKU, màu sắc, kích thước, đơn giá và số 
+lượng. Một Order có thể có nhiều OrderItem, mỗi dòng đơn hàng liên kết với một 
+ProductVariant. 
+➢ Class Payment đại diện cho thông tin thanh toán của đơn hàng. Lớp lưu mã thanh 
+toán, mã đơn hàng, phương thức thanh toán, trạng thái thanh toán, số tiền và mã giao 
+PAGE 104
+dịch. Mỗi Payment thuộc về một Order; một đơn hàng có thể phát sinh thông tin thanh 
+toán tương ứng. 
+➢ Class Coupon đại diện cho mã giảm giá trong hệ thống. Lớp lưu mã coupon, mã sử 
+dụng, tên, loại giảm giá, giá trị giảm, số tiền đơn hàng tối thiểu, thời gian hiệu lực, giới 
+hạn sử dụng và trạng thái hoạt động. Một Coupon có thể được sử dụng trong nhiều đơn 
+hàng và có nhiều lịch sử CouponUsage. 
+➢ Class Review đại diện cho đánh giá của người dùng đối với sản phẩm. Lớp lưu mã 
+đánh giá, mã sản phẩm, mã người dùng, số sao, nội dung nhận xét, trạng thái duyệt và 
+thời gian tạo. Một Product có thể có nhiều Review, đồng thời một User có thể tạo nhiều 
+đánh giá. 
+➢ Class CouponUsage lưu lịch sử sử dụng mã giảm giá. Lớp liên kết mã coupon, người 
+dùng và đơn hàng đã sử dụng mã. Lớp giúp hệ thống kiểm soát số lần sử dụng mã giảm 
+giá theo từng người dùng hoặc toàn hệ thống. 
+➢ Class CouponCategory là lớp liên kết giữa Coupon và Category. Lớp xác định mã 
+giảm giá nào được áp dụng cho danh mục sản phẩm nào. 
+➢ Class CouponProduct là lớp liên kết giữa Coupon và Product. Lớp xác định mã giảm 
+giá nào được áp dụng trực tiếp cho sản phẩm nào. 
+➢ Class OrderStatusHistory lưu lại lịch sử thay đổi trạng thái của đơn hàng. Lớp chứa 
+mã đơn hàng, trạng thái cũ hoặc mới, ghi chú, người thực hiện thay đổi và thời gian thay 
+đổi. 
+➢ Class AppDbContext là lớp truy cập dữ liệu của hệ thống, được xây dựng trên Entity 
+Framework Core. Lớp khai báo các tập dữ liệu như Users, Products, Orders, Payments, 
+Coupons, Reviews và thực hiện truy vấn hoặc lưu thay đổi vào SQL Server thông qua 
+phương thức SaveChangesAsync(). 
+ 
+ 
+Quan hệ tổng quát giữa các lớp 
+Các quan hệ chính trong biểu đồ gồm: 
+• User – Order: một người dùng có nhiều đơn hàng. 
+• User – CartItem: một người dùng có nhiều sản phẩm trong giỏ hàng. 
+• User – Review: một người dùng có thể tạo nhiều đánh giá. 
+• User – Address: một người dùng có nhiều địa chỉ giao hàng. 
+• User – Role: quan hệ nhiều-nhiều thông qua UserRole. 
+• Category – Product: một danh mục có nhiều sản phẩm. 
+• Product – ProductVariant: một sản phẩm có nhiều biến thể. 
+• Product – ProductImage: một sản phẩm có nhiều hình ảnh. 
+• Product – Review: một sản phẩm có nhiều đánh giá. 
+• ProductVariant – CartItem: một biến thể có thể xuất hiện trong nhiều giỏ hàng. 
+• Order – OrderItem: một đơn hàng có nhiều dòng sản phẩm. 
+• Order – Payment: đơn hàng liên kết với thông tin thanh toán. 
+PAGE 105
+• Coupon – CouponUsage: một mã giảm giá có nhiều lần sử dụng. 
+3.3 Thiết kế cơ sở dữ liệu (Database design) 
+3.3.1 Lược đồ cơ sở dữ liệu 
+ 
+ 
+3.3.2 Chi tiết các bảng 
+1. Users – Thông tin người dùng 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 UserId INT Khóa chính, mã định danh duy nhất của 
+người dùng. 
+2 FullName NV ARCHAR(150) Họ và tên người dùng. 
+3 Email NV ARCHAR(255) Địa chỉ email, không được trùng. 
+4 PasswordHash NV ARCHAR(MAX) Mật khẩu đã được mã hóa bằng BCrypt. 
+__EFMigrationsHistory
+MigrationId
+ProductVersion
+Addresses
+AddressId
+UserId
+ReceiverName
+ReceiverPhone
+AddressDetail
+Ward
+District
+Province
+IsDefault
+CreatedAt
+Brands
+BrandId
+BrandName
+Description
+LogoUrl
+IsActive
+CreatedAt
+CartItems
+CartItemId
+UserId
+VariantId
+Quantity
+CreatedAt
+UpdatedAt
+Categories
+CategoryId
+ParentCategoryId
+CategoryName
+Slug
+Description
+ImageUrl
+IsActive
+CreatedAt
+Colors
+ColorId
+ColorName
+ColorCode
+CouponCategories
+CouponId
+CategoryId
+CouponProducts
+CouponId
+ProductId
+Coupons
+CouponId
+Code
+Name
+Description
+DiscountType
+DiscountValue
+MaxDiscountAmount
+MinOrderAmount
+StartDate
+EndDate
+UsageLimit
+UsageLimitPerUser
+UsedCount
+IsActive
+CreatedByUserId
+CreatedAt
+UpdatedAt
+CouponUsages
+CouponUsageId
+CouponId
+UserId
+OrderId
+DiscountAmount
+UsedAt
+OrderItems
+OrderItemId
+OrderId
+VariantId
+ProductName
+SKU
+ColorName
+SizeName
+UnitPrice
+Quantity
+TotalPrice
+Orders
+OrderId
+OrderCode
+UserId
+ReceiverName
+ReceiverPhone
+ShippingAddress
+Note
+Subtotal
+ShippingFee
+DiscountAmount
+TotalAmount
+CouponId
+CouponCode
+OrderStatus
+PaymentStatus
+CreatedAt
+UpdatedAt
+OrderStatusHistories
+OrderStatusHistoryId
+OrderId
+Status
+Note
+ChangedByUserId
+CreatedAt
+Payments
+PaymentId
+OrderId
+PaymentMethod
+Amount
+PaymentStatus
+TransactionCode
+PaidAt
+CreatedAt
+ProductImages
+ImageId
+ProductId
+ImageUrl
+DisplayOrder
+IsThumbnail
+Products
+ProductId
+CategoryId
+BrandId
+ProductName
+Slug
+ShortDescription
+Description
+Material
+Gender
+BasePrice
+SalePrice
+IsFeatured
+IsActive
+CreatedAt
+UpdatedAt
+ProductVariants
+VariantId
+ProductId
+ColorId
+SizeId
+SKU
+Price
+SalePrice
+StockQuantity
+ImageUrl
+IsActive
+Reviews
+ReviewId
+ProductId
+UserId
+OrderItemId
+Rating
+Comment
+IsApproved
+CreatedAt
+Roles
+RoleId
+RoleName
+Description
+Sizes
+SizeId
+SizeName
+DisplayOrder
+UserRoles
+UserId
+RoleId
+Users
+UserId
+FullName
+Email
+PasswordHash
+PhoneNumber
+AvatarUrl
+IsActive
+CreatedAt
+UpdatedAt
+PAGE 106
+STT Tên field Kiểu dữ liệu Mô tả 
+5 PhoneNumber NV ARCHAR(20), 
+NULL Số điện thoại của người dùng. 
+6 AvatarUrl NV ARCHAR(500), 
+NULL Đường dẫn ảnh đại diện. 
+7 IsActive BIT Trạng thái hoạt động của tài khoản. 
+8 CreatedAt DATETIME2 Thời điểm tạo tài khoản. 
+9 UpdatedAt DATETIME2, NULL Thời điểm cập nhật tài khoản gần nhất. 
+ 
+ 
+2. Roles – Thông tin vai trò 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 RoleId INT Khóa chính, mã vai trò. 
+2 RoleName NV ARCHAR(50) Tên vai trò, ví dụ Admin hoặc Customer. 
+3 Description NV ARCHAR(255), NULL Mô tả vai trò. 
+ 
+3. UserRoles – Liên kết người dùng và vai trò 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 UserId INT Khóa chính ghép và khóa ngoại liên kết với bảng Users. 
+2 RoleId INT Khóa chính ghép và khóa ngoại liên kết với bảng Roles. 
+ 
+Bảng UserRoles dùng để biểu diễn quan hệ nhiều-nhiều giữa người dùng và vai trò. Khóa 
+chính của bảng gồm hai field UserId và RoleId. 
+ 
+4. Categories – Danh mục sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 CategoryId INT Khóa chính, mã danh mục. 
+2 ParentCategoryId INT, NULL Khóa ngoại tự liên kết đến danh mục 
+cha. 
+3 CategoryName NV ARCHAR(150) Tên danh mục sản phẩm. 
+4 Slug NV ARCHAR(180) Chuỗi định danh thân thiện dùng trong 
+URL, không trùng. 
+PAGE 107
+STT Tên field Kiểu dữ liệu Mô tả 
+5 Description NV ARCHAR(500), 
+NULL Mô tả danh mục. 
+6 ImageUrl NV ARCHAR(500), 
+NULL Đường dẫn hình ảnh danh mục. 
+7 IsActive BIT Trạng thái hoạt động của danh mục. 
+8 CreatedAt DATETIME2 Thời điểm tạo danh mục. 
+ 
+Bảng hỗ trợ danh mục cha và danh mục con thông qua field ParentCategoryId. 
+ 
+5. Brands – Thương hiệu sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 BrandId INT Khóa chính, mã thương hiệu. 
+2 BrandName NV ARCHAR(150) Tên thương hiệu, không được trùng. 
+3 Description NV ARCHAR(500), NULL Mô tả thương hiệu. 
+4 LogoUrl NV ARCHAR(500), NULL Đường dẫn logo thương hiệu. 
+5 IsActive BIT Trạng thái hoạt động của thương hiệu. 
+6 CreatedAt DATETIME2 Thời điểm tạo thương hiệu. 
+ 
+6. Colors – Màu sắc sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 ColorId INT Khóa chính, mã màu. 
+2 ColorName NV ARCHAR(50) Tên màu, không được trùng. 
+3 ColorCode NV ARCHAR(20), 
+NULL 
+Mã màu, thường được biểu diễn dưới dạng 
+HEX. 
+ 
+7. Sizes – Kích thước sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 SizeId INT Khóa chính, mã kích thước. 
+2 SizeName NV ARCHAR(20) Tên kích thước, ví dụ S, M, L hoặc XL. 
+3 DisplayOrder INT Thứ tự hiển thị kích thước. 
+ 
+PAGE 108
+8. Products – Sản phẩm 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 ProductId INT Khóa chính, mã sản phẩm. 
+2 CategoryId INT Khóa ngoại liên kết với bảng 
+Categories. 
+3 BrandId INT, NULL Khóa ngoại liên kết với bảng Brands. 
+4 ProductName NV ARCHAR(250) Tên sản phẩm. 
+5 Slug NV ARCHAR(300) Chuỗi định danh sản phẩm trên URL, 
+không trùng. 
+6 ShortDescription NV ARCHAR(500), 
+NULL Mô tả ngắn của sản phẩm. 
+7 Description NV ARCHAR(MAX) Mô tả chi tiết sản phẩm. 
+8 Material NV ARCHAR(150), 
+NULL Chất liệu sản phẩm. 
+9 Gender NV ARCHAR(20) Đối tượng sử dụng: Male, Female hoặc 
+Unisex. 
+10 BasePrice DECIMAL(18,2) Giá gốc của sản phẩm. 
+11 SalePrice DECIMAL(18,2), 
+NULL Giá khuyến mãi của sản phẩm. 
+12 IsFeatured BIT Xác định sản phẩm có nổi bật hay 
+không. 
+13 IsActive BIT Trạng thái hoạt động của sản phẩm. 
+14 CreatedAt DATETIME2 Thời điểm tạo sản phẩm. 
+15 UpdatedAt DATETIME2, NULL Thời điểm cập nhật sản phẩm gần nhất. 
+ 
+Mỗi sản phẩm thuộc một danh mục, có thể thuộc một thương hiệu và có nhiều biến thể, 
+hình ảnh hoặc đánh giá. 
+ 
+9. ProductVariants – Biến thể sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 VariantId INT Khóa chính, mã biến thể. 
+2 ProductId INT Khóa ngoại liên kết với bảng Products. 
+3 ColorId INT Khóa ngoại liên kết với bảng Colors. 
+4 SizeId INT Khóa ngoại liên kết với bảng Sizes. 
+PAGE 109
+STT Tên field Kiểu dữ liệu Mô tả 
+5 SKU NV ARCHAR(100) Mã SKU của biến thể, không được 
+trùng. 
+6 Price DECIMAL(18,2) Giá bán của biến thể. 
+7 SalePrice DECIMAL(18,2), NULL Giá khuyến mãi của biến thể. 
+8 StockQuantity INT Số lượng sản phẩm tồn kho. 
+9 ImageUrl NV ARCHAR(500), 
+NULL Đường dẫn ảnh của biến thể. 
+10 IsActive BIT Trạng thái hoạt động của biến thể. 
+ 
+Một sản phẩm có thể có nhiều biến thể khác nhau theo màu sắc và kích thước. Tổ hợp 
+ProductId, ColorId, SizeId không được trùng. 
+ 
+10. ProductImages – Hình ảnh sản phẩm 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 ImageId INT Khóa chính, mã hình ảnh. 
+2 ProductId INT Khóa ngoại liên kết với bảng Products. 
+3 ImageUrl NV ARCHAR(500) Đường dẫn hình ảnh sản phẩm. 
+4 DisplayOrder INT Thứ tự hiển thị hình ảnh. 
+5 IsThumbnail BIT Xác định hình ảnh có phải ảnh đại diện hay 
+không. 
+ 
+Một sản phẩm có thể có nhiều hình ảnh. Mỗi hình ảnh chỉ thuộc về một sản phẩm.  
+ 
+11. Addresses – Địa chỉ giao hàng 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 AddressId INT Khóa chính, mã địa chỉ. 
+2 UserId INT Khóa ngoại liên kết với bảng Users. 
+3 ReceiverName NV ARCHAR(150) Họ tên người nhận hàng. 
+4 ReceiverPhone NV ARCHAR(20) Số điện thoại người nhận. 
+5 AddressDetail NV ARCHAR(500) Địa chỉ chi tiết. 
+6 Ward NV ARCHAR(100), NULL Phường hoặc xã. 
+7 District NV ARCHAR(100), NULL Quận hoặc huyện. 
+8 Province NV ARCHAR(100) Tỉnh hoặc thành phố. 
+PAGE 110
+STT Tên field Kiểu dữ liệu Mô tả 
+9 IsDefault BIT Xác định địa chỉ mặc định. 
+10 CreatedAt DATETIME2 Thời điểm tạo địa chỉ. 
+ 
+Một người dùng có thể có nhiều địa chỉ, nhưng tối đa một địa chỉ mặc định. 
+ 
+12. CartItems – Sản phẩm trong giỏ hàng 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 CartItemId INT Khóa chính, mã dòng giỏ hàng. 
+2 UserId INT Khóa ngoại liên kết với bảng Users. 
+3 VariantId INT Khóa ngoại liên kết với bảng ProductVariants. 
+4 Quantity INT Số lượng biến thể sản phẩm. 
+5 CreatedAt DATETIME2 Thời điểm thêm sản phẩm vào giỏ hàng. 
+6 UpdatedAt DATETIME2, NULL Thời điểm cập nhật số lượng gần nhất. 
+ 
+Tổ hợp UserId và VariantId là duy nhất, bảo đảm một người dùng không có nhiều dòng 
+cho cùng một biến thể. 
+ 
+13. Coupons – Mã giảm giá 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 CouponId INT Khóa chính, mã định danh coupon. 
+2 Code NV ARCHAR(50) Mã giảm giá, không được trùng. 
+3 Name NV ARCHAR(200) Tên chương trình giảm giá. 
+4 Description NV ARCHAR(500), 
+NULL Mô tả mã giảm giá. 
+5 DiscountType NV ARCHAR(30) Loại giảm giá: phần trăm hoặc số 
+tiền cố định. 
+6 DiscountValue DECIMAL(18,2) Giá trị giảm. 
+7 MaxDiscountAmount DECIMAL(18,2), 
+NULL Số tiền giảm tối đa. 
+8 MinOrderAmount DECIMAL(18,2) Giá trị đơn hàng tối thiểu. 
+9 StartDate DATETIME2 Thời điểm bắt đầu hiệu lực. 
+10 EndDate DATETIME2 Thời điểm kết thúc hiệu lực. 
+PAGE 111
+STT Tên field Kiểu dữ liệu Mô tả 
+11 UsageLimit INT, NULL Tổng số lượt sử dụng tối đa. 
+12 UsageLimitPerUser INT, NULL Số lượt sử dụng tối đa cho mỗi 
+người dùng. 
+13 UsedCount INT Tổng số lượt đã sử dụng. 
+14 IsActive BIT Trạng thái hoạt động của coupon. 
+15 CreatedByUserId INT Khóa ngoại đến người dùng 
+Admin tạo coupon. 
+16 CreatedAt DATETIME2 Thời điểm tạo coupon. 
+17 UpdatedAt DATETIME2, NULL Thời điểm cập nhật coupon gần 
+nhất. 
+ 
+14. CouponCategories – Liên kết coupon và danh mục 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 CouponId INT Khóa chính ghép và khóa ngoại đến Coupons. 
+2 CategoryId INT Khóa chính ghép và khóa ngoại đến Categories. 
+ 
+Bảng xác định các danh mục được áp dụng mã giảm giá. 
+ 
+15. CouponProducts – Liên kết coupon và sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 CouponId INT Khóa chính ghép và khóa ngoại đến Coupons. 
+2 ProductId INT Khóa chính ghép và khóa ngoại đến Products. 
+ 
+Bảng xác định các sản phẩm được áp dụng mã giảm giá. 
+ 
+16. Orders – Đơn hàng 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 OrderId INT Khóa chính, mã đơn hàng. 
+2 OrderCode NV ARCHAR(30) Mã hiển thị của đơn hàng, không được 
+trùng. 
+3 UserId INT Khóa ngoại liên kết với bảng Users. 
+PAGE 112
+STT Tên field Kiểu dữ liệu Mô tả 
+4 ReceiverName NV ARCHAR(150) Tên người nhận hàng. 
+5 ReceiverPhone NV ARCHAR(20) Số điện thoại người nhận. 
+6 ShippingAddress NV ARCHAR(700) Địa chỉ giao hàng. 
+7 Note NV ARCHAR(500), 
+NULL Ghi chú của khách hàng. 
+8 Subtotal DECIMAL(18,2) Tổng tiền hàng trước giảm giá và phí 
+vận chuyển. 
+9 ShippingFee DECIMAL(18,2) Phí vận chuyển. 
+10 DiscountAmount DECIMAL(18,2) Số tiền được giảm. 
+11 TotalAmount DECIMAL(18,2) Tổng số tiền phải thanh toán. 
+12 CouponId INT, NULL Khóa ngoại liên kết với coupon được 
+sử dụng. 
+13 CouponCode NV ARCHAR(50), 
+NULL 
+Mã coupon được lưu tại thời điểm đặt 
+hàng. 
+14 OrderStatus NV ARCHAR(30) Trạng thái đơn hàng. 
+15 PaymentStatus NV ARCHAR(30) Trạng thái thanh toán. 
+16 CreatedAt DATETIME2 Thời điểm tạo đơn hàng. 
+17 UpdatedAt DATETIME2, NULL Thời điểm cập nhật đơn hàng gần nhất. 
+ 
+17. OrderItems – Chi tiết đơn hàng 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 OrderItemId INT Khóa chính, mã chi tiết đơn hàng. 
+2 OrderId INT Khóa ngoại liên kết với bảng Orders. 
+3 VariantId INT Khóa ngoại liên kết với bảng ProductVariants. 
+4 ProductName NV ARCHAR(250) Tên sản phẩm được lưu tại thời điểm đặt hàng. 
+5 SKU NV ARCHAR(100) Mã SKU tại thời điểm đặt hàng. 
+6 ColorName NV ARCHAR(50) Tên màu tại thời điểm đặt hàng. 
+7 SizeName NV ARCHAR(20) Tên kích thước tại thời điểm đặt hàng. 
+8 UnitPrice DECIMAL(18,2) Đơn giá của sản phẩm. 
+9 Quantity INT Số lượng sản phẩm. 
+10 TotalPrice DECIMAL(18,2) Tổng tiền của dòng đơn hàng. 
+ 
+PAGE 113
+Các thông tin như tên sản phẩm, SKU, màu và kích thước được lưu dạng snapshot để bảo 
+toàn dữ liệu lịch sử khi thông tin sản phẩm thay đổi. 
+ 
+18. Payments – Thanh toán 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 PaymentId INT Khóa chính, mã thanh toán. 
+2 OrderId INT Khóa ngoại liên kết với bảng Orders. 
+3 PaymentMethod NV ARCHAR(30) Phương thức thanh toán, ví dụ COD 
+hoặc MockQR. 
+4 Amount DECIMAL(18,2) Số tiền thanh toán. 
+5 PaymentStatus NV ARCHAR(30) Trạng thái thanh toán. 
+6 TransactionCode NV ARCHAR(150), 
+NULL Mã giao dịch thanh toán. 
+7 PaidAt DATETIME2, NULL Thời điểm thanh toán thành công. 
+8 CreatedAt DATETIME2 Thời điểm tạo bản ghi thanh toán. 
+ 
+19. OrderStatusHistories – Lịch sử trạng thái đơn hàng 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 OrderStatusHistoryId INT Khóa chính, mã lịch sử trạng thái. 
+2 OrderId INT Khóa ngoại liên kết với bảng 
+Orders. 
+3 Status NV ARCHAR(30) Trạng thái đơn hàng được ghi 
+nhận. 
+4 Note NV ARCHAR(500), 
+NULL Ghi chú khi thay đổi trạng thái. 
+5 ChangedByUserId INT, NULL Khóa ngoại đến người dùng thực 
+hiện thay đổi. 
+6 CreatedAt DATETIME2 Thời điểm ghi nhận thay đổi. 
+ 
+Bảng giúp lưu lại quá trình thay đổi trạng thái của một đơn hàng. 
+ 
+20. CouponUsages – Lịch sử sử dụng mã giảm giá 
+PAGE 114
+STT Tên field Kiểu dữ liệu Mô tả 
+1 CouponUsageId INT Khóa chính, mã lịch sử sử dụng. 
+2 CouponId INT Khóa ngoại liên kết với bảng Coupons. 
+3 UserId INT Khóa ngoại liên kết với bảng Users. 
+4 OrderId INT Khóa ngoại liên kết với bảng Orders. 
+5 DiscountAmount DECIMAL(18,2) Số tiền được giảm trong lần sử dụng. 
+6 UsedAt DATETIME2 Thời điểm sử dụng coupon. 
+ 
+Mỗi đơn hàng chỉ được sử dụng tối đa một coupon, được bảo đảm bằng chỉ mục duy nhất 
+trên OrderId. 
+ 
+21. Reviews – Đánh giá sản phẩm 
+ 
+STT Tên field Kiểu dữ liệu Mô tả 
+1 ReviewId INT Khóa chính, mã đánh giá. 
+2 ProductId INT Khóa ngoại liên kết với bảng Products. 
+3 UserId INT Khóa ngoại liên kết với bảng Users. 
+4 OrderItemId INT, NULL Khóa ngoại liên kết với dòng sản phẩm 
+đã mua. 
+5 Rating TINYINT Số sao đánh giá sản phẩm. 
+6 Comment NV ARCHAR(1000), 
+NULL Nội dung nhận xét của người dùng. 
+7 IsApproved BIT Trạng thái duyệt đánh giá. 
+8 CreatedAt DATETIME2 Thời điểm tạo đánh giá. 
+ 
+Quy ước kiểu dữ liệu 
+Các kiểu dữ liệu trong Database được ánh xạ từ kiểu dữ liệu C# như sau: 
+Kiểu C# Kiểu SQL Server Ý nghĩa 
+int INT Số nguyên 
+string NV ARCHAR Chuỗi ký tự Unicode 
+string? NV ARCHAR, NULL Chuỗi có thể rỗng 
+decimal DECIMAL(18,2) Giá trị tiền tệ 
+bool BIT Giá trị đúng hoặc sai 
+byte TINYINT Số nguyên nhỏ 
+PAGE 115
+Kiểu C# Kiểu SQL Server Ý nghĩa 
+DateTime DATETIME2 Ngày và thời gian 
+DateTime? DATETIME2, NULL Ngày và thời gian có thể rỗng 
+enum NV ARCHAR Giá trị enum được lưu dưới dạng chuỗi 
+ 
+ 
+4. CÀI ĐẶT (IMPLEMENTATION) 
+4.1 Lựa chọn công nghệ 
+ 
+  
+Hình Sơ đồ triển khai hệ thống 
+ 
+Mô tả sơ đồ 
+Người dùng truy cập hệ thống thông qua Client Web hoặc các công cụ gọi API như 
+Swagger UI. Khi người dùng thực hiện các thao tác như đăng nhập, xem sản phẩm, thêm 
+sản phẩm vào giỏ hàng, đặt hàng hoặc quản lý dữ liệu, Client gửi request HTTP đến 
+ClothingAPI Server. 
+ 
+ClothingAPI Server được xây dựng bằng ASP.NET Core Web API. Server tiếp nhận 
+request thông qua các Controller, kiểm tra xác thực và phân quyền, sau đó chuyển yêu 
+cầu đến các Service tương ứng. Các Service xử lý logic nghiệp vụ như quản lý sản phẩm, 
+giỏ hàng, đơn hàng, tài khoản, mã giảm giá và đánh giá. 
+
+PAGE 116
+Sau khi xử lý nghiệp vụ, ứng dụng sử dụng Entity Framework Core để truy vấn hoặc cập 
+nhật dữ liệu trong SQL Server. Kết quả được trả về Server, sau đó Controller đóng gói 
+thành response JSON và gửi lại cho Client. 
+ 
+Kiến trúc này giúp tách biệt rõ: 
+• Giao diện và nơi gửi request. 
+• Xử lý nghiệp vụ của hệ thống. 
+• Lưu trữ dữ liệu. 
+• Cơ chế xác thực và phân quyền. 
+ 
+Giới thiệu các công nghệ sử dụng 
+Hệ thống Clothing Store API sử dụng các công nghệ Web hiện đại nhằm bảo đảm khả 
+năng mở rộng, bảo mật và dễ bảo trì. 
+Công nghệ xây dựng Web API: ASP.NET Core 
+ASP.NET Core được sử dụng để xây dựng phần Backend của hệ thống. Đây là nền tảng 
+phát triển Web của Microsoft, hỗ trợ xây dựng các ứng dụng Web API có hiệu năng cao 
+và khả năng mở rộng tốt. 
+Trong dự án, ASP.NET Core đảm nhiệm: 
+• Tiếp nhận và xử lý HTTP request. 
+• Định tuyến request đến Controller. 
+• Cấu hình Dependency Injection. 
+• Xử lý Middleware. 
+• Xác thực và phân quyền người dùng. 
+• Trả response dưới dạng JSON. 
+• Cung cấp các endpoint cho Client. 
+•  
+Ngôn ngữ lập trình: C# 
+C# được sử dụng để phát triển toàn bộ mã nguồn Backend. C# hỗ trợ lập trình hướng đối 
+tượng, kiểu dữ liệu an toàn, bất đồng bộ và tích hợp tốt với ASP.NET Core. 
+Trong dự án, C# được sử dụng để xây dựng: 
+• Controller. 
+• Service. 
+• Entity Model. 
+• DTO. 
+• Middleware. 
+• Helper. 
+• Exception. 
+• Enum. 
+• Cấu hình Database. 
+ 
+PAGE 117
+Cơ sở dữ liệu: Microsoft SQL Server 
+Microsoft SQL Server được sử dụng để lưu trữ dữ liệu của hệ thống. Trong môi trường 
+phát triển, Database được cấu hình với tên: ClothingStoreDb 
+ 
+Chuỗi kết nối được khai báo trong appsettings.json: 
+ 
+ 
+ 
+Entity Framework Core 
+Entity Framework Core được sử dụng làm công cụ Object-Relational Mapping giữa các 
+lớp C# và các bảng trong SQL Server. 
+ 
+ 
+ 
+4.2. Cấu trúc mã nguồn 
+ 
+Server 
+
+PAGE 118
+\ 
+ 
+ 
+ 
+STT Thành phần Mô tả 
+1 Program.cs 
+ 
+Tệp khởi động chính 
+của ứng dụng, dùng để 
+cấu hình dịch vụ, 
+Database, JWT, CORS, 
+Swagger, Middleware 
+và HTTP Request 
+Pipeline. 
+ 
+2 Controllers 
+  Thư mục chứa các 
+Controller tiếp nhận 
+
+PAGE 119
+HTTP Request và trả 
+HTTP Response cho 
+Client. 
+ 
+3 Interfaces 
+ 
+Chứa các interface định 
+nghĩa hợp đồng và các 
+phương thức mà Service 
+phải cung cấp 
+4 Implementations 
+ 
+Chứa các lớp triển khai 
+logic nghiệp vụ  
+5 Data 
+  Thư mục chứa các lớp 
+truy cập và cấu hình dữ 
+liệu của hệ thống. 
+ 
+6 Models 
+  Chứa các Entity đại 
+diện cho các bảng dữ 
+liệu trong Database. 
+ 
+7 DTOs 
+  
+Chứa các lớp Data 
+Transfer Object dùng để 
+nhận dữ liệu từ Client 
+và trả dữ liệu về Client. 
+ 
+8  Enums 
+ 
+Chứa các kiểu dữ liệu liệt 
+kê dùng để biểu diễn các 
+giá trị cố định trong hệ 
+thống. 
+9 Helpers 
+  Chứa các lớp hỗ trợ 
+dùng chung trong toàn 
+bộ ứng dụng. 
+ 
+10 Middleware 
+  Chứa các Middleware 
+xử lý request ở cấp độ 
+toàn hệ thống. 
+ 
+11 Exceptions 
+ 
+Chứa các exception tùy 
+chỉnh phục vụ xử lý lỗi 
+nghiệp vụ. 
+12 Migrations 
+  
+Chứa lịch sử các lần 
+thay đổi cấu trúc 
+Database bằng Entity 
+Framework Core. 
+ 
+PAGE 120
+13 wwwroot 
+ 
+Thư mục chứa các tài 
+nguyên tĩnh có thể được 
+truy cập từ bên ngoài ứng 
+dụng. 
+ 
+ 
+ 
+ 
+Client Web 
+ 
+ 
+
+PAGE 121
+ 
+STT Thành phần Mô tả 
+1 src Thư mục chứa toàn bộ mã nguồn của ứng dụng Angular. 
+2 main.ts File khởi chạy ứng dụng và thực hiện bootstrap module 
+chính của Angular. 
+3 index.html File HTML gốc, là nơi ứng dụng Angular được nhúng vào 
+trình duyệt. 
+4 styles.scss Chứa các thiết lập và định dạng CSS/SCSS dùng chung 
+cho toàn bộ ứng dụng. 
+5 app Thư mục trung tâm chứa các module, component, service 
+và logic nghiệp vụ của hệ thống. 
+6 app.module.ts Module gốc của ứng dụng, thực hiện khai báo và kết nối 
+các thành phần chính. 
+7 app-routing.module.ts 
+Khai báo cấu hình định tuyến giữa các chức năng như 
+trang chủ, sản phẩm, giỏ hàng, thanh toán, tài khoản và 
+quản trị. 
+8 core Chứa các thành phần cốt lõi được sử dụng xuyên suốt ứng 
+dụng. 
+9 core/guards Chứa các route guard dùng để kiểm tra trạng thái đăng 
+nhập, quyền truy cập và quyền quản trị viên. 
+10 core/interceptors Chứa các HTTP interceptor dùng để tự động xử lý token 
+xác thực và lỗi từ API. 
+11 core/models 
+Chứa các interface hoặc model mô tả dữ liệu người dùng, 
+sản phẩm, đơn hàng, giỏ hàng, thanh toán, đánh giá và 
+các đối tượng nghiệp vụ khác. 
+12 core/services 
+Chứa các service thực hiện giao tiếp với API và xử lý 
+nghiệp vụ dùng chung như đăng nhập, sản phẩm, giỏ 
+hàng, đơn hàng, địa chỉ, mã giảm giá và hồ sơ người 
+dùng. 
+13 features Chứa các module chức năng chính của hệ thống, được tổ 
+chức theo từng nghiệp vụ riêng biệt. 
+14 features/auth Quản lý các chức năng xác thực như đăng nhập, đăng ký 
+và các thao tác liên quan đến tài khoản xác thực. 
+15 features/home Chứa giao diện và chức năng của trang chủ, bao gồm 
+banner, danh mục và các sản phẩm nổi bật. 
+PAGE 122
+STT Thành phần Mô tả 
+16 features/products Quản lý danh sách sản phẩm, tìm kiếm, lọc sản phẩm và 
+xem chi tiết sản phẩm. 
+17 features/cart Quản lý giỏ hàng, số lượng sản phẩm, xóa sản phẩm và 
+tính toán tổng tiền. 
+18 features/checkout Chứa quy trình đặt hàng, nhập thông tin giao nhận, lựa 
+chọn phương thức thanh toán và xác nhận đơn hàng. 
+19 features/account Quản lý thông tin cá nhân, địa chỉ, lịch sử đơn hàng và 
+các chức năng dành cho khách hàng. 
+20 features/admin Chứa các chức năng quản trị hệ thống như quản lý sản 
+phẩm, người dùng, đơn hàng và thống kê. 
+21 features/forbidden Hiển thị trang thông báo khi người dùng không có quyền 
+truy cập vào chức năng được yêu cầu. 
+22 features/*/pages Chứa các component giao diện thuộc từng chức năng cụ 
+thể trong hệ thống. 
+23 layouts Chứa các bố cục giao diện chính của ứng dụng. 
+24 layouts/storefront-
+layout Bố cục dành cho khu vực mua sắm của khách hàng. 
+25 layouts/auth-layout Bố cục dành cho các trang đăng nhập, đăng ký và xác 
+thực tài khoản. 
+26 layouts/admin-layout Bố cục dành cho khu vực quản trị viên. 
+27 shared Chứa các thành phần giao diện và chức năng có thể tái sử 
+dụng ở nhiều module khác nhau. 
+28 shared/components 
+Chứa các component dùng chung như thanh điều hướng, 
+footer, thông báo, hộp thoại và các thành phần hiển thị 
+khác. 
+29 shared/shared.module.ts Module tập hợp và cung cấp các component, directive, 
+pipe hoặc module giao diện dùng chung. 
+30 assets Chứa các tài nguyên tĩnh được sử dụng trong giao diện 
+ứng dụng. 
+31 assets/images Chứa hình ảnh của hệ thống như banner, logo thương 
+hiệu, danh mục, sản phẩm và ảnh mặc định. 
+32 environments Chứa các cấu hình môi trường chạy ứng dụng, chẳng hạn 
+như địa chỉ API cho môi trường phát triển và production. 
+33 angular.json File cấu hình Angular CLI, định nghĩa cách xây dựng, 
+chạy và kiểm thử dự án. 
+PAGE 123
+STT Thành phần Mô tả 
+34 package.json Khai báo thông tin dự án, các thư viện phụ thuộc và các 
+lệnh thực thi ứng dụng. 
+35 tsconfig.json File cấu hình trình biên dịch TypeScript cho toàn bộ dự 
+án. 
+36 karma.conf.js Cấu hình công cụ Karma dùng để chạy kiểm thử đơn vị 
+cho ứng dụng Angular. 
+ 
+ 
+5. KẾT LUẬN 
+5.1. Những việc đã làm được và kết quả đạt được 
+Website bán quần áo trực tuyến đã được xây dựng và hoàn thiện các nhóm chức năng 
+chính phục vụ cho khách hàng và quản trị viên như sau: 
+• Quản lý tài khoản và xác thực: cho phép người dùng đăng ký tài khoản, đăng 
+nhập, đăng xuất và xác thực thông tin bằng tài khoản cá nhân. Hệ thống hỗ trợ 
+phân quyền giữa khách hàng và quản trị viên. 
+• Quản lý thông tin cá nhân: cho phép người dùng cập nhật họ tên, số điện thoại, 
+ảnh đại diện và thay đổi mật khẩu tài khoản. 
+• Quản lý địa chỉ giao hàng: cho phép khách hàng thêm, chỉnh sửa, xóa và thiết lập 
+địa chỉ giao hàng mặc định. Thông tin địa chỉ bao gồm người nhận, số điện thoại, 
+địa chỉ chi tiết, phường/xã, quận/huyện và tỉnh/thành phố. 
+• Hiển thị sản phẩm: cho phép khách hàng xem danh sách các sản phẩm thời trang 
+cùng những thông tin cơ bản như tên sản phẩm, thương hiệu, danh mục, giá gốc, 
+giá khuyến mãi và hình ảnh sản phẩm. 
+• Tìm kiếm và lọc sản phẩm: hỗ trợ tìm kiếm sản phẩm theo từ khóa, danh mục, 
+thương hiệu, giới tính và khoảng giá. Người dùng có thể sắp xếp sản phẩm theo 
+mới nhất, giá tăng dần, giá giảm dần hoặc sản phẩm bán chạy. 
+• Xem chi tiết sản phẩm: hiển thị thông tin chi tiết của sản phẩm như hình ảnh, mô 
+tả, thương hiệu, danh mục, màu sắc, kích thước, giá bán và số lượng tồn kho. 
+• Quản lý danh mục và thương hiệu: hỗ trợ phân loại sản phẩm theo danh mục và 
+thương hiệu, giúp khách hàng thuận tiện trong việc tìm kiếm và lựa chọn sản 
+phẩm. 
+• Quản lý giỏ hàng: cho phép khách hàng thêm sản phẩm vào giỏ hàng, lựa chọn 
+màu sắc và kích thước, cập nhật số lượng, xóa sản phẩm và theo dõi tổng tiền tạm 
+tính. 
+• Đặt hàng: cho phép khách hàng lựa chọn địa chỉ giao hàng, kiểm tra lại danh sách 
+sản phẩm, áp dụng mã giảm giá, nhập ghi chú và xác nhận đặt hàng. 
+PAGE 124
+• Thanh toán: hỗ trợ các phương thức thanh toán được tích hợp trong hệ thống, bao 
+gồm thanh toán khi nhận hàng và thanh toán qua mã QR mô phỏng. 
+• Quản lý mã giảm giá: cho phép khách hàng xem và áp dụng các mã giảm giá phù 
+hợp với điều kiện đơn hàng. Hệ thống kiểm tra thời hạn sử dụng, giá trị đơn hàng 
+tối thiểu, giới hạn sử dụng và số tiền được giảm. 
+• Quản lý đơn hàng: cho phép khách hàng xem danh sách đơn hàng, theo dõi trạng 
+thái đơn hàng, xem thông tin chi tiết, thông tin thanh toán và lịch sử thay đổi trạng 
+thái đơn hàng. 
+• Hủy đơn hàng: cho phép khách hàng hủy đơn hàng trong trường hợp phù hợp và 
+cung cấp lý do hủy đơn. 
+• Đánh giá sản phẩm: hỗ trợ khách hàng gửi đánh giá và nhận xét về sản phẩm sau 
+khi mua hàng, góp phần cung cấp thêm thông tin tham khảo cho những khách 
+hàng khác. 
+• Quản trị sản phẩm: cho phép quản trị viên thêm, cập nhật và quản lý thông tin 
+sản phẩm, bao gồm tên sản phẩm, giá bán, hình ảnh, danh mục, thương hiệu, màu 
+sắc, kích thước và số lượng tồn kho. 
+• Quản trị đơn hàng: cho phép quản trị viên xem danh sách đơn hàng, xem thông 
+tin khách hàng, cập nhật trạng thái đơn hàng và trạng thái thanh toán. 
+• Quản trị mã giảm giá: cho phép quản trị viên tạo, chỉnh sửa, kích hoạt hoặc vô 
+hiệu hóa mã giảm giá; đồng thời thiết lập thời gian áp dụng, giá trị giảm, số tiền 
+tối thiểu và giới hạn sử dụng. 
+• Quản lý người dùng: hỗ trợ quản trị viên theo dõi thông tin người dùng, trạng 
+thái hoạt động và vai trò của từng tài khoản trong hệ thống. 
+• Dashboard quản trị: cung cấp các thông tin tổng quan phục vụ công tác quản lý 
+như tình hình đơn hàng, doanh thu, sản phẩm và hoạt động kinh doanh. 
+• Phân quyền và bảo mật: hệ thống sử dụng cơ chế bảo vệ route để giới hạn quyền 
+truy cập. Các chức năng quản trị chỉ được phép truy cập bởi tài khoản có quyền 
+quản trị viên, trong khi các chức năng yêu cầu đăng nhập được bảo vệ đối với 
+người dùng chưa xác thực. 
+5.2. Những điều chưa làm được 
+• Thanh toán trực tuyến thực tế: hệ thống hiện mới hỗ trợ thanh toán khi nhận hàng 
+và thanh toán qua mã QR mô phỏng. Chưa tích hợp với các cổng thanh toán thực 
+tế như VNPay, MoMo, ZaloPay hoặc các ngân hàng điện tử. 
+•    Quản lý tồn kho nâng cao: hệ thống chưa xử lý đầy đủ các trường hợp nhiều 
+người dùng cùng mua một sản phẩm trong thời gian ngắn. Việc đồng bộ số lượng 
+tồn kho theo thời gian thực và tránh bán vượt số lượng cần được cải thiện thêm. 
+• So sánh sản phẩm: hệ thống chưa hỗ trợ so sánh nhiều sản phẩm dựa trên giá bán, 
+thương hiệu, kích thước, màu sắc và các thuộc tính khác. 
+• Tìm kiếm nâng cao: chức năng tìm kiếm hiện chưa hỗ trợ gợi ý từ khóa, tìm kiếm 
+gần đúng hoặc tự động đề xuất sản phẩm khi người dùng nhập nội dung tìm kiếm. 
+PAGE 125
+• Báo cáo thống kê chuyên sâu: khu vực quản trị mới cung cấp các thông tin tổng 
+quan. Chưa xây dựng đầy đủ các báo cáo về doanh thu theo thời gian, sản phẩm 
+bán chạy, tỷ lệ hủy đơn, hiệu quả mã giảm giá và hành vi mua hàng của khách 
+hàng. 
+• Bảo mật nâng cao: hệ thống chưa triển khai đầy đủ các cơ chế như xác thực hai 
+lớp, giới hạn số lần đăng nhập sai, khóa tài khoản tạm thời và cảnh báo hoạt động 
+đăng nhập bất thường. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

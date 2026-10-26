@@ -1,3 +1,6 @@
+// ASP.NET serializes enum names; accept numeric representations for existing callers too.
+export type CouponDiscountType = 1 | 2 | 'Percentage' | 'FixedAmount' | '1' | '2';
+
 export interface Coupon {
   couponId: number;
 
@@ -6,7 +9,7 @@ export interface Coupon {
   description?: string | null;
 
   // DiscountType: Percentage = 1, FixedAmount = 2
-  discountType: number;
+  discountType: CouponDiscountType;
   discountValue: number;
   maxDiscountAmount?: number | null;
   minOrderAmount: number;
@@ -66,7 +69,7 @@ export interface AvailableCoupon {
   description?: string | null;
 
   // Percentage = 1, FixedAmount = 2
-  discountType: number | string;
+  discountType: CouponDiscountType;
   discountValue: number;
   maxDiscountAmount?: number | null;
   minOrderAmount: number;

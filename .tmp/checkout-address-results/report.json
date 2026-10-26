@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Address page refresh retains the pending checkout draft",
+    "Save failure keeps address form and checkout context",
+    "Buy-now context, quantity, coupon, note, payment and new address survive round trip",
+    "Checkout draft survives refresh of the returned history entry",
+    "Normal cart checkout can cancel address entry and return without writing an address",
+    "Legacy gender URL cleaned; category and sorting retained; gender field removed"
+  ],
+  "pageErrors": [],
+  "passed": true
+}

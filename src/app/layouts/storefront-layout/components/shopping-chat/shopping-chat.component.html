@@ -1,0 +1,66 @@
+<section *ngIf="isOpen" class="shopping-chat" role="dialog" aria-labelledby="shopping-chat-title" (keydown.escape)="closeOnEscape(); $event.stopPropagation()">
+  <header class="chat-header">
+    <span class="assistant-icon" aria-hidden="true"><i class="bi bi-stars"></i></span>
+    <div class="chat-heading">
+      <h2 id="shopping-chat-title">Trợ lý mua sắm</h2>
+      <p>Sản phẩm · Màu &amp; size · Chính sách</p>
+    </div>
+    <button type="button" class="icon-button" title="Cuộc trò chuyện mới" aria-label="Bắt đầu cuộc trò chuyện mới" (click)="newConversation()"><i class="bi bi-arrow-clockwise"></i></button>
+    <button type="button" class="icon-button" aria-label="Đóng trò chuyện" (click)="toggle()"><i class="bi bi-x-lg"></i></button>
+  </header>
+
+  <div #messageList class="message-list" role="log" aria-live="polite" aria-relevant="additions" [attr.aria-busy]="isSending">
+    <div class="chat-welcome" *ngIf="!messages.length">
+      <span class="welcome-icon" aria-hidden="true"><i class="bi bi-stars"></i></span>
+      <p class="welcome-eyebrow">CLOTHING STORE</p>
+      <h3>Mình có thể giúp bạn<br />tìm món đồ phù hợp.</h3>
+      <p>Hỏi về sản phẩm, giá, màu và size.<br />Mình sẽ tra cứu thông tin từ cửa hàng.</p>
+    </div>
+
+    <button *ngIf="productSlug" type="button" class="product-context" [disabled]="isSending" (click)="askAboutProduct()">
+      <i class="bi bi-tag" aria-hidden="true"></i> Hỏi về sản phẩm đang xem <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+    </button>
+
+    <div class="chat-message" *ngFor="let message of messages" [class.from-user]="message.role === 'user'">
+      <span class="message-author">{{ message.role === 'user' ? 'Bạn' : 'Trợ lý' }}</span>
+      <p class="message-bubble">{{ message.content }}</p>
+      <div class="chat-products" *ngIf="message.products?.length">
+        <a class="chat-product" *ngFor="let product of message.products" [routerLink]="['/products', product.slug]">
+          <img [src]="((product.thumbnailUrl || 'assets/images/placeholders/ao.jpg') | imageUrl:160)" [alt]="product.productName" loading="lazy" decoding="async" />
+          <div>
+            <small *ngIf="product.brandName">{{ product.brandName }}</small>
+            <strong>{{ product.productName }}</strong>
+            <span class="chat-price"><ng-container *ngIf="product.minPrice !== product.maxPrice">Từ </ng-container>{{ product.minPrice | number:'1.0-0' }} ₫</span>
+            <span class="availability" [class.sold-out]="!hasStock(product)">{{ hasStock(product) ? 'Còn hàng' : 'Hiện hết hàng' }}</span>
+          </div>
+          <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <div *ngIf="isSending" class="thinking" role="status"><span></span><span></span><span></span> Đang tìm câu trả lời…</div>
+    <div *ngIf="errorMessage" class="chat-error" role="alert">
+      <p>{{ errorMessage }}</p>
+      <button type="button" (click)="retry()">Thử lại</button>
+      <a routerLink="/products" (click)="toggle()">Tìm sản phẩm</a>
+    </div>
+  </div>
+
+  <div class="chat-suggestions" *ngIf="!isSending && !errorMessage">
+    <button type="button" *ngFor="let suggestion of suggestions" (click)="send(suggestion)">{{ suggestion }}</button>
+  </div>
+  <form class="chat-composer" (ngSubmit)="send()">
+    <label class="visually-hidden" for="shopping-chat-input">Câu hỏi của bạn</label>
+    <textarea #messageInput id="shopping-chat-input" name="message" [(ngModel)]="draft" maxlength="1000" rows="2" placeholder="Bạn đang tìm sản phẩm nào?" (keydown.enter)="onEnter($event)"></textarea>
+    <button class="send-button" type="submit" aria-label="Gửi câu hỏi" [disabled]="isSending || !draft.trim()"><i class="bi bi-arrow-up"></i></button>
+  </form>
+  <p class="chat-footnote">Trợ lý AI có thể hiểu chưa đúng. Bạn kiểm tra thông tin trước khi mua.</p>
+</section>
+
+<button #launcher type="button" class="chat-launcher" [class.open]="isOpen" [attr.aria-expanded]="isOpen" aria-label="Mở hoặc đóng trợ lý mua sắm" (click)="toggle()">
+  <span class="launcher-symbol" aria-hidden="true"><i class="bi" [class.bi-stars]="!isOpen" [class.bi-chevron-down]="isOpen"></i></span>
+  <span class="launcher-copy" *ngIf="!isOpen">
+    <strong>Hỏi shop <span class="ai-badge">AI</span></strong>
+    <small>Trợ lý mua sắm</small>
+  </span>
+</button>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import { Cart, UpdateCartItemRequest } from '../models/cart.model';
@@ -49,9 +49,15 @@ export class CartService {
   removeItem(cartItemId: number) {
     return this.http
       .delete<
-        ApiResponse<Cart>
+        ApiResponse<Cart | null> | null
       >(`${environment.apiUrl}/cart/items/${cartItemId}`)
       .pipe(
+        // Older API versions acknowledge deletion without returning the remaining cart.
+        switchMap((response) =>
+          response?.data && Array.isArray(response.data.items)
+            ? of({ ...response, data: response.data })
+            : this.getCart(),
+        ),
         tap((response) => {
           this.cartCountSubject.next(response.data?.totalQuantity || 0);
         }),

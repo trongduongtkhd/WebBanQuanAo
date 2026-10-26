@@ -8,11 +8,19 @@
     [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
   >
     <a
-      *ngFor="let slide of slides"
+      *ngFor="let slide of slides; let i = index"
       [routerLink]="slide.link"
       class="slide"
     >
-      <img [src]="slide.imageUrl | imageUrl" [alt]="slide.alt" />
+      <img
+        [attr.src]="loadedSlides.has(i) ? (slide.imageUrl | imageUrl:1920) : null"
+        [attr.srcset]="loadedSlides.has(i) ? (slide.imageUrl | imageUrl:640) + ' 640w, ' + (slide.imageUrl | imageUrl:1280) + ' 1280w, ' + (slide.imageUrl | imageUrl:1920) + ' 1920w' : null"
+        sizes="100vw"
+        [attr.fetchpriority]="i === 0 ? 'high' : 'low'"
+        [alt]="slide.alt"
+        decoding="async"
+        (load)="onSlideLoaded(i)"
+      />
 
       <div class="slide-overlay" *ngIf="slide.title">
         <div class="container">
