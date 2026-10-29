@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, Subject } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
+import { CheckoutIntentService } from '../../../../core/services/checkout-intent.service';
 import { CartService } from '../../../../core/services/cart.service';
 import { CatalogService } from '../../../../core/services/catalog.service';
 import { CheckoutService } from '../../../../core/services/checkout.service';
@@ -20,7 +21,8 @@ describe('Checkout payment handoff', () => {
   const order: any = { orderId: 8011, orderCode: 'DH-TEST', totalAmount: 180000, shippingAddress: 'Test' };
   beforeEach(async () => {
     routeStub = { snapshot: { queryParamMap: convertToParamMap({}) } };
-    checkout = jasmine.createSpyObj('CheckoutService', ['getMyAddresses', 'createOrder', 'getMockQr', 'confirmMockQr', 'validateCoupon']);
+    checkout = jasmine.createSpyObj('CheckoutService', ['getMyAddresses', 'createOrder', 'getByRequestId', 'getMockQr', 'confirmMockQr', 'validateCoupon']);
+    checkout.getByRequestId.and.returnValue(throwError({status:404}));
     checkout.getMyAddresses.and.returnValue(of({ data: [{ addressId: 1, receiverName: 'Test', isDefault: true }] } as any));
     checkout.createOrder.and.returnValue(of({ success: true, message: '', data: order }));
     checkout.getMockQr.and.returnValue(of({ data: { message: 'QR mock', amount: 180000 } } as any));
@@ -45,10 +47,11 @@ describe('Checkout payment handoff', () => {
         { provide: ActivatedRoute, useValue: routeStub },
       ],
     }).compileComponents();
+    TestBed.inject(CheckoutIntentService).clear();
     fixture = TestBed.createComponent(CheckoutComponent); component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  afterEach(() => fixture.destroy());
+  afterEach(() => { fixture.destroy(); TestBed.inject(CheckoutIntentService).clear(); });
 
   it('shows only VNPAY handoff while waiting, even with a stale selection event', () => {
     const created = new Subject<any>(); checkout.createOrder.and.returnValue(created);
@@ -84,6 +87,40 @@ describe('Checkout payment handoff', () => {
     checkout.createOrder.and.returnValue(new Subject<any>());
     component.createOrder(); component.createOrder();
     expect(checkout.createOrder).toHaveBeenCalledTimes(1);
+  });
+
+  it('retries an uncertain request with the original key and frozen payload', () => {
+    const pending = new Subject<any>(); checkout.createOrder.and.returnValue(pending);
+    component.createOrder();
+    const original = checkout.createOrder.calls.mostRecent().args[0];
+    pending.error({status:0});
+    component.note = 'A changed note must not change the uncertain request';
+    checkout.createOrder.and.returnValue(of({success:true,message:'',data:order}));
+    component.createOrder();
+    expect(checkout.getByRequestId).toHaveBeenCalledWith(original.requestId);
+    expect(checkout.createOrder.calls.mostRecent().args[0]).toEqual(original);
+    expect(component.createdOrder?.orderId).toBe(8011);
+  });
+
+  it('creates a new intent only after a definitive validation rejection', () => {
+    checkout.createOrder.and.returnValue(throwError({status:400,error:{message:'Không đủ tồn kho'}}));
+    component.createOrder(); const first = checkout.createOrder.calls.mostRecent().args[0].requestId;
+    expect(component.pendingRequest).toBeNull();
+    checkout.createOrder.and.returnValue(of({success:true,message:'',data:order}));
+    component.createOrder();
+    expect(checkout.createOrder.calls.mostRecent().args[0].requestId).not.toBe(first);
+  });
+
+  it('recovers a saved request after reload without placing another order', () => {
+    const intents = TestBed.inject(CheckoutIntentService);
+    const requestId = intents.newId();
+    intents.save({requestId,addressId:1,paymentMethod:1});
+    checkout.getByRequestId.and.returnValue(of({success:true,message:'',data:order}));
+    const navigate = spyOn(TestBed.inject(Router),'navigate').and.returnValue(Promise.resolve(true));
+    component.ngOnInit();
+    expect(checkout.createOrder).not.toHaveBeenCalled();
+    expect(navigate).toHaveBeenCalledWith(['/account/orders',8011]);
+    expect(intents.read()).toBeNull();
   });
 
   it('links an empty-address checkout to address creation with the complete buy-now URL', async () => {

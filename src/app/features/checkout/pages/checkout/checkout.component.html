@@ -4,7 +4,16 @@
     <p class="mt-3 text-muted">Đang chuẩn bị thông tin thanh toán...</p>
   </div>
 
-  <div *ngIf="!loading && !createdOrder">
+  <section *ngIf="!loading && pendingRequest && !createdOrder" class="checkout-card" aria-live="polite">
+    <h1 class="page-title">Kiểm tra yêu cầu đặt hàng</h1>
+    <p>Yêu cầu trước đó chưa có kết quả xác nhận. Hệ thống sẽ kiểm tra đơn đã tạo trước khi gửi lại để tránh đặt trùng.</p>
+    <div *ngIf="errorMessage" class="alert alert-warning">{{ errorMessage }}</div>
+    <button type="button" class="btn btn-dark" [disabled]="creatingOrder" (click)="retryPendingOrder()">
+      {{ creatingOrder ? 'Đang kiểm tra...' : 'Kiểm tra và gửi lại' }}
+    </button>
+  </section>
+
+  <div *ngIf="!loading && !createdOrder && !pendingRequest">
     <h1 class="page-title mb-4">Thanh toán</h1>
 
     <div *ngIf="buyNowItem" class="alert alert-info">

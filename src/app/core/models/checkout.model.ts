@@ -27,6 +27,7 @@ export interface BuyNowItem {
 }
 
 export interface CreateOrderRequest {
+  requestId: string;
   addressId: number;
 
   // PaymentMethod enum backend:

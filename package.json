@@ -2,6 +2,10 @@
   "name": "shop-clothing-ui",
   "version": "0.0.0",
   "scripts": {
+    "styles:vendor": "node tools/build-vendor-styles.cjs",
+    "prebuild": "npm run styles:vendor",
+    "prestart": "npm run styles:vendor",
+    "pretest": "npm run styles:vendor",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

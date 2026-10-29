@@ -38,6 +38,10 @@ export class CheckoutService {
     );
   }
 
+  getByRequestId(requestId: string) {
+    return this.http.get<ApiResponse<OrderDetail>>(`${environment.apiUrl}/orders/by-request/${requestId}`);
+  }
+
   getMockQr(orderId: number) {
     return this.http.get<ApiResponse<MockQr>>(
       `${environment.apiUrl}/orders/${orderId}/mock-qr`,

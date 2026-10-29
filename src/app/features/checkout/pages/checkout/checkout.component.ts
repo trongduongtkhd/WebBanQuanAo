@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Cart } from '../../../../core/models/cart.model';
@@ -8,6 +8,7 @@ import {
   CouponValidation,
   MockQr,
   OrderDetail,
+  CreateOrderRequest,
 } from '../../../../core/models/checkout.model';
 import { CartService } from '../../../../core/services/cart.service';
 import { CatalogService } from '../../../../core/services/catalog.service';
@@ -16,6 +17,7 @@ import { getApiErrorMessage } from '../../../../core/utils/api-error.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VnpayService } from '../../../../core/services/vnpay.service';
 import { CheckoutDraft, takeCheckoutDraft } from '../../../../core/utils/checkout-navigation.util';
+import { CheckoutIntentService, PendingCheckout } from '../../../../core/services/checkout-intent.service';
 
 // Khớp ShippingHelper ở backend.
 const STANDARD_SHIPPING_FEE = 30000;
@@ -26,7 +28,9 @@ const FREE_SHIPPING_THRESHOLD = 500000;
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
+  pendingRequest: PendingCheckout | null = null;
+  private submittedRequestId: string | null = null;
   cart: Cart | null = null;
   addresses: Address[] = [];
 
@@ -67,6 +71,7 @@ export class CheckoutComponent implements OnInit {
     private route: ActivatedRoute,
     private vnpay: VnpayService,
     private router: Router,
+    private intents: CheckoutIntentService,
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +107,40 @@ export class CheckoutComponent implements OnInit {
       this.buyNowSlug = params.get('slug');
     }
 
-    this.loadCheckoutData();
+    this.pendingRequest = this.intents.read();
+    if (this.pendingRequest) {
+      this.loading = false;
+      this.checkPendingOrder(false);
+    } else this.loadCheckoutData();
+  }
+
+  ngOnDestroy(): void {
+    // Navigating away after a known success starts a new checkout next time.
+    // A hard reload or an uncertain network result keeps the durable request key.
+    if (this.createdOrder && this.submittedRequestId) this.intents.clear(this.submittedRequestId);
+  }
+
+  retryPendingOrder(): void { this.checkPendingOrder(true); }
+
+  private checkPendingOrder(retry: boolean): void {
+    if (!this.pendingRequest || this.creatingOrder) return;
+    const payload = this.pendingRequest.payload;
+    this.creatingOrder = true;
+    this.checkoutService.getByRequestId(payload.requestId).subscribe({
+      next: response => {
+        this.creatingOrder = false;
+        this.intents.clear(payload.requestId);
+        this.cartService.refreshCartCount();
+        this.router.navigate(['/account/orders', response.data.orderId]);
+      },
+      error: error => {
+        this.creatingOrder = false;
+        if (error?.status === 404 && retry) this.submitOrder(payload);
+        else this.errorMessage = error?.status === 404
+          ? 'Chưa tìm thấy đơn. Bạn có thể kiểm tra và gửi lại đúng yêu cầu trước đó.'
+          : getApiErrorMessage(error, 'Chưa kiểm tra được kết quả đặt hàng. Vui lòng thử lại.');
+      },
+    });
   }
 
   get addressReturnUrl(): string {
@@ -283,6 +321,7 @@ export class CheckoutComponent implements OnInit {
 
   createOrder(): void {
     if (this.creatingOrder || this.createdOrder) { return; }
+    if (this.pendingRequest) { this.retryPendingOrder(); return; }
     this.errorMessage = '';
 
     if (!this.selectedAddressId) {
@@ -295,19 +334,35 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    this.creatingOrder = true;
-    const paymentMethod = this.selectedPaymentMethod;
-
-    this.checkoutService
-      .createOrder({
+    const payload: CreateOrderRequest = {
+        requestId: this.intents.newId(),
         addressId: this.selectedAddressId,
-        paymentMethod,
+        paymentMethod: this.selectedPaymentMethod,
         couponCode: this.appliedCoupon?.couponCode || null,
         note: this.note.trim() || null,
         buyNowItem: this.buyNowItem,
-      })
+      };
+    try { this.intents.save(payload); }
+    catch { this.errorMessage = 'Không thể lưu trạng thái đặt hàng trong trình duyệt. Vui lòng thử lại.'; return; }
+    this.pendingRequest = { payload };
+    this.submitOrder(payload);
+  }
+
+  private submitOrder(payload: CreateOrderRequest): void {
+    this.creatingOrder = true;
+    this.submittedRequestId = payload.requestId;
+    const paymentMethod = payload.paymentMethod;
+    this.checkoutService.createOrder(payload)
       .subscribe({
         next: (response) => {
+          this.pendingRequest = null;
+          if (['5','6','Cancelled','Returned'].includes(String(response.data.orderStatus))) {
+            this.creatingOrder = false;
+            this.intents.clear(payload.requestId);
+            this.cartService.refreshCartCount();
+            this.router.navigate(['/account/orders', response.data.orderId]);
+            return;
+          }
           this.createdOrder = response.data;
           this.createdPaymentMethod = paymentMethod;
           this.creatingOrder = false;
@@ -325,6 +380,11 @@ export class CheckoutComponent implements OnInit {
           this.creatingOrder = false;
           this.errorMessage =
             error?.error?.message || 'Không thể tạo đơn hàng.';
+          if (error?.status === 400 || error?.status === 404) {
+            this.intents.clear(payload.requestId);
+            this.pendingRequest = null;
+            this.loadCheckoutData();
+          }
         },
       });
   }
