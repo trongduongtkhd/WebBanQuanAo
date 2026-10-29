@@ -1,0 +1,7427 @@
+[
+  {
+    "title": "Luồng xử lý chung của hệ thống",
+    "req": "R1.7, R15",
+    "pre": "Người dùng truy cập một chức năng của hệ thống.",
+    "desc": "Giao diện gửi yêu cầu đến API. Pipeline kiểm tra xác thực và quyền đối với endpoint được bảo vệ; endpoint công khai không bắt buộc JWT. Controller tiếp nhận dữ liệu, Service thực hiện nghiệp vụ và truy cập dữ liệu qua AppDbContext. Controller tạo ApiResponse khi thành công; ExceptionMiddleware xử lý ngoại lệ. Lỗi xác thực hoặc phân quyền có thể kết thúc yêu cầu ngay trong pipeline.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Chọn chức năng, nhập dữ liệu"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi HTTP request"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Xác thực và phân quyền\n(nếu endpoint yêu cầu)"
+      ],
+      [
+        "start",
+        "alt",
+        "Không đủ điều kiện truy cập"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "401 hoặc 403"
+      ],
+      [
+        "else",
+        "Được phép truy cập"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Controller gọi Service"
+      ],
+      [
+        "m",
+        3,
+        4,
+        "Truy vấn / cập nhật qua EF Core"
+      ],
+      [
+        "r",
+        4,
+        3,
+        "Kết quả dữ liệu"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "DTO hoặc ngoại lệ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "ApiResponse hoặc phản hồi lỗi"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Người dùng",
+      "Angular",
+      "Pipeline API",
+      "Controller\n/ Service",
+      "AppDbContext\n/ SQL Server"
+    ],
+    "number": 1,
+    "control": "API Control",
+    "entity": "Đối tượng nghiệp vụ",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Chọn chức năng"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra xác thực và quyền"
+        ],
+        [
+          "start",
+          "alt",
+          "Không được phép truy cập"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "401 / 403; kết thúc"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Được phép truy cập"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc dữ liệu qua EF Core"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Dữ liệu truy vấn"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc / cập nhật thuộc tính"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "start",
+          "opt",
+          "Nghiệp vụ cần ghi dữ liệu"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "ApiResponse / dữ liệu"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Đăng ký tài khoản",
+    "req": "R1.1",
+    "pre": "Người dùng chưa có tài khoản và mở biểu mẫu đăng ký.",
+    "desc": "Sau khi kiểm tra dữ liệu và CAPTCHA, AuthService chuẩn hóa email, kiểm tra trùng và lấy vai trò Customer. Mật khẩu được băm bằng BCrypt trước khi lưu User và UserRole. Hệ thống tạo JWT, cấp refresh token qua cookie HttpOnly và trả HTTP 201; giao diện thiết lập phiên đăng nhập ngay. CAPTCHA không hợp lệ hoặc dịch vụ xác minh không khả dụng sẽ chặn đăng ký.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Nhập thông tin và xác nhận mật khẩu"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu đăng ký"
+      ],
+      [
+        "ref",
+        "Kiểm tra dữ liệu và CAPTCHA; dừng nếu không đạt"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Kiểm tra email, lấy role Customer"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả kiểm tra"
+      ],
+      [
+        "start",
+        "alt",
+        "Email đã tồn tại"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Báo email đã được sử dụng"
+      ],
+      [
+        "else",
+        "Email chưa được sử dụng"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Băm mật khẩu, tạo User và UserRole"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu tài khoản và vai trò"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Đã lưu"
+      ],
+      [
+        "ref",
+        "TokenService tạo JWT; cấp refresh cookie"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "201 và thông tin phiên"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Thông báo và điều hướng"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "AuthController\n/ AuthService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 2,
+    "control": "Auth Control",
+    "entity": "User / UserRole",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Nhập thông tin đăng ký"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "note",
+          "Control gồm AuthController và AuthService; kiểm tra DTO trước nghiệp vụ."
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Xác minh CAPTCHA bằng Turnstile"
+        ],
+        [
+          "start",
+          "alt",
+          "CAPTCHA sai / không xác minh được"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối đăng ký"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "CAPTCHA hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Kiểm tra email; lấy role Customer"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Email và vai trò"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: chỉ tiếp tục với CAPTCHA hợp lệ."
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra CAPTCHA và lấy dữ liệu tài khoản."
+        ],
+        [
+          "start",
+          "alt",
+          "Email trùng / thiếu role Customer"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Băm mật khẩu bằng BCrypt"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo User và UserRole"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "INSERT User và UserRole"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "TokenService tạo JWT"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Cấp và lưu refresh token"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Refresh token mới"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "201; JWT và cookie HttpOnly"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Đăng nhập tài khoản",
+    "req": "R1.2, R1.3",
+    "pre": "Người dùng đã có tài khoản.",
+    "desc": "AuthService tìm người dùng kèm vai trò, kiểm tra khóa tạm, xác minh mật khẩu BCrypt và trạng thái hoạt động. Khi sai mật khẩu, bộ đếm thất bại được cập nhật; đủ ngưỡng thì khóa tạm. Tài khoản bật xác thực hai lớp phải hoàn tất bước xác minh trước khi được cấp token. TokenService chỉ tạo JWT và thời hạn; AuthService ghép thông tin người dùng vào AuthResponseDto.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Nhập email, mật khẩu"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu đăng nhập"
+      ],
+      [
+        "ref",
+        "Kiểm tra dữ liệu và CAPTCHA"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Tìm User và các vai trò"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Thông tin tài khoản"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra khóa, BCrypt, IsActive"
+      ],
+      [
+        "start",
+        "alt",
+        "Sai thông tin hoặc tài khoản bị khóa"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Ghi số lần sai nếu áp dụng"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "401 và thông báo lỗi"
+      ],
+      [
+        "else",
+        "Hợp lệ và bật xác thực hai lớp"
+      ],
+      [
+        "ref",
+        "Thực hiện Hình 2.2.1-04 trước khi cấp phiên"
+      ],
+      [
+        "else",
+        "Hợp lệ và không bật xác thực hai lớp"
+      ],
+      [
+        "ref",
+        "Reset số lần sai; tạo JWT và refresh cookie"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "200 và AuthResponseDto"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả, điều hướng"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "AuthController\n/ AuthService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 3,
+    "control": "Auth Control",
+    "entity": "User",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Nhập email và mật khẩu"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra DTO và CAPTCHA"
+        ],
+        [
+          "note",
+          "CAPTCHA bị từ chối: dừng. Dịch vụ CAPTCHA không khả dụng: login cho qua theo cấu hình fail-open."
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm User kèm vai trò"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "User hoặc không có"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc khóa tạm, hash, IsActive, 2FA"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra khóa; xác minh BCrypt"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: phân nhánh theo kết quả kiểm tra."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra thông tin đăng nhập."
+        ],
+        [
+          "start",
+          "alt",
+          "Sai thông tin / bị khóa"
+        ],
+        [
+          "start",
+          "opt",
+          "Sai mật khẩu và User tồn tại, chưa khóa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tăng số lần sai; xét khóa tạm"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "401; không cấp phiên"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Đúng mật khẩu và bật 2FA"
+        ],
+        [
+          "note",
+          "ref Hình 2.2.1-04: tạo challenge; chưa cấp JWT hoặc refresh cookie."
+        ],
+        [
+          "r",
+          2,
+          1,
+          "requiresTwoFactor và challenge"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Hợp lệ; không bật 2FA"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Reset bộ đếm sai nếu cần"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "note",
+          "TokenService tạo JWT; RefreshTokenService lưu phiên và cấp cookie HttpOnly."
+        ],
+        [
+          "r",
+          2,
+          1,
+          "200; phiên đăng nhập"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Xác minh đăng nhập hai lớp",
+    "req": "Mở rộng R1.2",
+    "pre": "Mật khẩu đúng và tài khoản đã bật xác thực hai lớp.",
+    "desc": "Hệ thống trả challenge thay vì JWT. Người dùng nhập mã TOTP hoặc mã khôi phục dùng một lần. TwoFactorService kiểm tra challenge, trạng thái khóa và mã xác minh. Chỉ khi hợp lệ, hệ thống mới tạo phiên đăng nhập đầy đủ. Challenge hết hạn hoặc tài khoản bị khóa yêu cầu quay lại bước đăng nhập.",
+    "events": [
+      [
+        "m",
+        2,
+        3,
+        "Tạo challenge đăng nhập"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Challenge đã lưu"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "requiresTwoFactor và challenge"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Yêu cầu mã xác minh"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Nhập TOTP hoặc mã khôi phục"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi challenge và mã"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc challenge, tài khoản, mã khôi phục"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu xác minh"
+      ],
+      [
+        "start",
+        "alt",
+        "Mã / challenge không hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Ghi nhận thất bại nếu áp dụng"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "401 và lý do"
+      ],
+      [
+        "else",
+        "Hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Tiêu thụ challenge / mã, reset số lần sai"
+      ],
+      [
+        "ref",
+        "Tạo JWT, cấp refresh cookie"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "200 và phiên đăng nhập"
+      ],
+      [
+        "end"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "AuthController\n/ TwoFactorService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 4,
+    "control": "2FA Control",
+    "entity": "Challenge / User",
+    "parts": [
+      [
+        [
+          "note",
+          "ref Hình 2.2.1-03: mật khẩu đúng và User đã bật 2FA."
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo challenge có thời hạn"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "INSERT challenge đăng nhập"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Challenge; chưa cấp token"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Nhập TOTP / mã khôi phục"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc challenge và dữ liệu 2FA"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Challenge, User, mã xác minh"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra hạn, khóa và mã"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: chỉ cấp phiên sau xác minh thành công."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã đọc và kiểm tra challenge cùng mã 2FA."
+        ],
+        [
+          "start",
+          "alt",
+          "Mã sai / đã dùng / hết hạn / khóa"
+        ],
+        [
+          "start",
+          "opt",
+          "Lỗi mã cần ghi nhận thất bại"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tăng bộ đếm sai của User"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "401; reason phù hợp"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Mã hợp lệ và chưa dùng"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tiêu thụ challenge, mã; reset lỗi"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu trạng thái xác minh 2FA"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "note",
+          "Tạo JWT; lưu refresh token; đặt cookie HttpOnly. Mã khôi phục chỉ dùng một lần."
+        ],
+        [
+          "r",
+          2,
+          1,
+          "200; phiên đăng nhập đầy đủ"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quên mật khẩu",
+    "req": "R1.4",
+    "pre": "Người dùng mở chức năng quên mật khẩu.",
+    "desc": "Người dùng gửi email. Với tài khoản đang hoạt động, hệ thống tạo token đặt lại mật khẩu có hạn 30 phút, lưu token và gửi liên kết qua EmailService. Phản hồi không tiết lộ email có tồn tại hay không. Việc đặt lại mật khẩu được trình bày ở sơ đồ kế tiếp.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Nhập email"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Yêu cầu quên mật khẩu"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Tìm tài khoản theo email"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Tài khoản hoặc không có"
+      ],
+      [
+        "start",
+        "opt",
+        "Tài khoản tồn tại và hoạt động"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Tạo token, hạn dùng 30 phút"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu token đặt lại mật khẩu"
+      ],
+      [
+        "m",
+        2,
+        4,
+        "Gửi email chứa liên kết"
+      ],
+      [
+        "r",
+        4,
+        2,
+        "Kết quả gửi"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Thông báo đã tiếp nhận yêu cầu"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hướng dẫn kiểm tra email"
+      ]
+    ],
+    "lanes": [
+      "Người dùng",
+      "Angular",
+      "AuthService",
+      "EF Core / SQL",
+      "EmailService"
+    ],
+    "number": 5,
+    "control": "Auth Control",
+    "entity": "User",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Nhập email quên mật khẩu"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm User theo email"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "User hoặc không có"
+        ],
+        [
+          "start",
+          "alt",
+          "User tồn tại và đang hoạt động"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo reset token; hạn 30 phút"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu token và thời hạn"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "EmailService gửi liên kết đặt lại"
+        ],
+        [
+          "note",
+          "Lỗi gửi email được ghi log; không tiết lộ sự tồn tại của tài khoản."
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông báo tiếp nhận chung"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Đặt lại mật khẩu",
+    "req": "R1.4",
+    "pre": "Người dùng mở liên kết đặt lại mật khẩu và nhập mật khẩu mới.",
+    "desc": "AuthService kiểm tra token và thời hạn. Nếu hợp lệ, hệ thống băm mật khẩu mới, xóa token đặt lại và thu hồi toàn bộ refresh token trong cùng giao dịch. Token đặt lại chỉ dùng được một lần. Người dùng đăng nhập lại bằng mật khẩu mới.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Nhập và xác nhận mật khẩu mới"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi token và mật khẩu mới"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Tìm tài khoản theo token"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Token và thời hạn"
+      ],
+      [
+        "start",
+        "alt",
+        "Token sai hoặc hết hạn"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối đặt lại mật khẩu"
+      ],
+      [
+        "else",
+        "Token còn hiệu lực"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Băm mật khẩu mới bằng BCrypt"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Bắt đầu giao dịch; lưu mật khẩu, xóa token"
+      ],
+      [
+        "ref",
+        "RefreshTokenService thu hồi các phiên"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Commit giao dịch"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Đặt lại mật khẩu thành công"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Thông báo kết quả"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "AuthController\n/ AuthService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 6,
+    "control": "Auth Control",
+    "entity": "User / RefreshToken",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Nhập mật khẩu mới và token"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm User theo reset token"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "User và thời hạn token"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc token và thời hạn"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "start",
+          "alt",
+          "Không có token / hết hạn"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: chỉ nhánh token hợp lệ được đặt lại mật khẩu."
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước xác nhận reset token còn hiệu lực."
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Băm mật khẩu mới bằng BCrypt"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Gán hash; xóa reset token"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Bắt đầu giao dịch"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "UPDATE mật khẩu và reset token"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Thu hồi mọi refresh token"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Các phiên đã bị thu hồi"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Commit giao dịch"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thành công; đăng nhập lại"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "note",
+          "Nếu thao tác trong giao dịch lỗi: rollback; không trả thành công."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Làm mới phiên và đăng xuất",
+    "req": "R1.6 và duy trì phiên",
+    "pre": "Trình duyệt có hoặc đã có refresh cookie.",
+    "desc": "Access token được giữ trong bộ nhớ giao diện; refresh token nằm trong cookie HttpOnly. Khi làm mới phiên, máy chủ kiểm tra và xoay vòng refresh token rồi cấp JWT mới. Khi đăng xuất, máy chủ thu hồi họ refresh token của phiên và xóa cookie; giao diện xóa trạng thái đăng nhập. Hai thao tác là hai lựa chọn độc lập.",
+    "events": [
+      [
+        "start",
+        "alt",
+        "Làm mới phiên"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "POST refresh kèm cookie"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Kiểm tra và xoay vòng refresh token"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả xác thực phiên"
+      ],
+      [
+        "ref",
+        "Nếu hợp lệ: tạo JWT và đặt cookie mới; nếu không: trả 401"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Phiên mới hoặc yêu cầu đăng nhập lại"
+      ],
+      [
+        "else",
+        "Đăng xuất"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Chọn đăng xuất"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "POST logout kèm cookie"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Thu hồi họ refresh token"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Xóa cookie, trả kết quả"
+      ],
+      [
+        "m",
+        1,
+        1,
+        "Xóa token trong bộ nhớ và thông tin phiên"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Chuyển về trạng thái chưa đăng nhập"
+      ],
+      [
+        "end"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "AuthController\n/ RefreshTokenService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 7,
+    "control": "Session Control",
+    "entity": "RefreshToken / User",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Yêu cầu làm mới phiên"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "note",
+          "Trình duyệt tự gửi cookie HttpOnly; JavaScript không đọc raw refresh token."
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Kiểm tra refresh token và User"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Phiên và trạng thái tài khoản"
+        ],
+        [
+          "start",
+          "alt",
+          "Cookie / phiên không hợp lệ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Thu hồi token cũ; tạo token mới"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu xoay vòng refresh token"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tạo JWT; đặt cookie mới"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Phiên mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng độc lập: người dùng chọn đăng xuất."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Chọn đăng xuất"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm họ refresh token của phiên"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Các token trong họ phiên"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đánh dấu thu hồi cả họ token"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Xóa refresh cookie; 200"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "m",
+          1,
+          1,
+          "Xóa access token và trạng thái phiên"
+        ],
+        [
+          "note",
+          "Khi refresh lỗi, xóa cookie trừ trường hợp ConcurrentReuse để không ghi đè cookie mới của yêu cầu thắng."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Xem và tìm kiếm sản phẩm",
+    "req": "R5",
+    "pre": "Khách truy cập trang sản phẩm; không bắt buộc đăng nhập.",
+    "desc": "Giao diện gửi từ khóa, bộ lọc, thứ tự sắp xếp và thông tin phân trang. StorefrontService truy vấn các sản phẩm đang kinh doanh. Khi xem chi tiết, hệ thống tải thông tin sản phẩm, biến thể, hình ảnh và đánh giá đã duyệt. Không có kết quả tìm kiếm là danh sách rỗng; sản phẩm không tồn tại hoặc bị ẩn thì trả lỗi phù hợp.",
+    "events": [
+      [
+        "start",
+        "alt",
+        "Xem danh sách / tìm kiếm / lọc"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Nhập từ khóa, chọn bộ lọc"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi điều kiện và trang cần xem"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Truy vấn sản phẩm đang kinh doanh"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Danh sách và tổng số kết quả"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả đã phân trang"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị sản phẩm hoặc danh sách rỗng"
+      ],
+      [
+        "else",
+        "Xem chi tiết"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Chọn một sản phẩm"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Yêu cầu chi tiết theo slug"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc sản phẩm, biến thể, ảnh, đánh giá"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu sản phẩm"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Chi tiết hoặc lỗi không tìm thấy"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị thông tin"
+      ],
+      [
+        "end"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "ProductsController\n/ StorefrontService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 8,
+    "control": "Product Control",
+    "entity": "Product / Variant",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Tìm kiếm / lọc sản phẩm"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Lọc IsActive; sắp xếp; phân trang"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Danh sách và tổng số"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc giá, ảnh và biến thể"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Danh sách; có thể rỗng"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng độc lập: xem chi tiết một sản phẩm."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Chọn sản phẩm theo slug"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm sản phẩm, biến thể, ảnh"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Dữ liệu chi tiết"
+        ],
+        [
+          "start",
+          "alt",
+          "Sản phẩm không có / bị ẩn"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc chi tiết; lấy đánh giá đã duyệt"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông tin chi tiết sản phẩm"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản lý giỏ hàng",
+    "req": "R6",
+    "pre": "Khách hàng đã đăng nhập.",
+    "desc": "Mỗi dòng giỏ hàng gắn với một biến thể theo màu và kích thước. Khi thêm hoặc cập nhật, CartService kiểm tra trạng thái kinh doanh và số lượng; biến thể đã có thì cộng dồn. Xóa một dòng hoặc toàn bộ giỏ cần xác nhận trên giao diện. Xem giỏ trả số lượng, giá, tổng tiền và cảnh báo tồn kho.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Chọn thao tác trên giỏ hàng"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi thao tác và dữ liệu"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc giỏ thuộc user và biến thể"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu giỏ, giá, tồn kho"
+      ],
+      [
+        "start",
+        "alt",
+        "Thêm / cập nhật hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra số lượng; cộng dồn nếu thêm"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu dòng giỏ hàng"
+      ],
+      [
+        "else",
+        "Xóa sau khi xác nhận"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Xóa dòng hoặc toàn bộ giỏ của user"
+      ],
+      [
+        "else",
+        "Chỉ xem giỏ"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Tính thành tiền, tạm tính và cảnh báo"
+      ],
+      [
+        "else",
+        "Dữ liệu hoặc tồn kho không hợp lệ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Trả lỗi, không cập nhật"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả thao tác nếu thành công"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Cập nhật giỏ hoặc hiển thị lỗi"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "CartController\n/ CartService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 9,
+    "control": "Cart Control",
+    "entity": "CartItem / Variant",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Xem / thêm / sửa / xóa giỏ"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc giỏ của user và biến thể"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Giá, số lượng và tồn kho"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc trạng thái bán và số lượng"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra quyền; số lượng 1–100"
+        ],
+        [
+          "note",
+          "Thêm: tính số lượng sau cộng dồn. Sửa: kiểm tra số lượng mới với tồn kho. Tiếp phần tiếp theo."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra dữ liệu giỏ và biến thể."
+        ],
+        [
+          "start",
+          "alt",
+          "Dữ liệu / tồn kho không hợp lệ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Lỗi; không lưu thay đổi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Hợp lệ: thêm / sửa / xóa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Thay đổi dòng giỏ của user"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Giỏ hàng mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Chỉ xem giỏ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tính tổng và cảnh báo tồn kho"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông tin giỏ hàng"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản lý danh sách yêu thích",
+    "req": "R7",
+    "pre": "Khách hàng đã đăng nhập.",
+    "desc": "WishlistService lấy userId từ phiên xác thực. Khi thêm, sản phẩm phải tồn tại, đang hoạt động và chưa có trong danh sách. Nếu trùng, máy chủ trả lỗi 400. Khi bỏ, mục phải thuộc người dùng và tồn tại; nếu không trả lỗi 404. Xem danh sách không làm thay đổi dữ liệu.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Xem / thêm / bỏ yêu thích"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi thao tác yêu thích"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc sản phẩm và mục yêu thích của user"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả kiểm tra"
+      ],
+      [
+        "start",
+        "alt",
+        "Thêm sản phẩm hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu mục yêu thích nếu chưa có"
+      ],
+      [
+        "else",
+        "Bỏ yêu thích"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Xóa mục yêu thích của user"
+      ],
+      [
+        "else",
+        "Xem danh sách"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Truy vấn danh sách và thông tin sản phẩm"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả hoặc lỗi sản phẩm"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị trạng thái yêu thích"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "WishlistController\n/ WishlistService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 10,
+    "control": "Wishlist Control",
+    "entity": "WishlistItem / Product",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Xem / thêm / bỏ yêu thích"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc sản phẩm và mục của user"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Dữ liệu kiểm tra"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc IsActive; kiểm tra mục đã có"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "note",
+          "Thêm sản phẩm đã có trong danh sách phải trả lỗi; không coi là thêm thành công."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã đọc sản phẩm và mục yêu thích của user."
+        ],
+        [
+          "start",
+          "alt",
+          "Thêm: sản phẩm sai / đã có"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "404 / 400; không lưu"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Thêm hợp lệ / bỏ mục tồn tại"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo hoặc xóa WishlistItem"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Kết quả thao tác"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Xem danh sách"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Lấy danh sách theo userId"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Danh sách yêu thích"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Danh sách yêu thích"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Bỏ mục không tồn tại"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "404; không có mục để xóa"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Cập nhật hồ sơ và đổi mật khẩu",
+    "req": "R8.1, R1.5",
+    "pre": "Người dùng đã đăng nhập.",
+    "desc": "Người dùng được cập nhật họ tên, số điện thoại, ảnh đại diện; email không thay đổi qua chức năng này. Đổi mật khẩu yêu cầu xác minh mật khẩu hiện tại trước khi băm mật khẩu mới. Các phiên refresh được thu hồi theo luồng đổi mật khẩu của máy chủ; giao diện yêu cầu đăng nhập lại.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Nhập thông tin muốn thay đổi"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu tài khoản hiện tại"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc người dùng từ userId đã xác thực"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Thông tin tài khoản"
+      ],
+      [
+        "start",
+        "alt",
+        "Cập nhật hồ sơ hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu họ tên, điện thoại, đường dẫn ảnh"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Hồ sơ đã cập nhật"
+      ],
+      [
+        "else",
+        "Đổi mật khẩu"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Xác minh mật khẩu hiện tại bằng BCrypt"
+      ],
+      [
+        "start",
+        "alt",
+        "Mật khẩu hiện tại đúng"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu mật khẩu mới; thu hồi refresh token"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Đổi mật khẩu thành công"
+      ],
+      [
+        "else",
+        "Mật khẩu hiện tại sai"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Thông báo lỗi, không thay đổi"
+      ],
+      [
+        "end"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "UsersController\n/ UserProfileService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 11,
+    "control": "Profile Control",
+    "entity": "User / RefreshToken",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Cập nhật hồ sơ / đổi mật khẩu"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm User theo phiên đăng nhập"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Thông tin User"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc hồ sơ và PasswordHash"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra dữ liệu; mật khẩu hiện tại"
+        ],
+        [
+          "note",
+          "Đổi mật khẩu: BCrypt phải đúng, mật khẩu mới khác mật khẩu hiện tại. Email không sửa qua cập nhật hồ sơ."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã xác định User và kiểm tra yêu cầu."
+        ],
+        [
+          "start",
+          "alt",
+          "Dữ liệu sai / mật khẩu không đúng"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Nếu đổi mật khẩu: băm BCrypt"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Cập nhật hồ sơ hoặc hash mật khẩu"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "start",
+          "opt",
+          "Đã đổi mật khẩu"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Thu hồi mọi refresh token"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Các phiên đã thu hồi"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Hồ sơ mới / yêu cầu đăng nhập lại"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản lý địa chỉ giao hàng",
+    "req": "R8.2, R8.3",
+    "pre": "Khách hàng đã đăng nhập.",
+    "desc": "Địa chỉ phải thuộc tài khoản hiện tại. Khi thêm, sửa hoặc chọn mặc định, hệ thống kiểm tra người nhận, số điện thoại và các trường địa chỉ. Nếu đặt một địa chỉ làm mặc định, các địa chỉ khác của cùng người dùng được bỏ trạng thái mặc định. Dữ liệu địa chỉ được dùng khi tạo đơn hàng.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Xem / thêm / sửa / xóa / chọn mặc định"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi thao tác địa chỉ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc địa chỉ của người dùng"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Danh sách hoặc địa chỉ được chọn"
+      ],
+      [
+        "start",
+        "alt",
+        "Dữ liệu hoặc quyền sở hữu không hợp lệ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Thông báo lỗi"
+      ],
+      [
+        "else",
+        "Thao tác hợp lệ"
+      ],
+      [
+        "start",
+        "opt",
+        "Chọn địa chỉ mặc định"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Bỏ mặc định các địa chỉ khác của user"
+      ],
+      [
+        "end"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu thay đổi hoặc truy vấn danh sách"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Địa chỉ sau thao tác"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị sổ địa chỉ"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "AddressesController\n/ AddressService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 12,
+    "control": "Address Control",
+    "entity": "Address",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Xem / thêm / sửa / xóa địa chỉ"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc địa chỉ theo userId"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Các địa chỉ thuộc user"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc người nhận và IsDefault"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra dữ liệu và quyền sở hữu"
+        ],
+        [
+          "note",
+          "Địa chỉ đầu tiên tự là mặc định. Yêu cầu trên địa chỉ người khác bị từ chối."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra dữ liệu và địa chỉ thuộc user."
+        ],
+        [
+          "start",
+          "alt",
+          "Dữ liệu sai / địa chỉ không thuộc user"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo, sửa, xóa hoặc chọn mặc định"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu thay đổi địa chỉ"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "start",
+          "opt",
+          "Đặt mặc định / xóa địa chỉ mặc định"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Điều chỉnh mặc định trong cùng user"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Tối đa một địa chỉ mặc định"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Danh sách địa chỉ đã cập nhật"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Kiểm tra và áp dụng mã giảm giá",
+    "req": "R9.4, R9.5",
+    "pre": "Khách hàng đã đăng nhập, có sản phẩm cần mua.",
+    "desc": "CouponService đọc mã, lịch sử sử dụng và các mặt hàng cần mua để kiểm tra thời gian, trạng thái, lượt dùng, phạm vi và giá trị tối thiểu. Hệ thống trả số tiền giảm hoặc lý do không áp dụng được. Kiểm tra mã chỉ cho kết quả dự kiến; lượt sử dụng chỉ được ghi khi tạo đơn thành công và mã phải được kiểm tra lại tại thời điểm đó.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Xem mã hoặc nhập mã giảm giá"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Yêu cầu kiểm tra mã với giỏ / mua ngay"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc coupon, phạm vi, lượt dùng, hàng mua"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu kiểm tra"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra điều kiện và tính tiền giảm"
+      ],
+      [
+        "start",
+        "alt",
+        "Mã áp dụng được"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Số tiền giảm và kết quả kiểm tra"
+      ],
+      [
+        "m",
+        1,
+        1,
+        "Cập nhật tổng tiền dự kiến"
+      ],
+      [
+        "else",
+        "Mã không áp dụng được"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Lý do từ chối"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả áp dụng"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "CouponsController\n/ CouponService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 13,
+    "control": "Coupon Control",
+    "entity": "Coupon / CartItem",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Nhập mã giảm giá"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc mã, lịch sử và hàng mua"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Coupon, phạm vi và giá hàng"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc thời gian, giới hạn, điều kiện"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra lượt, phạm vi, tối thiểu"
+        ],
+        [
+          "note",
+          "Không dùng giá và số tiền giảm do trình duyệt tự tính làm dữ liệu tin cậy."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã đọc điều kiện và tính giá từ máy chủ."
+        ],
+        [
+          "start",
+          "alt",
+          "Mã không đủ điều kiện áp dụng"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tính số tiền giảm theo hàng hợp lệ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Giảm dự kiến và tổng dự kiến"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "Chỉ kiểm tra mã: không tăng UsedCount, không tạo CouponUsage. Kiểm tra lại và ghi lượt dùng khi tạo đơn thành công."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Tạo đơn hàng",
+    "req": "R10.1–R10.3",
+    "pre": "Khách hàng đăng nhập, có địa chỉ hợp lệ và hàng cần mua.",
+    "desc": "OrderService mở giao dịch, kiểm tra địa chỉ thuộc khách hàng và lấy giỏ hàng hoặc mặt hàng mua ngay. Máy chủ kiểm tra tồn kho, giá và mã giảm giá, sau đó tự tính tổng tiền. Đơn, chi tiết, thanh toán ban đầu, lịch sử, tồn kho và lượt dùng mã được lưu cùng giao dịch. Mua từ giỏ sẽ xóa các dòng giỏ; mua ngay giữ nguyên giỏ. Lỗi trước commit làm giao dịch bị hủy.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Xác nhận địa chỉ, hàng và phương thức trả tiền"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu đặt hàng"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Begin transaction; đọc địa chỉ và hàng mua"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu đặt hàng"
+      ],
+      [
+        "ref",
+        "Kiểm tra sản phẩm, tồn kho; kiểm tra lại coupon nếu có"
+      ],
+      [
+        "start",
+        "alt",
+        "Không đủ điều kiện tạo đơn"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Rollback khi kết thúc giao dịch lỗi"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Báo lý do, không tạo đơn"
+      ],
+      [
+        "else",
+        "Hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Tính tiền; tạo bản chụp thông tin đơn"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu đơn, thanh toán, lịch sử; trừ kho; ghi coupon"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Xóa giỏ nếu mua từ giỏ; SaveChanges; commit"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Đơn đã lưu thành công"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Chi tiết đơn hàng mới"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả đặt hàng"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "OrdersController\n/ OrderService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 14,
+    "control": "Order Control",
+    "entity": "Order / OrderItem",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Xác nhận đặt hàng"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra phương thức; mở giao dịch"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc địa chỉ và hàng mua theo user"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Giỏ / mua ngay; giá và tồn"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc tồn kho, trạng thái và đơn giá"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra địa chỉ, tồn; kiểm tra lại mã"
+        ],
+        [
+          "start",
+          "alt",
+          "Có điều kiện không hợp lệ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tự tính tiền hàng, giảm, phí giao"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: chỉ nhánh hợp lệ; lỗi trong giao dịch dẫn đến rollback."
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra dữ liệu trong giao dịch."
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo đơn Pending, Payment Unpaid"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Thêm chi tiết và lịch sử; trừ kho"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "start",
+          "opt",
+          "Có mã giảm giá hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tăng UsedCount; tạo CouponUsage"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "end"
+        ],
+        [
+          "start",
+          "opt",
+          "Đặt từ giỏ, không phải mua ngay"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đánh dấu xóa các dòng giỏ"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "end"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu đơn, thanh toán, kho, giỏ, mã"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Commit giao dịch"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Chi tiết đơn hàng mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Thanh toán QR mô phỏng",
+    "req": "R10.4",
+    "pre": "Đơn thuộc khách hàng và sử dụng phương thức MockQR.",
+    "desc": "Hệ thống trả mã đơn, số tiền và nội dung chuyển khoản để giao diện hiển thị QR mô phỏng. Khi khách hàng xác nhận, máy chủ kiểm tra quyền sở hữu, phương thức thanh toán và trạng thái đơn rồi cập nhật Payment cùng Order sang Paid. Đây là xác nhận trong mô phỏng, không phải callback xác thực của ngân hàng. COD được ghi nhận khi quản trị viên hoàn thành giao hàng.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Mở thanh toán QR của đơn"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Yêu cầu thông tin QR"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc đơn và phương thức thanh toán"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu đơn"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Mã đơn, số tiền, nội dung chuyển khoản"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị QR mô phỏng"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Xác nhận đã thanh toán"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi xác nhận MockQR"
+      ],
+      [
+        "start",
+        "alt",
+        "Đơn hợp lệ và chưa bị hủy"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Cập nhật Payment và Order thành Paid"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả thanh toán"
+      ],
+      [
+        "else",
+        "Không hợp lệ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối xác nhận"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị trạng thái thanh toán"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "OrdersController\n/ OrderService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 15,
+    "control": "MockQR Control",
+    "entity": "Order / Payment",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Mở thanh toán QR mô phỏng"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc đơn theo orderId và userId"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Đơn và bản ghi Payment"
+        ],
+        [
+          "start",
+          "alt",
+          "Không thuộc user / không phải MockQR"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc mã đơn và số tiền"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Dữ liệu hiển thị QR"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng tiếp theo: khách xác nhận đã thanh toán trong mô phỏng."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Xác nhận MockQR"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc lại đơn và thanh toán"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Phương thức và trạng thái mới nhất"
+        ],
+        [
+          "start",
+          "alt",
+          "Sai quyền / không phải MockQR / đã hủy / đã Paid"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đặt Payment và Order = Paid"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu PaidAt và TransactionCode"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông tin thanh toán mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "MockQR là mô phỏng. Không thay thế IPN có chữ ký của VNPAY; COD được ghi nhận khi giao hàng hoàn tất."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Theo dõi và hủy đơn hàng",
+    "req": "R11.1, R11.2",
+    "pre": "Khách hàng đã đăng nhập và chỉ thao tác trên đơn của mình.",
+    "desc": "Khi xem đơn, hệ thống trả danh sách hoặc chi tiết kèm lịch sử trạng thái. Khi hủy, OrderService chỉ cho phép đơn Pending và chưa Paid. Hệ thống hoàn tồn kho, hoàn lượt dùng mã nếu có, chuyển trạng thái Cancelled và ghi lịch sử trong cùng giao dịch. Không tìm thấy hoặc không sở hữu đơn thì không cho truy cập. Với đơn VNPAY, không hủy khi còn phiên giao dịch đang mở hoặc cần đối soát.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Xem đơn hoặc yêu cầu hủy"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi thao tác đơn hàng"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc đơn thuộc user và dữ liệu liên quan"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Đơn và lịch sử"
+      ],
+      [
+        "start",
+        "alt",
+        "Xem đơn"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Danh sách / chi tiết đơn"
+      ],
+      [
+        "else",
+        "Hủy: Pending và chưa Paid"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Trong giao dịch: hoàn kho, hoàn lượt coupon"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu Cancelled, lịch sử và commit"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Hủy thành công"
+      ],
+      [
+        "else",
+        "Không đủ điều kiện hủy / không tìm thấy"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối và nêu lý do"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "OrdersController\n/ OrderService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 16,
+    "control": "Order Control",
+    "entity": "Order / Variant",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Xem danh sách / chi tiết đơn"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Truy vấn đơn thuộc userId"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Đơn, chi tiết, lịch sử"
+        ],
+        [
+          "start",
+          "alt",
+          "Không tìm thấy đơn của user"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc trạng thái và lịch sử đơn"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông tin đơn của khách hàng"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng độc lập: hủy đơn của chính khách hàng."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Xác nhận hủy đơn"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Mở giao dịch; khóa xử lý đơn"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc đơn, Payment, kho và mã"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Trạng thái cần kiểm tra"
+        ],
+        [
+          "start",
+          "alt",
+          "Không Pending / đã Paid / VNPAY chưa đối soát xong"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Hoàn kho, lượt mã; đặt Cancelled"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu đơn và lịch sử hủy"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Commit giao dịch"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Hủy thành công"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Gửi và quản lý đánh giá của khách hàng",
+    "req": "R12.1, R12.2",
+    "pre": "Khách hàng đã đăng nhập; đánh giá mới gắn với dòng đơn đã hoàn thành.",
+    "desc": "ReviewService kiểm tra dòng đơn thuộc người dùng, đơn Completed và chưa có đánh giá cho OrderItemId đó. Đánh giá mới có IsApproved = false; đánh giá sửa cũng phải duyệt lại. Khách hàng được xem, sửa hoặc xóa đánh giá của mình; điểm đánh giá từ 1 đến 5.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Gửi / sửa / xóa / xem đánh giá"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi nội dung và định danh liên quan"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc dòng đơn hoặc đánh giá của user"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu kiểm tra"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra quyền, điều kiện và điểm số"
+      ],
+      [
+        "start",
+        "alt",
+        "Không đủ điều kiện"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Thông báo lỗi"
+      ],
+      [
+        "else",
+        "Tạo hoặc sửa hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu đánh giá với IsApproved = false"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Đánh giá đang chờ duyệt"
+      ],
+      [
+        "else",
+        "Xóa hoặc xem hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Xóa / truy vấn đánh giá của user"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả thao tác"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị đánh giá của tôi"
+      ]
+    ],
+    "lanes": [
+      "Khách hàng",
+      "Giao diện\nAngular",
+      "ReviewsController\n/ ReviewService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 17,
+    "control": "Review Control",
+    "entity": "Review / OrderItem",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Tạo / sửa / xóa / xem đánh giá"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc dòng đơn hoặc đánh giá của user"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Quyền sở hữu và trạng thái"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc Completed, OrderItemId, điểm"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tạo: chưa đánh giá dòng này; điểm 1–5"
+        ],
+        [
+          "note",
+          "Tạo mới yêu cầu dòng đơn thuộc khách hàng và đơn Completed; sửa/xóa chỉ trên đánh giá của chính user."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra quyền và điều kiện đánh giá."
+        ],
+        [
+          "start",
+          "alt",
+          "Không thuộc user / điều kiện không đạt"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "start",
+          "alt",
+          "Tạo hoặc sửa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Ghi nội dung; IsApproved = false"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "else",
+          "Xóa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Xóa Review thuộc user"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "else",
+          "Chỉ xem"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Truy vấn đánh giá của user"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Danh sách đánh giá"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Kết quả quản lý đánh giá"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản trị sản phẩm và biến thể",
+    "req": "R2",
+    "pre": "Quản trị viên đã đăng nhập và có quyền Admin.",
+    "desc": "ProductService kiểm tra danh mục, thương hiệu, dữ liệu giá và slug. Với biến thể, hệ thống kiểm tra màu, kích thước, SKU và tổ hợp biến thể không trùng. Tồn kho được quản lý qua nhập kho và bán hàng. Thao tác xóa sản phẩm hoặc biến thể được thực hiện bằng cách ngừng hoạt động để giữ liên kết dữ liệu.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Nhập sản phẩm / biến thể hoặc chọn ngừng bán"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu quản trị"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc sản phẩm, dữ liệu tham chiếu, SKU"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu kiểm tra"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra giá, slug, SKU và tổ hợp biến thể"
+      ],
+      [
+        "start",
+        "alt",
+        "Không hợp lệ hoặc trùng dữ liệu"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Thông báo lỗi"
+      ],
+      [
+        "else",
+        "Thêm / sửa hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu Product hoặc ProductVariant"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Dữ liệu đã cập nhật"
+      ],
+      [
+        "else",
+        "Ngừng bán"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đặt IsActive = false"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Xác nhận ngừng bán"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminProductsController\n/ ProductService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 18,
+    "control": "Product Control",
+    "entity": "Product / Variant",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Quản trị sản phẩm / biến thể"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "note",
+          "Tiền điều kiện: JWT hợp lệ và vai trò Admin; pipeline chặn 401/403 trước nghiệp vụ."
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc sản phẩm và dữ liệu liên quan"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Danh mục, màu, size, SKU"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc slug, giá và tổ hợp biến thể"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra dữ liệu và trùng lặp"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: tách nhánh sai dữ liệu khỏi nhánh lưu."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra sản phẩm và biến thể."
+        ],
+        [
+          "start",
+          "alt",
+          "Dữ liệu sai / SKU hoặc tổ hợp trùng"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "start",
+          "alt",
+          "Thêm hoặc sửa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Tạo / cập nhật Product hoặc Variant"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "else",
+          "Ngừng kinh doanh"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đặt IsActive = false"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "end"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Sản phẩm / biến thể đã cập nhật"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "Tồn kho thay đổi qua nhập kho và bán hàng; không thay cho nghiệp vụ nhập kho bằng sửa tùy ý."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản lý hình ảnh sản phẩm",
+    "req": "R2.3",
+    "pre": "Quản trị viên có quyền Admin và sản phẩm đã tồn tại.",
+    "desc": "Tệp ảnh được kiểm tra định dạng và kích thước trước khi lưu qua chức năng upload. Sau đó ProductService lưu đường dẫn ảnh, thứ tự và trạng thái ảnh chính. Sửa, xóa ảnh hoặc đổi ảnh đại diện cập nhật các bản ghi ProductImage tương ứng. Lưu tệp và lưu liên kết ảnh là hai thao tác riêng.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Chọn ảnh sản phẩm"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi tệp JPG / PNG / WEBP"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra loại tệp và giới hạn 5 MB"
+      ],
+      [
+        "start",
+        "alt",
+        "Tệp không hợp lệ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối tải ảnh"
+      ],
+      [
+        "else",
+        "Tệp hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu tệp ảnh"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Đường dẫn ảnh"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả upload"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi đường dẫn, thứ tự, IsMain"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu ProductImage, điều chỉnh ảnh chính"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Danh sách ảnh đã cập nhật"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Angular",
+      "API quản lý ảnh",
+      "Tệp ảnh /\nEF Core / SQL"
+    ],
+    "number": 19,
+    "control": "Image Control",
+    "entity": "ProductImage",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Chọn tệp ảnh để upload"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "UploadsController kiểm tra tệp"
+        ],
+        [
+          "start",
+          "alt",
+          "Định dạng / dung lượng không hợp lệ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Lưu tệp vào vùng upload"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "URL tệp đã tải lên"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "Upload chỉ tạo tệp và URL. Chưa tạo bản ghi ProductImage; tiếp phần tiếp theo để gắn ảnh vào sản phẩm."
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng riêng: thêm URL đã upload, sửa, đổi ảnh chính hoặc xóa ảnh."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Gửi thao tác ảnh sản phẩm"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm sản phẩm và các ảnh"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "ProductImage thuộc sản phẩm"
+        ],
+        [
+          "start",
+          "alt",
+          "Sản phẩm / ảnh không tồn tại"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Cập nhật URL, thứ tự, ảnh chính"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các bản ghi ProductImage"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Danh sách ảnh đã cập nhật"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "Xóa liên kết ảnh không đồng nghĩa đã xóa tệp vật lý khỏi vùng upload."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản lý dữ liệu danh mục và nhà cung cấp",
+    "req": "R3, R4.1",
+    "pre": "Quản trị viên có quyền Admin.",
+    "desc": "Các chức năng danh mục, thương hiệu, màu, kích thước và nhà cung cấp có luồng chung: nhận dữ liệu, kiểm tra ràng buộc, truy vấn hoặc lưu và trả kết quả. Service tương ứng kiểm tra các liên kết trước thao tác xóa; tùy loại dữ liệu, hệ thống từ chối xóa hoặc chuyển sang trạng thái ngừng hoạt động. Không xóa tùy ý dữ liệu đã được sử dụng.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Chọn loại dữ liệu và thao tác"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu đến API tương ứng"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc bản ghi và dữ liệu liên quan"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả truy vấn"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra tên, mã và ràng buộc liên kết"
+      ],
+      [
+        "start",
+        "alt",
+        "Vi phạm ràng buộc"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Báo lỗi và giữ nguyên dữ liệu"
+      ],
+      [
+        "else",
+        "Hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Thêm / sửa / xóa / đổi trạng thái theo nghiệp vụ"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả lưu"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Danh sách hoặc bản ghi đã cập nhật"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "Controller / Service\ncủa nhóm danh mục",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 20,
+    "control": "Catalog Control",
+    "entity": "Đối tượng danh mục",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Chọn thao tác dữ liệu danh mục"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "note",
+          "Dùng Service tương ứng: Category, Brand, Color, Size hoặc Supplier. Tác nhân có quyền Admin."
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc đối tượng và liên kết"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Bản ghi, dữ liệu ràng buộc"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc tên, trạng thái và liên kết"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra tên, cha, ràng buộc xóa"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: áp dụng đúng quy tắc của từng loại dữ liệu."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra đối tượng và ràng buộc."
+        ],
+        [
+          "start",
+          "alt",
+          "Dữ liệu sai / liên kết không cho phép"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "start",
+          "alt",
+          "Tạo hoặc sửa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Cập nhật đối tượng tương ứng"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "else",
+          "Xóa / ngừng hoạt động"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Xóa hoặc đặt IsActive theo Service"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "else",
+          "Chỉ xem"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Danh sách / chi tiết"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "start",
+          "opt",
+          "Có thay đổi cần lưu"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Kết quả cập nhật"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Lập và điều chỉnh phiếu nhập kho",
+    "req": "R4.2–R4.4",
+    "pre": "Quản trị viên có quyền Admin; nhà cung cấp và biến thể đã tồn tại.",
+    "desc": "Khi lập phiếu, hệ thống cộng tồn và tính giá vốn bình quân gia quyền. Sửa phiếu hoàn tác phần nhập cũ rồi áp dụng nội dung mới; hủy phiếu cần lý do và hoàn tác lượng nhập. Hệ thống từ chối nếu tồn sau điều chỉnh âm hoặc phiếu đã hủy. Các thay đổi của mỗi thao tác được lưu bằng một lần SaveChangesAsync.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Lập / sửa / hủy phiếu nhập"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi nhà cung cấp và các dòng hàng"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc phiếu, nhà cung cấp, biến thể, tồn kho"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu hiện tại"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra điều kiện và tồn sau điều chỉnh"
+      ],
+      [
+        "start",
+        "alt",
+        "Phiếu đã hủy hoặc tồn không đủ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối điều chỉnh"
+      ],
+      [
+        "else",
+        "Hợp lệ"
+      ],
+      [
+        "ref",
+        "Tạo: cộng kho; sửa: hoàn tác rồi nhập lại; hủy: hoàn tác"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Tính lại giá vốn và tổng phiếu"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu phiếu, dòng hàng và tồn kho"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Chi tiết phiếu sau xử lý"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị phiếu nhập"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminPurchaseOrders\n/ PurchaseOrderService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 21,
+    "control": "Purchase Control",
+    "entity": "PurchaseOrder / Variant",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Tạo / sửa / hủy phiếu nhập"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc phiếu, NCC, biến thể và tồn"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Dữ liệu nhập kho hiện tại"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc số lượng, đơn giá, giá vốn"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra phiếu chưa hủy; tồn sau sửa"
+        ],
+        [
+          "note",
+          "Sửa: xét tồn hiện tại trừ lượng cũ cộng lượng mới. Hủy: tồn phải đủ để hoàn tác lượng nhập."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra phiếu và tồn kho."
+        ],
+        [
+          "start",
+          "alt",
+          "Phiếu đã hủy / tồn sau điều chỉnh âm"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "start",
+          "alt",
+          "Tạo hoặc sửa"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Hoàn tác cũ nếu sửa; áp dụng mới"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tính giá vốn bình quân và tổng phiếu"
+        ],
+        [
+          "else",
+          "Hủy phiếu"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Hoàn tác nhập; ghi lý do hủy"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "end"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu phiếu, chi tiết, kho cùng lần lưu"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Chi tiết phiếu nhập"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "Không vẽ commit tường minh: Service dùng một SaveChangesAsync cho mỗi thao tác."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản trị mã giảm giá",
+    "req": "R9.1–R9.3",
+    "pre": "Quản trị viên có quyền Admin.",
+    "desc": "Quản trị viên khai báo điều kiện áp dụng, thời gian, giới hạn lượt và phạm vi sản phẩm hoặc danh mục. CouponService kiểm tra dữ liệu, lưu coupon cùng các liên kết phạm vi. Mã giảm giá được bật hoặc tắt thay vì xóa để giữ lịch sử. Xem lịch sử truy vấn CouponUsage và các thông tin liên quan.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Tạo / sửa / bật tắt / xem lịch sử mã"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu quản trị mã"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc coupon và dữ liệu phạm vi"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu kiểm tra"
+      ],
+      [
+        "start",
+        "alt",
+        "Tạo hoặc sửa"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra mã, giá trị, thời gian, phạm vi"
+      ],
+      [
+        "ref",
+        "Nếu không hợp lệ: trả lỗi và kết thúc nhánh"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu coupon và liên kết phạm vi"
+      ],
+      [
+        "else",
+        "Bật hoặc tắt"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Cập nhật IsActive"
+      ],
+      [
+        "else",
+        "Xem lịch sử sử dụng"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Truy vấn CouponUsage và đơn liên quan"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả thao tác"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị thông tin mã"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminCouponsController\n/ CouponService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 22,
+    "control": "Coupon Control",
+    "entity": "Coupon / CouponUsage",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Quản trị mã giảm giá"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc mã và phạm vi liên quan"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Coupon, sản phẩm, danh mục"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc giá trị, hạn và giới hạn lượt"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra trùng mã và điều kiện"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: lịch sử sử dụng là luồng chỉ đọc; bật/tắt không xóa lịch sử."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra dữ liệu mã giảm giá."
+        ],
+        [
+          "start",
+          "alt",
+          "Mã trùng / điều kiện không hợp lệ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "start",
+          "alt",
+          "Tạo / sửa / bật hoặc tắt"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Cập nhật Coupon và liên kết phạm vi"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Mã giảm giá đã cập nhật"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Xem lịch sử"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Truy vấn CouponUsage và đơn hàng"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Các lượt dùng mã"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Lịch sử sử dụng"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản trị trạng thái đơn hàng",
+    "req": "R11.3, R11.4, R11.6",
+    "pre": "Quản trị viên có quyền Admin và chọn một đơn hàng.",
+    "desc": "Luồng xử lý chính là Pending → Confirmed → Shipping → Completed. Hủy được ở Pending hoặc Confirmed; khi hủy phải hoàn kho và lượt coupon, đồng thời ghi nhận hoàn tiền nếu đã Paid. Khi Completed, COD tự được ghi Paid; đơn QR phải thanh toán trước. Cập nhật trạng thái và lịch sử được thực hiện trong giao dịch. Với VNPAY, phải nhận xác nhận Paid trước xử lý giao hàng; không cho hủy đơn đã Paid/Refunded vì hoàn tiền qua cổng chưa được bật.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Chọn trạng thái mới và ghi chú"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Yêu cầu cập nhật đơn"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Begin transaction; đọc đơn và dữ liệu liên quan"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Đơn hiện tại"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra chuyển trạng thái và thanh toán"
+      ],
+      [
+        "start",
+        "alt",
+        "Không được phép chuyển"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối; rollback giao dịch"
+      ],
+      [
+        "else",
+        "Chuyển hợp lệ"
+      ],
+      [
+        "ref",
+        "Hủy: hoàn kho / coupon / ghi hoàn tiền; hoàn thành COD: ghi Paid"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu trạng thái và lịch sử người thực hiện"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "SaveChanges và commit"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Chi tiết đơn đã cập nhật"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị tiến trình xử lý"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminOrdersController\n/ AdminOrderService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 23,
+    "control": "Admin Order Control",
+    "entity": "Order / Payment",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Chọn trạng thái đơn mới"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Mở giao dịch; khóa xử lý đơn"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc đơn, Payment, kho và mã"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Trạng thái và dữ liệu liên quan"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc trạng thái đơn, phương thức trả"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra bước chuyển và thanh toán"
+        ],
+        [
+          "note",
+          "Luồng: Pending → Confirmed → Shipping → Completed. Hủy chỉ từ Pending/Confirmed. VNPAY phải Paid trước xử lý giao hàng."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước kiểm tra chuyển trạng thái trong giao dịch."
+        ],
+        [
+          "start",
+          "alt",
+          "Chuyển sai bước / thanh toán không đạt"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đặt trạng thái mới; ghi lịch sử"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "start",
+          "opt",
+          "Hủy đơn được phép"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Hoàn kho và lượt mã; xét hoàn tiền"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "end"
+        ],
+        [
+          "start",
+          "opt",
+          "Completed và thanh toán COD"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đặt Payment và Order = Paid"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "end"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu trạng thái và lịch sử"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Commit giao dịch"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Chi tiết đơn mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "VNPAY đã Paid/Refunded: chặn hủy vì hoàn qua cổng chưa hỗ trợ. Lỗi trong giao dịch: rollback."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản trị trạng thái thanh toán",
+    "req": "R11.5",
+    "pre": "Quản trị viên có quyền Admin và chọn đơn có bản ghi thanh toán.",
+    "desc": "Máy chủ kiểm tra trạng thái đơn và phương thức thanh toán trước khi thay đổi Payment. Đơn đã hủy hoặc đã trả không được cập nhật qua luồng này; không đặt Refunded trực tiếp. COD chỉ được ghi Paid khi đơn Completed. Thông tin Payment và PaymentStatus trên Order được cập nhật đồng bộ. Thanh toán VNPAY không được sửa thủ công; phải nhận kết quả xác nhận từ cổng thanh toán.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Chọn trạng thái thanh toán"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu cập nhật thanh toán"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Đọc đơn và Payment"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Trạng thái và phương thức thanh toán"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra điều kiện cập nhật"
+      ],
+      [
+        "start",
+        "alt",
+        "Vi phạm điều kiện"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối và nêu lý do"
+      ],
+      [
+        "else",
+        "Hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu trạng thái Payment và Order"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Kết quả cập nhật"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Thông tin thanh toán mới"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminOrdersController\n/ AdminOrderService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 24,
+    "control": "Admin Pay Control",
+    "entity": "Order / Payment",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Chọn trạng thái thanh toán"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Đọc đơn và Payment"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Trạng thái đơn, phương thức trả"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc trạng thái hiện tại"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Kiểm tra quy tắc cập nhật"
+        ],
+        [
+          "note",
+          "Chặn: đơn Cancelled/Returned, đặt Refunded trực tiếp, sửa tay VNPAY; ghi Paid cho COD khi chưa Completed."
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã kiểm tra phương thức và trạng thái."
+        ],
+        [
+          "start",
+          "alt",
+          "Vi phạm quy tắc cập nhật"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đồng bộ Payment và Order"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu trạng thái thanh toán"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông tin thanh toán mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "VNPAY do luồng cổng thanh toán xác nhận; quản trị viên không tự đặt Paid. Hoàn tiền đi qua nghiệp vụ hủy hoặc duyệt trả hàng được hỗ trợ."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Kiểm duyệt đánh giá sản phẩm",
+    "req": "R12.3",
+    "pre": "Quản trị viên có quyền Admin.",
+    "desc": "Quản trị viên xem danh sách đánh giá và chọn duyệt hoặc ẩn. ReviewService kiểm tra đánh giá tồn tại rồi cập nhật IsApproved. Trang sản phẩm chỉ truy vấn các đánh giá đã duyệt, nên đánh giá bị ẩn không xuất hiện công khai.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Mở danh sách đánh giá"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Yêu cầu danh sách quản trị"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Truy vấn đánh giá theo bộ lọc"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Danh sách đánh giá"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Kết quả phân trang"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Chọn duyệt hoặc ẩn"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi reviewId và IsApproved"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Kiểm tra và cập nhật đánh giá"
+      ],
+      [
+        "start",
+        "alt",
+        "Đánh giá tồn tại"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Trạng thái duyệt đã cập nhật"
+      ],
+      [
+        "else",
+        "Không tồn tại"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Lỗi không tìm thấy"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminReviewsController\n/ ReviewService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 25,
+    "control": "Admin Review Control",
+    "entity": "Review",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Mở danh sách đánh giá"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Lọc và phân trang đánh giá"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Danh sách đánh giá quản trị"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc nội dung và IsApproved"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Danh sách cần kiểm duyệt"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng tiếp theo: chọn duyệt hoặc ẩn một đánh giá."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Gửi reviewId và IsApproved"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm Review theo reviewId"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Đánh giá hoặc không có"
+        ],
+        [
+          "start",
+          "alt",
+          "Không tìm thấy Review"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Cập nhật IsApproved"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Trạng thái kiểm duyệt mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ],
+        [
+          "note",
+          "Trang sản phẩm công khai chỉ lấy Review có IsApproved = true."
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Quản lý tài khoản người dùng",
+    "req": "R13",
+    "pre": "Quản trị viên có quyền Admin.",
+    "desc": "Quản trị viên tìm kiếm, lọc và xem chi tiết tài khoản. Khi thay đổi trạng thái, AdminUserService kiểm tra tài khoản tồn tại và ngăn quản trị viên tự khóa chính mình. Tài khoản bị vô hiệu hóa không thể đăng nhập; các refresh token của tài khoản bị khóa được thu hồi theo xử lý của Service.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Tìm kiếm / xem tài khoản"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi bộ lọc hoặc userId"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Truy vấn người dùng và vai trò"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Dữ liệu tài khoản"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Danh sách / chi tiết"
+      ],
+      [
+        "m",
+        0,
+        1,
+        "Chọn khóa hoặc mở khóa"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi trạng thái hoạt động mới"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Kiểm tra tài khoản và không tự khóa"
+      ],
+      [
+        "start",
+        "alt",
+        "Không hợp lệ"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Từ chối thay đổi"
+      ],
+      [
+        "else",
+        "Hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Lưu IsActive; thu hồi phiên nếu khóa"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Trạng thái mới"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị kết quả"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminUsersController\n/ AdminUserService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 26,
+    "control": "Admin User Control",
+    "entity": "User / RefreshToken",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Tìm / lọc / xem tài khoản"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Truy vấn User và vai trò"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Danh sách / chi tiết tài khoản"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc hồ sơ, vai trò và IsActive"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Thông tin tài khoản"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ]
+      ],
+      [
+        [
+          "note",
+          "Luồng độc lập: khóa hoặc mở khóa tài khoản."
+        ],
+        [
+          "m",
+          0,
+          1,
+          "Gửi trạng thái IsActive mới"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tìm User mục tiêu"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Tài khoản cần thay đổi"
+        ],
+        [
+          "start",
+          "alt",
+          "Không có User / tự khóa chính mình"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Cập nhật IsActive"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "SaveChangesAsync()"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Lưu các thay đổi"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Lưu thành công"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Kết quả lưu"
+        ],
+        [
+          "start",
+          "opt",
+          "Khóa tài khoản"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Thu hồi mọi refresh token của User"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Các phiên đã bị thu hồi"
+        ],
+        [
+          "end"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Trạng thái mới"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "end"
+        ]
+      ]
+    ]
+  },
+  {
+    "title": "Xem thống kê quản trị",
+    "req": "R14",
+    "pre": "Quản trị viên có quyền Admin.",
+    "desc": "AdminDashboardService kiểm tra khoảng ngày, chuyển mốc ngày Việt Nam sang UTC để lọc thời điểm tạo đơn. Doanh thu và giá vốn được tính từ đơn Completed; lợi nhuận bằng doanh thu trừ giá vốn. Dashboard còn trả tổng đơn, đơn chờ, khách hàng, hàng sắp hết và sản phẩm bán chạy. Tổng khách hàng và danh sách tồn thấp phản ánh dữ liệu hiện tại, không cùng phạm vi ngày với mọi chỉ số đơn hàng.",
+    "events": [
+      [
+        "m",
+        0,
+        1,
+        "Mở dashboard, chọn khoảng ngày"
+      ],
+      [
+        "m",
+        1,
+        2,
+        "Gửi yêu cầu thống kê"
+      ],
+      [
+        "start",
+        "alt",
+        "Ngày bắt đầu lớn hơn ngày kết thúc"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "Báo khoảng thời gian không hợp lệ"
+      ],
+      [
+        "else",
+        "Khoảng ngày hợp lệ"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Chuẩn hóa mốc ngày Việt Nam sang UTC"
+      ],
+      [
+        "m",
+        2,
+        3,
+        "Truy vấn đơn, chi tiết, khách hàng, tồn kho"
+      ],
+      [
+        "r",
+        3,
+        2,
+        "Các tập dữ liệu thống kê"
+      ],
+      [
+        "m",
+        2,
+        2,
+        "Tính doanh thu, giá vốn, lợi nhuận và tỷ suất"
+      ],
+      [
+        "r",
+        2,
+        1,
+        "DashboardDto và các danh sách"
+      ],
+      [
+        "end"
+      ],
+      [
+        "r",
+        1,
+        0,
+        "Hiển thị chỉ số và biểu đồ"
+      ]
+    ],
+    "lanes": [
+      "Quản trị viên",
+      "Giao diện\nAngular",
+      "AdminDashboardController\n/ AdminDashboardService",
+      "Dữ liệu\nEF Core / SQL"
+    ],
+    "number": 27,
+    "control": "Dashboard Control",
+    "entity": "OrderItem / Variant",
+    "parts": [
+      [
+        [
+          "m",
+          0,
+          1,
+          "Chọn khoảng ngày thống kê"
+        ],
+        [
+          "m",
+          1,
+          2,
+          "Gửi yêu cầu HTTP"
+        ],
+        [
+          "start",
+          "alt",
+          "Ngày bắt đầu sau ngày kết thúc"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "Từ chối; trả thông báo lỗi"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "else",
+          "Điều kiện hợp lệ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Đổi mốc ngày Việt Nam sang UTC"
+        ],
+        [
+          "m",
+          2,
+          3,
+          "Tổng hợp đơn và dữ liệu liên quan"
+        ],
+        [
+          "m",
+          3,
+          5,
+          "Thực thi truy vấn SQL"
+        ],
+        [
+          "r",
+          5,
+          3,
+          "Các bản ghi"
+        ],
+        [
+          "r",
+          3,
+          2,
+          "Chỉ số và các tập dữ liệu"
+        ],
+        [
+          "note",
+          "Tiếp phần tiếp theo: doanh thu / giá vốn dựa trên đơn Completed trong khoảng lọc."
+        ],
+        [
+          "end"
+        ]
+      ],
+      [
+        [
+          "note",
+          "ref: phần trước đã xác nhận khoảng ngày và truy vấn thống kê."
+        ],
+        [
+          "m",
+          2,
+          4,
+          "Đọc số lượng, giá bán và UnitCost"
+        ],
+        [
+          "r",
+          4,
+          2,
+          "Trạng thái trong bộ nhớ"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tính doanh thu, giá vốn, lợi nhuận"
+        ],
+        [
+          "m",
+          2,
+          2,
+          "Tổng hợp đơn chờ và hàng bán chạy"
+        ],
+        [
+          "r",
+          2,
+          1,
+          "DashboardDto; biểu đồ thống kê"
+        ],
+        [
+          "r",
+          1,
+          0,
+          "Hiển thị kết quả"
+        ],
+        [
+          "note",
+          "Tổng khách hàng và danh sách hàng tồn thấp phản ánh dữ liệu hiện tại; không gán cùng phạm vi ngày cho tất cả chỉ số."
+        ]
+      ]
+    ]
+  }
+]

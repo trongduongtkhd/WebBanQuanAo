@@ -1,0 +1,13 @@
+﻿{
+    "onlyBulletTextChanged":  true,
+    "remainingFaultyArrows":  0,
+    "safeFontBullets":  224,
+    "unsafeFonts":  [
+
+                    ],
+    "tableIndentsUnchanged":  true,
+    "tableWidthsUnchanged":  true,
+    "allImagesUnchanged":  true,
+    "imagesCompared":  85,
+    "sequenceDiagrams":  40
+}

@@ -1,0 +1,1552 @@
+﻿{
+    "pages":  298,
+    "shapes":  [
+                   {
+                       "nextPage":  1,
+                       "width":  49.2,
+                       "page":  1,
+                       "height":  49.2,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  1,
+                       "width":  196.8,
+                       "page":  1,
+                       "height":  209.45,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  18,
+                       "width":  508.2,
+                       "page":  18,
+                       "height":  317.4,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  20,
+                       "width":  468,
+                       "page":  20,
+                       "height":  344.1,
+                       "nextText":  "Hình 1.1 Sơ đồ hoạt động quy trình mua hàng và quản lý giỏ hàng"
+                   },
+                   {
+                       "nextPage":  23,
+                       "width":  571.2,
+                       "page":  23,
+                       "height":  571.2,
+                       "nextText":  "Hình 1.2. Sơ đồ hoạt động quy trình đặt hàng và thanh toán"
+                   },
+                   {
+                       "nextPage":  26,
+                       "width":  468,
+                       "page":  26,
+                       "height":  501.65,
+                       "nextText":  "1.4.5. Quy trình quản lý mã giảm giá"
+                   },
+                   {
+                       "nextPage":  29,
+                       "width":  468,
+                       "page":  29,
+                       "height":  417.05,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình quản lý mã giảm giá"
+                   },
+                   {
+                       "nextPage":  32,
+                       "width":  468,
+                       "page":  32,
+                       "height":  454.1,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình nhập hàng"
+                   },
+                   {
+                       "nextPage":  34,
+                       "width":  468,
+                       "page":  34,
+                       "height":  400.65,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình đánh giá sản phẩm"
+                   },
+                   {
+                       "nextPage":  38,
+                       "width":  468,
+                       "page":  38,
+                       "height":  427.5,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình xác thực và quản lý tài khoản"
+                   },
+                   {
+                       "nextPage":  45,
+                       "width":  468,
+                       "page":  45,
+                       "height":  384,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  46,
+                       "width":  518.6,
+                       "page":  46,
+                       "height":  466.95,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  52,
+                       "width":  464.95,
+                       "page":  52,
+                       "height":  450,
+                       "nextText":  "Hình 2.2.1-01. Luồng xử lý một yêu cầu nghiệp vụ"
+                   },
+                   {
+                       "nextPage":  53,
+                       "width":  468,
+                       "page":  53,
+                       "height":  367.1,
+                       "nextText":  "Hình 2.2.1-02. Đăng ký tài khoản — phần 1/2"
+                   },
+                   {
+                       "nextPage":  54,
+                       "width":  468,
+                       "page":  54,
+                       "height":  383.2,
+                       "nextText":  "Hình 2.2.1-02. Đăng ký tài khoản — phần 2/2"
+                   },
+                   {
+                       "nextPage":  55,
+                       "width":  468,
+                       "page":  55,
+                       "height":  305.2,
+                       "nextText":  "Hình 2.2.1-03. Đăng nhập tài khoản — phần 1/4"
+                   },
+                   {
+                       "nextPage":  56,
+                       "width":  468,
+                       "page":  56,
+                       "height":  362.95,
+                       "nextText":  "Hình 2.2.1-03. Đăng nhập tài khoản — phần 2/4"
+                   },
+                   {
+                       "nextPage":  57,
+                       "width":  468,
+                       "page":  57,
+                       "height":  380.35,
+                       "nextText":  "Hình 2.2.1-03. Đăng nhập tài khoản — phần 3/4"
+                   },
+                   {
+                       "nextPage":  58,
+                       "width":  468,
+                       "page":  58,
+                       "height":  310.4,
+                       "nextText":  "Hình 2.2.1-03. Đăng nhập tài khoản — phần 4/4"
+                   },
+                   {
+                       "nextPage":  59,
+                       "width":  468,
+                       "page":  59,
+                       "height":  296.4,
+                       "nextText":  "Hình 2.2.1-04a. Tạo challenge đăng nhập hai lớp"
+                   },
+                   {
+                       "nextPage":  60,
+                       "width":  468,
+                       "page":  60,
+                       "height":  322.4,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 1/8"
+                   },
+                   {
+                       "nextPage":  61,
+                       "width":  468,
+                       "page":  61,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 2/8"
+                   },
+                   {
+                       "nextPage":  62,
+                       "width":  468,
+                       "page":  62,
+                       "height":  389.45,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 3/8"
+                   },
+                   {
+                       "nextPage":  63,
+                       "width":  468,
+                       "page":  63,
+                       "height":  356.2,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 4/8"
+                   },
+                   {
+                       "nextPage":  64,
+                       "width":  468,
+                       "page":  64,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 5/8"
+                   },
+                   {
+                       "nextPage":  65,
+                       "width":  468,
+                       "page":  65,
+                       "height":  325,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 6/8"
+                   },
+                   {
+                       "nextPage":  66,
+                       "width":  468,
+                       "page":  66,
+                       "height":  420.15,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 7/8"
+                   },
+                   {
+                       "nextPage":  67,
+                       "width":  468,
+                       "page":  67,
+                       "height":  421.2,
+                       "nextText":  "Hình 2.2.1-04b. Xác minh TOTP hoặc mã khôi phục — phần 8/8"
+                   },
+                   {
+                       "nextPage":  68,
+                       "width":  468,
+                       "page":  68,
+                       "height":  320.3,
+                       "nextText":  "Hình 2.2.1-05. Quên mật khẩu — phần 1/2"
+                   },
+                   {
+                       "nextPage":  69,
+                       "width":  468,
+                       "page":  69,
+                       "height":  323.4,
+                       "nextText":  "Hình 2.2.1-05. Quên mật khẩu — phần 2/2"
+                   },
+                   {
+                       "nextPage":  70,
+                       "width":  468,
+                       "page":  70,
+                       "height":  470.6,
+                       "nextText":  "Hình 2.2.1-06. Đặt lại mật khẩu — phần 1/2"
+                   },
+                   {
+                       "nextPage":  71,
+                       "width":  468,
+                       "page":  71,
+                       "height":  413.9,
+                       "nextText":  "Hình 2.2.1-06. Đặt lại mật khẩu — phần 2/2"
+                   },
+                   {
+                       "nextPage":  72,
+                       "width":  468,
+                       "page":  72,
+                       "height":  382.7,
+                       "nextText":  "Hình 2.2.1-07a. Cấp refresh token khi hoàn tất đăng nhập"
+                   },
+                   {
+                       "nextPage":  73,
+                       "width":  468,
+                       "page":  73,
+                       "height":  433.15,
+                       "nextText":  "Hình 2.2.1-07b. Làm mới phiên đăng nhập — phần 1/5"
+                   },
+                   {
+                       "nextPage":  74,
+                       "width":  468,
+                       "page":  74,
+                       "height":  444.6,
+                       "nextText":  "Hình 2.2.1-07b. Làm mới phiên đăng nhập — phần 2/5"
+                   },
+                   {
+                       "nextPage":  75,
+                       "width":  468,
+                       "page":  75,
+                       "height":  358.25,
+                       "nextText":  "Hình 2.2.1-07b. Làm mới phiên đăng nhập — phần 3/5"
+                   },
+                   {
+                       "nextPage":  76,
+                       "width":  468,
+                       "page":  76,
+                       "height":  287.55,
+                       "nextText":  "Hình 2.2.1-07b. Làm mới phiên đăng nhập — phần 4/5"
+                   },
+                   {
+                       "nextPage":  77,
+                       "width":  468,
+                       "page":  77,
+                       "height":  314.6,
+                       "nextText":  "Hình 2.2.1-07b. Làm mới phiên đăng nhập — phần 5/5"
+                   },
+                   {
+                       "nextPage":  78,
+                       "width":  468,
+                       "page":  78,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-07c. Đăng xuất — phần 1/2"
+                   },
+                   {
+                       "nextPage":  79,
+                       "width":  468,
+                       "page":  79,
+                       "height":  283.4,
+                       "nextText":  "Hình 2.2.1-07c. Đăng xuất — phần 2/2"
+                   },
+                   {
+                       "nextPage":  80,
+                       "width":  468,
+                       "page":  80,
+                       "height":  287,
+                       "nextText":  "Hình 2.2.1-08a. Tìm kiếm sản phẩm theo từ khóa — phần 1/2"
+                   },
+                   {
+                       "nextPage":  81,
+                       "width":  468,
+                       "page":  81,
+                       "height":  296.4,
+                       "nextText":  "Hình 2.2.1-08a. Tìm kiếm sản phẩm theo từ khóa — phần 2/2"
+                   },
+                   {
+                       "nextPage":  82,
+                       "width":  468,
+                       "page":  82,
+                       "height":  362.4,
+                       "nextText":  "Hình 2.2.1-08b. Lọc sản phẩm theo danh mục và điều kiện — phần 1/2"
+                   },
+                   {
+                       "nextPage":  83,
+                       "width":  468,
+                       "page":  83,
+                       "height":  375.95,
+                       "nextText":  "Hình 2.2.1-08b. Lọc sản phẩm theo danh mục và điều kiện — phần 2/2"
+                   },
+                   {
+                       "nextPage":  84,
+                       "width":  468,
+                       "page":  84,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-08c. Xem chi tiết sản phẩm"
+                   },
+                   {
+                       "nextPage":  85,
+                       "width":  468,
+                       "page":  85,
+                       "height":  375.4,
+                       "nextText":  "Hình 2.2.1-08d. Sản phẩm nổi bật và mới nhất"
+                   },
+                   {
+                       "nextPage":  86,
+                       "width":  468,
+                       "page":  86,
+                       "height":  375.4,
+                       "nextText":  "Hình 2.2.1-08e. Sản phẩm liên quan"
+                   },
+                   {
+                       "nextPage":  87,
+                       "width":  468,
+                       "page":  87,
+                       "height":  366.6,
+                       "nextText":  "Hình 2.2.1-09a. Xem giỏ hàng"
+                   },
+                   {
+                       "nextPage":  88,
+                       "width":  468,
+                       "page":  88,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-09b. Thêm hàng vào giỏ — phần 1/2"
+                   },
+                   {
+                       "nextPage":  89,
+                       "width":  468,
+                       "page":  89,
+                       "height":  393.6,
+                       "nextText":  "Hình 2.2.1-09b. Thêm hàng vào giỏ — phần 2/2"
+                   },
+                   {
+                       "nextPage":  90,
+                       "width":  468,
+                       "page":  90,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-09c. Đổi số lượng trong giỏ — phần 1/2"
+                   },
+                   {
+                       "nextPage":  91,
+                       "width":  468,
+                       "page":  91,
+                       "height":  393.6,
+                       "nextText":  "Hình 2.2.1-09c. Đổi số lượng trong giỏ — phần 2/2"
+                   },
+                   {
+                       "nextPage":  92,
+                       "width":  468,
+                       "page":  92,
+                       "height":  382.2,
+                       "nextText":  "Hình 2.2.1-09d. Xóa một dòng hoặc xóa giỏ — phần 1/2"
+                   },
+                   {
+                       "nextPage":  93,
+                       "width":  468,
+                       "page":  93,
+                       "height":  418.05,
+                       "nextText":  "Hình 2.2.1-09d. Xóa một dòng hoặc xóa giỏ — phần 2/2"
+                   },
+                   {
+                       "nextPage":  94,
+                       "width":  468,
+                       "page":  94,
+                       "height":  366.6,
+                       "nextText":  "Hình 2.2.1-10a. Xem danh sách yêu thích"
+                   },
+                   {
+                       "nextPage":  95,
+                       "width":  468,
+                       "page":  95,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-10b. Thêm sản phẩm yêu thích — phần 1/2"
+                   },
+                   {
+                       "nextPage":  96,
+                       "width":  468,
+                       "page":  96,
+                       "height":  296.4,
+                       "nextText":  "Hình 2.2.1-10b. Thêm sản phẩm yêu thích — phần 2/2"
+                   },
+                   {
+                       "nextPage":  97,
+                       "width":  468,
+                       "page":  97,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-10c. Bỏ sản phẩm yêu thích — phần 1/2"
+                   },
+                   {
+                       "nextPage":  98,
+                       "width":  468,
+                       "page":  98,
+                       "height":  305.2,
+                       "nextText":  "Hình 2.2.1-10c. Bỏ sản phẩm yêu thích — phần 2/2"
+                   },
+                   {
+                       "nextPage":  99,
+                       "width":  468,
+                       "page":  99,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-11a. Xem hồ sơ và tài khoản hiện tại"
+                   },
+                   {
+                       "nextPage":  100,
+                       "width":  468,
+                       "page":  100,
+                       "height":  382.2,
+                       "nextText":  "Hình 2.2.1-11b. Cập nhật hồ sơ — phần 1/2"
+                   },
+                   {
+                       "nextPage":  101,
+                       "width":  468,
+                       "page":  101,
+                       "height":  331.75,
+                       "nextText":  "Hình 2.2.1-11b. Cập nhật hồ sơ — phần 2/2"
+                   },
+                   {
+                       "nextPage":  102,
+                       "width":  468,
+                       "page":  102,
+                       "height":  442,
+                       "nextText":  "Hình 2.2.1-11c. Đổi mật khẩu khi đã đăng nhập — phần 1/3"
+                   },
+                   {
+                       "nextPage":  103,
+                       "width":  468,
+                       "page":  103,
+                       "height":  289.6,
+                       "nextText":  "Hình 2.2.1-11c. Đổi mật khẩu khi đã đăng nhập — phần 2/3"
+                   },
+                   {
+                       "nextPage":  104,
+                       "width":  468,
+                       "page":  104,
+                       "height":  307.8,
+                       "nextText":  "Hình 2.2.1-11c. Đổi mật khẩu khi đã đăng nhập — phần 3/3"
+                   },
+                   {
+                       "nextPage":  105,
+                       "width":  468,
+                       "page":  105,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-11d. Đọc tài khoản từ phiên xác thực"
+                   },
+                   {
+                       "nextPage":  106,
+                       "width":  468,
+                       "page":  106,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-12a. Xem địa chỉ giao hàng"
+                   },
+                   {
+                       "nextPage":  107,
+                       "width":  468,
+                       "page":  107,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-12b. Thêm địa chỉ giao hàng — phần 1/2"
+                   },
+                   {
+                       "nextPage":  108,
+                       "width":  468,
+                       "page":  108,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-12b. Thêm địa chỉ giao hàng — phần 2/2"
+                   },
+                   {
+                       "nextPage":  109,
+                       "width":  468,
+                       "page":  109,
+                       "height":  382.2,
+                       "nextText":  "Hình 2.2.1-12c. Sửa địa chỉ giao hàng — phần 1/2"
+                   },
+                   {
+                       "nextPage":  110,
+                       "width":  468,
+                       "page":  110,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-12c. Sửa địa chỉ giao hàng — phần 2/2"
+                   },
+                   {
+                       "nextPage":  111,
+                       "width":  468,
+                       "page":  111,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-12d. Chọn địa chỉ mặc định — phần 1/4"
+                   },
+                   {
+                       "nextPage":  112,
+                       "width":  468,
+                       "page":  112,
+                       "height":  278.7,
+                       "nextText":  "Hình 2.2.1-12d. Chọn địa chỉ mặc định — phần 2/4"
+                   },
+                   {
+                       "nextPage":  113,
+                       "width":  468,
+                       "page":  113,
+                       "height":  349.4,
+                       "nextText":  "Hình 2.2.1-12d. Chọn địa chỉ mặc định — phần 3/4"
+                   },
+                   {
+                       "nextPage":  114,
+                       "width":  468,
+                       "page":  114,
+                       "height":  289.6,
+                       "nextText":  "Hình 2.2.1-12d. Chọn địa chỉ mặc định — phần 4/4"
+                   },
+                   {
+                       "nextPage":  115,
+                       "width":  468,
+                       "page":  115,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-12e. Xóa địa chỉ giao hàng — phần 1/4"
+                   },
+                   {
+                       "nextPage":  116,
+                       "width":  468,
+                       "page":  116,
+                       "height":  296.4,
+                       "nextText":  "Hình 2.2.1-12e. Xóa địa chỉ giao hàng — phần 2/4"
+                   },
+                   {
+                       "nextPage":  117,
+                       "width":  468,
+                       "page":  117,
+                       "height":  380.6,
+                       "nextText":  "Hình 2.2.1-12e. Xóa địa chỉ giao hàng — phần 3/4"
+                   },
+                   {
+                       "nextPage":  118,
+                       "width":  468,
+                       "page":  118,
+                       "height":  338.5,
+                       "nextText":  "Hình 2.2.1-12e. Xóa địa chỉ giao hàng — phần 4/4"
+                   },
+                   {
+                       "nextPage":  119,
+                       "width":  468,
+                       "page":  119,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-13a. Xem các mã giảm giá khả dụng"
+                   },
+                   {
+                       "nextPage":  120,
+                       "width":  468,
+                       "page":  120,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-13b. Kiểm tra mã giảm giá cho giỏ hoặc mua ngay — phần 1/2"
+                   },
+                   {
+                       "nextPage":  121,
+                       "width":  449,
+                       "page":  121,
+                       "height":  450,
+                       "nextText":  "Hình 2.2.1-13b. Kiểm tra mã giảm giá cho giỏ hoặc mua ngay — phần 2/2"
+                   },
+                   {
+                       "nextPage":  122,
+                       "width":  468,
+                       "page":  122,
+                       "height":  375.4,
+                       "nextText":  "Hình 2.2.1-14. Tạo đơn hàng từ giỏ hoặc mua ngay — phần 1/4"
+                   },
+                   {
+                       "nextPage":  123,
+                       "width":  468,
+                       "page":  123,
+                       "height":  352.55,
+                       "nextText":  "Hình 2.2.1-14. Tạo đơn hàng từ giỏ hoặc mua ngay — phần 2/4"
+                   },
+                   {
+                       "nextPage":  124,
+                       "width":  468,
+                       "page":  124,
+                       "height":  376.45,
+                       "nextText":  "Hình 2.2.1-14. Tạo đơn hàng từ giỏ hoặc mua ngay — phần 3/4"
+                   },
+                   {
+                       "nextPage":  125,
+                       "width":  468,
+                       "page":  125,
+                       "height":  351.5,
+                       "nextText":  "Hình 2.2.1-14. Tạo đơn hàng từ giỏ hoặc mua ngay — phần 4/4"
+                   },
+                   {
+                       "nextPage":  126,
+                       "width":  468,
+                       "page":  126,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-15a. Lấy dữ liệu QR mô phỏng"
+                   },
+                   {
+                       "nextPage":  127,
+                       "width":  468,
+                       "page":  127,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-15b. Xác nhận thanh toán MockQR — phần 1/2"
+                   },
+                   {
+                       "nextPage":  128,
+                       "width":  468,
+                       "page":  128,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-15b. Xác nhận thanh toán MockQR — phần 2/2"
+                   },
+                   {
+                       "nextPage":  129,
+                       "width":  447.5,
+                       "page":  129,
+                       "height":  450,
+                       "nextText":  "Hình 2.2.1-16a. Xem danh sách đơn của khách"
+                   },
+                   {
+                       "nextPage":  130,
+                       "width":  468,
+                       "page":  130,
+                       "height":  375.4,
+                       "nextText":  "Hình 2.2.1-16b. Xem chi tiết đơn của khách"
+                   },
+                   {
+                       "nextPage":  131,
+                       "width":  468,
+                       "page":  131,
+                       "height":  446.15,
+                       "nextText":  "Hình 2.2.1-16c. Khách hàng hủy đơn — phần 1/3"
+                   },
+                   {
+                       "nextPage":  132,
+                       "width":  468,
+                       "page":  132,
+                       "height":  329.65,
+                       "nextText":  "Hình 2.2.1-16c. Khách hàng hủy đơn — phần 2/3"
+                   },
+                   {
+                       "nextPage":  133,
+                       "width":  468,
+                       "page":  133,
+                       "height":  280.8,
+                       "nextText":  "Hình 2.2.1-16c. Khách hàng hủy đơn — phần 3/3"
+                   },
+                   {
+                       "nextPage":  134,
+                       "width":  468,
+                       "page":  134,
+                       "height":  375.4,
+                       "nextText":  "Hình 2.2.1-17a. Đọc đánh giá công khai — phần 1/2"
+                   },
+                   {
+                       "nextPage":  135,
+                       "width":  468,
+                       "page":  135,
+                       "height":  402.45,
+                       "nextText":  "Hình 2.2.1-17a. Đọc đánh giá công khai — phần 2/2"
+                   },
+                   {
+                       "nextPage":  136,
+                       "width":  468,
+                       "page":  136,
+                       "height":  269.35,
+                       "nextText":  "Hình 2.2.1-17b. Xem đánh giá của tôi — phần 1/2"
+                   },
+                   {
+                       "nextPage":  137,
+                       "width":  468,
+                       "page":  137,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-17b. Xem đánh giá của tôi — phần 2/2"
+                   },
+                   {
+                       "nextPage":  138,
+                       "width":  468,
+                       "page":  138,
+                       "height":  313.55,
+                       "nextText":  "Hình 2.2.1-17c. Gửi đánh giá mới — phần 1/2"
+                   },
+                   {
+                       "nextPage":  139,
+                       "width":  468,
+                       "page":  139,
+                       "height":  409.2,
+                       "nextText":  "Hình 2.2.1-17c. Gửi đánh giá mới — phần 2/2"
+                   },
+                   {
+                       "nextPage":  140,
+                       "width":  468,
+                       "page":  140,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-17d. Sửa hoặc xóa đánh giá của tôi — phần 1/2"
+                   },
+                   {
+                       "nextPage":  141,
+                       "width":  468,
+                       "page":  141,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-17d. Sửa hoặc xóa đánh giá của tôi — phần 2/2"
+                   },
+                   {
+                       "nextPage":  142,
+                       "width":  468,
+                       "page":  142,
+                       "height":  364.5,
+                       "nextText":  "Hình 2.2.1-18a. Danh sách và chi tiết sản phẩm quản trị — phần 1/2"
+                   },
+                   {
+                       "nextPage":  143,
+                       "width":  468,
+                       "page":  143,
+                       "height":  381.9,
+                       "nextText":  "Hình 2.2.1-18a. Danh sách và chi tiết sản phẩm quản trị — phần 2/2"
+                   },
+                   {
+                       "nextPage":  144,
+                       "width":  468,
+                       "page":  144,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-18b. Tạo hoặc sửa sản phẩm — phần 1/2"
+                   },
+                   {
+                       "nextPage":  145,
+                       "width":  468,
+                       "page":  145,
+                       "height":  402.45,
+                       "nextText":  "Hình 2.2.1-18b. Tạo hoặc sửa sản phẩm — phần 2/2"
+                   },
+                   {
+                       "nextPage":  146,
+                       "width":  468,
+                       "page":  146,
+                       "height":  382.2,
+                       "nextText":  "Hình 2.2.1-18c. Ngừng bán sản phẩm — phần 1/2"
+                   },
+                   {
+                       "nextPage":  147,
+                       "width":  468,
+                       "page":  147,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-18c. Ngừng bán sản phẩm — phần 2/2"
+                   },
+                   {
+                       "nextPage":  148,
+                       "width":  468,
+                       "page":  148,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-18d. Tạo hoặc sửa biến thể — phần 1/2"
+                   },
+                   {
+                       "nextPage":  149,
+                       "width":  468,
+                       "page":  149,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-18d. Tạo hoặc sửa biến thể — phần 2/2"
+                   },
+                   {
+                       "nextPage":  150,
+                       "width":  468,
+                       "page":  150,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-18e. Ngừng bán biến thể — phần 1/2"
+                   },
+                   {
+                       "nextPage":  151,
+                       "width":  468,
+                       "page":  151,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-18e. Ngừng bán biến thể — phần 2/2"
+                   },
+                   {
+                       "nextPage":  152,
+                       "width":  468,
+                       "page":  152,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-19a. Thêm hoặc sửa liên kết ảnh sản phẩm — phần 1/2"
+                   },
+                   {
+                       "nextPage":  153,
+                       "width":  468,
+                       "page":  153,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-19a. Thêm hoặc sửa liên kết ảnh sản phẩm — phần 2/2"
+                   },
+                   {
+                       "nextPage":  154,
+                       "width":  468,
+                       "page":  154,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-19b. Xóa liên kết ảnh sản phẩm — phần 1/2"
+                   },
+                   {
+                       "nextPage":  155,
+                       "width":  468,
+                       "page":  155,
+                       "height":  305.2,
+                       "nextText":  "Hình 2.2.1-19b. Xóa liên kết ảnh sản phẩm — phần 2/2"
+                   },
+                   {
+                       "nextPage":  156,
+                       "width":  468,
+                       "page":  156,
+                       "height":  320.3,
+                       "nextText":  "Hình 2.2.1-19c. Upload ảnh quản trị"
+                   },
+                   {
+                       "nextPage":  157,
+                       "width":  468,
+                       "page":  157,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-20a. Xem dữ liệu danh mục"
+                   },
+                   {
+                       "nextPage":  158,
+                       "width":  468,
+                       "page":  158,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-20b. Tạo sửa hoặc ngừng sử dụng danh mục — phần 1/2"
+                   },
+                   {
+                       "nextPage":  159,
+                       "width":  468,
+                       "page":  159,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-20b. Tạo sửa hoặc ngừng sử dụng danh mục — phần 2/2"
+                   },
+                   {
+                       "nextPage":  160,
+                       "width":  468,
+                       "page":  160,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-20c. Xem dữ liệu thương hiệu"
+                   },
+                   {
+                       "nextPage":  161,
+                       "width":  468,
+                       "page":  161,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-20d. Tạo sửa hoặc ngừng sử dụng thương hiệu — phần 1/2"
+                   },
+                   {
+                       "nextPage":  162,
+                       "width":  468,
+                       "page":  162,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-20d. Tạo sửa hoặc ngừng sử dụng thương hiệu — phần 2/2"
+                   },
+                   {
+                       "nextPage":  163,
+                       "width":  468,
+                       "page":  163,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-20e. Xem dữ liệu màu sắc"
+                   },
+                   {
+                       "nextPage":  164,
+                       "width":  468,
+                       "page":  164,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-20f. Tạo sửa hoặc ngừng sử dụng màu sắc — phần 1/2"
+                   },
+                   {
+                       "nextPage":  165,
+                       "width":  468,
+                       "page":  165,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-20f. Tạo sửa hoặc ngừng sử dụng màu sắc — phần 2/2"
+                   },
+                   {
+                       "nextPage":  166,
+                       "width":  468,
+                       "page":  166,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-20g. Xem dữ liệu kích thước"
+                   },
+                   {
+                       "nextPage":  167,
+                       "width":  468,
+                       "page":  167,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-20h. Tạo sửa hoặc ngừng sử dụng kích thước — phần 1/2"
+                   },
+                   {
+                       "nextPage":  168,
+                       "width":  468,
+                       "page":  168,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-20h. Tạo sửa hoặc ngừng sử dụng kích thước — phần 2/2"
+                   },
+                   {
+                       "nextPage":  169,
+                       "width":  468,
+                       "page":  169,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-20i. Xem dữ liệu nhà cung cấp"
+                   },
+                   {
+                       "nextPage":  170,
+                       "width":  468,
+                       "page":  170,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-20j. Tạo sửa hoặc ngừng sử dụng nhà cung cấp — phần 1/2"
+                   },
+                   {
+                       "nextPage":  171,
+                       "width":  468,
+                       "page":  171,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-20j. Tạo sửa hoặc ngừng sử dụng nhà cung cấp — phần 2/2"
+                   },
+                   {
+                       "nextPage":  172,
+                       "width":  468,
+                       "page":  172,
+                       "height":  355.65,
+                       "nextText":  "Hình 2.2.1-21a. Xem phiếu nhập kho — phần 1/2"
+                   },
+                   {
+                       "nextPage":  173,
+                       "width":  468,
+                       "page":  173,
+                       "height":  381.9,
+                       "nextText":  "Hình 2.2.1-21a. Xem phiếu nhập kho — phần 2/2"
+                   },
+                   {
+                       "nextPage":  174,
+                       "width":  468,
+                       "page":  174,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-21b. Lập phiếu nhập kho — phần 1/2"
+                   },
+                   {
+                       "nextPage":  175,
+                       "width":  468,
+                       "page":  175,
+                       "height":  402.45,
+                       "nextText":  "Hình 2.2.1-21b. Lập phiếu nhập kho — phần 2/2"
+                   },
+                   {
+                       "nextPage":  176,
+                       "width":  468,
+                       "page":  176,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-21c. Điều chỉnh phiếu nhập kho — phần 1/2"
+                   },
+                   {
+                       "nextPage":  177,
+                       "width":  468,
+                       "page":  177,
+                       "height":  402.45,
+                       "nextText":  "Hình 2.2.1-21c. Điều chỉnh phiếu nhập kho — phần 2/2"
+                   },
+                   {
+                       "nextPage":  178,
+                       "width":  468,
+                       "page":  178,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-21d. Hủy phiếu nhập kho — phần 1/2"
+                   },
+                   {
+                       "nextPage":  179,
+                       "width":  468,
+                       "page":  179,
+                       "height":  402.45,
+                       "nextText":  "Hình 2.2.1-21d. Hủy phiếu nhập kho — phần 2/2"
+                   },
+                   {
+                       "nextPage":  180,
+                       "width":  468,
+                       "page":  180,
+                       "height":  366.6,
+                       "nextText":  "Hình 2.2.1-22a. Xem mã giảm giá và lịch sử dùng"
+                   },
+                   {
+                       "nextPage":  181,
+                       "width":  468,
+                       "page":  181,
+                       "height":  399.85,
+                       "nextText":  "Hình 2.2.1-22b. Tạo hoặc sửa mã giảm giá — phần 1/2"
+                   },
+                   {
+                       "nextPage":  182,
+                       "width":  468,
+                       "page":  182,
+                       "height":  305.2,
+                       "nextText":  "Hình 2.2.1-22b. Tạo hoặc sửa mã giảm giá — phần 2/2"
+                   },
+                   {
+                       "nextPage":  183,
+                       "width":  468,
+                       "page":  183,
+                       "height":  373.35,
+                       "nextText":  "Hình 2.2.1-22c. Bật hoặc tắt mã giảm giá — phần 1/2"
+                   },
+                   {
+                       "nextPage":  184,
+                       "width":  468,
+                       "page":  184,
+                       "height":  305.2,
+                       "nextText":  "Hình 2.2.1-22c. Bật hoặc tắt mã giảm giá — phần 2/2"
+                   },
+                   {
+                       "nextPage":  185,
+                       "width":  468,
+                       "page":  185,
+                       "height":  364.5,
+                       "nextText":  "Hình 2.2.1-23a. Xem đơn hàng quản trị — phần 1/2"
+                   },
+                   {
+                       "nextPage":  186,
+                       "width":  468,
+                       "page":  186,
+                       "height":  390.75,
+                       "nextText":  "Hình 2.2.1-23a. Xem đơn hàng quản trị — phần 2/2"
+                   },
+                   {
+                       "nextPage":  187,
+                       "width":  468,
+                       "page":  187,
+                       "height":  377.5,
+                       "nextText":  "Hình 2.2.1-23b. Quản trị trạng thái đơn hàng — phần 1/4"
+                   },
+                   {
+                       "nextPage":  188,
+                       "width":  468,
+                       "page":  188,
+                       "height":  343.2,
+                       "nextText":  "Hình 2.2.1-23b. Quản trị trạng thái đơn hàng — phần 2/4"
+                   },
+                   {
+                       "nextPage":  189,
+                       "width":  468,
+                       "page":  189,
+                       "height":  368.9,
+                       "nextText":  "Hình 2.2.1-23b. Quản trị trạng thái đơn hàng — phần 3/4"
+                   },
+                   {
+                       "nextPage":  190,
+                       "width":  468,
+                       "page":  190,
+                       "height":  342.65,
+                       "nextText":  "Hình 2.2.1-23b. Quản trị trạng thái đơn hàng — phần 4/4"
+                   },
+                   {
+                       "nextPage":  191,
+                       "width":  468,
+                       "page":  191,
+                       "height":  426.4,
+                       "nextText":  "Hình 2.2.1-24. Cập nhật trạng thái thanh toán thủ công — phần 1/2"
+                   },
+                   {
+                       "nextPage":  192,
+                       "width":  468,
+                       "page":  192,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-24. Cập nhật trạng thái thanh toán thủ công — phần 2/2"
+                   },
+                   {
+                       "nextPage":  193,
+                       "width":  468,
+                       "page":  193,
+                       "height":  260.5,
+                       "nextText":  "Hình 2.2.1-25a. Xem đánh giá quản trị — phần 1/2"
+                   },
+                   {
+                       "nextPage":  194,
+                       "width":  468,
+                       "page":  194,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-25a. Xem đánh giá quản trị — phần 2/2"
+                   },
+                   {
+                       "nextPage":  195,
+                       "width":  468,
+                       "page":  195,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-25b. Duyệt hoặc ẩn đánh giá — phần 1/2"
+                   },
+                   {
+                       "nextPage":  196,
+                       "width":  468,
+                       "page":  196,
+                       "height":  305.2,
+                       "nextText":  "Hình 2.2.1-25b. Duyệt hoặc ẩn đánh giá — phần 2/2"
+                   },
+                   {
+                       "nextPage":  197,
+                       "width":  468,
+                       "page":  197,
+                       "height":  364.5,
+                       "nextText":  "Hình 2.2.1-26a. Tìm và xem tài khoản quản trị — phần 1/2"
+                   },
+                   {
+                       "nextPage":  198,
+                       "width":  468,
+                       "page":  198,
+                       "height":  373.1,
+                       "nextText":  "Hình 2.2.1-26a. Tìm và xem tài khoản quản trị — phần 2/2"
+                   },
+                   {
+                       "nextPage":  199,
+                       "width":  468,
+                       "page":  199,
+                       "height":  408.7,
+                       "nextText":  "Hình 2.2.1-26b. Khóa hoặc mở khóa người dùng — phần 1/2"
+                   },
+                   {
+                       "nextPage":  200,
+                       "width":  468,
+                       "page":  200,
+                       "height":  347.85,
+                       "nextText":  "Hình 2.2.1-26b. Khóa hoặc mở khóa người dùng — phần 2/2"
+                   },
+                   {
+                       "nextPage":  201,
+                       "width":  468,
+                       "page":  201,
+                       "height":  364.5,
+                       "nextText":  "Hình 2.2.1-27. Thống kê quản trị cửa hàng — phần 1/2"
+                   },
+                   {
+                       "nextPage":  202,
+                       "width":  468,
+                       "page":  202,
+                       "height":  382.7,
+                       "nextText":  "Hình 2.2.1-27. Thống kê quản trị cửa hàng — phần 2/2"
+                   },
+                   {
+                       "nextPage":  203,
+                       "width":  468,
+                       "page":  203,
+                       "height":  346.3,
+                       "nextText":  "Hình 2.2.1-28. Xác minh CAPTCHA trước đăng nhập hoặc đăng ký"
+                   },
+                   {
+                       "nextPage":  204,
+                       "width":  468,
+                       "page":  204,
+                       "height":  373.35,
+                       "nextText":  "Hình 2.2.1-29a. Bắt đầu thiết lập xác thực hai lớp — phần 1/2"
+                   },
+                   {
+                       "nextPage":  205,
+                       "width":  468,
+                       "page":  205,
+                       "height":  331.75,
+                       "nextText":  "Hình 2.2.1-29a. Bắt đầu thiết lập xác thực hai lớp — phần 2/2"
+                   },
+                   {
+                       "nextPage":  206,
+                       "width":  468,
+                       "page":  206,
+                       "height":  304.7,
+                       "nextText":  "Hình 2.2.1-29b. Xác nhận bật xác thực hai lớp — phần 1/4"
+                   },
+                   {
+                       "nextPage":  207,
+                       "width":  468,
+                       "page":  207,
+                       "height":  338.5,
+                       "nextText":  "Hình 2.2.1-29b. Xác nhận bật xác thực hai lớp — phần 2/4"
+                   },
+                   {
+                       "nextPage":  208,
+                       "width":  468,
+                       "page":  208,
+                       "height":  331.75,
+                       "nextText":  "Hình 2.2.1-29b. Xác nhận bật xác thực hai lớp — phần 3/4"
+                   },
+                   {
+                       "nextPage":  209,
+                       "width":  468,
+                       "page":  209,
+                       "height":  299,
+                       "nextText":  "Hình 2.2.1-29b. Xác nhận bật xác thực hai lớp — phần 4/4"
+                   },
+                   {
+                       "nextPage":  210,
+                       "width":  468,
+                       "page":  210,
+                       "height":  287,
+                       "nextText":  "Hình 2.2.1-29c. Tắt xác thực hai lớp — phần 1/4"
+                   },
+                   {
+                       "nextPage":  211,
+                       "width":  468,
+                       "page":  211,
+                       "height":  409.2,
+                       "nextText":  "Hình 2.2.1-29c. Tắt xác thực hai lớp — phần 2/4"
+                   },
+                   {
+                       "nextPage":  212,
+                       "width":  468,
+                       "page":  212,
+                       "height":  331.75,
+                       "nextText":  "Hình 2.2.1-29c. Tắt xác thực hai lớp — phần 3/4"
+                   },
+                   {
+                       "nextPage":  213,
+                       "width":  468,
+                       "page":  213,
+                       "height":  289.6,
+                       "nextText":  "Hình 2.2.1-29c. Tắt xác thực hai lớp — phần 4/4"
+                   },
+                   {
+                       "nextPage":  214,
+                       "width":  468,
+                       "page":  214,
+                       "height":  351,
+                       "nextText":  "Hình 2.2.1-30a. Tạo URL thanh toán VNPAY — phần 1/4"
+                   },
+                   {
+                       "nextPage":  215,
+                       "width":  468,
+                       "page":  215,
+                       "height":  276.6,
+                       "nextText":  "Hình 2.2.1-30a. Tạo URL thanh toán VNPAY — phần 2/4"
+                   },
+                   {
+                       "nextPage":  216,
+                       "width":  468,
+                       "page":  216,
+                       "height":  329.65,
+                       "nextText":  "Hình 2.2.1-30a. Tạo URL thanh toán VNPAY — phần 3/4"
+                   },
+                   {
+                       "nextPage":  217,
+                       "width":  468,
+                       "page":  217,
+                       "height":  322.9,
+                       "nextText":  "Hình 2.2.1-30a. Tạo URL thanh toán VNPAY — phần 4/4"
+                   },
+                   {
+                       "nextPage":  218,
+                       "width":  468,
+                       "page":  218,
+                       "height":  276.1,
+                       "nextText":  "Hình 2.2.1-30b. Nhận xác nhận IPN từ VNPAY — phần 1/3"
+                   },
+                   {
+                       "nextPage":  219,
+                       "width":  468,
+                       "page":  219,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-30b. Nhận xác nhận IPN từ VNPAY — phần 2/3"
+                   },
+                   {
+                       "nextPage":  220,
+                       "width":  468,
+                       "page":  220,
+                       "height":  442.5,
+                       "nextText":  "Hình 2.2.1-30b. Nhận xác nhận IPN từ VNPAY — phần 3/3"
+                   },
+                   {
+                       "nextPage":  221,
+                       "width":  468,
+                       "page":  221,
+                       "height":  364.5,
+                       "nextText":  "Hình 2.2.1-30c. Xử lý ReturnUrl sau thanh toán — phần 1/2"
+                   },
+                   {
+                       "nextPage":  222,
+                       "width":  468,
+                       "page":  222,
+                       "height":  323.4,
+                       "nextText":  "Hình 2.2.1-30c. Xử lý ReturnUrl sau thanh toán — phần 2/2"
+                   },
+                   {
+                       "nextPage":  223,
+                       "width":  468,
+                       "page":  223,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-30d. Đọc trạng thái thanh toán VNPAY"
+                   },
+                   {
+                       "nextPage":  224,
+                       "width":  468,
+                       "page":  224,
+                       "height":  393.1,
+                       "nextText":  "Hình 2.2.1-31a. Đối soát giao dịch VNPAY — phần 1/4"
+                   },
+                   {
+                       "nextPage":  225,
+                       "width":  468,
+                       "page":  225,
+                       "height":  444.6,
+                       "nextText":  "Hình 2.2.1-31a. Đối soát giao dịch VNPAY — phần 2/4"
+                   },
+                   {
+                       "nextPage":  226,
+                       "width":  468,
+                       "page":  226,
+                       "height":  416.5,
+                       "nextText":  "Hình 2.2.1-31a. Đối soát giao dịch VNPAY — phần 3/4"
+                   },
+                   {
+                       "nextPage":  227,
+                       "width":  468,
+                       "page":  227,
+                       "height":  403,
+                       "nextText":  "Hình 2.2.1-31a. Đối soát giao dịch VNPAY — phần 4/4"
+                   },
+                   {
+                       "nextPage":  228,
+                       "width":  468,
+                       "page":  228,
+                       "height":  342.65,
+                       "nextText":  "Hình 2.2.1-31b. Quản trị viên xem hoặc đối soát VNPAY"
+                   },
+                   {
+                       "nextPage":  229,
+                       "width":  468,
+                       "page":  229,
+                       "height":  442.5,
+                       "nextText":  "Hình 2.2.1-32. Tự xử lý đơn VNPAY hết hạn — phần 1/2"
+                   },
+                   {
+                       "nextPage":  230,
+                       "width":  468,
+                       "page":  230,
+                       "height":  303.15,
+                       "nextText":  "Hình 2.2.1-32. Tự xử lý đơn VNPAY hết hạn — phần 2/2"
+                   },
+                   {
+                       "nextPage":  231,
+                       "width":  468,
+                       "page":  231,
+                       "height":  426.4,
+                       "nextText":  "Hình 2.2.1-33a. Khách gửi yêu cầu trả hàng — phần 1/2"
+                   },
+                   {
+                       "nextPage":  232,
+                       "width":  468,
+                       "page":  232,
+                       "height":  393.6,
+                       "nextText":  "Hình 2.2.1-33a. Khách gửi yêu cầu trả hàng — phần 2/2"
+                   },
+                   {
+                       "nextPage":  233,
+                       "width":  468,
+                       "page":  233,
+                       "height":  271.4,
+                       "nextText":  "Hình 2.2.1-33b. Quản trị viên duyệt trả hàng — phần 1/4"
+                   },
+                   {
+                       "nextPage":  234,
+                       "width":  468,
+                       "page":  234,
+                       "height":  365,
+                       "nextText":  "Hình 2.2.1-33b. Quản trị viên duyệt trả hàng — phần 2/4"
+                   },
+                   {
+                       "nextPage":  235,
+                       "width":  468,
+                       "page":  235,
+                       "height":  314.05,
+                       "nextText":  "Hình 2.2.1-33b. Quản trị viên duyệt trả hàng — phần 3/4"
+                   },
+                   {
+                       "nextPage":  236,
+                       "width":  468,
+                       "page":  236,
+                       "height":  280.8,
+                       "nextText":  "Hình 2.2.1-33b. Quản trị viên duyệt trả hàng — phần 4/4"
+                   },
+                   {
+                       "nextPage":  237,
+                       "width":  468,
+                       "page":  237,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-33c. Quản trị viên từ chối trả hàng — phần 1/2"
+                   },
+                   {
+                       "nextPage":  238,
+                       "width":  468,
+                       "page":  238,
+                       "height":  411.3,
+                       "nextText":  "Hình 2.2.1-33c. Quản trị viên từ chối trả hàng — phần 2/2"
+                   },
+                   {
+                       "nextPage":  239,
+                       "width":  468,
+                       "page":  239,
+                       "height":  353.6,
+                       "nextText":  "Hình 2.2.1-34a. Chatbot trả lời chính sách nhanh"
+                   },
+                   {
+                       "nextPage":  240,
+                       "width":  468,
+                       "page":  240,
+                       "height":  313.55,
+                       "nextText":  "Hình 2.2.1-34b. Chatbot tìm và so sánh sản phẩm — phần 1/2"
+                   },
+                   {
+                       "nextPage":  241,
+                       "width":  468,
+                       "page":  241,
+                       "height":  310.4,
+                       "nextText":  "Hình 2.2.1-34b. Chatbot tìm và so sánh sản phẩm — phần 2/2"
+                   },
+                   {
+                       "nextPage":  242,
+                       "width":  468,
+                       "page":  242,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-35a. Danh mục công khai"
+                   },
+                   {
+                       "nextPage":  243,
+                       "width":  468,
+                       "page":  243,
+                       "height":  348.9,
+                       "nextText":  "Hình 2.2.1-35b. Thương hiệu công khai"
+                   },
+                   {
+                       "nextPage":  244,
+                       "width":  468,
+                       "page":  244,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-35c. Màu và kích thước công khai"
+                   },
+                   {
+                       "nextPage":  245,
+                       "width":  468,
+                       "page":  245,
+                       "height":  357.75,
+                       "nextText":  "Hình 2.2.1-35d. Danh mục theo slug"
+                   },
+                   {
+                       "nextPage":  246,
+                       "width":  468,
+                       "page":  246,
+                       "height":  311.45,
+                       "nextText":  "Hình 2.2.1-36. Upload ảnh đại diện"
+                   },
+                   {
+                       "nextPage":  258,
+                       "width":  468,
+                       "page":  258,
+                       "height":  468,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  269,
+                       "width":  468,
+                       "page":  269,
+                       "height":  367.1,
+                       "nextText":  "Hình 3.2.1-01. Đăng ký tài khoản — phần 1/2"
+                   },
+                   {
+                       "nextPage":  270,
+                       "width":  468,
+                       "page":  270,
+                       "height":  383.2,
+                       "nextText":  "Hình 3.2.1-02. Đăng ký tài khoản — phần 2/2"
+                   },
+                   {
+                       "nextPage":  271,
+                       "width":  468,
+                       "page":  271,
+                       "height":  305.2,
+                       "nextText":  "Hình 3.2.1-03. Đăng nhập tài khoản — phần 1/4"
+                   },
+                   {
+                       "nextPage":  272,
+                       "width":  468,
+                       "page":  272,
+                       "height":  362.95,
+                       "nextText":  "Hình 3.2.1-04. Đăng nhập tài khoản — phần 2/4"
+                   },
+                   {
+                       "nextPage":  273,
+                       "width":  468,
+                       "page":  273,
+                       "height":  380.35,
+                       "nextText":  "Hình 3.2.1-05. Đăng nhập tài khoản — phần 3/4"
+                   },
+                   {
+                       "nextPage":  274,
+                       "width":  468,
+                       "page":  274,
+                       "height":  310.4,
+                       "nextText":  "Hình 3.2.1-06. Đăng nhập tài khoản — phần 4/4"
+                   },
+                   {
+                       "nextPage":  275,
+                       "width":  468,
+                       "page":  275,
+                       "height":  404.95,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  278,
+                       "width":  468,
+                       "page":  278,
+                       "height":  388.6,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  288,
+                       "width":  468,
+                       "page":  288,
+                       "height":  224.85,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  290,
+                       "width":  468,
+                       "page":  290,
+                       "height":  34.2,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  290,
+                       "width":  468,
+                       "page":  290,
+                       "height":  310.95,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  291,
+                       "width":  241.8,
+                       "page":  291,
+                       "height":  424.8,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  294,
+                       "width":  231.6,
+                       "page":  293,
+                       "height":  474.6,
+                       "nextText":  ""
+                   }
+               ]
+}

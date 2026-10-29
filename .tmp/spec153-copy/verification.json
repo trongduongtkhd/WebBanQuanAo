@@ -1,0 +1,11 @@
+﻿{
+    "textIdentical":  true,
+    "tables":  26,
+    "images":  25,
+    "imagesByteIdentical":  true,
+    "tableStructureIdentical":  true,
+    "outsideSectionTextPreserved":  true,
+    "duplicateDrawingIds":  0,
+    "sequenceDiagramsPreserved":  40,
+    "targetUnchangedSinceSnapshot":  true
+}

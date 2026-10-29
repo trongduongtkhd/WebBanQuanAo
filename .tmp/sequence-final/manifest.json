@@ -1,0 +1,2037 @@
+[
+  {
+    "id": 1,
+    "code": "01",
+    "title": "Luồng xử lý chung của hệ thống",
+    "form": "SystemForm",
+    "controller": "Controller",
+    "service": "Service",
+    "actor": "Người dùng",
+    "pre": "Sơ đồ kiến trúc tổng quát; các sơ đồ sau sử dụng tên lớp cụ thể.",
+    "lanes": [
+      {
+        "name": "Người dùng",
+        "type": "actor"
+      },
+      {
+        "name": ": SystemForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": Controller",
+        "type": "control"
+      },
+      {
+        "name": ": Service",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-01.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-01.svg",
+    "width": 1800,
+    "height": 1014,
+    "messages": 11,
+    "part": 1,
+    "parts": 1,
+    "group": 1
+  },
+  {
+    "id": 2,
+    "code": "02",
+    "title": "Đăng ký tài khoản",
+    "form": "RegisterForm",
+    "controller": "AuthController",
+    "service": "AuthService",
+    "actor": "Khách hàng",
+    "pre": "Chưa có tài khoản; thông tin và CAPTCHA hợp lệ.",
+    "extra": [
+      {
+        "name": ": RefreshTokenService",
+        "type": "control"
+      }
+    ],
+    "sources": {
+      "AuthService": [
+        "RegisterAsync"
+      ],
+      "RefreshTokenService": [
+        "IssueAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": RegisterForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AuthController",
+        "type": "control"
+      },
+      {
+        "name": ": AuthService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": RefreshTokenService",
+        "type": "control"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-02.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-02.svg",
+    "width": 2100,
+    "height": 1749,
+    "messages": 18,
+    "part": 1,
+    "parts": 1,
+    "group": 2
+  },
+  {
+    "id": 3,
+    "code": "03",
+    "title": "Đăng nhập tài khoản",
+    "form": "LoginForm",
+    "controller": "AuthController",
+    "service": "AuthService",
+    "actor": "Khách hàng",
+    "pre": "Tài khoản hợp lệ; nếu bật 2FA phải xác minh thêm. CAPTCHA không khả dụng được xử lý theo failOpen của đăng nhập.",
+    "extra": [
+      {
+        "name": ": TwoFactorService",
+        "type": "control"
+      }
+    ],
+    "sources": {
+      "AuthService": [
+        "LoginAsync",
+        "CreateAuthResponseForUserAsync"
+      ],
+      "TwoFactorService": [
+        "CreateLoginChallengeAsync",
+        "VerifyLoginCodeAsync",
+        "VerifyLoginRecoveryCodeAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": LoginForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AuthController",
+        "type": "control"
+      },
+      {
+        "name": ": AuthService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": TwoFactorService",
+        "type": "control"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-03.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-03.svg",
+    "width": 2100,
+    "height": 2344,
+    "messages": 25,
+    "part": 1,
+    "parts": 1,
+    "group": 3
+  },
+  {
+    "id": 4,
+    "code": "04",
+    "title": "Quên và đặt lại mật khẩu",
+    "form": "PasswordResetForm",
+    "controller": "AuthController",
+    "service": "AuthService",
+    "actor": "Khách hàng",
+    "pre": "Email hoặc reset token hợp lệ. Phản hồi quên mật khẩu không tiết lộ email có tồn tại.",
+    "extra": [
+      {
+        "name": ": EmailService",
+        "type": "control"
+      }
+    ],
+    "sources": {
+      "AuthService": [
+        "ForgotPasswordAsync",
+        "ResetPasswordAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": PasswordResetForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AuthController",
+        "type": "control"
+      },
+      {
+        "name": ": AuthService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": EmailService",
+        "type": "control"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-04.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-04.svg",
+    "width": 2100,
+    "height": 1768,
+    "messages": 17,
+    "part": 1,
+    "parts": 1,
+    "group": 4
+  },
+  {
+    "id": 5,
+    "code": "05",
+    "title": "Quản lý phiên đăng nhập",
+    "form": "SessionForm",
+    "controller": "AuthController",
+    "service": "RefreshTokenService",
+    "actor": "Khách hàng",
+    "pre": "Trình duyệt gửi cookie. Token lỗi bị từ chối; tái sử dụng ngoài grace có thể thu hồi họ phiên.",
+    "sources": {
+      "RefreshTokenService": [
+        "RotateAsync",
+        "RevokeFamilyAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": SessionForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AuthController",
+        "type": "control"
+      },
+      {
+        "name": ": RefreshTokenService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-05.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-05.svg",
+    "width": 1800,
+    "height": 1711,
+    "messages": 17,
+    "part": 1,
+    "parts": 1,
+    "group": 5
+  },
+  {
+    "id": 6,
+    "code": "06",
+    "title": "Thiết lập xác thực hai lớp",
+    "form": "TwoFactorForm",
+    "controller": "TwoFactorController",
+    "service": "TwoFactorService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập. Mã khôi phục thô chỉ trả khi bật 2FA; tắt 2FA không thu hồi các phiên đang sống.",
+    "sources": {
+      "TwoFactorService": [
+        "GetSetupAsync",
+        "EnableAsync",
+        "DisableAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": TwoFactorForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": TwoFactorController",
+        "type": "control"
+      },
+      {
+        "name": ": TwoFactorService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-06.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-06.svg",
+    "width": 1800,
+    "height": 1842,
+    "messages": 17,
+    "part": 1,
+    "parts": 1,
+    "group": 6
+  },
+  {
+    "id": 7,
+    "code": "07",
+    "title": "Tra cứu và xem sản phẩm",
+    "form": "ProductForm",
+    "controller": "ProductsController",
+    "service": "StorefrontService",
+    "actor": "Khách hàng",
+    "pre": "Không bắt buộc đăng nhập; chỉ trả sản phẩm được công khai.",
+    "sources": {
+      "StorefrontService": [
+        "GetProductsAsync",
+        "GetProductBySlugAsync",
+        "GetFeaturedProductsAsync",
+        "GetNewArrivalProductsAsync",
+        "GetRelatedProductsAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": ProductForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": ProductsController",
+        "type": "control"
+      },
+      {
+        "name": ": StorefrontService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-07.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-07.svg",
+    "width": 1800,
+    "height": 1747,
+    "messages": 15,
+    "part": 1,
+    "parts": 1,
+    "group": 7
+  },
+  {
+    "id": 8,
+    "code": "08",
+    "title": "Quản lý giỏ hàng",
+    "form": "CartForm",
+    "controller": "CartController",
+    "service": "CartService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập; luồng hợp lệ; mỗi yêu cầu chọn một thao tác.",
+    "approvedCart": true,
+    "sources": {
+      "CartService": [
+        "GetMyCartAsync",
+        "AddItemAsync",
+        "UpdateItemAsync",
+        "DeleteItemAsync",
+        "ClearCartAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": CartForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": CartController",
+        "type": "control"
+      },
+      {
+        "name": ": CartService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-08.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-08.svg",
+    "width": 1800,
+    "height": 2459,
+    "messages": 22,
+    "part": 1,
+    "parts": 1,
+    "group": 8
+  },
+  {
+    "id": 9,
+    "code": "09",
+    "title": "Quản lý danh sách yêu thích",
+    "form": "WishlistForm",
+    "controller": "WishlistController",
+    "service": "WishlistService",
+    "actor": "Khách hàng",
+    "pre": "Luồng hợp lệ; yêu cầu có bảo vệ phải đăng nhập.",
+    "sources": {
+      "WishlistService": [
+        "GetMyWishlistAsync",
+        "AddItemAsync",
+        "RemoveItemAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": WishlistForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": WishlistController",
+        "type": "control"
+      },
+      {
+        "name": ": WishlistService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-09.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-09.svg",
+    "width": 1800,
+    "height": 1568,
+    "messages": 15,
+    "part": 1,
+    "parts": 1,
+    "group": 9
+  },
+  {
+    "id": 10,
+    "code": "10",
+    "title": "Quản lý hồ sơ và mật khẩu",
+    "form": "ProfileForm",
+    "controller": "UsersController / AuthController",
+    "service": "UserProfileService / AuthService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập. Chọn UsersController và UserProfileService cho hồ sơ; AuthController và AuthService cho auth/me. Upload avatar được mô tả riêng.",
+    "sources": {
+      "UserProfileService": [
+        "GetProfileAsync",
+        "UpdateProfileAsync",
+        "ChangePasswordAsync"
+      ],
+      "AuthService": [
+        "GetCurrentUserAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": ProfileForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": UsersController / AuthController",
+        "type": "control"
+      },
+      {
+        "name": ": UserProfileService / AuthService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-10.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-10.svg",
+    "width": 1800,
+    "height": 1768,
+    "messages": 16,
+    "part": 1,
+    "parts": 1,
+    "group": 10
+  },
+  {
+    "id": 11,
+    "code": "11",
+    "title": "Quản lý địa chỉ giao hàng",
+    "form": "AddressForm",
+    "controller": "AddressesController",
+    "service": "AddressService",
+    "actor": "Khách hàng",
+    "pre": "Luồng hợp lệ; yêu cầu có bảo vệ phải đăng nhập.",
+    "sources": {
+      "AddressService": [
+        "GetMyAddressesAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "SetDefaultAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": AddressForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AddressesController",
+        "type": "control"
+      },
+      {
+        "name": ": AddressService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-11.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-11.svg",
+    "width": 1800,
+    "height": 1824,
+    "messages": 17,
+    "part": 1,
+    "parts": 1,
+    "group": 11
+  },
+  {
+    "id": 12,
+    "code": "12",
+    "title": "Xem và áp dụng mã giảm giá",
+    "form": "CouponForm",
+    "controller": "CouponsController",
+    "service": "CouponService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập. ValidateForCartAsync xử lý cả giỏ và BuyNowItem. OrderService kiểm tra lại và ghi lượt dùng khi tạo đơn.",
+    "sources": {
+      "CouponService": [
+        "GetAvailableForUserAsync",
+        "ValidateForCartAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": CouponForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": CouponsController",
+        "type": "control"
+      },
+      {
+        "name": ": CouponService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-12.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-12.svg",
+    "width": 1800,
+    "height": 1633,
+    "messages": 15,
+    "part": 1,
+    "parts": 1,
+    "group": 12
+  },
+  {
+    "id": 13,
+    "code": "13",
+    "title": "Tạo đơn hàng",
+    "form": "CheckoutForm",
+    "controller": "OrdersController",
+    "service": "OrderService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập; địa chỉ và dữ liệu đặt hàng hợp lệ. Có lỗi thì rollback toàn bộ giao dịch.",
+    "sources": {
+      "OrderService": [
+        "CreateAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": CheckoutForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": OrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": OrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-13.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-13.svg",
+    "width": 1800,
+    "height": 1940,
+    "messages": 17,
+    "part": 1,
+    "parts": 1,
+    "group": 13
+  },
+  {
+    "id": 14,
+    "code": "14",
+    "title": "Thanh toán QR mô phỏng",
+    "form": "MockQrForm",
+    "controller": "OrdersController",
+    "service": "OrderService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập. MockQR là chức năng mô phỏng, không phải callback của cổng VNPAY.",
+    "sources": {
+      "OrderService": [
+        "GetMockQrAsync",
+        "ConfirmMockQrAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": MockQrForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": OrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": OrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-14.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-14.svg",
+    "width": 1800,
+    "height": 1378,
+    "messages": 13,
+    "part": 1,
+    "parts": 1,
+    "group": 14
+  },
+  {
+    "id": 15,
+    "code": "15",
+    "title": "Thanh toán qua VNPAY",
+    "form": "VnpayForm",
+    "controller": "VnpayController",
+    "service": "VnpayService",
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập khi tạo URL hoặc xem trạng thái. IPN và Return có thể đến theo thứ tự khác nhau; xử lý phải chống lặp.",
+    "extra": [
+      {
+        "name": ": VNPAY",
+        "type": "object"
+      }
+    ],
+    "sources": {
+      "VnpayService": [
+        "CreatePaymentUrlAsync",
+        "HandleIpnAsync",
+        "HandleReturnAsync",
+        "GetStatusAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": VnpayForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": VnpayController",
+        "type": "control"
+      },
+      {
+        "name": ": VnpayService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": VNPAY",
+        "type": "object"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-15.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-15.svg",
+    "width": 2100,
+    "height": 2777,
+    "messages": 28,
+    "part": 1,
+    "parts": 1,
+    "group": 15
+  },
+  {
+    "id": 16,
+    "code": "16",
+    "title": "Đối soát giao dịch VNPAY",
+    "form": "VnpayReconcileForm",
+    "controller": "VnpayController / AdminVnpayController",
+    "service": "VnpayService",
+    "actor": "Khách hàng",
+    "pre": "QueryDR gọi ra ngoài giao dịch cập nhật. Quản trị dùng chủ đơn thật khi gọi VnpayService.",
+    "extra": [
+      {
+        "name": ": VNPAY QueryDR",
+        "type": "object"
+      }
+    ],
+    "sources": {
+      "VnpayService": [
+        "ReconcileAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": VnpayReconcileForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": VnpayController / AdminVnpayController",
+        "type": "control"
+      },
+      {
+        "name": ": VnpayService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": VNPAY QueryDR",
+        "type": "object"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-16.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-16.svg",
+    "width": 2100,
+    "height": 2029,
+    "messages": 21,
+    "part": 1,
+    "parts": 1,
+    "group": 16
+  },
+  {
+    "id": 17,
+    "code": "17",
+    "title": "Xử lý đơn VNPAY hết hạn",
+    "form": null,
+    "controller": null,
+    "service": "VnpayService",
+    "actor": "Khách hàng",
+    "pre": "Tác vụ nền chạy định kỳ. Đơn đã thanh toán hoặc còn giao dịch cần kiểm tra sẽ không bị hủy tùy tiện.",
+    "lanes": [
+      {
+        "name": ": VnpayExpiryWorker",
+        "type": "control"
+      },
+      {
+        "name": ": VnpayService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": VNPAY QueryDR",
+        "type": "object"
+      }
+    ],
+    "sources": {
+      "VnpayService": [
+        "ProcessExpiredOrdersAsync"
+      ]
+    },
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-17.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-17.svg",
+    "width": 1800,
+    "height": 1192,
+    "messages": 12,
+    "part": 1,
+    "parts": 1,
+    "group": 17
+  },
+  {
+    "id": 18,
+    "code": "18",
+    "title": "Theo dõi và hủy đơn của khách",
+    "form": "OrderForm",
+    "controller": "OrdersController",
+    "service": "OrderService",
+    "actor": "Khách hàng",
+    "pre": "Luồng hợp lệ; yêu cầu có bảo vệ phải đăng nhập.",
+    "sources": {
+      "OrderService": [
+        "GetMyOrdersAsync",
+        "GetMyOrderByIdAsync",
+        "CancelAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": OrderForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": OrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": OrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-18.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-18.svg",
+    "width": 1800,
+    "height": 1489,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 18
+  },
+  {
+    "id": 19,
+    "code": "19",
+    "title": "Khách hàng yêu cầu trả hàng",
+    "form": "ReturnRequestForm",
+    "controller": "OrdersController",
+    "service": "OrderService",
+    "actor": "Khách hàng",
+    "pre": "Luồng hợp lệ; yêu cầu có bảo vệ phải đăng nhập.",
+    "sources": {
+      "OrderService": [
+        "CreateReturnRequestAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": ReturnRequestForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": OrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": OrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-19.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-19.svg",
+    "width": 1800,
+    "height": 1356,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 19
+  },
+  {
+    "id": 20,
+    "code": "20",
+    "title": "Đánh giá sản phẩm của khách",
+    "form": "ReviewForm",
+    "controller": "ProductsController / ReviewsController",
+    "service": "ReviewService",
+    "actor": "Khách hàng",
+    "pre": "Xem công khai qua ProductsController; thao tác cá nhân qua ReviewsController và phải đăng nhập.",
+    "sources": {
+      "ReviewService": [
+        "GetProductReviewsAsync",
+        "GetMyReviewsAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": ReviewForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": ProductsController / ReviewsController",
+        "type": "control"
+      },
+      {
+        "name": ": ReviewService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-20.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-20.svg",
+    "width": 1800,
+    "height": 1731,
+    "messages": 16,
+    "part": 1,
+    "parts": 1,
+    "group": 20
+  },
+  {
+    "id": 21,
+    "code": "21",
+    "title": "Quản trị sản phẩm",
+    "form": "AdminProductForm",
+    "controller": "AdminProductsController",
+    "service": "ProductService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "ProductService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": AdminProductForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminProductsController",
+        "type": "control"
+      },
+      {
+        "name": ": ProductService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-21.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-21.svg",
+    "width": 1800,
+    "height": 1790,
+    "messages": 15,
+    "part": 1,
+    "parts": 1,
+    "group": 21
+  },
+  {
+    "id": 22,
+    "code": "22",
+    "title": "Quản trị biến thể sản phẩm",
+    "form": "ProductVariantForm",
+    "controller": "AdminProductsController",
+    "service": "ProductService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin. Tồn kho được quản lý qua nghiệp vụ nhập kho và bán hàng.",
+    "admin": true,
+    "sources": {
+      "ProductService": [
+        "CreateVariantAsync",
+        "UpdateVariantAsync",
+        "DeleteVariantAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": ProductVariantForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminProductsController",
+        "type": "control"
+      },
+      {
+        "name": ": ProductService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-22.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-22.svg",
+    "width": 1800,
+    "height": 1521,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 22
+  },
+  {
+    "id": 23,
+    "code": "23",
+    "title": "Upload và quản lý ảnh sản phẩm",
+    "form": "ProductImageForm",
+    "controller": "AdminProductsController / UploadsController",
+    "service": "ProductService",
+    "actor": "Quản trị viên",
+    "pre": "Admin upload JPG, JPEG, PNG hoặc WEBP. Lưu tệp và gắn URL vào sản phẩm là hai yêu cầu độc lập; xóa liên kết không xóa tệp vật lý.",
+    "admin": true,
+    "extra": [
+      {
+        "name": "wwwroot/uploads",
+        "type": "object"
+      }
+    ],
+    "sources": {
+      "ProductService": [
+        "CreateImageAsync",
+        "UpdateImageAsync",
+        "DeleteImageAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": ProductImageForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminProductsController / UploadsController",
+        "type": "control"
+      },
+      {
+        "name": ": ProductService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": "wwwroot/uploads",
+        "type": "object"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-23.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-23.svg",
+    "width": 2100,
+    "height": 1991,
+    "messages": 21,
+    "part": 1,
+    "parts": 1,
+    "group": 23
+  },
+  {
+    "id": 24,
+    "code": "24",
+    "title": "Quản trị danh mục",
+    "form": "CategoryForm",
+    "controller": "AdminCategoriesController",
+    "service": "CategoryService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "CategoryService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": CategoryForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminCategoriesController",
+        "type": "control"
+      },
+      {
+        "name": ": CategoryService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-24.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-24.svg",
+    "width": 1800,
+    "height": 1711,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 24
+  },
+  {
+    "id": 25,
+    "code": "25",
+    "title": "Quản trị thương hiệu",
+    "form": "BrandForm",
+    "controller": "AdminBrandsController",
+    "service": "BrandService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "BrandService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": BrandForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminBrandsController",
+        "type": "control"
+      },
+      {
+        "name": ": BrandService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-25.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-25.svg",
+    "width": 1800,
+    "height": 1601,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 25
+  },
+  {
+    "id": 26,
+    "code": "26",
+    "title": "Quản trị màu sắc",
+    "form": "ColorForm",
+    "controller": "AdminColorsController",
+    "service": "ColorService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "ColorService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": ColorForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminColorsController",
+        "type": "control"
+      },
+      {
+        "name": ": ColorService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-26.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-26.svg",
+    "width": 1800,
+    "height": 1601,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 26
+  },
+  {
+    "id": 27,
+    "code": "27",
+    "title": "Quản trị kích thước",
+    "form": "SizeForm",
+    "controller": "AdminSizesController",
+    "service": "SizeService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "SizeService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": SizeForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminSizesController",
+        "type": "control"
+      },
+      {
+        "name": ": SizeService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-27.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-27.svg",
+    "width": 1800,
+    "height": 1601,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 27
+  },
+  {
+    "id": 28,
+    "code": "28",
+    "title": "Quản trị nhà cung cấp",
+    "form": "SupplierForm",
+    "controller": "AdminSuppliersController",
+    "service": "SupplierService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "SupplierService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "DeleteAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": SupplierForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminSuppliersController",
+        "type": "control"
+      },
+      {
+        "name": ": SupplierService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-28.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-28.svg",
+    "width": 1800,
+    "height": 1653,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 28
+  },
+  {
+    "id": 29,
+    "code": "29",
+    "title": "Quản lý phiếu nhập kho",
+    "form": "PurchaseOrderForm",
+    "controller": "AdminPurchaseOrdersController",
+    "service": "PurchaseOrderService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "PurchaseOrderService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "CancelAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": PurchaseOrderForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminPurchaseOrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": PurchaseOrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-29.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-29.svg",
+    "width": 1800,
+    "height": 1867,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 29
+  },
+  {
+    "id": 30,
+    "code": "30",
+    "title": "Quản trị mã giảm giá",
+    "form": "AdminCouponForm",
+    "controller": "AdminCouponsController",
+    "service": "CouponService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin. Các thao tác quản trị không tăng lượt dùng mã.",
+    "admin": true,
+    "sources": {
+      "CouponService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "GetUsagesAsync",
+        "CreateAsync",
+        "UpdateAsync",
+        "UpdateStatusAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": AdminCouponForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminCouponsController",
+        "type": "control"
+      },
+      {
+        "name": ": CouponService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-30.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-30.svg",
+    "width": 1800,
+    "height": 1514,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 30
+  },
+  {
+    "id": 31,
+    "code": "31",
+    "title": "Quản trị đơn hàng và thanh toán",
+    "form": "AdminOrderForm",
+    "controller": "AdminOrdersController",
+    "service": "AdminOrderService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin. VNPAY phải Paid trước xử lý giao hàng; không hủy đơn VNPAY đã Paid hoặc Refunded vì chưa hỗ trợ hoàn qua cổng.",
+    "admin": true,
+    "sources": {
+      "AdminOrderService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "UpdateOrderStatusAsync",
+        "UpdatePaymentStatusAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": AdminOrderForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminOrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": AdminOrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-31.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-31.svg",
+    "width": 1800,
+    "height": 2539,
+    "messages": 20,
+    "part": 1,
+    "parts": 1,
+    "group": 31
+  },
+  {
+    "id": 32,
+    "code": "32",
+    "title": "Kiểm duyệt đánh giá",
+    "form": "AdminReviewForm",
+    "controller": "AdminReviewsController",
+    "service": "ReviewService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "sources": {
+      "ReviewService": [
+        "GetAllForAdminAsync",
+        "SetApprovalAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": AdminReviewForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminReviewsController",
+        "type": "control"
+      },
+      {
+        "name": ": ReviewService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-32.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-32.svg",
+    "width": 1800,
+    "height": 1210,
+    "messages": 12,
+    "part": 1,
+    "parts": 1,
+    "group": 32
+  },
+  {
+    "id": 33,
+    "code": "33",
+    "title": "Quản trị người dùng",
+    "form": "UserForm",
+    "controller": "AdminUsersController",
+    "service": "AdminUserService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin.",
+    "admin": true,
+    "extra": [
+      {
+        "name": ": RefreshTokenService",
+        "type": "control"
+      }
+    ],
+    "sources": {
+      "AdminUserService": [
+        "GetAllAsync",
+        "GetByIdAsync",
+        "UpdateStatusAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": UserForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminUsersController",
+        "type": "control"
+      },
+      {
+        "name": ": AdminUserService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": RefreshTokenService",
+        "type": "control"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-33.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-33.svg",
+    "width": 2100,
+    "height": 1729,
+    "messages": 16,
+    "part": 1,
+    "parts": 1,
+    "group": 33
+  },
+  {
+    "id": 34,
+    "code": "34",
+    "title": "Thống kê cửa hàng",
+    "form": "DashboardForm",
+    "controller": "AdminDashboardController",
+    "service": "AdminDashboardService",
+    "actor": "Quản trị viên",
+    "pre": "Doanh thu lọc theo CreatedAt của đơn Completed. Tổng khách, tồn thấp và hàng bán chạy dùng phạm vi riêng trong truy vấn.",
+    "admin": true,
+    "sources": {
+      "AdminDashboardService": [
+        "GetAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": DashboardForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminDashboardController",
+        "type": "control"
+      },
+      {
+        "name": ": AdminDashboardService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-34.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-34.svg",
+    "width": 1800,
+    "height": 1504,
+    "messages": 14,
+    "part": 1,
+    "parts": 1,
+    "group": 34
+  },
+  {
+    "id": 35,
+    "code": "35",
+    "title": "Quản trị yêu cầu trả hàng",
+    "form": "AdminReturnForm",
+    "controller": "AdminOrdersController",
+    "service": "AdminOrderService",
+    "actor": "Quản trị viên",
+    "pre": "Đã đăng nhập với quyền Admin. Từ chối không hoàn kho, không hoàn tiền và không chuyển đơn sang Returned.",
+    "admin": true,
+    "sources": {
+      "AdminOrderService": [
+        "ApproveReturnAsync",
+        "RejectReturnAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Quản trị viên",
+        "type": "actor"
+      },
+      {
+        "name": ": AdminReturnForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": AdminOrdersController",
+        "type": "control"
+      },
+      {
+        "name": ": AdminOrderService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-35.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-35.svg",
+    "width": 1800,
+    "height": 1739,
+    "messages": 17,
+    "part": 1,
+    "parts": 1,
+    "group": 35
+  },
+  {
+    "id": 36,
+    "code": "36",
+    "title": "Trợ lý mua sắm",
+    "form": "ChatForm",
+    "controller": "ChatController",
+    "service": "ChatService",
+    "actor": "Khách hàng",
+    "pre": "Nhánh chính sách không gọi SQL hoặc AI. AI không khả dụng trả lỗi; không tự chuyển sang kết quả tìm kiếm giả.",
+    "extra": [
+      {
+        "name": ": OllamaChatIntentClient",
+        "type": "control"
+      }
+    ],
+    "sources": {
+      "ChatService": [
+        "ReplyAsync"
+      ],
+      "OllamaChatIntentClient": [
+        "InterpretAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": ChatForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": ChatController",
+        "type": "control"
+      },
+      {
+        "name": ": ChatService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      },
+      {
+        "name": ": OllamaChatIntentClient",
+        "type": "control"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-36.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-36.svg",
+    "width": 2100,
+    "height": 1753,
+    "messages": 15,
+    "part": 1,
+    "parts": 1,
+    "group": 36
+  },
+  {
+    "id": 37,
+    "code": "37",
+    "title": "Upload ảnh đại diện",
+    "form": "AvatarForm",
+    "controller": "ProfileUploadsController",
+    "service": null,
+    "actor": "Khách hàng",
+    "pre": "Đã đăng nhập. Upload lưu tệp trực tiếp; gắn AvatarUrl vào User là yêu cầu cập nhật hồ sơ riêng.",
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": AvatarForm",
+        "type": "boundary"
+      },
+      {
+        "name": ": ProfileUploadsController",
+        "type": "control"
+      },
+      {
+        "name": "wwwroot/uploads/avatars",
+        "type": "object"
+      }
+    ],
+    "sources": {
+      "ProfileUploadsController": [
+        "UploadAvatar"
+      ]
+    },
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-37.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-37.svg",
+    "width": 1800,
+    "height": 706,
+    "messages": 8,
+    "part": 1,
+    "parts": 1,
+    "group": 37
+  },
+  {
+    "id": 38,
+    "code": "38",
+    "title": "Tra cứu dữ liệu công khai",
+    "form": "CatalogForm / ApiClient",
+    "controller": "CategoriesController / BrandsController / ColorsController / SizesController",
+    "service": "StorefrontService",
+    "actor": "Khách hàng",
+    "pre": "Mỗi yêu cầu dùng Controller tương ứng. Các API màu, size và danh mục theo slug được mô tả như API hiện có; không khẳng định Angular gọi mọi endpoint.",
+    "sources": {
+      "StorefrontService": [
+        "GetCategoriesAsync",
+        "GetBrandsAsync",
+        "GetColorsAsync",
+        "GetSizesAsync",
+        "GetCategoryBySlugAsync"
+      ]
+    },
+    "lanes": [
+      {
+        "name": "Khách hàng",
+        "type": "actor"
+      },
+      {
+        "name": ": CatalogForm / ApiClient",
+        "type": "boundary"
+      },
+      {
+        "name": ": CategoriesController / BrandsController / ColorsController / SizesController",
+        "type": "control"
+      },
+      {
+        "name": ": StorefrontService",
+        "type": "control"
+      },
+      {
+        "name": ": AppDbContext",
+        "type": "control"
+      },
+      {
+        "name": ": SQL Server",
+        "type": "database"
+      }
+    ],
+    "path": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-38.png",
+    "svgPath": "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\sequence-final\\diagram-38.svg",
+    "width": 1800,
+    "height": 1775,
+    "messages": 16,
+    "part": 1,
+    "parts": 1,
+    "group": 38
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "comparedPages": 66,
+  "identicalInteriorPages": 53,
+  "changedPages": [
+    {
+      "page": 45,
+      "differentPercent": 9.628
+    },
+    {
+      "page": 46,
+      "differentPercent": 19.323
+    },
+    {
+      "page": 47,
+      "differentPercent": 20.227
+    },
+    {
+      "page": 48,
+      "differentPercent": 19.689
+    },
+    {
+      "page": 49,
+      "differentPercent": 25.042
+    },
+    {
+      "page": 50,
+      "differentPercent": 19.003
+    },
+    {
+      "page": 51,
+      "differentPercent": 20.603
+    },
+    {
+      "page": 52,
+      "differentPercent": 21.312
+    },
+    {
+      "page": 53,
+      "differentPercent": 24.387
+    },
+    {
+      "page": 54,
+      "differentPercent": 24.015
+    },
+    {
+      "page": 55,
+      "differentPercent": 19.139
+    },
+    {
+      "page": 56,
+      "differentPercent": 20.556
+    }
+  ],
+  "marginOutliers": []
+}

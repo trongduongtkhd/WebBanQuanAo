@@ -1,0 +1,15 @@
+﻿{
+    "replaced":  224,
+    "insideTables":  202,
+    "remainingFaultyGlyphs":  0,
+    "font":  "Times New Roman",
+    "replacement":  "U+2022",
+    "otherTextUnchanged":  true,
+    "samples":  [
+                    "•Người dùng truy cập trang Đăng ký.",
+                    "•Hệ thống hiển thị biểu mẫu đăng ký gồm các trường:",
+                    "•Người dùng nhập thông tin và nhấn nút “Đăng ký”.",
+                    "•Hệ thống kiểm tra tính hợp lệ của dữ liệu ở giao diện và ở máy chủ.",
+                    "•Hệ thống tạo tài khoản, cấp token đăng nhập và chuyển người dùng về trang chủ."
+                ]
+}

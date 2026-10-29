@@ -1,0 +1,758 @@
+﻿[
+    {
+        "index":  549,
+        "text":  "2.2.1 Các biểu đồ tuần tự (Sequence diagrams)",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  550,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image154.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "1588008"
+    },
+    {
+        "index":  551,
+        "text":  "Hình 2.1. Sơ đồ lớp phân tích chung ●Actor: Tác nhân tham gia sử dụng hệ thống.",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  552,
+        "text":  "Form: Form là lớp trung gian thể hiện sự tương tác giữa hệ thống và những gì bên ngoài hệ thống. Ở đây là giao diện giữa người dùng và hệ thống.",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  553,
+        "text":  "Control: Lớp điều khiển thực hiện chức năng chính của UC.",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  554,
+        "text":  "Entity: Lớp thực thể chứa những thông tin tồn tại và được lưu trữ lâu dài trong hệ thống.",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  555,
+        "text":  "DBManager: Lớp quản lý việc truy cập và thao tác với cơ sở dữ liệu.",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  556,
+        "text":  "Database: Cơ sở dữ liệu.",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  557,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image155.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "2400300"
+    },
+    {
+        "index":  558,
+        "text":  "Hình 2.2. Sơ đồ tuần tự chung",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  559,
+        "text":  "Biều đồ tuần tự chức năng Đăng nhập/ Đăng ký",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  560,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image156.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "1524000"
+    },
+    {
+        "index":  561,
+        "text":  "Hình 2.3. Sơ đồ lớp phân tích của chức năng Đăng nhập/ Đăng ký",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  562,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image157.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "4102608"
+    },
+    {
+        "index":  563,
+        "text":  "Hình 2.4. Sơ đồ tuần tự của chức năng Đăng nhập/ Đăng ký",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  564,
+        "text":  "Biều đồ tuần tự chức năng Quản lý người dùng",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  565,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image158.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1421892"
+    },
+    {
+        "index":  566,
+        "text":  "Hình 2.5. Sơ đồ lớp phân tích của chức năng Quản lý người dùng",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  567,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image159.png"
+                   ],
+        "width":  "5759196",
+        "height":  "6236208"
+    },
+    {
+        "index":  568,
+        "text":  "Hình 2.6. Sơ đồ tuần tự của chức năng Quản lý người dùng",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  569,
+        "text":  "Biều đồ tuần tự chức năng Quản lý nhân viên",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  570,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image160.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1549908"
+    },
+    {
+        "index":  571,
+        "text":  "Hình 2.7. Sơ đồ lớp phân tích của chức năng Quản lý nhân viên",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  572,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image161.png"
+                   ],
+        "width":  "5759196",
+        "height":  "7315200"
+    },
+    {
+        "index":  573,
+        "text":  "Hình 2.8. Sơ đồ tuần tự của chức năng Quản lý nhân viên ❖ Biều đồ tuần tự chức năng Quản lý khách hàng",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  574,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image162.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1524000"
+    },
+    {
+        "index":  575,
+        "text":  "Hình 2.9. Sơ đồ lớp phân tích của chức năng Quản lý khách hàng",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  576,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image163.png"
+                   ],
+        "width":  "5759196",
+        "height":  "6527293"
+    },
+    {
+        "index":  577,
+        "text":  "Hình 2.10. Sơ đồ tuần tự của chức năng Quản lý khách hàng",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  578,
+        "text":  "",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  579,
+        "text":  "tài khoản",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  580,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image164.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1828800"
+    },
+    {
+        "index":  581,
+        "text":  "Hình 2.11. Sơ đồ lớp phân tích của chức năng Quản lý tài khoản",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  582,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image165.png"
+                   ],
+        "width":  "5759196",
+        "height":  "8089393"
+    },
+    {
+        "index":  583,
+        "text":  "Hình 2.12. Sơ đồ tuần tự của chức năng Quản lý tài khoản tài khoản cá nhân",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  584,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image166.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "2273808"
+    },
+    {
+        "index":  585,
+        "text":  "Hình 2.13. Sơ đồ lớp phân tích của chức năng Quản lý tài khoản cá nhân",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  586,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image167.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "7162800"
+    },
+    {
+        "index":  587,
+        "text":  "Hình 2.14. Sơ đồ tuần tự của chức năng Quản lý tài khoản cá nhân phim",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  588,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image168.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1524000"
+    },
+    {
+        "index":  589,
+        "text":  "Hình 2.15. Sơ đồ lớp phân tích của chức năng Quản lý phim",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  590,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image169.png"
+                   ],
+        "width":  "5344668",
+        "height":  "8401812"
+    },
+    {
+        "index":  591,
+        "text":  "Hình 2.16. Sơ đồ tuần tự của chức năng Quản lý phim phòng chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  592,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image170.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1524000"
+    },
+    {
+        "index":  593,
+        "text":  "Hình 2.17. Sơ đồ lớp phân tích của chức năng Quản lý phòng chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  594,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image171.png"
+                   ],
+        "width":  "5286756",
+        "height":  "8310372"
+    },
+    {
+        "index":  595,
+        "text":  "Hình 2.18. Sơ đồ tuần tự của chức năng Quản lý phòng chiếu ghế",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  596,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image172.jpg"
+                   ],
+        "width":  "5682996",
+        "height":  "1755648"
+    },
+    {
+        "index":  597,
+        "text":  "Hình 2.19. Sơ đồ lớp phân tích của chức năng Quản lý ghế",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  598,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image173.jpg"
+                   ],
+        "width":  "5696712",
+        "height":  "8119872"
+    },
+    {
+        "index":  599,
+        "text":  "Hình 2.20. Sơ đồ tuần tự của chức năng Quản lý ghế suất chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  600,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image174.png"
+                   ],
+        "width":  "5759196",
+        "height":  "2045208"
+    },
+    {
+        "index":  601,
+        "text":  "Hình 2.21. Sơ đồ lớp phân tích của chức năng Quản lý suất chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  602,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image175.png"
+                   ],
+        "width":  "4762500",
+        "height":  "8074152"
+    },
+    {
+        "index":  603,
+        "text":  "Hình 2.22. Sơ đồ tuần tự của chức năng Quản lý suất chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  604,
+        "text":  "",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  605,
+        "text":  "Kiểm soát lịch chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  606,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image176.png"
+                   ],
+        "width":  "5759196",
+        "height":  "2045208"
+    },
+    {
+        "index":  607,
+        "text":  "Hình 2.23. Sơ đồ lớp phân tích của chức năng Kiểm soát lịch chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  608,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image177.png"
+                   ],
+        "width":  "5759196",
+        "height":  "3441192"
+    },
+    {
+        "index":  609,
+        "text":  "Hình 2.24. Sơ đồ tuần tự của chức năng Kiểm soát lịch chiếu",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  610,
+        "text":  "Đặt vé xem phim",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  611,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image178.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "2247900"
+    },
+    {
+        "index":  612,
+        "text":  "Hình 2.25. Sơ đồ lớp phân tích của chức năng Đặt vé xem phim",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  613,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image179.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "7074408"
+    },
+    {
+        "index":  614,
+        "text":  "Hình 2.26. Sơ đồ tuần tự của chức năng Đặt vé xem phim Quản lý vé",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  615,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image180.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "2273808"
+    },
+    {
+        "index":  616,
+        "text":  "Hình 2.27. Sơ đồ lớp phân tích của chức năng Quản lý vé",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  617,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image181.jpg"
+                   ],
+        "width":  "5899404",
+        "height":  "6568440"
+    },
+    {
+        "index":  618,
+        "text":  "Hình 2.28. Sơ đồ tuần tự của chức năng Quản lý vé Quản lý hóa đơn",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  619,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image182.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "1917192"
+    },
+    {
+        "index":  620,
+        "text":  "Hình 2.29. Sơ đồ lớp phân tích của chức năng Quản lý hóa đơn",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  621,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image183.jpg"
+                   ],
+        "width":  "5730240",
+        "height":  "6949440"
+    },
+    {
+        "index":  622,
+        "text":  "Hình 2.30. Sơ đồ tuần tự của chức năng Quản lý hóa đơn Thống kê và báo cáo",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  623,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image184.png"
+                   ],
+        "width":  "5759196",
+        "height":  "2374392"
+    },
+    {
+        "index":  624,
+        "text":  "Hình 2.31. Sơ đồ lớp phân tích của chức năng Thống kê và báo cáo",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  625,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image185.png"
+                   ],
+        "width":  "5759196",
+        "height":  "3505200"
+    },
+    {
+        "index":  626,
+        "text":  "Hình 2.32. Sơ đồ tuần tự của chức năng Thống kê và báo cáo",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  627,
+        "text":  "❖ Biều đồ tuần tự chức năng Kiểm soát thông báo",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  628,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image186.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "2247900"
+    },
+    {
+        "index":  629,
+        "text":  "Hình 2.33. Sơ đồ lớp phân tích của chức năng Kiểm soát thông báo",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  630,
+        "text":  "",
+        "images":  [
+                       "C:\\Users\\ACER\\OneDrive\\Documents\\Angular\\ShopQuanAo\\shop-clothing-ui\\.tmp\\cinema-reference\\image187.jpg"
+                   ],
+        "width":  "5759196",
+        "height":  "5155692"
+    },
+    {
+        "index":  631,
+        "text":  "Hình 2.34. Sơ đồ tuần tự của chức năng Kiểm soát thông báo",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    },
+    {
+        "index":  632,
+        "text":  "",
+        "images":  [
+
+                   ],
+        "width":  null,
+        "height":  null
+    }
+]

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1450" viewBox="0 0 1680 1450">
+<title>Sơ đồ use-case tổng quát hệ thống website bán quần áo</title>
+<desc>Khách hàng kế thừa Khách vãng lai. Bổ sung Tư vấn mua sắm qua chatbot AI cho Khách vãng lai; nhóm các phương thức trong Thanh toán đơn hàng.</desc>
+<style>text{font-family:"Times New Roman",serif;fill:#000} .edge{fill:none;stroke:#000;stroke-width:1.65;stroke-linejoin:round;stroke-linecap:round} .node{fill:#fff;stroke:#000;stroke-width:1.65}</style>
+<rect width="1680" height="1450" fill="#fff"/>
+<rect class="edge" x="275" y="14" width="1240" height="1420" rx="25"/>
+<text x="895" y="60" font-size="29" font-weight="bold" text-anchor="middle">HỆ THỐNG WEBSITE BÁN QUẦN ÁO</text>
+<path class="edge" d="M135,265L220,265"/>
+<path class="edge" d="M135,935L220,935"/>
+<path class="edge" d="M1575,935L1500,935"/>
+<path class="edge" d="M220,265L302,110"/>
+<path class="edge" d="M220,265L302,194"/>
+<path class="edge" d="M220,265L302,278"/>
+<path class="edge" d="M220,265L302,362"/>
+<path class="edge" d="M220,265L302,446"/>
+<path class="edge" d="M220,265L302,530"/>
+<path class="edge" d="M220,935L302,650"/>
+<path class="edge" d="M220,935L302,730"/>
+<path class="edge" d="M220,935L302,810"/>
+<path class="edge" d="M220,935L302,890"/>
+<path class="edge" d="M220,935L302,1060"/>
+<path class="edge" d="M220,935L302,1140"/>
+<path class="edge" d="M220,935L302,1220"/>
+<path class="edge" d="M220,935L302,1300"/>
+<path class="edge" d="M220,935L302,1380"/>
+<path class="edge" d="M1500,935L1480,570"/>
+<path class="edge" d="M1500,935L1480,650"/>
+<path class="edge" d="M1500,935L1480,730"/>
+<path class="edge" d="M1500,935L1480,810"/>
+<path class="edge" d="M1500,935L1480,890"/>
+<path class="edge" d="M1500,935L1480,1060"/>
+<path class="edge" d="M1500,935L1480,1140"/>
+<path class="edge" d="M1500,935L1480,1220"/>
+<path class="edge" d="M1500,935L1480,1300"/>
+<path class="edge" d="M220,935L770,940"/>
+<path class="edge" d="M1500,935L1070,940"/>
+<path class="edge" d="M220,935L770,1000"/>
+<path class="edge" d="M1500,935L1070,1000"/>
+<path class="edge" d="M85,935H24V265H58"/><path class="node" d="M58,253L80,265L58,277Z"/>
+<g data-use-case="Đăng ký tài khoản"><ellipse class="node" cx="510" cy="110" rx="208" ry="31"/>
+<text x="510" y="110" font-size="27" text-anchor="middle">
+<tspan x="510" y="119">Đăng ký tài khoản</tspan>
+</text></g>
+<g data-use-case="Xem trang chủ"><ellipse class="node" cx="510" cy="194" rx="208" ry="31"/>
+<text x="510" y="194" font-size="27" text-anchor="middle">
+<tspan x="510" y="203">Xem trang chủ</tspan>
+</text></g>
+<g data-use-case="Tìm kiếm &amp; lọc sản phẩm"><ellipse class="node" cx="510" cy="278" rx="208" ry="31"/>
+<text x="510" y="278" font-size="27" text-anchor="middle">
+<tspan x="510" y="287">Tìm kiếm &amp; lọc sản phẩm</tspan>
+</text></g>
+<g data-use-case="Xem chi tiết sản phẩm"><ellipse class="node" cx="510" cy="362" rx="208" ry="31"/>
+<text x="510" y="362" font-size="27" text-anchor="middle">
+<tspan x="510" y="371">Xem chi tiết sản phẩm</tspan>
+</text></g>
+<g data-use-case="Khôi phục mật khẩu"><ellipse class="node" cx="510" cy="446" rx="208" ry="31"/>
+<text x="510" y="446" font-size="27" text-anchor="middle">
+<tspan x="510" y="455">Khôi phục mật khẩu</tspan>
+</text></g>
+<g data-use-case="Tư vấn mua sắm qua chatbot AI"><ellipse class="node" cx="510" cy="530" rx="208" ry="37"/>
+<text x="510" y="530" font-size="27" text-anchor="middle">
+<tspan x="510" y="524.5">Tư vấn mua sắm</tspan>
+<tspan x="510" y="553.5">qua chatbot AI</tspan>
+</text></g>
+<g data-use-case="Quản lý giỏ hàng"><ellipse class="node" cx="510" cy="650" rx="208" ry="31"/>
+<text x="510" y="650" font-size="27" text-anchor="middle">
+<tspan x="510" y="659">Quản lý giỏ hàng</tspan>
+</text></g>
+<g data-use-case="Đặt hàng"><ellipse class="node" cx="510" cy="730" rx="208" ry="31"/>
+<text x="510" y="730" font-size="27" text-anchor="middle">
+<tspan x="510" y="739">Đặt hàng</tspan>
+</text></g>
+<g data-use-case="Thanh toán đơn hàng"><ellipse class="node" cx="510" cy="810" rx="208" ry="31"/>
+<text x="510" y="810" font-size="27" text-anchor="middle">
+<tspan x="510" y="819">Thanh toán đơn hàng</tspan>
+</text></g>
+<g data-use-case="Quản lý đơn hàng của tôi"><ellipse class="node" cx="510" cy="890" rx="208" ry="31"/>
+<text x="510" y="890" font-size="26.7" text-anchor="middle">
+<tspan x="510" y="899">Quản lý đơn hàng của tôi</tspan>
+</text></g>
+<g data-use-case="Quản lý hồ sơ cá nhân"><ellipse class="node" cx="510" cy="1060" rx="208" ry="31"/>
+<text x="510" y="1060" font-size="27" text-anchor="middle">
+<tspan x="510" y="1069">Quản lý hồ sơ cá nhân</tspan>
+</text></g>
+<g data-use-case="Quản lý sổ địa chỉ"><ellipse class="node" cx="510" cy="1140" rx="208" ry="31"/>
+<text x="510" y="1140" font-size="27" text-anchor="middle">
+<tspan x="510" y="1149">Quản lý sổ địa chỉ</tspan>
+</text></g>
+<g data-use-case="Quản lý danh sách yêu thích"><ellipse class="node" cx="510" cy="1220" rx="208" ry="31"/>
+<text x="510" y="1220" font-size="23.8" text-anchor="middle">
+<tspan x="510" y="1229">Quản lý danh sách yêu thích</tspan>
+</text></g>
+<g data-use-case="Quản lý đánh giá sản phẩm"><ellipse class="node" cx="510" cy="1300" rx="208" ry="31"/>
+<text x="510" y="1300" font-size="25.6" text-anchor="middle">
+<tspan x="510" y="1309">Quản lý đánh giá sản phẩm</tspan>
+</text></g>
+<g data-use-case="Xem mã giảm giá của tôi"><ellipse class="node" cx="510" cy="1380" rx="208" ry="31"/>
+<text x="510" y="1380" font-size="27" text-anchor="middle">
+<tspan x="510" y="1389">Xem mã giảm giá của tôi</tspan>
+</text></g>
+<g data-use-case="Xem thống kê tổng quan"><ellipse class="node" cx="1285" cy="570" rx="195" ry="31"/>
+<text x="1285" y="570" font-size="27" text-anchor="middle">
+<tspan x="1285" y="579">Xem thống kê tổng quan</tspan>
+</text></g>
+<g data-use-case="Quản lý sản phẩm"><ellipse class="node" cx="1285" cy="650" rx="195" ry="31"/>
+<text x="1285" y="650" font-size="27" text-anchor="middle">
+<tspan x="1285" y="659">Quản lý sản phẩm</tspan>
+</text></g>
+<g data-use-case="Quản lý thuộc tính sản phẩm"><ellipse class="node" cx="1285" cy="730" rx="195" ry="31"/>
+<text x="1285" y="730" font-size="22.2" text-anchor="middle">
+<tspan x="1285" y="739">Quản lý thuộc tính sản phẩm</tspan>
+</text></g>
+<g data-use-case="Quản lý nhà cung cấp"><ellipse class="node" cx="1285" cy="810" rx="195" ry="31"/>
+<text x="1285" y="810" font-size="27" text-anchor="middle">
+<tspan x="1285" y="819">Quản lý nhà cung cấp</tspan>
+</text></g>
+<g data-use-case="Quản lý phiếu nhập hàng"><ellipse class="node" cx="1285" cy="890" rx="195" ry="31"/>
+<text x="1285" y="890" font-size="26.2" text-anchor="middle">
+<tspan x="1285" y="899">Quản lý phiếu nhập hàng</tspan>
+</text></g>
+<g data-use-case="Quản lý đơn hàng"><ellipse class="node" cx="1285" cy="1060" rx="195" ry="31"/>
+<text x="1285" y="1060" font-size="27" text-anchor="middle">
+<tspan x="1285" y="1069">Quản lý đơn hàng</tspan>
+</text></g>
+<g data-use-case="Quản lý mã giảm giá"><ellipse class="node" cx="1285" cy="1140" rx="195" ry="31"/>
+<text x="1285" y="1140" font-size="27" text-anchor="middle">
+<tspan x="1285" y="1149">Quản lý mã giảm giá</tspan>
+</text></g>
+<g data-use-case="Quản lý người dùng"><ellipse class="node" cx="1285" cy="1220" rx="195" ry="31"/>
+<text x="1285" y="1220" font-size="27" text-anchor="middle">
+<tspan x="1285" y="1229">Quản lý người dùng</tspan>
+</text></g>
+<g data-use-case="Quản lý đánh giá"><ellipse class="node" cx="1285" cy="1300" rx="195" ry="31"/>
+<text x="1285" y="1300" font-size="27" text-anchor="middle">
+<tspan x="1285" y="1309">Quản lý đánh giá</tspan>
+</text></g>
+<g data-use-case="Đăng nhập"><ellipse class="node" cx="920" cy="940" rx="150" ry="31"/>
+<text x="920" y="940" font-size="27" font-weight="bold" text-anchor="middle">
+<tspan x="920" y="949">Đăng nhập</tspan>
+</text></g>
+<g data-use-case="Đăng xuất"><ellipse class="node" cx="920" cy="1000" rx="150" ry="31"/>
+<text x="920" y="1000" font-size="27" font-weight="bold" text-anchor="middle">
+<tspan x="920" y="1009">Đăng xuất</tspan>
+</text></g>
+<circle class="node" cx="110" cy="230" r="13"/>
+<path class="edge" d="M110,243V287M85,265H135M110,287L86,320M110,287L134,320"/>
+<text x="110" y="354" font-size="27" font-weight="bold" text-anchor="middle">Khách vãng lai</text>
+<circle class="node" cx="110" cy="900" r="13"/>
+<path class="edge" d="M110,913V957M85,935H135M110,957L86,990M110,957L134,990"/>
+<text x="110" y="1024" font-size="27" font-weight="bold" text-anchor="middle">Khách hàng</text>
+<circle class="node" cx="1600" cy="900" r="13"/>
+<path class="edge" d="M1600,913V957M1575,935H1625M1600,957L1576,990M1600,957L1624,990"/>
+<text x="1600" y="1024" font-size="27" font-weight="bold" text-anchor="middle">Quản trị viên</text>
+</svg>

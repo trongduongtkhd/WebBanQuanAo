@@ -1,0 +1,425 @@
+﻿{
+    "pages":  135,
+    "shapes":  [
+                   {
+                       "nextPage":  1,
+                       "width":  49.2,
+                       "page":  1,
+                       "height":  49.2,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  1,
+                       "width":  196.8,
+                       "page":  1,
+                       "height":  209.45,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  18,
+                       "width":  508.2,
+                       "page":  18,
+                       "height":  317.4,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  20,
+                       "width":  468,
+                       "page":  20,
+                       "height":  344.1,
+                       "nextText":  "Hình 1.1 Sơ đồ hoạt động quy trình mua hàng và quản lý giỏ hàng"
+                   },
+                   {
+                       "nextPage":  23,
+                       "width":  571.2,
+                       "page":  23,
+                       "height":  571.2,
+                       "nextText":  "Hình 1.2. Sơ đồ hoạt động quy trình đặt hàng và thanh toán"
+                   },
+                   {
+                       "nextPage":  26,
+                       "width":  468,
+                       "page":  26,
+                       "height":  501.65,
+                       "nextText":  "1.4.5. Quy trình quản lý mã giảm giá"
+                   },
+                   {
+                       "nextPage":  29,
+                       "width":  468,
+                       "page":  29,
+                       "height":  417.05,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình quản lý mã giảm giá"
+                   },
+                   {
+                       "nextPage":  32,
+                       "width":  468,
+                       "page":  32,
+                       "height":  454.1,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình nhập hàng"
+                   },
+                   {
+                       "nextPage":  34,
+                       "width":  468,
+                       "page":  34,
+                       "height":  400.65,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình đánh giá sản phẩm"
+                   },
+                   {
+                       "nextPage":  38,
+                       "width":  468,
+                       "page":  38,
+                       "height":  427.5,
+                       "nextText":  "Hình 1.x. Sơ đồ hoạt động quy trình xác thực và quản lý tài khoản"
+                   },
+                   {
+                       "nextPage":  45,
+                       "width":  468,
+                       "page":  45,
+                       "height":  384,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  46,
+                       "width":  518.6,
+                       "page":  46,
+                       "height":  466.95,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  51,
+                       "width":  468,
+                       "page":  51,
+                       "height":  263.6,
+                       "nextText":  "Hình 2.2.1-01. Sơ đồ tuần tự luồng xử lý chung của hệ thống"
+                   },
+                   {
+                       "nextPage":  52,
+                       "width":  468,
+                       "page":  52,
+                       "height":  389.75,
+                       "nextText":  "Hình 2.2.1-02. Sơ đồ tuần tự đăng ký tài khoản"
+                   },
+                   {
+                       "nextPage":  53,
+                       "width":  468,
+                       "page":  53,
+                       "height":  522.35,
+                       "nextText":  "Hình 2.2.1-03. Sơ đồ tuần tự đăng nhập tài khoản"
+                   },
+                   {
+                       "nextPage":  54,
+                       "width":  468,
+                       "page":  54,
+                       "height":  394,
+                       "nextText":  "Hình 2.2.1-04. Sơ đồ tuần tự quên và đặt lại mật khẩu"
+                   },
+                   {
+                       "nextPage":  55,
+                       "width":  468,
+                       "page":  55,
+                       "height":  444.85,
+                       "nextText":  "Hình 2.2.1-05. Sơ đồ tuần tự quản lý phiên đăng nhập"
+                   },
+                   {
+                       "nextPage":  56,
+                       "width":  468,
+                       "page":  56,
+                       "height":  478.9,
+                       "nextText":  "Hình 2.2.1-06. Sơ đồ tuần tự thiết lập xác thực hai lớp"
+                   },
+                   {
+                       "nextPage":  57,
+                       "width":  468,
+                       "page":  57,
+                       "height":  454.2,
+                       "nextText":  "Hình 2.2.1-07. Sơ đồ tuần tự tra cứu và xem sản phẩm"
+                   },
+                   {
+                       "nextPage":  58,
+                       "width":  400.55,
+                       "page":  58,
+                       "height":  547.2,
+                       "nextText":  "Hình 2.2.1-08. Sơ đồ tuần tự quản lý giỏ hàng"
+                   },
+                   {
+                       "nextPage":  59,
+                       "width":  468,
+                       "page":  59,
+                       "height":  407.65,
+                       "nextText":  "Hình 2.2.1-09. Sơ đồ tuần tự quản lý danh sách yêu thích"
+                   },
+                   {
+                       "nextPage":  60,
+                       "width":  468,
+                       "page":  60,
+                       "height":  459.65,
+                       "nextText":  "Hình 2.2.1-10. Sơ đồ tuần tự quản lý hồ sơ và mật khẩu"
+                   },
+                   {
+                       "nextPage":  61,
+                       "width":  468,
+                       "page":  61,
+                       "height":  474.2,
+                       "nextText":  "Hình 2.2.1-11. Sơ đồ tuần tự quản lý địa chỉ giao hàng"
+                   },
+                   {
+                       "nextPage":  62,
+                       "width":  468,
+                       "page":  62,
+                       "height":  424.55,
+                       "nextText":  "Hình 2.2.1-12. Sơ đồ tuần tự xem và áp dụng mã giảm giá"
+                   },
+                   {
+                       "nextPage":  63,
+                       "width":  468,
+                       "page":  63,
+                       "height":  504.4,
+                       "nextText":  "Hình 2.2.1-13. Sơ đồ tuần tự tạo đơn hàng"
+                   },
+                   {
+                       "nextPage":  64,
+                       "width":  468,
+                       "page":  64,
+                       "height":  358.25,
+                       "nextText":  "Hình 2.2.1-14. Sơ đồ tuần tự thanh toán QR mô phỏng"
+                   },
+                   {
+                       "nextPage":  65,
+                       "width":  413.75,
+                       "page":  65,
+                       "height":  547.2,
+                       "nextText":  "Hình 2.2.1-15. Sơ đồ tuần tự thanh toán qua VNPAY"
+                   },
+                   {
+                       "nextPage":  66,
+                       "width":  468,
+                       "page":  66,
+                       "height":  452.15,
+                       "nextText":  "Hình 2.2.1-16. Sơ đồ tuần tự đối soát giao dịch VNPAY"
+                   },
+                   {
+                       "nextPage":  67,
+                       "width":  468,
+                       "page":  67,
+                       "height":  309.9,
+                       "nextText":  "Hình 2.2.1-17. Sơ đồ tuần tự xử lý đơn VNPAY hết hạn"
+                   },
+                   {
+                       "nextPage":  68,
+                       "width":  468,
+                       "page":  68,
+                       "height":  387.1,
+                       "nextText":  "Hình 2.2.1-18. Sơ đồ tuần tự theo dõi và hủy đơn của khách"
+                   },
+                   {
+                       "nextPage":  69,
+                       "width":  468,
+                       "page":  69,
+                       "height":  352.55,
+                       "nextText":  "Hình 2.2.1-19. Sơ đồ tuần tự khách hàng yêu cầu trả hàng"
+                   },
+                   {
+                       "nextPage":  70,
+                       "width":  468,
+                       "page":  70,
+                       "height":  450.05,
+                       "nextText":  "Hình 2.2.1-20. Sơ đồ tuần tự đánh giá sản phẩm của khách"
+                   },
+                   {
+                       "nextPage":  71,
+                       "width":  468,
+                       "page":  71,
+                       "height":  465.4,
+                       "nextText":  "Hình 2.2.1-21. Sơ đồ tuần tự quản trị sản phẩm"
+                   },
+                   {
+                       "nextPage":  72,
+                       "width":  468,
+                       "page":  72,
+                       "height":  395.45,
+                       "nextText":  "Hình 2.2.1-22. Sơ đồ tuần tự quản trị biến thể sản phẩm"
+                   },
+                   {
+                       "nextPage":  73,
+                       "width":  468,
+                       "page":  73,
+                       "height":  443.7,
+                       "nextText":  "Hình 2.2.1-23. Sơ đồ tuần tự upload và quản lý ảnh sản phẩm"
+                   },
+                   {
+                       "nextPage":  74,
+                       "width":  468,
+                       "page":  74,
+                       "height":  444.85,
+                       "nextText":  "Hình 2.2.1-24. Sơ đồ tuần tự quản trị danh mục"
+                   },
+                   {
+                       "nextPage":  75,
+                       "width":  468,
+                       "page":  75,
+                       "height":  416.25,
+                       "nextText":  "Hình 2.2.1-25. Sơ đồ tuần tự quản trị thương hiệu"
+                   },
+                   {
+                       "nextPage":  76,
+                       "width":  468,
+                       "page":  76,
+                       "height":  416.25,
+                       "nextText":  "Hình 2.2.1-26. Sơ đồ tuần tự quản trị màu sắc"
+                   },
+                   {
+                       "nextPage":  77,
+                       "width":  468,
+                       "page":  77,
+                       "height":  416.25,
+                       "nextText":  "Hình 2.2.1-27. Sơ đồ tuần tự quản trị kích thước"
+                   },
+                   {
+                       "nextPage":  78,
+                       "width":  468,
+                       "page":  78,
+                       "height":  429.75,
+                       "nextText":  "Hình 2.2.1-28. Sơ đồ tuần tự quản trị nhà cung cấp"
+                   },
+                   {
+                       "nextPage":  79,
+                       "width":  468,
+                       "page":  79,
+                       "height":  485.4,
+                       "nextText":  "Hình 2.2.1-29. Sơ đồ tuần tự quản lý phiếu nhập kho"
+                   },
+                   {
+                       "nextPage":  80,
+                       "width":  468,
+                       "page":  80,
+                       "height":  393.6,
+                       "nextText":  "Hình 2.2.1-30. Sơ đồ tuần tự quản trị mã giảm giá"
+                   },
+                   {
+                       "nextPage":  81,
+                       "width":  387.9,
+                       "page":  81,
+                       "height":  547.2,
+                       "nextText":  "Hình 2.2.1-31. Sơ đồ tuần tự quản trị đơn hàng và thanh toán"
+                   },
+                   {
+                       "nextPage":  82,
+                       "width":  468,
+                       "page":  82,
+                       "height":  314.6,
+                       "nextText":  "Hình 2.2.1-32. Sơ đồ tuần tự kiểm duyệt đánh giá"
+                   },
+                   {
+                       "nextPage":  83,
+                       "width":  468,
+                       "page":  83,
+                       "height":  385.3,
+                       "nextText":  "Hình 2.2.1-33. Sơ đồ tuần tự quản trị người dùng"
+                   },
+                   {
+                       "nextPage":  84,
+                       "width":  468,
+                       "page":  84,
+                       "height":  391,
+                       "nextText":  "Hình 2.2.1-34. Sơ đồ tuần tự thống kê cửa hàng"
+                   },
+                   {
+                       "nextPage":  85,
+                       "width":  468,
+                       "page":  85,
+                       "height":  452.1,
+                       "nextText":  "Hình 2.2.1-35. Sơ đồ tuần tự quản trị yêu cầu trả hàng"
+                   },
+                   {
+                       "nextPage":  86,
+                       "width":  468,
+                       "page":  86,
+                       "height":  390.65,
+                       "nextText":  "Hình 2.2.1-36. Sơ đồ tuần tự trợ lý mua sắm"
+                   },
+                   {
+                       "nextPage":  87,
+                       "width":  468,
+                       "page":  87,
+                       "height":  183.55,
+                       "nextText":  "Hình 2.2.1-37. Sơ đồ tuần tự upload ảnh đại diện"
+                   },
+                   {
+                       "nextPage":  88,
+                       "width":  468,
+                       "page":  88,
+                       "height":  461.5,
+                       "nextText":  "Hình 2.2.1-38. Sơ đồ tuần tự tra cứu dữ liệu công khai"
+                   },
+                   {
+                       "nextPage":  100,
+                       "width":  468,
+                       "page":  100,
+                       "height":  468,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  110,
+                       "width":  468,
+                       "page":  110,
+                       "height":  389.75,
+                       "nextText":  "Hình 3.2.1-01. Sơ đồ tuần tự đăng ký tài khoản"
+                   },
+                   {
+                       "nextPage":  111,
+                       "width":  468,
+                       "page":  111,
+                       "height":  522.35,
+                       "nextText":  "Hình 3.2.1-02. Sơ đồ tuần tự đăng nhập tài khoản"
+                   },
+                   {
+                       "nextPage":  112,
+                       "width":  468,
+                       "page":  112,
+                       "height":  404.95,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  115,
+                       "width":  468,
+                       "page":  115,
+                       "height":  388.6,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  125,
+                       "width":  468,
+                       "page":  125,
+                       "height":  224.85,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  127,
+                       "width":  468,
+                       "page":  127,
+                       "height":  34.2,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  127,
+                       "width":  468,
+                       "page":  127,
+                       "height":  310.95,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  128,
+                       "width":  241.8,
+                       "page":  128,
+                       "height":  424.8,
+                       "nextText":  ""
+                   },
+                   {
+                       "nextPage":  131,
+                       "width":  231.6,
+                       "page":  130,
+                       "height":  474.6,
+                       "nextText":  ""
+                   }
+               ]
+}

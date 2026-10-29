@@ -1,0 +1,382 @@
+[
+  {
+    "id": 1,
+    "title": "Luồng xử lý chung của hệ thống",
+    "width": 1800,
+    "height": 1014,
+    "messages": 11,
+    "ratio": 0.563,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 2,
+    "title": "Đăng ký tài khoản",
+    "width": 2100,
+    "height": 1749,
+    "messages": 18,
+    "ratio": 0.833,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 3,
+    "title": "Đăng nhập tài khoản",
+    "width": 2100,
+    "height": 2344,
+    "messages": 25,
+    "ratio": 1.116,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 4,
+    "title": "Quên và đặt lại mật khẩu",
+    "width": 2100,
+    "height": 1768,
+    "messages": 17,
+    "ratio": 0.842,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 5,
+    "title": "Quản lý phiên đăng nhập",
+    "width": 1800,
+    "height": 1711,
+    "messages": 17,
+    "ratio": 0.951,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 6,
+    "title": "Thiết lập xác thực hai lớp",
+    "width": 1800,
+    "height": 1842,
+    "messages": 17,
+    "ratio": 1.023,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 7,
+    "title": "Tra cứu và xem sản phẩm",
+    "width": 1800,
+    "height": 1747,
+    "messages": 15,
+    "ratio": 0.971,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 8,
+    "title": "Quản lý giỏ hàng",
+    "width": 1800,
+    "height": 2459,
+    "messages": 22,
+    "ratio": 1.366,
+    "textLifelineCollisions": [],
+    "copiedApproved": true
+  },
+  {
+    "id": 9,
+    "title": "Quản lý danh sách yêu thích",
+    "width": 1800,
+    "height": 1568,
+    "messages": 15,
+    "ratio": 0.871,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 10,
+    "title": "Quản lý hồ sơ và mật khẩu",
+    "width": 1800,
+    "height": 1768,
+    "messages": 16,
+    "ratio": 0.982,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 11,
+    "title": "Quản lý địa chỉ giao hàng",
+    "width": 1800,
+    "height": 1824,
+    "messages": 17,
+    "ratio": 1.013,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 12,
+    "title": "Xem và áp dụng mã giảm giá",
+    "width": 1800,
+    "height": 1633,
+    "messages": 15,
+    "ratio": 0.907,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 13,
+    "title": "Tạo đơn hàng",
+    "width": 1800,
+    "height": 1940,
+    "messages": 17,
+    "ratio": 1.078,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 14,
+    "title": "Thanh toán QR mô phỏng",
+    "width": 1800,
+    "height": 1378,
+    "messages": 13,
+    "ratio": 0.766,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 15,
+    "title": "Thanh toán qua VNPAY",
+    "width": 2100,
+    "height": 2777,
+    "messages": 28,
+    "ratio": 1.322,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 16,
+    "title": "Đối soát giao dịch VNPAY",
+    "width": 2100,
+    "height": 2029,
+    "messages": 21,
+    "ratio": 0.966,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 17,
+    "title": "Xử lý đơn VNPAY hết hạn",
+    "width": 1800,
+    "height": 1192,
+    "messages": 12,
+    "ratio": 0.662,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 18,
+    "title": "Theo dõi và hủy đơn của khách",
+    "width": 1800,
+    "height": 1489,
+    "messages": 14,
+    "ratio": 0.827,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 19,
+    "title": "Khách hàng yêu cầu trả hàng",
+    "width": 1800,
+    "height": 1356,
+    "messages": 14,
+    "ratio": 0.753,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 20,
+    "title": "Đánh giá sản phẩm của khách",
+    "width": 1800,
+    "height": 1731,
+    "messages": 16,
+    "ratio": 0.962,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 21,
+    "title": "Quản trị sản phẩm",
+    "width": 1800,
+    "height": 1790,
+    "messages": 15,
+    "ratio": 0.994,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 22,
+    "title": "Quản trị biến thể sản phẩm",
+    "width": 1800,
+    "height": 1521,
+    "messages": 14,
+    "ratio": 0.845,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 23,
+    "title": "Upload và quản lý ảnh sản phẩm",
+    "width": 2100,
+    "height": 1991,
+    "messages": 21,
+    "ratio": 0.948,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 24,
+    "title": "Quản trị danh mục",
+    "width": 1800,
+    "height": 1711,
+    "messages": 14,
+    "ratio": 0.951,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 25,
+    "title": "Quản trị thương hiệu",
+    "width": 1800,
+    "height": 1601,
+    "messages": 14,
+    "ratio": 0.889,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 26,
+    "title": "Quản trị màu sắc",
+    "width": 1800,
+    "height": 1601,
+    "messages": 14,
+    "ratio": 0.889,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 27,
+    "title": "Quản trị kích thước",
+    "width": 1800,
+    "height": 1601,
+    "messages": 14,
+    "ratio": 0.889,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 28,
+    "title": "Quản trị nhà cung cấp",
+    "width": 1800,
+    "height": 1653,
+    "messages": 14,
+    "ratio": 0.918,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 29,
+    "title": "Quản lý phiếu nhập kho",
+    "width": 1800,
+    "height": 1867,
+    "messages": 14,
+    "ratio": 1.037,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 30,
+    "title": "Quản trị mã giảm giá",
+    "width": 1800,
+    "height": 1514,
+    "messages": 14,
+    "ratio": 0.841,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 31,
+    "title": "Quản trị đơn hàng và thanh toán",
+    "width": 1800,
+    "height": 2539,
+    "messages": 20,
+    "ratio": 1.411,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 32,
+    "title": "Kiểm duyệt đánh giá",
+    "width": 1800,
+    "height": 1210,
+    "messages": 12,
+    "ratio": 0.672,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 33,
+    "title": "Quản trị người dùng",
+    "width": 2100,
+    "height": 1729,
+    "messages": 16,
+    "ratio": 0.823,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 34,
+    "title": "Thống kê cửa hàng",
+    "width": 1800,
+    "height": 1504,
+    "messages": 14,
+    "ratio": 0.836,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 35,
+    "title": "Quản trị yêu cầu trả hàng",
+    "width": 1800,
+    "height": 1739,
+    "messages": 17,
+    "ratio": 0.966,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 36,
+    "title": "Trợ lý mua sắm",
+    "width": 2100,
+    "height": 1753,
+    "messages": 15,
+    "ratio": 0.835,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 37,
+    "title": "Upload ảnh đại diện",
+    "width": 1800,
+    "height": 706,
+    "messages": 8,
+    "ratio": 0.392,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  },
+  {
+    "id": 38,
+    "title": "Tra cứu dữ liệu công khai",
+    "width": 1800,
+    "height": 1775,
+    "messages": 16,
+    "ratio": 0.986,
+    "textLifelineCollisions": [],
+    "copiedApproved": false
+  }
+]
